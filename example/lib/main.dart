@@ -1,67 +1,5 @@
-import 'dart:js_interop';
 import 'package:flutter/material.dart';
 import 'package:wagmi_flutter_web/wagmi_flutter_web.dart' as wagmi;
-
-// @JS()
-// external JSWindow get window;
-
-// @JS()
-// extension type JSWindow(JSObject _) implements JSObject {
-//   external void openModal();
-//   external void closeModal();
-//   external Account getAccount();
-//   external int getChainId();
-//   external JSPromise<Token> getToken(JSString address, int chainId);
-//   external JSPromise<JSString> signMessage(
-//       JSString message, JSString accountAddress);
-//   external JSPromise<WriteContractReturnType> writeContract(
-//     JSString contractAddress,
-//     JSString contractABI,
-//     JSString functionName,
-//     JSAny args,
-//     JSNumber gas,
-//     JSNumber chainId,
-//   );
-// }
-
-@JS()
-extension type Account(JSObject _) implements JSObject {
-  external String? get address;
-  external String? get status;
-  external Chain? get chain;
-  external int? get chainId;
-  external Connector? get connector;
-  external bool? isConnecting;
-  external bool? isReconnecting;
-  external bool? isConnected;
-  external bool? isDisconnected;
-}
-
-@JS()
-extension type Connector(JSObject _) implements JSObject {
-  external bool? multiInjectedProviderDiscovery;
-  external bool? ssr;
-  external bool? syncConnectedChain;
-}
-
-@JS()
-extension type Chain(JSObject _) implements JSObject {
-  external int? id;
-  external String? name;
-}
-
-@JS()
-extension type Token(JSObject _) implements JSObject {
-  external String? address;
-  external int? decimals;
-  external String? name;
-  external String? symbol;
-}
-
-// @JS()
-// extension type WriteContractReturnType(JSObject _) implements JSObject {
-//   external String? hash;
-// }
 
 void main() {
   runApp(const MyApp());
@@ -76,8 +14,10 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   var chainId = 0;
-  Token? token;
-  Account? account;
+  // Token? token;
+
+  wagmi.GetBalanceReturnType? balance;
+  wagmi.Account? account;
   String? signedMessage;
   String? hashApproval;
   final tokenAddressToSearch = '0xCBBd3374090113732393DAE1433Bc14E5233d5d7';
@@ -122,26 +62,45 @@ class _MyAppState extends State<MyApp> {
                 },
                 child: const Text('Connect Wallet'),
               ),
-              // const SizedBox(
-              //   height: 10,
-              // ),
-              // ElevatedButton(
-              //   onPressed: () {
-              //     setState(() {
-              //       signedMessage = null;
-              //       account = getAccount();
-              //       chainId = getChainId();
-              //     });
-              //   },
-              //   child: const Text('Get Account info'),
-              // ),
-              // const SizedBox(
-              //   height: 10,
-              // ),
-              // Text('account address: ${account?.address ?? 'unknown'}'),
-              // Text('account status:  ${account?.status ?? 'unknown'}'),
-              // Text('account chain ID: ${account?.chainId ?? 'unknown'}'),
-              // Text('Chain ID: $chainId'),
+              const SizedBox(
+                height: 10,
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  setState(() {
+                    signedMessage = null;
+                    account = wagmi.Core.getAccount();
+                    chainId = wagmi.Core.getChainId();
+                  });
+                },
+                child: const Text('Get Account info'),
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              Text('account address: ${account?.address ?? 'unknown'}'),
+              Text('account status:  ${account?.status ?? 'unknown'}'),
+              Text('account chain ID: ${account?.chain?.id ?? 'unknown'}'),
+              Text('Chain ID: $chainId'),
+              ElevatedButton(
+                onPressed: () async {
+                  final balanceResult = await wagmi.Core.getBalance(
+                    wagmi.GetBalanceParameters(
+                      address: '0x4557B18E779944BFE9d78A672452331C186a9f48',
+                    ),
+                  );
+                  setState(() {
+                    balance = balanceResult;
+                  });
+                },
+                child: const Text('Get Balance'),
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              Text(
+                'balance : ${balance?.value ?? 'unknown'} ${balance?.symbol}',
+              ),
               // ElevatedButton(
               //   onPressed: () async {
               //     token = await getToken(

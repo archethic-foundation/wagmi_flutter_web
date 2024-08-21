@@ -4,7 +4,12 @@ import 'dart:async';
 // ignore: avoid_web_libraries_in_flutter
 import 'dart:html' as html;
 
-export 'src/wagmi_chain.dart';
+export 'src/actions/get_balance.dart';
+
+export 'src/models/account.dart';
+export 'src/models/chain.dart';
+
+export 'src/wagmi_core.dart';
 export 'src/wagmi_web3modal.dart';
 
 var _isReady = false;
