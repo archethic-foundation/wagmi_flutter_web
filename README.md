@@ -28,7 +28,7 @@ await wagmi.init();
 // Initializes Web3Modal
 wagmi.Web3Modal.init(
     'f642e3f39ba3e375f8f714f18354faa4',
-    [wagmi.Chain.mainnet, wagmi.Chain.sepolia],
+    [wagmi.Chain.ethereum.name!, wagmi.Chain.sepolia.name!],
     true,
     true,
     wagmi.Web3ModalMetadata(
