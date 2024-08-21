@@ -1,0 +1,19 @@
+name: wagmi_flutter_web
+description: "Wagmi JS SDK wrapper for Dart Web"
+version: 0.0.1
+homepage: https://github.com/archethic-foundation/wagmi_flutter_web
+
+environment:
+  sdk: ">=3.4.4 <4.0.0"
+  flutter: ">=1.17.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+dev_dependencies:
+  flutter_lints: ^3.0.0
+  flutter_test:
+    sdk: flutter
+
+flutter:
