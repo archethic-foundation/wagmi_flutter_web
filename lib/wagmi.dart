@@ -16,7 +16,7 @@ Future<void> init() async {
 
   _completeOnReadyEvent(completer);
 
-  await injectJavascriptModule('assets/main.js');
+  await _injectJavascriptModule('assets/main.js');
 
   _isReady = true;
   return completer.future;
@@ -39,7 +39,7 @@ void _completeOnReadyEvent(Completer completer) {
   );
 }
 
-Future<void> injectJavascriptModule(String assetPath) async {
+Future<void> _injectJavascriptModule(String assetPath) async {
   final scriptPath = 'packages/wagmi_flutter_web/$assetPath';
 
   final scriptNode = html.ScriptElement()
