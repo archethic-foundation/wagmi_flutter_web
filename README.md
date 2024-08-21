@@ -8,8 +8,6 @@ Wagmi provides developers with intuitive building blocks to build their Ethereum
 
 ## Getting started
 
-### Add dependecy
-
 In `pubspec.yaml` file, add the `wagmi_flutter_web` dependency :
 
 ```yaml
@@ -17,15 +15,6 @@ dependencies:
   wagmi_flutter_web:
 ```
 
-### Add `asset`
-
-In `pubspec.yaml` file, add the `wagmi_flutter_web` dependency :
-
-```yaml
-flutter:
-  assets:
-    - packages/wagmi_flutter_web/assets/main.js
-```
 
 ## Usage
 
