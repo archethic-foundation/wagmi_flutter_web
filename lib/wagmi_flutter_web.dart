@@ -9,6 +9,10 @@ export 'src/wagmi_web3modal.dart';
 
 var _isReady = false;
 
+/// Initializes the lib.
+///
+/// This must be done before any interaction
+/// with the lib.
 Future<void> init() async {
   if (_isReady) return;
 

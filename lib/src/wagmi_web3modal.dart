@@ -3,6 +3,12 @@ import 'dart:js_interop';
 import 'package:wagmi_flutter_web/src/js/wagmi.js.dart';
 
 class Web3Modal {
+  /// Initializes [Web3Modal].
+  ///
+  /// This must be done before any
+  /// interactions with [Web3Modal].
+  ///
+  /// [Web3Modal documentation](https://docs.walletconnect.com/appkit/javascript/core/installation#implementation)
   static void init(
     String projectId,
     List<String> chains,
@@ -24,15 +30,18 @@ class Web3Modal {
     );
   }
 
+  /// Opens the [Web3Modal]
   static void open() {
     window.web3modal.open();
   }
 
+  /// Closes the [Web3Modal]
   static void close() {
     window.web3modal.close();
   }
 }
 
+/// [Web3Modal documentation](https://docs.walletconnect.com/appkit/javascript/core/installation#implementation)
 class Web3ModalMetadata {
   Web3ModalMetadata({
     required this.name,
