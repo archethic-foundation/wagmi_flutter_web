@@ -1,6 +1,6 @@
 import 'dart:js_interop';
 import 'package:flutter/material.dart';
-import 'package:wagmi_flutter_web/wagmi.dart' as wagmi;
+import 'package:wagmi_flutter_web/wagmi_flutter_web.dart' as wagmi;
 
 // @JS()
 // external JSWindow get window;
