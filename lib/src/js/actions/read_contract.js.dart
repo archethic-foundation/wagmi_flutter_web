@@ -1,6 +1,6 @@
 part of '../wagmi.js.dart';
 
-/// [Documentation API](https://wagmi.sh/core/api/actions/getToken)
+/// [Documentation API](https://wagmi.sh/core/api/actions/readContract)
 @JS()
 extension type JSReadContractParameters._(JSObject _) implements JSObject {
   external JSReadContractParameters({

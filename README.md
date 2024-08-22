@@ -87,7 +87,7 @@ For more details, refer to the [API documentation](https://wagmi.sh/core/api/act
 | `getWalletClient`              | 🔴 Not Implemented |
 | `multicall`                    | 🔴 Not Implemented |
 | `prepareTransactionRequest`    | 🔴 Not Implemented |
-| `readContract`                 | 🔴 Not Implemented |
+| `readContract`                 | 🟢 Implemented     |
 | `readContracts`                | 🔴 Not Implemented |
 | `reconnect`                    | 🔴 Not Implemented |
 | `sendTransaction`              | 🔴 Not Implemented |
