@@ -5,12 +5,13 @@ import 'dart:async';
 import 'dart:html' as html;
 
 export 'src/actions/get_balance.dart';
+export 'src/actions/get_block_number.dart';
+export 'src/actions/get_gas_price.dart';
 export 'src/actions/get_token.dart';
 export 'src/actions/sign_message.dart';
-
+export 'src/actions/write_contract.dart';
 export 'src/models/account.dart';
 export 'src/models/chain.dart';
-
 export 'src/wagmi_core.dart';
 export 'src/wagmi_web3modal.dart';
 

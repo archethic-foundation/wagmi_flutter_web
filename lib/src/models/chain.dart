@@ -11,7 +11,7 @@ class Chain {
   final int id;
   final String name;
 
-  static final ethereum = Chain(id: 1, name: 'mainnet');
+  static final mainnet = Chain(id: 1, name: 'mainnet');
   static final goerli = Chain(id: 5, name: 'goerli');
   static final optimism = Chain(id: 10, name: 'optimism');
   static final flare = Chain(id: 14, name: 'flare');

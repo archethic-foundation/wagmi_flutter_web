@@ -18,6 +18,9 @@ class _MyAppState extends State<MyApp> {
 
   wagmi.GetBalanceReturnType? balance;
   wagmi.Account? account;
+  List? chains;
+  BigInt? blockNumber;
+  BigInt? gasPrice;
   String? signedMessage;
   String? hashApproval;
   String? token;
@@ -32,7 +35,7 @@ class _MyAppState extends State<MyApp> {
 
         wagmi.Web3Modal.init(
           'f642e3f39ba3e375f8f714f18354faa4',
-          [wagmi.Chain.ethereum.name, wagmi.Chain.sepolia.name],
+          [wagmi.Chain.mainnet.name, wagmi.Chain.sepolia.name],
           true,
           true,
           wagmi.Web3ModalMetadata(
@@ -83,6 +86,63 @@ class _MyAppState extends State<MyApp> {
               Text('account status:  ${account?.status ?? 'unknown'}'),
               Text('account chain ID: ${account?.chain?.id ?? 'unknown'}'),
               Text('Chain ID: $chainId'),
+              ElevatedButton(
+                onPressed: () {
+                  setState(() {
+                    chains = wagmi.Core.getChains();
+                  });
+                },
+                child: const Text('Get chains'),
+              ),
+              if (chains != null)
+                Text(
+                  'chains : $chains',
+                ),
+              const SizedBox(
+                height: 10,
+              ),
+              ElevatedButton(
+                onPressed: () async {
+                  final getBlockNumberParameters =
+                      wagmi.GetBlockNumberParameters(
+                    chainId: account!.chain!.id,
+                    cacheTime: 4000,
+                  );
+                  final getBalanceReturnType =
+                      await wagmi.Core.getBlockNumber(getBlockNumberParameters);
+                  setState(() {
+                    blockNumber = getBalanceReturnType.blockNumber;
+                  });
+                },
+                child: const Text('Get Block number'),
+              ),
+              if (blockNumber != null)
+                Text(
+                  'blockNumber : $blockNumber',
+                ),
+              const SizedBox(
+                height: 10,
+              ),
+              ElevatedButton(
+                onPressed: () async {
+                  final getGasPriceParameters = wagmi.GetGasPriceParameters(
+                    chainId: account!.chain!.id,
+                  );
+                  final getBalanceReturnType =
+                      await wagmi.Core.getGasPrice(getGasPriceParameters);
+                  setState(() {
+                    gasPrice = getBalanceReturnType.gasPrice;
+                  });
+                },
+                child: const Text('Get Gas Price'),
+              ),
+              if (gasPrice != null)
+                Text(
+                  'gasPrice : $gasPrice',
+                ),
+              const SizedBox(
+                height: 10,
+              ),
               ElevatedButton(
                 onPressed: () async {
                   final balanceResult = await wagmi.Core.getBalance(
@@ -146,29 +206,58 @@ class _MyAppState extends State<MyApp> {
               const SizedBox(
                 height: 10,
               ),
-              // ElevatedButton(
-              //   onPressed: () async {
-              //     await call(
-              //         '0xCBBd3374090113732393DAE1433Bc14E5233d5d7',
-              //         abiERC20,
-              //         'approve',
-              //         [
-              //           '0x08Bfc8BA9fD137Fb632F79548B150FE0Be493254',
-              //           100000000,
-              //         ],
-              //         1500000,
-              //         chainId);
+              ElevatedButton(
+                onPressed: () async {
+                  final writeContractParameters = wagmi.WriteContractParameters(
+                    abi: [
+                      {
+                        "inputs": [
+                          {
+                            "internalType": "address",
+                            "name": "spender",
+                            "type": "address"
+                          },
+                          {
+                            "internalType": "uint256",
+                            "name": "amount",
+                            "type": "uint256"
+                          }
+                        ],
+                        "name": "approve",
+                        "outputs": [
+                          {"internalType": "bool", "name": "", "type": "bool"}
+                        ],
+                        "stateMutability": "nonpayable",
+                        "type": "function"
+                      },
+                    ],
+                    address: '0xCBBd3374090113732393DAE1433Bc14E5233d5d7',
+                    account: account?.address,
+                    functionName: 'approve',
+                    gas: BigInt.from(1500000),
+                    args: [
+                      '0x08Bfc8BA9fD137Fb632F79548B150FE0Be493254',
+                      // TODO: https://github.com/dart-lang/sdk/issues/56539
+                      BigInt.parse('498500000000000'),
+                    ],
+                    chainId: 11155111,
+                  );
 
-              //     setState(() {});
-              //   },
-              //   child: const Text('Call approve'),
-              // ),
-              // if (hashApproval != null)
-              //   Column(
-              //     children: [
-              //       Text('Hash approval: $hashApproval'),
-              //     ],
-              //   ),
+                  final writeContractReturnType =
+                      await wagmi.Core.writeContract(writeContractParameters);
+
+                  setState(() {
+                    hashApproval = writeContractReturnType.hash;
+                  });
+                },
+                child: const Text('Call approve function'),
+              ),
+              if (hashApproval != null)
+                Column(
+                  children: [
+                    Text('Hash approval: $hashApproval'),
+                  ],
+                ),
             ],
           ),
         ),
@@ -194,7 +283,7 @@ class _MyAppState extends State<MyApp> {
 
   // Future<Token?> getToken(String address, int chainId) async {
   //   try {
-  //     Token token = await window.getToken(address.toJS, chainId).toDart;
+  //     Token token = await window.getToken(address, chainId).toDart;
   //     return token;
   //   } catch (e) {
   //     print("Error fetching token: $e");
@@ -213,7 +302,7 @@ class _MyAppState extends State<MyApp> {
   //     }
 
   //     final signedMessage =
-  //         await window.signMessage(message.toJS, accountAddress.toJS).toDart;
+  //         await window.signMessage(message, accountAddress).toDart;
   //     return signedMessage.toString();
   //   } catch (e) {
   //     print("Error sign message: $e");
@@ -225,8 +314,8 @@ class _MyAppState extends State<MyApp> {
   //     String functionName, List<dynamic> args, int gaz, int chainId) async {
   //   try {
   //     final result = await window
-  //         .writeContract(contractAddress.toJS, contractABI.toJS,
-  //             functionName.toJS, args.jsify()!, gaz.toJS, chainId.toJS)
+  //         .writeContract(contractAddress, contractABI,
+  //             functionName, args.jsify()!, gaz, chainId)
   //         .toDart;
   //     return result.hash;
   //   } catch (e) {

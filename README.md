@@ -58,13 +58,13 @@ For more details, refer to the [API documentation](https://wagmi.sh/core/api/act
 | `estimateGas`                  | 🔴 Not Implemented |
 | `estimateMaxPriorityFeePerGas` | 🔴 Not Implemented |
 | `getAccount`                   | 🟢 Implemented     |
-| `getBalance`                   | 🟢 Implemented     |
+| `getBalance`                   | 🟠 In progress     |
 | `getBlock`                     | 🔴 Not Implemented |
-| `getBlockNumber`               | 🔴 Not Implemented |
+| `getBlockNumber`               | 🟠 In progress     |
 | `getBlockTransactionCount`     | 🔴 Not Implemented |
 | `getBytecode`                  | 🔴 Not Implemented |
 | `getChainId`                   | 🟢 Implemented     |
-| `getChains`                    | 🔴 Not Implemented |
+| `getChains`                    | 🟠 In progress     |
 | `getClient`                    | 🔴 Not Implemented |
 | `getConnections`               | 🔴 Not Implemented |
 | `getConnectorClient`           | 🔴 Not Implemented |
@@ -79,7 +79,7 @@ For more details, refer to the [API documentation](https://wagmi.sh/core/api/act
 | `getProof`                     | 🔴 Not Implemented |
 | `getPublicClient`              | 🔴 Not Implemented |
 | `getStorageAt`                 | 🔴 Not Implemented |
-| `getToken`                     | 🟢 Implemented     |
+| `getToken`                     | 🟠 In progress     |
 | `getTransaction`               | 🔴 Not Implemented |
 | `getTransactionConfirmations`  | 🔴 Not Implemented |
 | `getTransactionCount`          | 🔴 Not Implemented |
@@ -110,6 +110,7 @@ For more details, refer to the [API documentation](https://wagmi.sh/core/api/act
 | `watchContractEvent`           | 🔴 Not Implemented |
 | `watchPendingTransactions`     | 🔴 Not Implemented |
 | `watchPublicClient`            | 🔴 Not Implemented |
-| `writeContract`                | 🔴 Not Implemented |
+| `writeContract`                | 🟠 In progress     |
+
 
 

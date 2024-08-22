@@ -4,6 +4,13 @@ part of 'wagmi.js.dart';
 extension type JSWagmiCore(JSObject _) implements JSObject {
   external JSAccount getAccount();
   external JSNumber getChainId();
+  external JSArray<JSChain> getChains();
+  external JSPromise<JSGetBlockNumberReturnType> getBlockNumber(
+    JSGetBlockNumberParameters getBlockNumberParameters,
+  );
+  external JSPromise<JSGetGasPriceReturnType> getGasPrice(
+    JSGetGasPriceParameters getGasPriceParameters,
+  );
   external JSPromise<JSGetBalanceReturnType> getBalance(
     JSGetBalanceParameters getBalanceParameters,
   );
@@ -12,5 +19,8 @@ extension type JSWagmiCore(JSObject _) implements JSObject {
   );
   external JSPromise<JSSignMessageReturnType> signMessage(
     JSSignMessageParameters signMessageParameters,
+  );
+  external JSPromise<JSWriteContractReturnType> writeContract(
+    JSWriteContractParameters writeContractParameters,
   );
 }
