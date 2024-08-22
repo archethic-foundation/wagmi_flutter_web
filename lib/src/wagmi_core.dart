@@ -1,6 +1,7 @@
 import 'dart:js_interop';
 
 import 'package:wagmi_flutter_web/src/actions/get_balance.dart';
+import 'package:wagmi_flutter_web/src/actions/get_token.dart';
 import 'package:wagmi_flutter_web/src/js/wagmi.js.dart';
 import 'package:wagmi_flutter_web/src/models/account.dart';
 
@@ -24,10 +25,14 @@ class Core {
     return result.toDart;
   }
 
-  // static JSPromise<GetTokenReturnType> getToken(
-  //   GetTokenParameters getTokenParameters,
-  // ) {}
-  // static JSPromise<SignMessageReturnType> signMessage(
-  //   SignMessageParameters signMessageParameters,
-  // ) {}
+  static Future<GetTokenReturnType> getToken(
+    GetTokenParameters getTokenParameters,
+  ) async {
+    final result = await window.wagmiCore
+        .getToken(
+          getTokenParameters.toJS,
+        )
+        .toDart;
+    return result.toDart;
+  }
 }

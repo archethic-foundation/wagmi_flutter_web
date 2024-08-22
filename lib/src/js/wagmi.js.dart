@@ -1,6 +1,7 @@
 import 'dart:js_interop';
 
 import 'package:wagmi_flutter_web/src/actions/get_balance.dart';
+import 'package:wagmi_flutter_web/src/actions/get_token.dart';
 import 'package:wagmi_flutter_web/src/models/account.dart';
 import 'package:wagmi_flutter_web/src/models/chain.dart';
 part 'wagmi_core.js.dart';

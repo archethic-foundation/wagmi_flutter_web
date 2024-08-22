@@ -20,7 +20,8 @@ class _MyAppState extends State<MyApp> {
   wagmi.Account? account;
   String? signedMessage;
   String? hashApproval;
-  final tokenAddressToSearch = '0xCBBd3374090113732393DAE1433Bc14E5233d5d7';
+  String? token;
+  final tokenAddressToSearch = '0x8a3d77e9d6968b780564936d15B09805827C21fa';
   final messageToSign = 'Hello World';
 
   @override
@@ -86,7 +87,7 @@ class _MyAppState extends State<MyApp> {
                 onPressed: () async {
                   final balanceResult = await wagmi.Core.getBalance(
                     wagmi.GetBalanceParameters(
-                      address: '0x4557B18E779944BFE9d78A672452331C186a9f48',
+                      address: account?.address ?? '',
                     ),
                   );
                   setState(() {
@@ -101,24 +102,27 @@ class _MyAppState extends State<MyApp> {
               Text(
                 'balance : ${balance?.value ?? 'unknown'} ${balance?.symbol}',
               ),
-              // ElevatedButton(
-              //   onPressed: () async {
-              //     token = await getToken(
-              //         tokenAddressToSearch, account?.chainId ?? 0);
-              //     setState(() {});
-              //   },
-              //   child: Text(
-              //       'Get Token info ($tokenAddressToSearch / ${account?.chainId})'),
-              // ),
-              // if (token != null)
-              //   Column(
-              //     children: [
-              //       Text('token address: ${token?.address}'),
-              //       Text('token name: ${token?.name}'),
-              //       Text('token decimals: ${token?.decimals}'),
-              //       Text('token symbol: ${token?.symbol}'),
-              //     ],
-              //   ),
+              ElevatedButton(
+                onPressed: () async {
+                  final getTokenParameters = wagmi.GetTokenParameters(
+                    address: tokenAddressToSearch,
+                    chainId: account!.chain!.id!,
+                  );
+                  final getTokenReturnType =
+                      await wagmi.Core.getToken(getTokenParameters);
+                  setState(() {
+                    token =
+                        '${getTokenReturnType.name} ${getTokenReturnType.symbol}';
+                  });
+                },
+                child: Text(
+                  'Get Token info ($tokenAddressToSearch / ${account?.chain!.id!})',
+                ),
+              ),
+              if (token != null) Text('token: $token'),
+              const SizedBox(
+                height: 10,
+              ),
               // const SizedBox(
               //   height: 10,
               // ),

@@ -17,9 +17,18 @@ extension type JSGetTokenParameters._(JSObject _) implements JSObject {
 extension type JSGetTokenReturnType(JSObject _) implements JSObject {
   external JSString address;
   external JSNumber decimals;
-  external JSString? name;
-  external JSString? symbol;
-  external JSObject? totalSupply;
+  external JSString name;
+  external JSString symbol;
+  external JSAny totalSupply;
+
+  GetTokenReturnType get toDart => GetTokenReturnType(
+        address: address.toDart,
+        decimals: decimals.toDartInt,
+        name: name.toDart,
+        symbol: symbol.toDart,
+        // TODO: Manage Map
+        totalSupply: {},
+      );
 }
 
 @JS()
