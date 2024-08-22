@@ -6,6 +6,7 @@ import 'dart:html' as html;
 
 export 'src/actions/get_balance.dart';
 export 'src/actions/get_token.dart';
+export 'src/actions/sign_message.dart';
 
 export 'src/models/account.dart';
 export 'src/models/chain.dart';

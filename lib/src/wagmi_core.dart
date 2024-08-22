@@ -2,6 +2,7 @@ import 'dart:js_interop';
 
 import 'package:wagmi_flutter_web/src/actions/get_balance.dart';
 import 'package:wagmi_flutter_web/src/actions/get_token.dart';
+import 'package:wagmi_flutter_web/src/actions/sign_message.dart';
 import 'package:wagmi_flutter_web/src/js/wagmi.js.dart';
 import 'package:wagmi_flutter_web/src/models/account.dart';
 
@@ -31,6 +32,17 @@ class Core {
     final result = await window.wagmiCore
         .getToken(
           getTokenParameters.toJS,
+        )
+        .toDart;
+    return result.toDart;
+  }
+
+  static Future<String> signMessage(
+    SignMessageParameters signMessageParameters,
+  ) async {
+    final result = await window.wagmiCore
+        .signMessage(
+          signMessageParameters.toJS,
         )
         .toDart;
     return result.toDart;

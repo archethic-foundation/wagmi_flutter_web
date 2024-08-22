@@ -35,6 +35,3 @@ class GetTokenReturnType {
   final String? symbol;
   final Map? totalSupply;
 }
-
-@JS()
-extension type GetTokenErrorType(JSObject _) implements JSObject {}

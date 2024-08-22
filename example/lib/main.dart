@@ -32,7 +32,7 @@ class _MyAppState extends State<MyApp> {
 
         wagmi.Web3Modal.init(
           'f642e3f39ba3e375f8f714f18354faa4',
-          [wagmi.Chain.ethereum.name!, wagmi.Chain.sepolia.name],
+          [wagmi.Chain.ethereum.name, wagmi.Chain.sepolia.name],
           true,
           true,
           wagmi.Web3ModalMetadata(
@@ -123,22 +123,29 @@ class _MyAppState extends State<MyApp> {
               const SizedBox(
                 height: 10,
               ),
-              // const SizedBox(
-              //   height: 10,
-              // ),
-              // ElevatedButton(
-              //   onPressed: () async {
-              //     signedMessage = await signMessage(messageToSign);
-              //     setState(() {});
-              //   },
-              //   child: Text('Personal sign ($messageToSign)'),
-              // ),
-              // if (signedMessage != null)
-              //   Column(
-              //     children: [
-              //       Text('message signed: $signedMessage'),
-              //     ],
-              //   ),
+              ElevatedButton(
+                onPressed: () async {
+                  final signMessageParameters = wagmi.SignMessageParameters(
+                    account: account!.address!,
+                    message: messageToSign,
+                  );
+                  final signMessageReturnType =
+                      await wagmi.Core.signMessage(signMessageParameters);
+                  setState(() {
+                    signedMessage = signMessageReturnType.toString();
+                  });
+                },
+                child: Text('Personal sign ($messageToSign)'),
+              ),
+              if (signedMessage != null)
+                Column(
+                  children: [
+                    Text('message signed: $signedMessage'),
+                  ],
+                ),
+              const SizedBox(
+                height: 10,
+              ),
               // ElevatedButton(
               //   onPressed: () async {
               //     await call(
