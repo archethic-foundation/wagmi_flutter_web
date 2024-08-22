@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:wagmi_flutter_web/wagmi_flutter_web.dart' as wagmi;
 
@@ -16,7 +18,7 @@ class _MyAppState extends State<MyApp> {
   var chainId = 0;
   // Token? token;
 
-  wagmi.GetBalanceReturnType? balance;
+  wagmi.GetBalanceReturnType? balance, tokenBalance;
   wagmi.Account? account;
   List? chains;
   BigInt? blockNumber;
@@ -26,6 +28,9 @@ class _MyAppState extends State<MyApp> {
   String? token;
   final tokenAddressToSearch = '0x8a3d77e9d6968b780564936d15B09805827C21fa';
   final messageToSign = 'Hello World';
+  double? tokenSupply; // hold the total supply of the given token
+  String bitTokenAddress =
+      '0x2237605711227D0254Ccb33CE70767871Cf1CCc3'; // contract address deployed on polygonAmoy network only
 
   @override
   void initState() {
@@ -35,7 +40,11 @@ class _MyAppState extends State<MyApp> {
 
         wagmi.Web3Modal.init(
           'f642e3f39ba3e375f8f714f18354faa4',
-          [wagmi.Chain.mainnet.name, wagmi.Chain.sepolia.name],
+          [
+            wagmi.Chain.mainnet.name,
+            wagmi.Chain.sepolia.name,
+            wagmi.Chain.polygonAmoy.name
+          ],
           true,
           true,
           wagmi.Web3ModalMetadata(
@@ -147,8 +156,7 @@ class _MyAppState extends State<MyApp> {
                 onPressed: () async {
                   final balanceResult = await wagmi.Core.getBalance(
                     wagmi.GetBalanceParameters(
-                      address: account?.address ?? '',
-                    ),
+                        address: account?.address ?? '', blockTag: 'latest'),
                   );
                   setState(() {
                     balance = balanceResult;
@@ -157,10 +165,39 @@ class _MyAppState extends State<MyApp> {
                 child: const Text('Get Balance'),
               ),
               const SizedBox(
-                height: 10,
+                height: 5,
               ),
               Text(
-                'balance : ${balance?.value ?? 'unknown'} ${balance?.symbol}',
+                (balance != null && balance!.value > BigInt.from(0))
+                    ? 'balance : ${((balance!.value.toInt()) / pow(10, balance!.decimals))} ${balance?.symbol}'
+                    : 'balance : ${balance?.value ?? 'unknown'} ${balance?.symbol}',
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              ElevatedButton(
+                onPressed: () async {
+                  final balanceResult = await wagmi.Core.getBalance(
+                    wagmi.GetBalanceParameters(
+                        address: account?.address ?? '',
+                        token: bitTokenAddress),
+                  );
+                  setState(() {
+                    tokenBalance = balanceResult;
+                  });
+                },
+                child: const Text('Get BIT Token Balance'),
+              ),
+              const SizedBox(
+                height: 5,
+              ),
+              Text(
+                (tokenBalance != null && tokenBalance!.value > BigInt.from(0))
+                    ? 'balance : ${((tokenBalance!.value.toInt()) / pow(10, tokenBalance!.decimals))} ${tokenBalance?.symbol}'
+                    : 'balance : ${tokenBalance?.value ?? 'unknown'} ${tokenBalance?.symbol}',
+              ),
+              const SizedBox(
+                height: 5,
               ),
               ElevatedButton(
                 onPressed: () async {
@@ -181,6 +218,33 @@ class _MyAppState extends State<MyApp> {
               ),
               if (token != null) Text('token: $token'),
               const SizedBox(
+                height: 10,
+              ),
+              ElevatedButton(
+                onPressed: () async {
+                  // read contract
+                  final getTokenParameters = wagmi.ReadContractParameters(
+                      abi: bitContractAbi,
+                      address: bitTokenAddress,
+                      functionName: 'totalSupply');
+                  final readContractReturnType =
+                      await wagmi.Core.readContract(getTokenParameters);
+                  setState(() {
+                    tokenSupply =
+                        int.parse(readContractReturnType.toString()) / 1000000;
+                  });
+                },
+                child: const Text('Get Token Supply From Contract'),
+              ),
+              const SizedBox(
+                height: 7,
+              ),
+              tokenSupply != null
+                  ? Text(
+                      'Total token supply :  $tokenSupply',
+                    )
+                  : Container(),
+              SizedBox(
                 height: 10,
               ),
               ElevatedButton(
@@ -264,6 +328,18 @@ class _MyAppState extends State<MyApp> {
       ),
     );
   }
+
+  List<Map> bitContractAbi = [
+    {
+      "inputs": [],
+      "name": "totalSupply",
+      "outputs": [
+        {"internalType": "uint256", "name": "", "type": "uint256"}
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    }
+  ];
 
   // void openModal() {
   //   window.openModal();

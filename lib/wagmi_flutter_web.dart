@@ -9,6 +9,7 @@ export 'src/actions/get_block_number.dart';
 export 'src/actions/get_gas_price.dart';
 export 'src/actions/get_token.dart';
 export 'src/actions/sign_message.dart';
+export 'src/actions/read_contract.dart';
 export 'src/actions/write_contract.dart';
 export 'src/models/account.dart';
 export 'src/models/chain.dart';

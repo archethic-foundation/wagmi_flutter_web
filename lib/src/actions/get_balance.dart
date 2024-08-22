@@ -34,13 +34,13 @@ class GetBalanceParameters {
 
 class GetBalanceReturnType {
   GetBalanceReturnType({
-    required this.decimal,
+    required this.decimals,
     required this.formatted,
     required this.symbol,
     required this.value,
   });
 
-  final int decimal;
+  final int decimals;
   final String formatted;
   final String symbol;
   final BigInt value;

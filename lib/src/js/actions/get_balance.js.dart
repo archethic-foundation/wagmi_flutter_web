@@ -31,13 +31,13 @@ extension type JSGetBalanceParameters._(JSObject _) implements JSObject {
 
 @JS()
 extension type JSGetBalanceReturnType(JSObject _) implements JSObject {
-  external JSNumber decimal;
+  external JSNumber decimals;
   external JSString formatted;
   external JSString symbol;
   external JSBigInt value;
 
   GetBalanceReturnType get toDart => GetBalanceReturnType(
-        decimal: decimal.toDartInt,
+        decimals: decimals.toDartInt,
         formatted: formatted.toDart,
         symbol: symbol.toDart,
         value: value.toDart,
