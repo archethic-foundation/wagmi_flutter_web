@@ -32,7 +32,7 @@ class _MyAppState extends State<MyApp> {
 
         wagmi.Web3Modal.init(
           'f642e3f39ba3e375f8f714f18354faa4',
-          [wagmi.Chain.ethereum.name!, wagmi.Chain.sepolia.name!],
+          [wagmi.Chain.ethereum.name!, wagmi.Chain.sepolia.name],
           true,
           true,
           wagmi.Web3ModalMetadata(
@@ -106,7 +106,7 @@ class _MyAppState extends State<MyApp> {
                 onPressed: () async {
                   final getTokenParameters = wagmi.GetTokenParameters(
                     address: tokenAddressToSearch,
-                    chainId: account!.chain!.id!,
+                    chainId: account!.chain!.id,
                   );
                   final getTokenReturnType =
                       await wagmi.Core.getToken(getTokenParameters);
@@ -116,7 +116,7 @@ class _MyAppState extends State<MyApp> {
                   });
                 },
                 child: Text(
-                  'Get Token info ($tokenAddressToSearch / ${account?.chain!.id!})',
+                  'Get Token info ($tokenAddressToSearch / ${account?.chain!.id})',
                 ),
               ),
               if (token != null) Text('token: $token'),

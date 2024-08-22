@@ -8,8 +8,8 @@ class Chain {
     required this.name,
   });
 
-  final int? id;
-  final String? name;
+  final int id;
+  final String name;
 
   static final ethereum = Chain(id: 1, name: 'mainnet');
   static final goerli = Chain(id: 5, name: 'goerli');
