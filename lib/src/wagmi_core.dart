@@ -6,6 +6,7 @@ import 'package:wagmi_flutter_web/src/actions/get_block_number.dart';
 import 'package:wagmi_flutter_web/src/actions/get_gas_price.dart';
 import 'package:wagmi_flutter_web/src/actions/get_token.dart';
 import 'package:wagmi_flutter_web/src/actions/get_transaction_count.dart';
+import 'package:wagmi_flutter_web/src/actions/get_transaction_receipt.dart';
 import 'package:wagmi_flutter_web/src/actions/read_contract.dart';
 import 'package:wagmi_flutter_web/src/actions/sign_message.dart';
 import 'package:wagmi_flutter_web/src/actions/write_contract.dart';
@@ -98,6 +99,17 @@ class Core {
     final result = await window.wagmiCore
         .readContract(
           readContractParameters.toJS,
+        )
+        .toDart;
+    return result.toDart;
+  }
+
+  static Future<GetTransactionReceiptReturnType> getTransactionReceipt(
+    GetTransactionReceiptParameters getTransactionReceiptParameters,
+  ) async {
+    final result = await window.wagmiCore
+        .getTransactionReceipt(
+          getTransactionReceiptParameters.toJS,
         )
         .toDart;
     return result.toDart;

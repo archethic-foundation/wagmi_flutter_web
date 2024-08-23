@@ -6,7 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:wagmi_flutter_web/wagmi_flutter_web.dart' as wagmi;
 
 void main() {
-  runApp(const MyApp());
+  runApp(const MaterialApp(title: 'Web3Modal Example', home: MyApp()));
 }
 
 class MyApp extends StatefulWidget {
@@ -33,6 +33,8 @@ class _MyAppState extends State<MyApp> {
   double? tokenSupply; // hold the total supply of the given token
   String bitTokenAddress =
       '0x2237605711227D0254Ccb33CE70767871Cf1CCc3'; // contract address deployed on polygonAmoy network only
+  String hash =
+      '0x28c67e05c4f32710697629c996e33f94f251e733e373f80ea84d432926ca9260';
 
   @override
   void initState() {
@@ -348,6 +350,24 @@ class _MyAppState extends State<MyApp> {
                 ),
                 ElevatedButton(
                   onPressed: () async {
+                    final getTransactionReceiptParameters =
+                        wagmi.GetTransactionReceiptParameters(hash: hash);
+                    final readContractReturnType =
+                        await wagmi.Core.getTransactionReceipt(
+                      getTransactionReceiptParameters,
+                    );
+                    showTransactionReceiptDialog(
+                      context,
+                      readContractReturnType,
+                    );
+                  },
+                  child: const Text('Get Transaction Receipt'),
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                ElevatedButton(
+                  onPressed: () async {
                     final estimateGasParameters = wagmi.EstimateGasParameters(
                       to: '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2',
                       gasPrice: BigInt.parse('10000000000000000'),
@@ -385,4 +405,55 @@ class _MyAppState extends State<MyApp> {
       'type': 'function',
     }
   ];
+
+  // dialog to show transaction receipt
+  void showTransactionReceiptDialog(
+    BuildContext context,
+    wagmi.GetTransactionReceiptReturnType transactionReceipt,
+  ) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: const Text('Transaction Receipt'),
+          content: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text('blockHash: ${transactionReceipt.blockHash}'),
+              // space
+              const SizedBox(height: 8),
+              Text('blockNumber: ${transactionReceipt.blockNumber}'),
+              const SizedBox(height: 8),
+              Text('contractAddress: ${transactionReceipt.contractAddress}'),
+              const SizedBox(height: 8),
+              Text(
+                'cumulativeGasUsed: ${transactionReceipt.cumulativeGasUsed}',
+              ),
+              const SizedBox(height: 8),
+              Text('from: ${transactionReceipt.from}'),
+              const SizedBox(height: 8),
+              Text('gasUsed: ${transactionReceipt.gasUsed}'),
+              const SizedBox(height: 8),
+              // Text('logs: ${transactionReceipt.logs}'),
+              // Text('logsBloom: ${transactionReceipt.logsBloom}'),
+              Text('status: ${transactionReceipt.status}'),
+              const SizedBox(height: 8),
+              Text('to: ${transactionReceipt.to}'), const SizedBox(height: 8),
+              Text('transactionHash: ${transactionReceipt.transactionHash}'),
+              const SizedBox(height: 8),
+              Text('transactionIndex: ${transactionReceipt.transactionIndex}'),
+            ],
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text('Close'),
+            ),
+          ],
+        );
+      },
+    );
+  }
 }

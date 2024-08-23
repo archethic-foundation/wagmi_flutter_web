@@ -14,7 +14,7 @@ class ReadContractParameters {
   String functionName;
 
   JSReadContractParameters get toJS => JSReadContractParameters(
-        abi: abi.jsify(),
+        abi: abi.jsify()!,
         address: address.toJS,
         functionName: functionName.toJS,
       );
