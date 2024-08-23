@@ -8,6 +8,9 @@ extension type JSWagmiCore(JSObject _) implements JSObject {
   external JSPromise<JSGetBlockNumberReturnType> getBlockNumber(
     JSGetBlockNumberParameters getBlockNumberParameters,
   );
+  external JSPromise<JSNumber> getTransactionCount(
+    JSGetTransactionCountParameters getTransactionCountParameters,
+  );
   external JSPromise<JSGetGasPriceReturnType> getGasPrice(
     JSGetGasPriceParameters getGasPriceParameters,
   );
@@ -20,7 +23,7 @@ extension type JSWagmiCore(JSObject _) implements JSObject {
   external JSPromise<JSSignMessageReturnType> signMessage(
     JSSignMessageParameters signMessageParameters,
   );
-   external JSPromise<JSBigInt> readContract(
+  external JSPromise<JSBigInt> readContract(
     JSReadContractParameters readContractParameters,
   );
   external JSPromise<JSWriteContractReturnType> writeContract(

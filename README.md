@@ -58,7 +58,7 @@ For more details, refer to the [API documentation](https://wagmi.sh/core/api/act
 | `estimateGas`                  | 🔴 Not Implemented |
 | `estimateMaxPriorityFeePerGas` | 🔴 Not Implemented |
 | `getAccount`                   | 🟢 Implemented     |
-| `getBalance`                   | 🟠 In progress     |
+| `getBalance`                   | 🟢 Implemented     |
 | `getBlock`                     | 🔴 Not Implemented |
 | `getBlockNumber`               | 🟠 In progress     |
 | `getBlockTransactionCount`     | 🔴 Not Implemented |
@@ -82,7 +82,7 @@ For more details, refer to the [API documentation](https://wagmi.sh/core/api/act
 | `getToken`                     | 🟠 In progress     |
 | `getTransaction`               | 🔴 Not Implemented |
 | `getTransactionConfirmations`  | 🔴 Not Implemented |
-| `getTransactionCount`          | 🔴 Not Implemented |
+| `getTransactionCount`          | 🟢 Implemented     |
 | `getTransactionReceipt`        | 🔴 Not Implemented |
 | `getWalletClient`              | 🔴 Not Implemented |
 | `multicall`                    | 🔴 Not Implemented |

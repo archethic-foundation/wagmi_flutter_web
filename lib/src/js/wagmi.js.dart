@@ -18,6 +18,7 @@ part 'actions/get_gas_price.js.dart';
 part 'actions/get_token.js.dart';
 part 'actions/sign_message.js.dart';
 part 'actions/read_contract.js.dart';
+part 'actions/get_transaction_count.js.dart';
 part 'actions/write_contract.js.dart';
 part 'models/account.js.dart';
 part 'models/bigint.js.dart';
