@@ -1,14 +1,15 @@
 import 'dart:convert';
 import 'dart:js_interop';
-
-import 'package:wagmi_flutter_web/src/actions/estimate_gas.dart';
+import 'package:wagmi_flutter_web/Utility/Utils.dart';
 import 'package:wagmi_flutter_web/src/actions/get_balance.dart';
 import 'package:wagmi_flutter_web/src/actions/get_block_number.dart';
 import 'package:wagmi_flutter_web/src/actions/get_gas_price.dart';
 import 'package:wagmi_flutter_web/src/actions/get_token.dart';
-import 'package:wagmi_flutter_web/src/actions/get_transaction_count.dart';
 import 'package:wagmi_flutter_web/src/actions/get_transaction_receipt.dart';
+import 'package:wagmi_flutter_web/src/actions/get_transaction_count.dart';
 import 'package:wagmi_flutter_web/src/actions/read_contract.dart';
+import 'package:wagmi_flutter_web/src/actions/read_contracts.dart';
+import 'package:wagmi_flutter_web/src/actions/estimate_gas.dart';
 import 'package:wagmi_flutter_web/src/actions/sign_message.dart';
 import 'package:wagmi_flutter_web/src/actions/write_contract.dart';
 import 'package:wagmi_flutter_web/src/js/wagmi.js.dart';
@@ -94,6 +95,7 @@ class Core {
     return result.toDart;
   }
 
+  // read contract
   static Future<BigInt> readContract(
     ReadContractParameters readContractParameters,
   ) async {
@@ -105,6 +107,23 @@ class Core {
     return result.toDart;
   }
 
+  static Future<List<Map<String, dynamic>>> readContracts(
+    ReadContractsParameters readContractsParameters,
+  ) async {
+    final result = await window.wagmiCore
+        .readContracts(
+          readContractsParameters.toJS,
+        )
+        .toDart;
+    // call jsObjectToMap to convert JSObject to Dart Map
+    final list = <Map<String, dynamic>>[];
+    for (var i = 0; i < result.toDart.length; i++) {
+      list.add(Utils.jsObjectToMap(result.toDart[i]));
+    }
+    return list;
+  }
+
+  // get transaction receipt
   static Future<GetTransactionReceiptReturnType> getTransactionReceipt(
     GetTransactionReceiptParameters getTransactionReceiptParameters,
   ) async {
