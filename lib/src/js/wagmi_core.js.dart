@@ -29,4 +29,7 @@ extension type JSWagmiCore(JSObject _) implements JSObject {
   external JSPromise<JSWriteContractReturnType> writeContract(
     JSWriteContractParameters writeContractParameters,
   );
+  external JSPromise<JSBigInt> estimateGas(
+    JSEstimateGasParameters estimateGasParameters,
+  );
 }

@@ -26,6 +26,7 @@ class _MyAppState extends State<MyApp> {
   String? signedMessage;
   String? hashApproval;
   String? token;
+  int? gasEstimation;
   int? transactionCount;
   final tokenAddressToSearch = '0x8a3d77e9d6968b780564936d15B09805827C21fa';
   final messageToSign = 'Hello World';
@@ -251,7 +252,6 @@ class _MyAppState extends State<MyApp> {
                 ),
                 ElevatedButton(
                   onPressed: () async {
-                    // read contract
                     final getTokenParameters = wagmi.ReadContractParameters(
                       abi: bitContractAbi,
                       address: bitTokenAddress,
@@ -273,9 +273,7 @@ class _MyAppState extends State<MyApp> {
                 if (tokenSupply != null)
                   Text(
                     'Total token supply :  $tokenSupply',
-                  )
-                else
-                  Container(),
+                  ),
                 const SizedBox(
                   height: 10,
                 ),
@@ -345,6 +343,29 @@ class _MyAppState extends State<MyApp> {
                       Text('Hash approval: $hashApproval'),
                     ],
                   ),
+                const SizedBox(
+                  height: 10,
+                ),
+                ElevatedButton(
+                  onPressed: () async {
+                    final estimateGasParameters = wagmi.EstimateGasParameters(
+                      to: '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2',
+                      gasPrice: BigInt.parse('10000000000000000'),
+                      account: account!.address,
+                      data: '0xd0e30db0',
+                      value: BigInt.parse('10000000000000000'),
+                    );
+                    final result =
+                        await wagmi.Core.estimateGas(estimateGasParameters);
+                    setState(() {
+                      gasEstimation = result.toInt();
+                    });
+                  },
+                  child: const Text('Estimate Gas'),
+                ),
+                const SizedBox(
+                  height: 7,
+                ),
               ],
             ),
           ),

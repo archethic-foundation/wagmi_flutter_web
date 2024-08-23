@@ -1,5 +1,6 @@
 import 'dart:js_interop';
 
+import 'package:wagmi_flutter_web/src/actions/estimate_gas.dart';
 import 'package:wagmi_flutter_web/src/actions/get_balance.dart';
 import 'package:wagmi_flutter_web/src/actions/get_block_number.dart';
 import 'package:wagmi_flutter_web/src/actions/get_gas_price.dart';
@@ -91,8 +92,7 @@ class Core {
     return result.toDart;
   }
 
-  // read contract
-  static Future<JSBigInt> readContract(
+  static Future<BigInt> readContract(
     ReadContractParameters readContractParameters,
   ) async {
     final result = await window.wagmiCore
@@ -100,7 +100,7 @@ class Core {
           readContractParameters.toJS,
         )
         .toDart;
-    return result;
+    return result.toDart;
   }
 
   static Future<WriteContractReturnType> writeContract(
@@ -109,6 +109,17 @@ class Core {
     final result = await window.wagmiCore
         .writeContract(
           writeContractParameters.toJS,
+        )
+        .toDart;
+    return result.toDart;
+  }
+
+  static Future<BigInt> estimateGas(
+    EstimateGasParameters estimateGasParameters,
+  ) async {
+    final result = await window.wagmiCore
+        .estimateGas(
+          estimateGasParameters.toJS,
         )
         .toDart;
     return result.toDart;
