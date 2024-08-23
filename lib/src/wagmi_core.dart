@@ -1,9 +1,11 @@
+import 'dart:convert';
 import 'dart:js_interop';
 
 import 'package:wagmi_flutter_web/src/actions/get_balance.dart';
 import 'package:wagmi_flutter_web/src/actions/get_block_number.dart';
 import 'package:wagmi_flutter_web/src/actions/get_gas_price.dart';
 import 'package:wagmi_flutter_web/src/actions/get_token.dart';
+import 'package:wagmi_flutter_web/src/actions/get_transaction_receipt.dart';
 import 'package:wagmi_flutter_web/src/actions/get_transaction_count.dart';
 import 'package:wagmi_flutter_web/src/actions/read_contract.dart';
 import 'package:wagmi_flutter_web/src/actions/sign_message.dart';
@@ -92,7 +94,7 @@ class Core {
   }
 
   // read contract
-  static Future<JSBigInt> readContract(
+  static Future<BigInt> readContract(
     ReadContractParameters readContractParameters,
   ) async {
     final result = await window.wagmiCore
@@ -100,7 +102,19 @@ class Core {
           readContractParameters.toJS,
         )
         .toDart;
-    return result;
+    return result.toDart;
+  }
+
+  // get transaction receipt
+  static Future<GetTransactionReceiptReturnType> getTransactionReceipt(
+    GetTransactionReceiptParameters getTransactionReceiptParameters,
+  ) async {
+    final result = await window.wagmiCore
+        .getTransactionReceipt(
+          getTransactionReceiptParameters.toJS,
+        )
+        .toDart;
+    return result.toDart;
   }
 
   static Future<WriteContractReturnType> writeContract(
