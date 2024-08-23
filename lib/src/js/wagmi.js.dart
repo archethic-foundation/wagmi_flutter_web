@@ -3,7 +3,14 @@ import 'dart:js_interop';
 import 'dart:js_util' as js_util;
 
 import 'package:wagmi_flutter_web/src/actions/get_chains.dart';
-import 'package:wagmi_flutter_web/wagmi_flutter_web.dart';
+import 'package:wagmi_flutter_web/src/actions/get_token.dart';
+import 'package:wagmi_flutter_web/src/actions/get_transaction_receipt.dart';
+import 'package:wagmi_flutter_web/src/actions/read_contract.dart';
+import 'package:wagmi_flutter_web/src/actions/read_contracts.dart';
+import 'package:wagmi_flutter_web/src/actions/watch_contract_event.dart';
+import 'package:wagmi_flutter_web/src/actions/write_contract.dart';
+import 'package:wagmi_flutter_web/src/models/account.dart';
+import 'package:wagmi_flutter_web/src/models/chain.dart';
 
 part 'actions/call.js.dart';
 part 'actions/disconnect.js.dart';
@@ -30,6 +37,7 @@ part 'actions/send_transaction.js.dart';
 part 'actions/sign_message.js.dart';
 part 'actions/wait_for_transaction_receipt.js.dart';
 part 'actions/watch_chain_id.js.dart';
+part 'actions/watch_contract_event.js.dart';
 part 'actions/write_contract.js.dart';
 part 'models/account.js.dart';
 part 'models/bigint.js.dart';

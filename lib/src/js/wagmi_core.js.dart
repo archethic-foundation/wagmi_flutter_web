@@ -81,4 +81,7 @@ extension type JSWagmiCore(JSObject _) implements JSObject {
   external JSPromise<JSGetFeeHistoryReturnType> getFeeHistory(
     JSGetFeeHistoryParameters getFeeHistoryParameters,
   );
+  external JSPromise<JSWatchContractEventReturnType> watchContractEvent(
+    JSWatchContractEventParameters watchContractEventParameters,
+  );
 }

@@ -23,6 +23,7 @@ import 'package:wagmi_flutter_web/src/actions/send_transaction.dart';
 import 'package:wagmi_flutter_web/src/actions/sign_message.dart';
 import 'package:wagmi_flutter_web/src/actions/wait_for_transaction_receipt.dart';
 import 'package:wagmi_flutter_web/src/actions/watch_chain_id.dart';
+import 'package:wagmi_flutter_web/src/actions/watch_contract_event.dart';
 import 'package:wagmi_flutter_web/src/actions/write_contract.dart';
 import 'package:wagmi_flutter_web/src/js/wagmi.js.dart';
 import 'package:wagmi_flutter_web/src/models/account.dart';
@@ -205,6 +206,17 @@ class Core {
     final result = await window.wagmiCore
         .getTransaction(
           getTransactionParameters.toJS,
+        )
+        .toDart;
+    return result.toDart;
+  }
+
+  static Future<WatchContractEventReturnType> watchContractEvent(
+    WatchContractEventParameters watchContractEventParameters,
+  ) async {
+    final result = await window.wagmiCore
+        .watchContractEvent(
+          watchContractEventParameters.toJS,
         )
         .toDart;
     return result.toDart;
