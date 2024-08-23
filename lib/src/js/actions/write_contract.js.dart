@@ -4,7 +4,7 @@ part of '../wagmi.js.dart';
 @JS()
 extension type JSWriteContractParameters._(JSObject _) implements JSObject {
   external JSWriteContractParameters({
-    required JSArray<JSObject> abi,
+    required JSAny? abi,
     required JSString address,
     required JSString functionName,
     JSArray<JSObject>? accessList,
@@ -21,7 +21,7 @@ extension type JSWriteContractParameters._(JSObject _) implements JSObject {
     JSBigInt? value,
   });
 
-  external JSArray<JSObject> abi;
+  external JSAny? abi;
   external JSString address;
   external JSArray<JSObject>? accessList;
   external JSString? account;

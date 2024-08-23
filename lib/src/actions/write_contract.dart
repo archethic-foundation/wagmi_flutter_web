@@ -23,7 +23,7 @@ class WriteContractParameters {
     this.value,
   });
 
-  List abi;
+  List<Map> abi;
   String address;
   List<Map<String, dynamic>>? accessList;
   String? account;
@@ -39,13 +39,30 @@ class WriteContractParameters {
   String? type;
   BigInt? value;
 
+  JSArray<JSObject>? _convertArgs(List<dynamic>? args) {
+    if (args == null) {
+      return null;
+    }
+    final jsArgs = JSArray<JSObject>();
+    for (final arg in args) {
+      if (arg is String) {
+        jsArgs.add(arg.toJS);
+      } else if (arg is int) {
+        jsArgs.add(arg.toJS);
+      } else if (arg is bool) {
+        jsArgs.add(arg.toJS);
+      }
+    }
+    return jsArgs;
+  }
+
   JSWriteContractParameters get toJS => JSWriteContractParameters(
-        abi: abi.jsify()! as JSArray<JSObject>,
+        abi: abi.jsify(),
         address: address.toJS,
         functionName: functionName.toJS,
         accessList: accessList?.jsify() as JSArray<JSObject>?,
         account: account?.toJS,
-        args: args?.jsify() as JSArray<JSObject>?,
+        args: _convertArgs(args),
         chainId: chainId?.toJS,
         dataSuffix: dataSuffix?.toJS,
         gas: gas?.toJS,

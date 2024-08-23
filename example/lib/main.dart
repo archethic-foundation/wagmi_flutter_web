@@ -1,6 +1,8 @@
+import 'dart:convert';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:wagmi_flutter_web/wagmi_flutter_web.dart' as wagmi;
 
 void main() {
@@ -302,42 +304,28 @@ class _MyAppState extends State<MyApp> {
                 ),
                 ElevatedButton(
                   onPressed: () async {
+                    final abiTokenStringJson = jsonDecode(
+                      await rootBundle.loadString(
+                        'lib/abi/ERC20.json',
+                      ),
+                    );
+                    final abiDynamicList =
+                        abiTokenStringJson['abi'] as List<dynamic>;
+                    final abiERC20 = abiDynamicList
+                        .map((e) => e as Map<String, dynamic>)
+                        .toList();
+
                     final writeContractParameters =
                         wagmi.WriteContractParameters(
-                      abi: [
-                        {
-                          'inputs': [
-                            {
-                              'internalType': 'address',
-                              'name': 'spender',
-                              'type': 'address',
-                            },
-                            {
-                              'internalType': 'uint256',
-                              'name': 'amount',
-                              'type': 'uint256',
-                            }
-                          ],
-                          'name': 'approve',
-                          'outputs': [
-                            {
-                              'internalType': 'bool',
-                              'name': '',
-                              'type': 'bool',
-                            },
-                          ],
-                          'stateMutability': 'nonpayable',
-                          'type': 'function',
-                        },
-                      ],
-                      address: '0xCBBd3374090113732393DAE1433Bc14E5233d5d7',
+                      abi: abiERC20,
+                      address: '0xfc87BA6B2e12B89D9117Cc4777218f35E9924c94',
                       account: account?.address,
                       functionName: 'approve',
                       gas: BigInt.from(1500000),
                       args: [
                         '0x08Bfc8BA9fD137Fb632F79548B150FE0Be493254',
                         // TODO: https://github.com/dart-lang/sdk/issues/56539
-                        BigInt.parse('498500000000000'),
+                        BigInt.from(498500000000000),
                       ],
                       chainId: 11155111,
                     );
