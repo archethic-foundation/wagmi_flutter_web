@@ -27,6 +27,7 @@ export 'src/actions/send_transaction.dart';
 export 'src/actions/sign_message.dart';
 export 'src/actions/wait_for_transaction_receipt.dart';
 export 'src/actions/watch_chain_id.dart';
+export 'src/actions/watch_contract_event.dart';
 export 'src/actions/write_contract.dart';
 export 'src/models/account.dart';
 export 'src/models/block_tag.dart';
