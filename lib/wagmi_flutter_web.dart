@@ -4,11 +4,13 @@ import 'dart:async';
 // ignore: avoid_web_libraries_in_flutter
 import 'dart:html' as html;
 
+export 'src/actions/estimate_gas.dart';
 export 'src/actions/get_balance.dart';
 export 'src/actions/get_block_number.dart';
 export 'src/actions/get_gas_price.dart';
 export 'src/actions/get_token.dart';
 export 'src/actions/get_transaction_count.dart';
+export 'src/actions/get_transaction_receipt.dart';
 export 'src/actions/read_contract.dart';
 export 'src/actions/get_transaction_receipt.dart';
 export 'src/actions/sign_message.dart';

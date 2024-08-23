@@ -55,7 +55,7 @@ For more details, refer to the [API documentation](https://wagmi.sh/core/api/act
 | `deployContract`               | 🔴 Not Implemented |
 | `disconnect`                   | 🔴 Not Implemented |
 | `estimateFeesPerGas`           | 🔴 Not Implemented |
-| `estimateGas`                  | 🔴 Not Implemented |
+| `estimateGas`                  | 🟠 In progress     |
 | `estimateMaxPriorityFeePerGas` | 🔴 Not Implemented |
 | `getAccount`                   | 🟢 Implemented     |
 | `getBalance`                   | 🟢 Implemented     |
