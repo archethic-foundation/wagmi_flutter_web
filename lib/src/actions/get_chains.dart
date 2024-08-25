@@ -1,11 +1,11 @@
-import 'package:wagmi_flutter_web/src/models/chain.dart';
+import 'dart:js_interop';
 
 /// [Documentation API](https://wagmi.sh/core/api/actions/getChains)
 
 class GetChainsReturnType {
   GetChainsReturnType({
-    required this.chains,
+    required this.value,
   });
 
-  List<Chain> chains;
+  final JSArray<JSArray<JSObject>> value;
 }

@@ -14,7 +14,13 @@ class Utils {
     // Iterate over the keys and assign values to the Dart map
     for (final key in keys) {
       final keyString = key! as String;
-      map[keyString] = js_util.getProperty(jsObject, keyString);
+      var value = js_util.getProperty(jsObject, keyString);
+
+      if (value is JSObject) {
+        value = jsObjectToMap(value);
+      }
+
+      map[keyString] = value;
     }
     return map;
   }

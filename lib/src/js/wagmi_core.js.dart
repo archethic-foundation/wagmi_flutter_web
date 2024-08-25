@@ -4,7 +4,7 @@ part of 'wagmi.js.dart';
 extension type JSWagmiCore(JSObject _) implements JSObject {
   external JSAccount getAccount();
   external JSNumber getChainId();
-  external JSArray<JSChain> getChains();
+  external JSArray<JSObject> getChains();
   external JSPromise<JSGetBlockNumberReturnType> getBlockNumber(
     JSGetBlockNumberParameters getBlockNumberParameters,
   );
