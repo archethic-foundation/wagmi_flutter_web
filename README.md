@@ -46,70 +46,78 @@ wagmi.Web3Modal.open();
 
 ## Available Actions
 
+***Status***
+
+🔴 Not Implemented Yet.\
+🟠 Work In Progress.\
+✅ Implemented.\
+🛠️ Lacks WASM Support. (Needs rework in future.)
+
+
 For more details, refer to the [API documentation](https://wagmi.sh/core/api/actions).
 
 | Action Name                    | Status             |
 | ------------------------------ |--------------------|
-| `call`                         | 🔴 Not Implemented |
-| `connect`                      | 🔴 Not Implemented |
-| `deployContract`               | 🔴 Not Implemented |
-| `disconnect`                   | 🔴 Not Implemented |
-| `estimateFeesPerGas`           | 🔴 Not Implemented |
+| `call`                         | 🔴                 |
+| `connect`                      | 🔴                 |
+| `deployContract`               | 🔴                 |
+| `disconnect`                   | 🔴                 |
+| `estimateFeesPerGas`           | 🔴                 |
 | `estimateGas`                  | 🟠 In progress     |
-| `estimateMaxPriorityFeePerGas` | 🔴 Not Implemented |
-| `getAccount`                   | 🟢 Implemented     |
-| `getBalance`                   | 🟢 Implemented     |
-| `getBlock`                     | 🔴 Not Implemented |
+| `estimateMaxPriorityFeePerGas` | 🔴                 |
+| `getAccount`                   | ✅ Implemented     |
+| `getBalance`                   | ✅ Implemented     |
+| `getBlock`                     | 🔴                 |
 | `getBlockNumber`               | 🟠 In progress     |
-| `getBlockTransactionCount`     | 🔴 Not Implemented |
-| `getBytecode`                  | 🔴 Not Implemented |
-| `getChainId`                   | 🟢 Implemented     |
+| `getBlockTransactionCount`     | 🔴                 |
+| `getBytecode`                  | 🔴                 |
+| `getChainId`                   | ✅ Implemented     |
 | `getChains`                    | 🟠 In progress     |
-| `getClient`                    | 🔴 Not Implemented |
-| `getConnections`               | 🔴 Not Implemented |
-| `getConnectorClient`           | 🔴 Not Implemented |
-| `getConnectors`                | 🔴 Not Implemented |
-| `getEnsAddress`                | 🔴 Not Implemented |
-| `getEnsAvatar`                 | 🔴 Not Implemented |
-| `getEnsName`                   | 🔴 Not Implemented |
-| `getEnsResolver`               | 🔴 Not Implemented |
-| `getEnsText`                   | 🔴 Not Implemented |
-| `getFeeHistory`                | 🔴 Not Implemented |
-| `getGasPrice`                  | 🔴 Not Implemented |
-| `getProof`                     | 🔴 Not Implemented |
-| `getPublicClient`              | 🔴 Not Implemented |
-| `getStorageAt`                 | 🔴 Not Implemented |
+| `getClient`                    | 🔴                 |
+| `getConnections`               | 🔴                 |
+| `getConnectorClient`           | 🔴                 |
+| `getConnectors`                | 🔴                 |
+| `getEnsAddress`                | 🔴                 |
+| `getEnsAvatar`                 | 🔴                 |
+| `getEnsName`                   | 🔴                 |
+| `getEnsResolver`               | 🔴                 |
+| `getEnsText`                   | 🔴                 |
+| `getFeeHistory`                | 🔴                 |
+| `getGasPrice`                  | 🔴                 |
+| `getProof`                     | 🔴                 |
+| `getPublicClient`              | 🔴                 |
+| `getStorageAt`                 | 🔴                 |
 | `getToken`                     | 🟠 In progress     |
-| `getTransaction`               | 🔴 Not Implemented |
-| `getTransactionConfirmations`  | 🔴 Not Implemented |
-| `getTransactionCount`          | 🟢 Implemented     |
-| `getTransactionReceipt`        | 🟢 Implemented     |
-| `getWalletClient`              | 🔴 Not Implemented |
-| `multicall`                    | 🔴 Not Implemented |
-| `prepareTransactionRequest`    | 🔴 Not Implemented |
-| `readContract`                 | 🟢 Implemented     |
-| `readContracts`                | 🟢 Implemented     |
-| `reconnect`                    | 🔴 Not Implemented |
-| `sendTransaction`              | 🔴 Not Implemented |
-| `signMessage`                  | 🟢 Implemented     |
-| `signTypedData`                | 🔴 Not Implemented |
-| `simulateContract`             | 🔴 Not Implemented |
-| `switchAccount`                | 🔴 Not Implemented |
-| `switchChain`                  | 🔴 Not Implemented |
-| `verifyMessage`                | 🔴 Not Implemented |
-| `verifyTypedData`              | 🔴 Not Implemented |
-| `waitForTransactionReceipt`    | 🔴 Not Implemented |
-| `watchAccount`                 | 🔴 Not Implemented |
-| `watchAsset`                   | 🔴 Not Implemented |
-| `watchBlockNumber`             | 🔴 Not Implemented |
-| `watchBlocks`                  | 🔴 Not Implemented |
-| `watchChainId`                 | 🔴 Not Implemented |
-| `watchClient`                  | 🔴 Not Implemented |
-| `watchConnections`             | 🔴 Not Implemented |
-| `watchConnectors`              | 🔴 Not Implemented |
-| `watchContractEvent`           | 🔴 Not Implemented |
-| `watchPendingTransactions`     | 🔴 Not Implemented |
-| `watchPublicClient`            | 🔴 Not Implemented |
+| `getTransaction`               | 🔴                 |
+| `getTransactionConfirmations`  | 🔴                 |
+| `getTransactionCount`          | ✅ Implemented     |
+| `getTransactionReceipt`        | ✅ Implemented     |
+| `getWalletClient`              | 🔴                 |
+| `multicall`                    | 🔴                 |
+| `prepareTransactionRequest`    | 🔴                 |
+| `readContract`                 | ✅ Implemented     |
+| `readContracts`                | ✅ Implemented 🛠️  |
+| `reconnect`                    | 🔴                 |
+| `sendTransaction`              | 🔴                 |
+| `signMessage`                  | ✅ Implemented     |
+| `signTypedData`                | 🔴                 |
+| `simulateContract`             | 🔴                 |
+| `switchAccount`                | 🔴                 |
+| `switchChain`                  | 🔴                 |
+| `verifyMessage`                | 🔴                 |
+| `verifyTypedData`              | 🔴                 |
+| `waitForTransactionReceipt`    | 🔴                 |
+| `watchAccount`                 | 🔴                 |
+| `watchAsset`                   | 🔴                 |
+| `watchBlockNumber`             | 🔴                 |
+| `watchBlocks`                  | 🔴                 |
+| `watchChainId`                 | 🔴                 |
+| `watchClient`                  | 🔴                 |
+| `watchConnections`             | 🔴                 |
+| `watchConnectors`              | 🔴                 |
+| `watchContractEvent`           | 🔴                 |
+| `watchPendingTransactions`     | 🔴                 |
+| `watchPublicClient`            | 🔴                 |
 | `writeContract`                | 🟠 In progress     |
 
 
