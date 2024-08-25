@@ -48,8 +48,8 @@ wagmi.Web3Modal.open();
 
 For more details, refer to the [API documentation](https://wagmi.sh/core/api/actions).
 
-| Action Name                    | Status            |
-| ------------------------------ | ----------------- |
+| Action Name                    | Status             |
+| ------------------------------ |--------------------|
 | `call`                         | 🔴 Not Implemented |
 | `connect`                      | 🔴 Not Implemented |
 | `deployContract`               | 🔴 Not Implemented |
@@ -88,7 +88,7 @@ For more details, refer to the [API documentation](https://wagmi.sh/core/api/act
 | `multicall`                    | 🔴 Not Implemented |
 | `prepareTransactionRequest`    | 🔴 Not Implemented |
 | `readContract`                 | 🟢 Implemented     |
-| `readContracts`                | 🔴 Not Implemented |
+| `readContracts`                | 🟢 Implemented     |
 | `reconnect`                    | 🔴 Not Implemented |
 | `sendTransaction`              | 🔴 Not Implemented |
 | `signMessage`                  | 🟢 Implemented     |
