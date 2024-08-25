@@ -1,8 +1,6 @@
-import 'dart:convert';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:wagmi_flutter_web/wagmi_flutter_web.dart' as wagmi;
 
 void main() {
@@ -20,7 +18,7 @@ class _MyAppState extends State<MyApp> {
   int chainId = 0;
   wagmi.GetBalanceReturnType? balance, tokenBalance;
   wagmi.Account? account;
-  List? chains;
+  List<wagmi.Chain> chains = [];
   BigInt? blockNumber;
   BigInt? gasPrice;
   String? signedMessage;
@@ -102,16 +100,12 @@ class _MyAppState extends State<MyApp> {
               Text('Chain ID: $chainId'),
               ElevatedButton(
                 onPressed: () {
-                  setState(() {
-                    chains = wagmi.Core.getChains();
-                  });
+                  chains = wagmi.Core.getChains();
+
+                  showGetChainsMethodsResponse(context, chains);
                 },
                 child: const Text('Get chains'),
               ),
-              if (chains != null)
-                Text(
-                  'chains : $chains',
-                ),
               const SizedBox(
                 height: 10,
               ),
@@ -540,6 +534,51 @@ class _MyAppState extends State<MyApp> {
               Text(
                   'Balance of wallet $tempWallet : ${BigInt.parse((multipleContractMethodsResponse[1]['result'].toString())) / BigInt.from(1000000)}'),
             ],
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text('Close'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  void showGetChainsMethodsResponse(
+    BuildContext context,
+    List<wagmi.Chain> getChainsMethodsResponse,
+  ) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: const Text('Get Chains'),
+          content: SizedBox(
+            width: double.maxFinite,
+            child: ListView.builder(
+              shrinkWrap: true,
+              itemCount: getChainsMethodsResponse.length,
+              itemBuilder: (context, index) {
+                final chain = getChainsMethodsResponse[index];
+                return ExpansionTile(
+                  title: Text(chain.name),
+                  children: [
+                    ListTile(
+                      title: const Text('ID'),
+                      subtitle: Text(chain.id.toString()),
+                    ),
+                    ListTile(
+                      title: const Text('Native Currency'),
+                      subtitle: Text(chain.nativeCurrency?.name ?? 'Unknown'),
+                    ),
+                  ],
+                );
+              },
+            ),
           ),
           actions: [
             TextButton(

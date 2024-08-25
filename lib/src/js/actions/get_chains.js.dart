@@ -4,9 +4,9 @@ part of '../wagmi.js.dart';
 
 @JS()
 extension type JSGetChainsReturnType(JSObject _) implements JSObject {
-  external JSArray<JSChain> chains;
+  external JSArray<JSArray<JSObject>> data;
 
   GetChainsReturnType get toDart => GetChainsReturnType(
-        chains: chains.toDart as List<Chain>,
+        value: data,
       );
 }

@@ -1,3 +1,11 @@
+import 'package:wagmi_flutter_web/src/models/chain_block_explorer.dart';
+import 'package:wagmi_flutter_web/src/models/chain_contract.dart';
+import 'package:wagmi_flutter_web/src/models/chain_fees.dart';
+import 'package:wagmi_flutter_web/src/models/chain_formatters.dart';
+import 'package:wagmi_flutter_web/src/models/chain_native_currency.dart';
+import 'package:wagmi_flutter_web/src/models/chain_rpc_urls.dart';
+import 'package:wagmi_flutter_web/src/models/chain_serializers.dart';
+
 /// Chains identifiers.
 ///
 /// Those finalants are used to match
@@ -6,10 +14,65 @@ class Chain {
   Chain({
     required this.id,
     required this.name,
+    this.nativeCurrency,
+    this.rpcUrls,
+    this.blockExplorers,
+    this.sourceId,
+    this.testnet,
+    this.custom,
+    this.fees,
+    this.formatters,
+    this.serializers,
+    this.contracts,
   });
+
+  factory Chain.fromMap(Map<String, dynamic> map) {
+    return Chain(
+      id: map['id'],
+      name: map['name'],
+      nativeCurrency: map['nativeCurrency'] != null
+          ? ChainNativeCurrency.fromMap(map['nativeCurrency'])
+          : null,
+      rpcUrls: map['rpcUrls'] != null
+          ? (map['rpcUrls'] as Map<String, dynamic>).map(
+              (key, value) => MapEntry(key, ChainRpcUrls.fromMap(value)),
+            )
+          : null,
+      blockExplorers: map['blockExplorers'] != null
+          ? (map['blockExplorers'] as Map<String, dynamic>).map(
+              (key, value) => MapEntry(key, ChainBlockExplorer.fromMap(value)),
+            )
+          : null,
+      contracts: map['contracts'] != null
+          ? (map['contracts'] as Map<String, dynamic>).map(
+              (key, value) => MapEntry(key, ChainContract.fromMap(value)),
+            )
+          : null,
+      sourceId: map['sourceId'],
+      testnet: map['testnet'],
+      custom: map['custom'],
+      fees: map['fees'] != null ? ChainFees.fromMap(map['fees']) : null,
+      formatters: map['formatters'] != null
+          ? ChainFormatters.fromMap(map['formatters'])
+          : null,
+      serializers: map['serializers'] != null
+          ? ChainSerializers.fromMap(map['serializers'])
+          : null,
+    );
+  }
 
   final int id;
   final String name;
+  final Map<String, ChainBlockExplorer>? blockExplorers;
+  final Map<String, ChainContract>? contracts;
+  final ChainNativeCurrency? nativeCurrency;
+  final Map<String, ChainRpcUrls>? rpcUrls;
+  final int? sourceId;
+  final bool? testnet;
+  final Map<String, dynamic>? custom;
+  final ChainFees? fees;
+  final ChainFormatters? formatters;
+  final ChainSerializers? serializers;
 
   static final mainnet = Chain(id: 1, name: 'mainnet');
   static final goerli = Chain(id: 5, name: 'goerli');

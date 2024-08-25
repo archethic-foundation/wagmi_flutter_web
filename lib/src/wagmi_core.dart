@@ -26,7 +26,13 @@ class Core {
   }
 
   static List<Chain> getChains() {
-    return window.wagmiCore.getChains().toDart as List<Chain>;
+    final result = window.wagmiCore.getChains();
+    final list = <Chain>[];
+    for (var i = 0; i < result.toDart.length; i++) {
+      final chainMap = Utils.jsObjectToMap(result.toDart[i]);
+      list.add(Chain.fromMap(chainMap));
+    }
+    return list;
   }
 
   static Future<GetBlockNumberReturnType> getBlockNumber(
