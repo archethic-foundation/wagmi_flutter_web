@@ -35,7 +35,7 @@ class WriteContractParameters {
   BigInt? gasPrice;
   BigInt? maxFeePerGas;
   BigInt? maxPriorityFeePerGas;
-  int? nonce;
+  BigInt? nonce;
   String? type;
   BigInt? value;
 

@@ -409,8 +409,11 @@ class _MyAppState extends State<MyApp> {
               ElevatedButton(
                 onPressed: () async {
                   final estimateGasParameters = wagmi.EstimateGasParameters(
+                    type: 'legacy',
                     to: '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2',
-                    gasPrice: BigInt.parse('10000000000000000'),
+                    feeValues: wagmi.FeeValuesLegacy(
+                      gasPrice: BigInt.parse('0'),
+                    ),
                     account: account!.address,
                     data: '0xd0e30db0',
                     value: BigInt.parse('10000000000000000'),
@@ -423,6 +426,12 @@ class _MyAppState extends State<MyApp> {
                 },
                 child: const Text('Estimate Gas'),
               ),
+              if (gasEstimation != null)
+                Column(
+                  children: [
+                    Text('Gas estimated: $gasEstimation'),
+                  ],
+                ),
               const SizedBox(
                 height: 10,
               ),

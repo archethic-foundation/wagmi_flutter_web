@@ -16,7 +16,7 @@ extension type JSWriteContractParameters._(JSObject _) implements JSObject {
     JSBigInt? gasPrice,
     JSBigInt? maxFeePerGas,
     JSBigInt? maxPriorityFeePerGas,
-    JSNumber? nonce,
+    JSBigInt? nonce,
     JSString? type,
     JSBigInt? value,
   });
@@ -33,7 +33,7 @@ extension type JSWriteContractParameters._(JSObject _) implements JSObject {
   external JSBigInt? gasPrice;
   external JSBigInt? maxFeePerGas;
   external JSBigInt? maxPriorityFeePerGas;
-  external JSNumber? nonce;
+  external JSBigInt? nonce;
   external JSString? type;
   external JSBigInt? value;
 }
