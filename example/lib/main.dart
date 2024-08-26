@@ -48,7 +48,7 @@ class _MyAppState extends State<MyApp> {
           [
             wagmi.Chain.mainnet.name,
             wagmi.Chain.sepolia.name,
-            wagmi.Chain.polygonAmoy.name
+            wagmi.Chain.polygonAmoy.name,
           ],
           true,
           true,
@@ -439,7 +439,7 @@ class _MyAppState extends State<MyApp> {
         {'internalType': 'uint256', 'name': '', 'type': 'uint256'},
       ],
       'stateMutability': 'view',
-      'type': 'function'
+      'type': 'function',
     }
   ];
   List<Map> testA1ContractAbi = [
@@ -477,7 +477,8 @@ class _MyAppState extends State<MyApp> {
               Text('contractAddress: ${transactionReceipt.contractAddress}'),
               const SizedBox(height: 8),
               Text(
-                  'cumulativeGasUsed: ${transactionReceipt.cumulativeGasUsed}'),
+                'cumulativeGasUsed: ${transactionReceipt.cumulativeGasUsed}',
+              ),
               const SizedBox(height: 8),
               Text('from: ${transactionReceipt.from}'),
               const SizedBox(height: 8),
@@ -520,19 +521,25 @@ class _MyAppState extends State<MyApp> {
           content: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Bit0 Contract',
-                  style: const TextStyle(fontWeight: FontWeight.bold)),
+              const Text(
+                'Bit0 Contract',
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
               // space
               const SizedBox(height: 4),
               Text(
-                  'Total Supply: ${BigInt.parse((multipleContractMethodsResponse[0]['result'].toString())) / BigInt.from(1000000)}'),
+                'Total Supply: ${BigInt.parse(multipleContractMethodsResponse[0]['result'].toString()) / BigInt.from(1000000)}',
+              ),
               // space
               const SizedBox(height: 8),
-              Text('TestA1 Contract',
-                  style: const TextStyle(fontWeight: FontWeight.bold)),
+              const Text(
+                'TestA1 Contract',
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
               const SizedBox(height: 4),
               Text(
-                  'Balance of wallet $tempWallet : ${BigInt.parse((multipleContractMethodsResponse[1]['result'].toString())) / BigInt.from(1000000)}'),
+                'Balance of wallet $tempWallet : ${BigInt.parse(multipleContractMethodsResponse[1]['result'].toString()) / BigInt.from(1000000)}',
+              ),
             ],
           ),
           actions: [

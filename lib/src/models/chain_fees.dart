@@ -11,8 +11,6 @@ class ChainFees {
       defaultPriorityFee: map['defaultPriorityFee'] != null
           ? BigInt.parse(map['defaultPriorityFee'])
           : null,
-      // TODO: Function can't be mapped directly
-      estimateFeesPerGas: null,
     );
   }
 
