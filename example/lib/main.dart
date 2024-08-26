@@ -24,6 +24,7 @@ class _MyAppState extends State<MyApp> {
   String? signedMessage;
   String? hashApproval;
   String? token;
+  String? watchChainIdInfo;
   int? gasEstimation;
   int? transactionCount;
   final tokenAddressToSearch = '0x8a3d77e9d6968b780564936d15B09805827C21fa';
@@ -421,6 +422,27 @@ class _MyAppState extends State<MyApp> {
                 },
                 child: const Text('Estimate Gas'),
               ),
+              const SizedBox(
+                height: 10,
+              ),
+              ElevatedButton(
+                onPressed: () async {
+                  final watchChainIdParameters = wagmi.WatchChainIdParameters(
+                    onChange: (chainId, prevChainId) => setState(() {
+                      watchChainIdInfo = '$chainId, $prevChainId';
+                    }),
+                  );
+
+                  await wagmi.Core.watchChainId(watchChainIdParameters);
+                },
+                child: const Text('Watch Chain Id'),
+              ),
+              if (watchChainIdInfo != null)
+                Column(
+                  children: [
+                    Text('watchChainIdInfo: $watchChainIdInfo'),
+                  ],
+                ),
               const SizedBox(
                 height: 7,
               ),

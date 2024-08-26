@@ -24,6 +24,7 @@ part 'actions/get_transaction_receipt.js.dart';
 part 'actions/read_contract.js.dart';
 part 'actions/read_contracts.js.dart';
 part 'actions/sign_message.js.dart';
+part 'actions/watch_chain_id.js.dart';
 part 'actions/write_contract.js.dart';
 part 'models/account.js.dart';
 part 'models/bigint.js.dart';
