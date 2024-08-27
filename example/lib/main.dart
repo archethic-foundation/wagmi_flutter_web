@@ -337,8 +337,7 @@ class _MyAppState extends State<MyApp> {
                     gas: BigInt.from(1500000),
                     args: [
                       '0x08Bfc8BA9fD137Fb632F79548B150FE0Be493254',
-                      // TODO: https://github.com/dart-lang/sdk/issues/56539
-                      BigInt.parse('498500000000000'),
+                      BigInt.from(498500000000000),
                     ],
                     chainId: 11155111,
                   );

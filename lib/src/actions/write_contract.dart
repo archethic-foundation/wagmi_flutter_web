@@ -46,11 +46,13 @@ class WriteContractParameters {
     final jsArgs = JSArray<JSObject>();
     for (final arg in args) {
       if (arg is String) {
-        jsArgs.add(arg.toJS);
+        jsArgs.push(arg.toJS);
       } else if (arg is int) {
-        jsArgs.add(arg.toJS);
+        jsArgs.push(arg.toJS);
       } else if (arg is bool) {
-        jsArgs.add(arg.toJS);
+        jsArgs.push(arg.toJS);
+      } else if (arg is BigInt) {
+        jsArgs.push(arg.toJS);
       }
     }
     return jsArgs;

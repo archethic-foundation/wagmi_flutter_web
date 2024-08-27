@@ -31,3 +31,7 @@ extension type JSWindow(JSObject _) implements JSObject {
   external JSWagmiCore get wagmiCore;
   external JSWagmiWeb3Modal get web3modal;
 }
+
+extension JSArrayExtension<T extends JSAny?> on JSArray<T> {
+  external void push(JSAny _);
+}
