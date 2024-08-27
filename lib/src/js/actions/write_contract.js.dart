@@ -111,13 +111,7 @@ extension type JSWriteContractParametersLegacy._(JSObject _)
 }
 
 @JS()
-extension type JSWriteContractReturnType(JSObject _) implements JSObject {
-  external JSString hash;
-
-  WriteContractReturnType get toDart => WriteContractReturnType(
-        hash: hash.toDart,
-      );
-}
+extension type JSWriteContractReturnType(JSString _) implements JSString {}
 
 @JS()
 extension type JSWriteContractErrorType(JSObject _) implements JSObject {}
