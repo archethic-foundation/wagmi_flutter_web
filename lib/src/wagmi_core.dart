@@ -169,7 +169,7 @@ class Core {
   ) async {
     final result = await window.wagmiCore
         .estimateGas(
-          estimateGasParameters.toJS!,
+          estimateGasParameters.toJS,
         )
         .toDart;
     return result.toDart;

@@ -9,8 +9,7 @@ part 'estimate_gas.g.dart';
 
 @freezed
 class EstimateGasParameters with _$EstimateGasParameters {
-  const factory EstimateGasParameters({
-    required String type,
+  const factory EstimateGasParameters.legacy({
     List<Map<String, dynamic>>? accessList,
     String? account,
     int? chainId,
@@ -20,16 +19,50 @@ class EstimateGasParameters with _$EstimateGasParameters {
     BigInt? nonce,
     String? to,
     BigInt? value,
-  }) = _EstimateGasParameters;
+  }) = EstimateGasParametersLegacy;
+
+  const factory EstimateGasParameters.eip1559({
+    List<Map<String, dynamic>>? accessList,
+    String? account,
+    int? chainId,
+    String? data,
+    BigInt? gas,
+    FeeValues? feeValues,
+    BigInt? nonce,
+    String? to,
+    BigInt? value,
+  }) = EstimateGasParametersEIP1559;
+
+  const factory EstimateGasParameters.eip4844({
+    List<Map<String, dynamic>>? accessList,
+    String? account,
+    int? chainId,
+    String? data,
+    BigInt? gas,
+    FeeValues? feeValues,
+    BigInt? nonce,
+    String? to,
+    BigInt? value,
+  }) = EstimateGasParametersEIP4844;
 
   factory EstimateGasParameters.fromJson(Map<String, dynamic> json) =>
       _$EstimateGasParametersFromJson(json);
 }
 
 extension EstimateGasParametersX on EstimateGasParameters {
-  JSObject? get toJS {
-    switch (type) {
-      case 'legacy':
+  JSObject get toJS {
+    return when(
+      legacy: (
+        accessList,
+        account,
+        chainId,
+        data,
+        gas,
+        feeValues,
+        nonce,
+        to,
+        value,
+      ) {
         return JSEstimateGasParametersLegacy(
           accessList: accessList?.jsify() as JSArray<JSObject>?,
           account: account?.toJS,
@@ -40,12 +73,22 @@ extension EstimateGasParametersX on EstimateGasParameters {
             legacy: (gasPrice) => gasPrice.toJS,
             orElse: () => null,
           ),
-          // nonce: nonce?.toJS,
+          type: 'legacy'.toJS,
           to: to?.toJS,
-          type: type.toJS,
           value: value?.toJS,
         );
-      case 'eip1559':
+      },
+      eip1559: (
+        accessList,
+        account,
+        chainId,
+        data,
+        gas,
+        feeValues,
+        nonce,
+        to,
+        value,
+      ) {
         return JSEstimateGasParametersEIP1559(
           accessList: accessList?.jsify() as JSArray<JSObject>?,
           account: account?.toJS,
@@ -61,12 +104,22 @@ extension EstimateGasParametersX on EstimateGasParameters {
                 maxPriorityFeePerGas.toJS,
             orElse: () => null,
           ),
-          //   nonce: nonce?.toJS,
+          type: 'eip1559'.toJS,
           to: to?.toJS,
-          type: type.toJS,
           value: value?.toJS,
         );
-      case 'eip4844':
+      },
+      eip4844: (
+        accessList,
+        account,
+        chainId,
+        data,
+        gas,
+        feeValues,
+        nonce,
+        to,
+        value,
+      ) {
         return JSEstimateGasParametersEIP4844(
           accessList: accessList?.jsify() as JSArray<JSObject>?,
           account: account?.toJS,
@@ -79,7 +132,7 @@ extension EstimateGasParametersX on EstimateGasParameters {
             orElse: () => null,
           ),
           maxPriorityFeePerGas: feeValues?.maybeWhen(
-            eip1559: (maxFeePerGas, maxPriorityFeePerGas) =>
+            eip4844: (maxFeePerBlobGas, maxFeePerGas, maxPriorityFeePerGas) =>
                 maxPriorityFeePerGas.toJS,
             orElse: () => null,
           ),
@@ -88,14 +141,11 @@ extension EstimateGasParametersX on EstimateGasParameters {
                 maxFeePerBlobGas.toJS,
             orElse: () => null,
           ),
-          //  nonce: nonce?.toJS,
+          type: 'eip4844'.toJS,
           to: to?.toJS,
-          type: type.toJS,
           value: value?.toJS,
         );
-
-      default:
-        return null;
-    }
+      },
+    );
   }
 }

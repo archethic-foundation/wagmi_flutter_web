@@ -408,8 +408,8 @@ class _MyAppState extends State<MyApp> {
               ),
               ElevatedButton(
                 onPressed: () async {
-                  final estimateGasParameters = wagmi.EstimateGasParameters(
-                    type: 'legacy',
+                  final estimateGasParameters =
+                      wagmi.EstimateGasParameters.legacy(
                     to: '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2',
                     feeValues: wagmi.FeeValuesLegacy(
                       gasPrice: BigInt.parse('0'),
