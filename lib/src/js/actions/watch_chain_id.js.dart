@@ -1,7 +1,7 @@
 // ignore_for_file: avoid_setters_without_getters
 part of '../wagmi.js.dart';
 
-/// [Documentation API](https://wagmi.sh/core/api/actions/signMessage)
+/// [Documentation API](https://wagmi.sh/core/api/actions/watchChainId)
 @JS()
 extension type JSWatchChainIdParameters._(JSObject _) implements JSObject {
   external JSWatchChainIdParameters({

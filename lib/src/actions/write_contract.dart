@@ -1,80 +1,61 @@
-import 'dart:js_interop';
-
-import 'package:wagmi_flutter_web/src/js/wagmi.js.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:wagmi_flutter_web/src/models/fees_values.dart';
 
 /// [Documentation API](https://wagmi.sh/core/api/actions/writeContract)
 
-class WriteContractParameters {
-  WriteContractParameters({
-    required this.abi,
-    required this.address,
-    required this.functionName,
-    this.accessList,
-    this.account,
-    this.args,
-    this.chainId,
-    this.dataSuffix,
-    this.gas,
-    this.gasPrice,
-    this.maxFeePerGas,
-    this.maxPriorityFeePerGas,
-    this.nonce,
-    this.type,
-    this.value,
-  });
+part 'write_contract.freezed.dart';
 
-  List<Map> abi;
-  String address;
-  List<Map<String, dynamic>>? accessList;
-  String? account;
-  String functionName;
-  List<dynamic>? args;
-  int? chainId;
-  String? dataSuffix;
-  BigInt? gas;
-  BigInt? gasPrice;
-  BigInt? maxFeePerGas;
-  BigInt? maxPriorityFeePerGas;
-  BigInt? nonce;
-  String? type;
-  BigInt? value;
+@freezed
+class WriteContractParameters with _$WriteContractParameters {
+  const WriteContractParameters._();
 
-  JSArray<JSObject>? _convertArgs(List<dynamic>? args) {
-    if (args == null) {
-      return null;
-    }
-    final jsArgs = JSArray<JSObject>();
-    for (final arg in args) {
-      if (arg is String) {
-        jsArgs.push(arg.toJS);
-      } else if (arg is int) {
-        jsArgs.push(arg.toJS);
-      } else if (arg is bool) {
-        jsArgs.push(arg.toJS);
-      } else if (arg is BigInt) {
-        jsArgs.push(arg.toJS);
-      }
-    }
-    return jsArgs;
-  }
+  const factory WriteContractParameters.legacy({
+    required List<Map> abi,
+    required String address,
+    required String functionName,
+    List<Map<String, dynamic>>? accessList,
+    String? account,
+    List<dynamic>? args,
+    int? chainId,
+    String? dataSuffix,
+    BigInt? gas,
+    FeeValuesLegacy? feeValues,
+    BigInt? nonce,
+    BigInt? value,
+    String? type,
+  }) = WriteContractParametersLegacy;
 
-  JSWriteContractParameters get toJS => JSWriteContractParameters(
-        abi: abi.jsify(),
-        address: address.toJS,
-        functionName: functionName.toJS,
-        accessList: accessList?.jsify() as JSArray<JSObject>?,
-        account: account?.toJS,
-        args: _convertArgs(args),
-        chainId: chainId?.toJS,
-        dataSuffix: dataSuffix?.toJS,
-        gas: gas?.toJS,
-        gasPrice: gasPrice?.toJS,
-        maxFeePerGas: maxFeePerGas?.toJS,
-        maxPriorityFeePerGas: maxPriorityFeePerGas?.toJS,
-        nonce: nonce?.toJS,
-        type: type?.toJS,
-        value: value?.toJS,
-      );
+  const factory WriteContractParameters.eip1559({
+    required List<Map> abi,
+    required String address,
+    required String functionName,
+    List<Map<String, dynamic>>? accessList,
+    String? account,
+    List<dynamic>? args,
+    int? chainId,
+    String? dataSuffix,
+    BigInt? gas,
+    FeeValuesEIP1559? feeValues,
+    BigInt? nonce,
+    BigInt? value,
+    String? type,
+  }) = WriteContractParametersEIP1559;
+
+  const factory WriteContractParameters.eip4844({
+    required List<Map> abi,
+    required String address,
+    required String functionName,
+    List<Map<String, dynamic>>? accessList,
+    String? account,
+    List<dynamic>? args,
+    int? chainId,
+    String? dataSuffix,
+    BigInt? gas,
+    FeeValuesEIP4844? feeValues,
+    BigInt? nonce,
+    BigInt? value,
+    String? type,
+  }) = WriteContractParametersEIP4844;
 }
 
 class WriteContractReturnType {

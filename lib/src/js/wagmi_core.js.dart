@@ -33,7 +33,7 @@ extension type JSWagmiCore(JSObject _) implements JSObject {
     JSGetTransactionReceiptParameters getTransactionReceiptParameters,
   );
   external JSPromise<JSWriteContractReturnType> writeContract(
-    JSWriteContractParameters writeContractParameters,
+    JSObject writeContractParameters,
   );
   external JSPromise<JSWatchChainIdReturnType> watchChainId(
     JSWatchChainIdParameters watchChainIdParameters,
