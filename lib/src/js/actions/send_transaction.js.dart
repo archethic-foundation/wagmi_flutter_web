@@ -1,6 +1,6 @@
 part of '../wagmi.js.dart';
 
-/// [Documentation API](https://wagmi.sh/core/api/actions/SendTransaction)
+/// [Documentation API](https://wagmi.sh/core/api/actions/sendTransaction)
 @JS()
 extension type JSSendTransactionParametersEIP1559._(JSObject _)
     implements JSObject {
@@ -12,7 +12,6 @@ extension type JSSendTransactionParametersEIP1559._(JSObject _)
     JSBigInt? gas,
     JSBigInt? maxFeePerGas,
     JSBigInt? maxPriorityFeePerGas,
-    // TODO: I don't understand why but it doesn't work when nonce is null. Normally it should be undefined... To be analyzed
     JSBigInt? nonce,
     JSString to,
     JSString type,
@@ -97,3 +96,95 @@ extension type JSSendTransactionParametersLegacy._(JSObject _)
 
 @JS()
 extension type JSSendTransactionErrorType(JSObject _) implements JSObject {}
+
+extension SendTransactionParametersToJS on SendTransactionParameters {
+  JSObject get toJS => map(
+      legacy: (legacy) => nonce != null
+          ? JSSendTransactionParametersLegacy(
+              accessList: accessList?.jsify() as JSArray<JSObject>?,
+              account: account.toJS,
+              chainId: chainId?.toJS,
+              data: data?.toJS,
+              gas: gas?.toJS,
+              gasPrice: legacy.feeValues?.gasPrice.toJS,
+              nonce: nonce?.toJS,
+              type: 'legacy'.toJS,
+              to: to.toJS,
+              value: value?.toJS,
+              connector: connector?.toJS,
+            )
+          : JSSendTransactionParametersLegacy(
+              accessList: accessList?.jsify() as JSArray<JSObject>?,
+              account: account.toJS,
+              chainId: chainId?.toJS,
+              data: data?.toJS,
+              gas: gas?.toJS,
+              gasPrice: legacy.feeValues?.gasPrice.toJS,
+              type: 'legacy'.toJS,
+              to: to.toJS,
+              value: value?.toJS,
+              connector: connector?.toJS,
+            ),
+      eip1559: (eip1559) => nonce != null
+          ? JSSendTransactionParametersEIP1559(
+              accessList: accessList?.jsify() as JSArray<JSObject>?,
+              account: account.toJS,
+              chainId: chainId?.toJS,
+              data: data?.toJS,
+              gas: gas?.toJS,
+              maxFeePerGas: eip1559.feeValues?.maxFeePerGas.toJS,
+              maxPriorityFeePerGas:
+                  eip1559.feeValues?.maxPriorityFeePerGas.toJS,
+              nonce: nonce?.toJS,
+              type: 'eip1559'.toJS,
+              to: to.toJS,
+              value: value?.toJS,
+              connector: connector?.toJS,
+            )
+          : JSSendTransactionParametersEIP1559(
+              accessList: accessList?.jsify() as JSArray<JSObject>?,
+              account: account.toJS,
+              chainId: chainId?.toJS,
+              data: data?.toJS,
+              gas: gas?.toJS,
+              maxFeePerGas: eip1559.feeValues?.maxFeePerGas.toJS,
+              maxPriorityFeePerGas:
+                  eip1559.feeValues?.maxPriorityFeePerGas.toJS,
+              type: 'eip1559'.toJS,
+              to: to.toJS,
+              value: value?.toJS,
+              connector: connector?.toJS,
+            ),
+      eip4844: (eip4844) => nonce != null
+          ? JSSendTransactionParametersEIP4844(
+              accessList: accessList?.jsify() as JSArray<JSObject>?,
+              account: account.toJS,
+              chainId: chainId?.toJS,
+              data: data?.toJS,
+              gas: gas?.toJS,
+              maxFeePerGas: eip4844.feeValues?.maxFeePerGas.toJS,
+              maxPriorityFeePerGas:
+                  eip4844.feeValues?.maxPriorityFeePerGas.toJS,
+              maxFeePerBlobGas: eip4844.feeValues?.maxFeePerBlobGas.toJS,
+              type: 'eip4844'.toJS,
+              nonce: nonce?.toJS,
+              to: to.toJS,
+              value: value?.toJS,
+              connector: connector?.toJS,
+            )
+          : JSSendTransactionParametersEIP4844(
+              accessList: accessList?.jsify() as JSArray<JSObject>?,
+              account: account.toJS,
+              chainId: chainId?.toJS,
+              data: data?.toJS,
+              gas: gas?.toJS,
+              maxFeePerGas: eip4844.feeValues?.maxFeePerGas.toJS,
+              maxPriorityFeePerGas:
+                  eip4844.feeValues?.maxPriorityFeePerGas.toJS,
+              maxFeePerBlobGas: eip4844.feeValues?.maxFeePerBlobGas.toJS,
+              type: 'eip4844'.toJS,
+              to: to.toJS,
+              value: value?.toJS,
+              connector: connector?.toJS,
+            ));
+}

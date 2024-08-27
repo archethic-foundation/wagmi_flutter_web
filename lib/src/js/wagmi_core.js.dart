@@ -44,4 +44,7 @@ extension type JSWagmiCore(JSObject _) implements JSObject {
   external JSPromise<JSBigInt> estimateGas(
     JSObject estimateGasParameters,
   );
+  external JSPromise<JSGetTransactionReturnType> getTransaction(
+    JSGetTransactionParameters readContractsParameters,
+  );
 }

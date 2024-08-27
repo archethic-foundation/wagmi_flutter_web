@@ -440,11 +440,10 @@ class _MyAppState extends State<MyApp> {
               ElevatedButton(
                 onPressed: () async {
                   final sendTransactionParameters =
-                      wagmi.SendTransactionParameters(
-                    to: '0xfAd3b616BCD747A12A7c0a6203E7a481606B12E8',
-                    // gasPrice: BigInt.parse('150000000000'),
+                      wagmi.SendTransactionParameters.legacy(
+                    to: '0xfA9F840d49D5774Fb3fc46AF9d8cE66087CBB79a',
                     gas: BigInt.from(15000000000),
-                    feeValues: wagmi.FeeValues.legacy(
+                    feeValues: wagmi.FeeValuesLegacy(
                       gasPrice: BigInt.parse('150000000000'),
                     ),
                     // chainId: account!.chain!.id,
@@ -510,6 +509,23 @@ class _MyAppState extends State<MyApp> {
               const SizedBox(
                 height: 7,
               ),
+
+              // get transaction method
+              ElevatedButton(
+                onPressed: () async {
+                  final getTransactionParameters =
+                      wagmi.GetTransactionParameters(
+                    hash:
+                        '0x6f79870e05ebfb529d7ee291cfdf7cbfe05222313045a1d43c24c0906e65e4a7',
+                  );
+                  final getTransactionReturnType =
+                      await wagmi.Core.getTransaction(getTransactionParameters);
+                  // print(
+                  //     'getTransactionReturnType: ${getTransactionReturnType.from}');
+                },
+                child: const Text('Get Transaction'),
+              ),
+              const SizedBox(height: 7),
             ],
           ),
         ),

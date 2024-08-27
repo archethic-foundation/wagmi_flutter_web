@@ -4,6 +4,7 @@ import 'package:wagmi_flutter_web/src/actions/get_balance.dart';
 import 'package:wagmi_flutter_web/src/actions/get_block_number.dart';
 import 'package:wagmi_flutter_web/src/actions/get_gas_price.dart';
 import 'package:wagmi_flutter_web/src/actions/get_token.dart';
+import 'package:wagmi_flutter_web/src/actions/get_transaction.dart';
 import 'package:wagmi_flutter_web/src/actions/get_transaction_count.dart';
 import 'package:wagmi_flutter_web/src/actions/get_transaction_receipt.dart';
 import 'package:wagmi_flutter_web/src/actions/send_transaction.dart';
@@ -182,6 +183,17 @@ class Core {
     final result = await window.wagmiCore
         .estimateGas(
           estimateGasParameters.toJS,
+        )
+        .toDart;
+    return result.toDart;
+  }
+
+  static Future<GetTransactionReturnType> getTransaction(
+    GetTransactionParameters getTransactionParameters,
+  ) async {
+    final result = await window.wagmiCore
+        .getTransaction(
+          getTransactionParameters.toJS,
         )
         .toDart;
     return result.toDart;
