@@ -47,7 +47,7 @@ class Core {
     return result.toDart;
   }
 
-  static Future<GetGasPriceReturnType> getGasPrice(
+  static Future<BigInt> getGasPrice(
     GetGasPriceParameters getGasPriceParameters,
   ) async {
     final result = await window.wagmiCore

@@ -83,7 +83,7 @@ For more details, refer to the [API documentation](https://wagmi.sh/core/api/act
 | `getEnsResolver`               | 🔴               |
 | `getEnsText`                   | 🔴               |
 | `getFeeHistory`                | 🔴               |
-| `getGasPrice`                  | 🔴               |
+| `getGasPrice`                  | ✅ Implemented   |
 | `getProof`                     | 🔴               |
 | `getPublicClient`              | 🔴               |
 | `getStorageAt`                 | 🔴               |
