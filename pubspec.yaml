@@ -9,15 +9,28 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+
+  # Annotations for the freezed code-generator. This package does nothing without freezed too
   freezed_annotation: ^2.4.4
+
+  # Defines the annotations used by json_serializable to create code for JSON serialization and deserialization.
   json_annotation: ^4.6.0
 
 dev_dependencies:
+  # A build system for Dart code generation and modular compilation.
   build_runner: ^2.4.8
+
+  # The decimal package allows you to deal with decimal numbers without losing precision
+  decimal: ^3.0.2
+
   flutter_lints: ^3.0.0
   flutter_test:
     sdk: flutter
+
+  # Code generation for immutable classes that has a simple syntax/API without compromising on the features
   freezed: ^2.5.2
+
+  # Automatically generate code for converting to and from JSON by annotating Dart classes.
   json_serializable: ^6.2.0
 
 flutter:
