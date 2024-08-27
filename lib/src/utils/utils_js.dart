@@ -2,7 +2,9 @@ import 'dart:js_interop';
 // ignore: avoid_web_libraries_in_flutter
 import 'dart:js_util' as js_util;
 
-class Utils {
+import 'package:wagmi_flutter_web/src/js/wagmi.js.dart';
+
+class UtilsJS {
   static Map<String, dynamic> jsObjectToMap(JSObject jsObject) {
     final map = <String, dynamic>{};
 
@@ -25,5 +27,24 @@ class Utils {
       map[keyString] = value;
     }
     return map;
+  }
+
+  static JSArray<JSObject>? convertArgs(List<dynamic>? args) {
+    if (args == null) {
+      return null;
+    }
+    final jsArgs = JSArray<JSObject>();
+    for (final arg in args) {
+      if (arg is String) {
+        jsArgs.push(arg.toJS);
+      } else if (arg is int) {
+        jsArgs.push(arg.toJS);
+      } else if (arg is bool) {
+        jsArgs.push(arg.toJS);
+      } else if (arg is BigInt) {
+        jsArgs.push(arg.toJS);
+      }
+    }
+    return jsArgs;
   }
 }

@@ -1,5 +1,7 @@
 import 'dart:math';
 
+import 'package:example/actions/gas_price.dart';
+import 'package:example/actions/write_contract.dart';
 import 'package:flutter/material.dart';
 import 'package:wagmi_flutter_web/wagmi_flutter_web.dart' as wagmi;
 
@@ -20,9 +22,7 @@ class _MyAppState extends State<MyApp> {
   wagmi.Account? account;
   List<wagmi.Chain> chains = [];
   BigInt? blockNumber;
-  BigInt? gasPrice;
   String? signedMessage;
-  String? hashApproval;
   String? token;
   wagmi.WatchChainIdReturnType? watchChainIdUnsubscribe;
   String? watchChainIdInfo;
@@ -38,6 +38,12 @@ class _MyAppState extends State<MyApp> {
 
   String testTokenA1 = '0x4D8cb4Fa6Df53d47f0B7d76a05d4AC881B2f4101';
   String tempWallet = '0xfAd3b616BCD747A12A7c0a6203E7a481606B12E8';
+
+  final tabs = [
+    const Tab(text: 'Main'),
+    const Tab(text: 'Write Contracts'),
+    const Tab(text: 'Gas Price'),
+  ];
 
   @override
   void initState() {
@@ -69,412 +75,350 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text('Flutter Web3Modal')),
-      body: Center(
-        child: SingleChildScrollView(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const ElevatedButton(
-                onPressed: wagmi.Web3Modal.open,
-                child: Text('Connect Wallet'),
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  setState(() {
-                    signedMessage = null;
-                    account = wagmi.Core.getAccount();
-                    chainId = wagmi.Core.getChainId();
-                  });
-                },
-                child: const Text('Get Account info'),
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              Text('account address: ${account?.address ?? 'unknown'}'),
-              Text('account status:  ${account?.status ?? 'unknown'}'),
-              Text('account chain ID: ${account?.chain?.id ?? 'unknown'}'),
-              Text('Chain ID: $chainId'),
-              ElevatedButton(
-                onPressed: () {
-                  chains = wagmi.Core.getChains();
-
-                  showGetChainsMethodsResponse(context, chains);
-                },
-                child: const Text('Get chains'),
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              ElevatedButton(
-                onPressed: () async {
-                  final getBlockNumberParameters =
-                      wagmi.GetBlockNumberParameters(
-                    chainId: account!.chain!.id,
-                    cacheTime: 4000,
-                  );
-                  final getBlockNumberReturnType =
-                      await wagmi.Core.getBlockNumber(
-                    getBlockNumberParameters,
-                  );
-                  setState(() {
-                    blockNumber = getBlockNumberReturnType.blockNumber;
-                  });
-                },
-                child: const Text('Get Block number'),
-              ),
-              if (blockNumber != null)
-                Text(
-                  'blockNumber : $blockNumber',
-                ),
-              const SizedBox(
-                height: 10,
-              ),
-              ElevatedButton(
-                onPressed: () async {
-                  final getGasPriceParameters = wagmi.GetGasPriceParameters(
-                    chainId: account!.chain!.id,
-                  );
-                  final getGasPriceReturnType =
-                      await wagmi.Core.getGasPrice(getGasPriceParameters);
-                  setState(() {
-                    gasPrice = getGasPriceReturnType.gasPrice;
-                  });
-                },
-                child: const Text('Get Gas Price'),
-              ),
-              if (gasPrice != null)
-                Text(
-                  'gasPrice : $gasPrice',
-                ),
-              const SizedBox(
-                height: 10,
-              ),
-              ElevatedButton(
-                onPressed: () async {
-                  final balanceResult = await wagmi.Core.getBalance(
-                    wagmi.GetBalanceParameters(
-                      address: account?.address ?? '',
-                      blockTag: 'latest',
-                    ),
-                  );
-                  setState(() {
-                    balance = balanceResult;
-                  });
-                },
-                child: const Text('Get Balance'),
-              ),
-              const SizedBox(
-                height: 5,
-              ),
-              Text(
-                (balance != null && balance!.value > BigInt.from(0))
-                    ? 'balance : ${(balance!.value.toInt()) / pow(10, balance!.decimals)} ${balance?.symbol}'
-                    : 'balance : ${balance?.value ?? 'unknown'} ${balance?.symbol}',
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              ElevatedButton(
-                onPressed: () async {
-                  final balanceResult = await wagmi.Core.getBalance(
-                    wagmi.GetBalanceParameters(
-                      address: account?.address ?? '',
-                      token: bitTokenAddress,
-                    ),
-                  );
-                  setState(() {
-                    tokenBalance = balanceResult;
-                  });
-                },
-                child: const Text('Get BIT Token Balance'),
-              ),
-              const SizedBox(
-                height: 5,
-              ),
-              Text(
-                (tokenBalance != null && tokenBalance!.value > BigInt.from(0))
-                    ? 'balance : ${(tokenBalance!.value.toInt()) / pow(10, tokenBalance!.decimals)} ${tokenBalance?.symbol}'
-                    : 'balance : ${tokenBalance?.value ?? 'unknown'} ${tokenBalance?.symbol}',
-              ),
-              const SizedBox(
-                height: 5,
-              ),
-              ElevatedButton(
-                onPressed: () async {
-                  final getTokenParameters = wagmi.GetTokenParameters(
-                    address: tokenAddressToSearch,
-                    chainId: account!.chain!.id,
-                  );
-                  final getTokenReturnType =
-                      await wagmi.Core.getToken(getTokenParameters);
-                  setState(() {
-                    token =
-                        '${getTokenReturnType.name} ${getTokenReturnType.symbol}';
-                  });
-                },
-                child: Text(
-                  'Get Token info ($tokenAddressToSearch / ${account?.chain!.id})',
-                ),
-              ),
-              if (token != null) Text('token: $token'),
-              const SizedBox(
-                height: 10,
-              ),
-              ElevatedButton(
-                onPressed: () async {
-                  final transactionCountResult =
-                      await wagmi.Core.getTransactionCount(
-                    wagmi.GetTransactionCountParameters(
-                      address: account?.address ?? '',
-                      chainId: account!.chain!.id,
-                      blockTag: 'latest',
-                    ),
-                  );
-                  setState(() {
-                    transactionCount = transactionCountResult;
-                  });
-                },
-                child: const Text('Get Transaction Count'),
-              ),
-              const SizedBox(
-                height: 5,
-              ),
-              if (transactionCount != null)
-                Text('transactionCount : $transactionCount'),
-              const SizedBox(
-                height: 10,
-              ),
-              ElevatedButton(
-                onPressed: () async {
-                  // read contract
-                  final getTokenParameters = wagmi.ReadContractParameters(
-                    abi: bitContractAbi,
-                    address: bitTokenAddress,
-                    functionName: 'totalSupply',
-                  );
-                  final readContractReturnType =
-                      await wagmi.Core.readContract(getTokenParameters);
-                  setState(() {
-                    tokenSupply =
-                        int.parse(readContractReturnType.toString()) / 1000000;
-                  });
-                },
-                child: const Text('Get Token Supply From Contract'),
-              ),
-              const SizedBox(
-                height: 7,
-              ),
-              if (tokenSupply != null)
-                Text(
-                  'Total token supply :  $tokenSupply',
-                )
-              else
-                Container(),
-              const SizedBox(
-                height: 10,
-              ),
-              ElevatedButton(
-                onPressed: () async {
-                  final signMessageParameters = wagmi.SignMessageParameters(
-                    account: account!.address!,
-                    message: messageToSign,
-                  );
-                  final signMessageReturnType =
-                      await wagmi.Core.signMessage(signMessageParameters);
-                  setState(() {
-                    signedMessage = signMessageReturnType;
-                  });
-                },
-                child: Text('Personal sign ($messageToSign)'),
-              ),
-              if (signedMessage != null)
-                Column(
-                  children: [
-                    Text('message signed: $signedMessage'),
-                  ],
-                ),
-              const SizedBox(
-                height: 10,
-              ),
-              ElevatedButton(
-                onPressed: () async {
-                  final writeContractParameters = wagmi.WriteContractParameters(
-                    abi: [
-                      {
-                        'inputs': [
-                          {
-                            'internalType': 'address',
-                            'name': 'spender',
-                            'type': 'address',
-                          },
-                          {
-                            'internalType': 'uint256',
-                            'name': 'amount',
-                            'type': 'uint256',
-                          }
-                        ],
-                        'name': 'approve',
-                        'outputs': [
-                          {
-                            'internalType': 'bool',
-                            'name': '',
-                            'type': 'bool',
-                          },
-                        ],
-                        'stateMutability': 'nonpayable',
-                        'type': 'function',
-                      },
-                    ],
-                    address: '0xCBBd3374090113732393DAE1433Bc14E5233d5d7',
-                    account: account?.address,
-                    functionName: 'approve',
-                    gas: BigInt.from(1500000),
-                    args: [
-                      '0x08Bfc8BA9fD137Fb632F79548B150FE0Be493254',
-                      // TODO: https://github.com/dart-lang/sdk/issues/56539
-                      BigInt.parse('498500000000000'),
-                    ],
-                    chainId: 11155111,
-                  );
-
-                  final writeContractReturnType =
-                      await wagmi.Core.writeContract(writeContractParameters);
-
-                  setState(() {
-                    hashApproval = writeContractReturnType.hash;
-                  });
-                },
-                child: const Text('Call approve function'),
-              ),
-              if (hashApproval != null)
-                Column(
-                  children: [
-                    Text('Hash approval: $hashApproval'),
-                  ],
-                ),
-              const SizedBox(
-                height: 10,
-              ),
-              ElevatedButton(
-                onPressed: () async {
-                  final getTransactionReceiptParameters =
-                      wagmi.GetTransactionReceiptParameters(hash: hash);
-                  final readContractReturnType =
-                      await wagmi.Core.getTransactionReceipt(
-                    getTransactionReceiptParameters,
-                  );
-                  showTransactionReceiptDialog(
-                    context,
-                    readContractReturnType,
-                  );
-                },
-                child: const Text('Get Transaction Receipt'),
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              ElevatedButton(
-                onPressed: () async {
-                  final readContractsParameters = wagmi.ReadContractsParameters(
-                    contracts: [
-                      {
-                        'abi': bitContractAbi,
-                        'address': bitTokenAddress,
-                        'functionName': 'totalSupply',
-                      },
-                      {
-                        'abi': testA1ContractAbi,
-                        'address': testTokenA1,
-                        'functionName': 'balanceOf',
-                        'args': [tempWallet],
-                      },
-                    ],
-                  );
-                  final result = await wagmi.Core.readContracts(
-                    readContractsParameters,
-                  );
-                  showMultipleContractMethodsResponse(context, result);
-                },
-                child: const Text('Call Multiple Contracts'),
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              ElevatedButton(
-                onPressed: () async {
-                  final estimateGasParameters =
-                      wagmi.EstimateGasParameters.legacy(
-                    to: '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2',
-                    feeValues: wagmi.FeeValuesLegacy(
-                      gasPrice: BigInt.parse('0'),
-                    ),
-                    account: account!.address,
-                    data: '0xd0e30db0',
-                    value: BigInt.parse('10000000000000000'),
-                  );
-                  final result =
-                      await wagmi.Core.estimateGas(estimateGasParameters);
-                  setState(() {
-                    gasEstimation = result.toInt();
-                  });
-                },
-                child: const Text('Estimate Gas'),
-              ),
-              if (gasEstimation != null)
-                Column(
-                  children: [
-                    Text('Gas estimated: $gasEstimation'),
-                  ],
-                ),
-              const SizedBox(
-                height: 10,
-              ),
-              if (watchChainIdUnsubscribe != null)
-                ElevatedButton(
-                  onPressed: () async {
-                    watchChainIdUnsubscribe?.call();
-                    setState(() {
-                      watchChainIdUnsubscribe = null;
-                    });
-                  },
-                  child: const Text('Unwatch Chain Id'),
-                )
-              else
-                ElevatedButton(
-                  onPressed: () async {
-                    final watchChainIdParameters = wagmi.WatchChainIdParameters(
-                      onChange: (chainId, prevChainId) => setState(() {
-                        watchChainIdInfo =
-                            'current : $chainId, previous : $prevChainId';
-                      }),
-                    );
-
-                    final unwatch = await wagmi.Core.watchChainId(
-                      watchChainIdParameters,
-                    );
-                    setState(() {
-                      watchChainIdUnsubscribe = unwatch;
-                    });
-                  },
-                  child: const Text('Watch Chain Id'),
-                ),
-              if (watchChainIdInfo != null)
-                Column(
-                  children: [
-                    Text('watchChainIdInfo: $watchChainIdInfo'),
-                  ],
-                ),
-              const SizedBox(
-                height: 7,
-              ),
-            ],
+    return DefaultTabController(
+      length: tabs.length,
+      child: Scaffold(
+        appBar: AppBar(
+          title: const Text('Flutter Web3Modal'),
+          bottom: TabBar(
+            tabs: tabs,
           ),
+        ),
+        body: TabBarView(
+          children: [
+            buildMainTab(),
+            const WriteContractsExample(),
+            const GasPriceExample(),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget buildMainTab() {
+    return Center(
+      child: SingleChildScrollView(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const ElevatedButton(
+              onPressed: wagmi.Web3Modal.open,
+              child: Text('Connect Wallet'),
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            ElevatedButton(
+              onPressed: () {
+                setState(() {
+                  signedMessage = null;
+                  account = wagmi.Core.getAccount();
+                  chainId = wagmi.Core.getChainId();
+                });
+              },
+              child: const Text('Get Account info'),
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            Text('account address: ${account?.address ?? 'unknown'}'),
+            Text('account status:  ${account?.status ?? 'unknown'}'),
+            Text('account chain ID: ${account?.chain?.id ?? 'unknown'}'),
+            Text('Chain ID: $chainId'),
+            ElevatedButton(
+              onPressed: () {
+                chains = wagmi.Core.getChains();
+
+                showGetChainsMethodsResponse(context, chains);
+              },
+              child: const Text('Get chains'),
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            ElevatedButton(
+              onPressed: () async {
+                final getBlockNumberParameters = wagmi.GetBlockNumberParameters(
+                  chainId: account!.chain!.id,
+                  cacheTime: 4000,
+                );
+                final getBlockNumberReturnType =
+                    await wagmi.Core.getBlockNumber(
+                  getBlockNumberParameters,
+                );
+                setState(() {
+                  blockNumber = getBlockNumberReturnType.blockNumber;
+                });
+              },
+              child: const Text('Get Block number'),
+            ),
+            if (blockNumber != null)
+              Text(
+                'blockNumber : $blockNumber',
+              ),
+            const SizedBox(
+              height: 10,
+            ),
+            ElevatedButton(
+              onPressed: () async {
+                final balanceResult = await wagmi.Core.getBalance(
+                  wagmi.GetBalanceParameters(
+                    address: account?.address ?? '',
+                    blockTag: 'latest',
+                  ),
+                );
+                setState(() {
+                  balance = balanceResult;
+                });
+              },
+              child: const Text('Get Balance'),
+            ),
+            const SizedBox(
+              height: 5,
+            ),
+            Text(
+              (balance != null && balance!.value > BigInt.from(0))
+                  ? 'balance : ${(balance!.value.toInt()) / pow(10, balance!.decimals)} ${balance?.symbol}'
+                  : 'balance : ${balance?.value ?? 'unknown'} ${balance?.symbol}',
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            ElevatedButton(
+              onPressed: () async {
+                final balanceResult = await wagmi.Core.getBalance(
+                  wagmi.GetBalanceParameters(
+                    address: account?.address ?? '',
+                    token: bitTokenAddress,
+                  ),
+                );
+                setState(() {
+                  tokenBalance = balanceResult;
+                });
+              },
+              child: const Text('Get BIT Token Balance'),
+            ),
+            const SizedBox(
+              height: 5,
+            ),
+            Text(
+              (tokenBalance != null && tokenBalance!.value > BigInt.from(0))
+                  ? 'balance : ${(tokenBalance!.value.toInt()) / pow(10, tokenBalance!.decimals)} ${tokenBalance?.symbol}'
+                  : 'balance : ${tokenBalance?.value ?? 'unknown'} ${tokenBalance?.symbol}',
+            ),
+            const SizedBox(
+              height: 5,
+            ),
+            ElevatedButton(
+              onPressed: () async {
+                final getTokenParameters = wagmi.GetTokenParameters(
+                  address: tokenAddressToSearch,
+                  chainId: account!.chain!.id,
+                );
+                final getTokenReturnType =
+                    await wagmi.Core.getToken(getTokenParameters);
+                setState(() {
+                  token =
+                      '${getTokenReturnType.name} ${getTokenReturnType.symbol}';
+                });
+              },
+              child: Text(
+                'Get Token info ($tokenAddressToSearch / ${account?.chain!.id})',
+              ),
+            ),
+            if (token != null) Text('token: $token'),
+            const SizedBox(
+              height: 10,
+            ),
+            ElevatedButton(
+              onPressed: () async {
+                final transactionCountResult =
+                    await wagmi.Core.getTransactionCount(
+                  wagmi.GetTransactionCountParameters(
+                    address: account?.address ?? '',
+                    chainId: account!.chain!.id,
+                    blockTag: 'latest',
+                  ),
+                );
+                setState(() {
+                  transactionCount = transactionCountResult;
+                });
+              },
+              child: const Text('Get Transaction Count'),
+            ),
+            const SizedBox(
+              height: 5,
+            ),
+            if (transactionCount != null)
+              Text('transactionCount : $transactionCount'),
+            const SizedBox(
+              height: 10,
+            ),
+            ElevatedButton(
+              onPressed: () async {
+                // read contract
+                final getTokenParameters = wagmi.ReadContractParameters(
+                  abi: bitContractAbi,
+                  address: bitTokenAddress,
+                  functionName: 'totalSupply',
+                );
+                final readContractReturnType =
+                    await wagmi.Core.readContract(getTokenParameters);
+                setState(() {
+                  tokenSupply =
+                      int.parse(readContractReturnType.toString()) / 1000000;
+                });
+              },
+              child: const Text('Get Token Supply From Contract'),
+            ),
+            const SizedBox(
+              height: 7,
+            ),
+            if (tokenSupply != null)
+              Text(
+                'Total token supply :  $tokenSupply',
+              )
+            else
+              Container(),
+            const SizedBox(
+              height: 10,
+            ),
+            ElevatedButton(
+              onPressed: () async {
+                final signMessageParameters = wagmi.SignMessageParameters(
+                  account: account!.address!,
+                  message: messageToSign,
+                );
+                final signMessageReturnType =
+                    await wagmi.Core.signMessage(signMessageParameters);
+                setState(() {
+                  signedMessage = signMessageReturnType;
+                });
+              },
+              child: Text('Personal sign ($messageToSign)'),
+            ),
+            if (signedMessage != null)
+              Column(
+                children: [
+                  Text('message signed: $signedMessage'),
+                ],
+              ),
+            const SizedBox(
+              height: 10,
+            ),
+            ElevatedButton(
+              onPressed: () async {
+                final getTransactionReceiptParameters =
+                    wagmi.GetTransactionReceiptParameters(hash: hash);
+                final readContractReturnType =
+                    await wagmi.Core.getTransactionReceipt(
+                  getTransactionReceiptParameters,
+                );
+                showTransactionReceiptDialog(
+                  context,
+                  readContractReturnType,
+                );
+              },
+              child: const Text('Get Transaction Receipt'),
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            ElevatedButton(
+              onPressed: () async {
+                final readContractsParameters = wagmi.ReadContractsParameters(
+                  contracts: [
+                    {
+                      'abi': bitContractAbi,
+                      'address': bitTokenAddress,
+                      'functionName': 'totalSupply',
+                    },
+                    {
+                      'abi': testA1ContractAbi,
+                      'address': testTokenA1,
+                      'functionName': 'balanceOf',
+                      'args': [tempWallet],
+                    },
+                  ],
+                );
+                final result = await wagmi.Core.readContracts(
+                  readContractsParameters,
+                );
+                showMultipleContractMethodsResponse(context, result);
+              },
+              child: const Text('Call Multiple Contracts'),
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            ElevatedButton(
+              onPressed: () async {
+                final estimateGasParameters =
+                    wagmi.EstimateGasParameters.legacy(
+                  to: '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2',
+                  feeValues: wagmi.FeeValuesLegacy(
+                    gasPrice: BigInt.parse('0'),
+                  ),
+                  account: account!.address,
+                  data: '0xd0e30db0',
+                  value: BigInt.parse('10000000000000000'),
+                );
+                final result =
+                    await wagmi.Core.estimateGas(estimateGasParameters);
+                setState(() {
+                  gasEstimation = result.toInt();
+                });
+              },
+              child: const Text('Estimate Gas'),
+            ),
+            if (gasEstimation != null)
+              Column(
+                children: [
+                  Text('Gas estimated: $gasEstimation'),
+                ],
+              ),
+            const SizedBox(
+              height: 10,
+            ),
+            if (watchChainIdUnsubscribe != null)
+              ElevatedButton(
+                onPressed: () async {
+                  watchChainIdUnsubscribe?.call();
+                  setState(() {
+                    watchChainIdUnsubscribe = null;
+                  });
+                },
+                child: const Text('Unwatch Chain Id'),
+              )
+            else
+              ElevatedButton(
+                onPressed: () async {
+                  final watchChainIdParameters = wagmi.WatchChainIdParameters(
+                    onChange: (chainId, prevChainId) => setState(() {
+                      watchChainIdInfo =
+                          'current : $chainId, previous : $prevChainId';
+                    }),
+                  );
+
+                  final unwatch = await wagmi.Core.watchChainId(
+                    watchChainIdParameters,
+                  );
+                  setState(() {
+                    watchChainIdUnsubscribe = unwatch;
+                  });
+                },
+                child: const Text('Watch Chain Id'),
+              ),
+            if (watchChainIdInfo != null)
+              Column(
+                children: [
+                  Text('watchChainIdInfo: $watchChainIdInfo'),
+                ],
+              ),
+            const SizedBox(
+              height: 7,
+            ),
+          ],
         ),
       ),
     );

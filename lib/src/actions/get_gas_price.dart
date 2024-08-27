@@ -13,11 +13,3 @@ class GetGasPriceParameters {
         chainId: chainId?.toJS,
       );
 }
-
-class GetGasPriceReturnType {
-  GetGasPriceReturnType({
-    required this.gasPrice,
-  });
-
-  BigInt gasPrice;
-}

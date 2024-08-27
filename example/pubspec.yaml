@@ -28,8 +28,14 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
+  # The decimal package allows you to deal with decimal numbers without losing precision
+  decimal: ^3.0.2
+
   flutter:
     sdk: flutter
+
+  # Flutter plugin for launching a URL. Supports web, phone, SMS, and email schemes
+  url_launcher: ^6.2.5
 
   wagmi_flutter_web:
     path: ../

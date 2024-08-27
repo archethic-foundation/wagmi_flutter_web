@@ -15,7 +15,7 @@ import 'package:wagmi_flutter_web/src/actions/write_contract.dart';
 import 'package:wagmi_flutter_web/src/js/wagmi.js.dart';
 import 'package:wagmi_flutter_web/src/models/account.dart';
 import 'package:wagmi_flutter_web/src/models/chain.dart';
-import 'package:wagmi_flutter_web/utility/utils.dart';
+import 'package:wagmi_flutter_web/src/utils/utils_js.dart';
 
 class Core {
   static Account getAccount() {
@@ -30,7 +30,7 @@ class Core {
     final result = window.wagmiCore.getChains();
     final list = <Chain>[];
     for (var i = 0; i < result.toDart.length; i++) {
-      final chainMap = Utils.jsObjectToMap(result.toDart[i]);
+      final chainMap = UtilsJS.jsObjectToMap(result.toDart[i]);
       list.add(Chain.fromMap(chainMap));
     }
     return list;
@@ -47,7 +47,7 @@ class Core {
     return result.toDart;
   }
 
-  static Future<GetGasPriceReturnType> getGasPrice(
+  static Future<BigInt> getGasPrice(
     GetGasPriceParameters getGasPriceParameters,
   ) async {
     final result = await window.wagmiCore
@@ -125,7 +125,7 @@ class Core {
     // call jsObjectToMap to convert JSObject to Dart Map
     final list = <Map<String, dynamic>>[];
     for (var i = 0; i < result.toDart.length; i++) {
-      list.add(Utils.jsObjectToMap(result.toDart[i]));
+      list.add(UtilsJS.jsObjectToMap(result.toDart[i]));
     }
     return list;
   }

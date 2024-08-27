@@ -52,6 +52,7 @@ wagmi.Web3Modal.open();
 🟠 Work In Progress.\
 ✅ Implemented.\
 🛠️ Lacks WASM Support. (Needs rework in future.)
+📄 TODO to be managed 
 
 
 For more details, refer to the [API documentation](https://wagmi.sh/core/api/actions).
@@ -83,7 +84,7 @@ For more details, refer to the [API documentation](https://wagmi.sh/core/api/act
 | `getEnsResolver`               | 🔴               |
 | `getEnsText`                   | 🔴               |
 | `getFeeHistory`                | 🔴               |
-| `getGasPrice`                  | 🔴               |
+| `getGasPrice`                  | ✅ Implemented   |
 | `getProof`                     | 🔴               |
 | `getPublicClient`              | 🔴               |
 | `getStorageAt`                 | 🔴               |
@@ -118,7 +119,7 @@ For more details, refer to the [API documentation](https://wagmi.sh/core/api/act
 | `watchContractEvent`           | 🔴               |
 | `watchPendingTransactions`     | 🔴               |
 | `watchPublicClient`            | 🔴               |
-| `writeContract`                | 🟠 In progress   |
+| `writeContract`                | ✅ Implemented 📄 |
 
 
 
