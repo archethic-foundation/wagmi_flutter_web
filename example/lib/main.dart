@@ -24,6 +24,7 @@ class _MyAppState extends State<MyApp> {
   String? signedMessage;
   String? hashApproval;
   String? token;
+  wagmi.WatchChainIdReturnType? watchChainIdUnsubscribe;
   String? watchChainIdInfo;
   int? gasEstimation;
   int? transactionCount;
@@ -425,18 +426,35 @@ class _MyAppState extends State<MyApp> {
               const SizedBox(
                 height: 10,
               ),
-              ElevatedButton(
-                onPressed: () async {
-                  final watchChainIdParameters = wagmi.WatchChainIdParameters(
-                    onChange: (chainId, prevChainId) => setState(() {
-                      watchChainIdInfo = '$chainId, $prevChainId';
-                    }),
-                  );
+              if (watchChainIdUnsubscribe != null)
+                ElevatedButton(
+                  onPressed: () async {
+                    watchChainIdUnsubscribe?.call();
+                    setState(() {
+                      watchChainIdUnsubscribe = null;
+                    });
+                  },
+                  child: const Text('Unwatch Chain Id'),
+                )
+              else
+                ElevatedButton(
+                  onPressed: () async {
+                    final watchChainIdParameters = wagmi.WatchChainIdParameters(
+                      onChange: (chainId, prevChainId) => setState(() {
+                        watchChainIdInfo =
+                            'current : $chainId, previous : $prevChainId';
+                      }),
+                    );
 
-                  await wagmi.Core.watchChainId(watchChainIdParameters);
-                },
-                child: const Text('Watch Chain Id'),
-              ),
+                    final unwatch = await wagmi.Core.watchChainId(
+                      watchChainIdParameters,
+                    );
+                    setState(() {
+                      watchChainIdUnsubscribe = unwatch;
+                    });
+                  },
+                  child: const Text('Watch Chain Id'),
+                ),
               if (watchChainIdInfo != null)
                 Column(
                   children: [

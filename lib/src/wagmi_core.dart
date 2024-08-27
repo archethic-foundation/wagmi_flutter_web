@@ -142,7 +142,7 @@ class Core {
     return result.toDart;
   }
 
-  static Future<JSFunction> watchChainId(
+  static Future<void Function()> watchChainId(
     WatchChainIdParameters watchChainIdParameters,
   ) async {
     final result = await window.wagmiCore
@@ -150,7 +150,7 @@ class Core {
           watchChainIdParameters.toJS,
         )
         .toDart;
-    return result;
+    return result.toDart;
   }
 
   static Future<WriteContractReturnType> writeContract(

@@ -4,8 +4,25 @@ part of '../wagmi.js.dart';
 /// [Documentation API](https://wagmi.sh/core/api/actions/signMessage)
 @JS()
 extension type JSWatchChainIdParameters._(JSObject _) implements JSObject {
-  external set onChange(JSFunction callback);
+  external JSWatchChainIdParameters({
+    JSFunction onChange,
+  });
+
+  external JSFunction onChange;
 }
 
 @JS()
-extension type WatchChainIdReturnType(JSFunction _) implements JSFunction {}
+extension type JSWatchChainIdReturnType(JSFunction _) implements JSFunction {}
+
+extension JSWatchChainIdReturnTypeConversion on JSWatchChainIdReturnType {
+  // ignore: unnecessary_lambdas
+  WatchChainIdReturnType get toDart => () {
+        callAsFunction();
+      };
+}
+
+extension JSWatchChainIdParametersConversion on WatchChainIdParameters {
+  JSWatchChainIdParameters get toJS => JSWatchChainIdParameters(
+        onChange: onChange.toJS,
+      );
+}

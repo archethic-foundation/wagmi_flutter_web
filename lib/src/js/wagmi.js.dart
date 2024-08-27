@@ -8,6 +8,7 @@ import 'package:wagmi_flutter_web/src/actions/get_token.dart';
 import 'package:wagmi_flutter_web/src/actions/get_transaction_receipt.dart';
 import 'package:wagmi_flutter_web/src/actions/read_contract.dart';
 import 'package:wagmi_flutter_web/src/actions/read_contracts.dart';
+import 'package:wagmi_flutter_web/src/actions/watch_chain_id.dart';
 import 'package:wagmi_flutter_web/src/actions/write_contract.dart';
 import 'package:wagmi_flutter_web/src/models/account.dart';
 import 'package:wagmi_flutter_web/src/models/chain.dart';
