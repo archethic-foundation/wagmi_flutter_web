@@ -122,4 +122,27 @@ For more details, refer to the [API documentation](https://wagmi.sh/core/api/act
 | `writeContract`                | ✅ Implemented 📄 |
 
 
+## Development environment
 
+### Prerequisites
+
+You will need the following tools :
+- Flutter >= 3.22.3
+- nodejs >= 18
+
+### Compile TypeScript code
+
+Following commands will build `JS` code to embed in the web browser.
+
+```sh
+npm install
+npm run build_dev //or `npm run build` for production mode
+``` 
+
+### Run Flutter project
+
+Then, you can run Flutter project as usual. 
+
+```sh
+flutter 
+```

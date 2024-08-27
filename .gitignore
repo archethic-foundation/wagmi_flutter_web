@@ -15,6 +15,7 @@ migrate_working_dir/
 *.ipr
 *.iws
 .idea/
+.vscode/settings.json
 
 # The .vscode folder contains launch configuration and tasks you configure in
 # VS Code which you may wish to be included in version control, so this line
@@ -27,3 +28,8 @@ migrate_working_dir/
 **/doc/api/
 .dart_tool/
 build/
+
+# JS related
+node_modules
+lib/assets/*.js
+lib/assets/*.LICENSE.txt
