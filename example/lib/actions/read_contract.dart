@@ -6,6 +6,7 @@ import 'package:example/actions/components/spacer.dart';
 import 'package:example/actions/components/tab_header.dart';
 import 'package:flutter/material.dart';
 import 'package:wagmi_flutter_web/wagmi_flutter_web.dart' as wagmi;
+import 'package:wagmi_flutter_web/wagmi_flutter_web.dart';
 
 class ReadContractExample extends StatefulWidget {
   const ReadContractExample({super.key});
@@ -175,7 +176,7 @@ class _ReadContractExampleState extends State<ReadContractExample> {
                     ),
                   );
                   _operationSucceed(result.toString());
-                } catch (e) {
+                } on WagmiError catch (e) {
                   _operationFailed(e.toString());
                 }
               },

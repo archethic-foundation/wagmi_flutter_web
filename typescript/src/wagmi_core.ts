@@ -1,6 +1,7 @@
 import {
     CallParameters,
     Config,
+    DeployContractParameters,
     DisconnectParameters,
     EstimateFeesPerGasParameters,
     EstimateGasParameters,
@@ -18,22 +19,22 @@ import {
     GetTransactionParameters,
     GetTransactionReceiptParameters,
     GetWalletClientParameters,
-    DeployContractParameters,
-    WatchAssetParameters,
     ReadContractParameters,
     ReadContractsParameters,
     SendTransactionParameters,
-    WatchConnectionsParameters,
-    WatchAccountParameters,
-    SwitchChainParameters,
-    SwitchAccountParameters,
-    VerifyMessageParameters,
     SignMessageParameters,
+    SwitchAccountParameters,
+    SwitchChainParameters,
+    VerifyMessageParameters,
     WaitForTransactionReceiptParameters,
+    WatchAccountParameters,
+    WatchAssetParameters,
     WatchChainIdParameters,
+    WatchConnectionsParameters,
     WatchContractEventParameters,
     WriteContractParameters,
     call,
+    deployContract,
     disconnect,
     estimateFeesPerGas,
     estimateGas,
@@ -53,22 +54,21 @@ import {
     getTransactionConfirmations,
     getTransactionCount,
     getTransactionReceipt,
+    getWalletClient,
     readContract,
     readContracts,
     sendTransaction,
     signMessage,
+    switchAccount,
+    switchChain,
+    verifyMessage,
     waitForTransactionReceipt,
+    watchAccount,
+    watchAsset,
     watchChainId,
+    watchConnections,
     watchContractEvent,
     writeContract,
-    watchConnections,
-    switchChain,
-    switchAccount,
-    watchAccount,
-    verifyMessage,
-    getWalletClient,
-    deployContract,
-    watchAsset,
 } from "@wagmi/core";
 import { InvalidAddressError } from "viem";
 import { JSWagmiContext } from "./context";
@@ -88,7 +88,6 @@ export class JSWagmiCore {
 
 
     getBlockNumber = this.#guard(
-        'getBlockNumber',
         async (configKey: string, params: GetBlockNumberParameters) => getBlockNumber(
             this.getConfig(configKey),
             params
@@ -96,7 +95,6 @@ export class JSWagmiCore {
     )
 
     getGasPrice = this.#guard(
-        'getGasPrice',
         async (configKey: string, params: GetGasPriceParameters) => getGasPrice(
             this.getConfig(configKey),
             params
@@ -104,7 +102,6 @@ export class JSWagmiCore {
     )
 
     getBalance = this.#guard(
-        'getBalance',
         async (configKey: string, params: GetBalanceParameters) => {
             if (!params.address || !/^0x[a-fA-F0-9]{40}$/.test(params.address)) {
                 console.error("Invalid address provided")
@@ -117,7 +114,6 @@ export class JSWagmiCore {
         }
     )
     getBlock = this.#guard(
-        'getBlock',
         async (configKey: string, params: GetBlockParameters) => {
             return getBlock(
                 this.getConfig(configKey),
@@ -127,7 +123,6 @@ export class JSWagmiCore {
     )
 
     getBlockTransactionCount = this.#guard(
-        'getBlockTransactionCount',
         async (configKey: string, params: GetBlockTransactionCountParameters) => getBlockTransactionCount(
             this.getConfig(configKey),
             params
@@ -135,7 +130,6 @@ export class JSWagmiCore {
     )
 
     getTransaction = this.#guard(
-        'getTransaction',
         async (configKey: string, params: GetTransactionParameters) => getTransaction(
             this.getConfig(configKey),
             params
@@ -143,7 +137,6 @@ export class JSWagmiCore {
     )
 
     call = this.#guard(
-        'call',
         async (configKey: string, params: CallParameters) => call(
             this.getConfig(configKey),
             params
@@ -151,7 +144,6 @@ export class JSWagmiCore {
     )
 
     getTransactionConfirmations = this.#guard(
-        'getTransactionConfirmations',
         async (configKey: string, params: GetTransactionConfirmationsParameters) => getTransactionConfirmations(
             this.getConfig(configKey),
             params
@@ -159,7 +151,6 @@ export class JSWagmiCore {
     )
 
     getTransactionCount = this.#guard(
-        'getTransactionCount',
         async (configKey: string, params: GetTransactionCountParameters) => {
             if (!params.address || !/^0x[a-fA-F0-9]{40}$/.test(params.address)) {
                 console.error("Invalid address provided")
@@ -174,7 +165,6 @@ export class JSWagmiCore {
     )
 
     getToken = this.#guard(
-        'getToken',
         async (configKey: string, params: GetTokenParameters) => getToken(
             this.getConfig(configKey),
             params
@@ -183,7 +173,6 @@ export class JSWagmiCore {
 
 
     signMessage = this.#guard(
-        'signMessage',
         async (configKey: string, params: SignMessageParameters) => {
             if (!params.message) {
                 console.error("No message provided")
@@ -197,7 +186,6 @@ export class JSWagmiCore {
     )
 
     readContract = this.#guard(
-        'readContract',
         async (configKey: string, params: ReadContractParameters) => readContract(
             this.getConfig(configKey),
             params
@@ -205,7 +193,6 @@ export class JSWagmiCore {
     )
 
     readContracts = this.#guard(
-        'readContracts',
         async (configKey: string, params: ReadContractsParameters) => readContracts(
             this.getConfig(configKey),
             params
@@ -213,7 +200,6 @@ export class JSWagmiCore {
     )
 
     getTransactionReceipt = this.#guard(
-        'getTransactionReceipt',
         async (configKey: string, params: GetTransactionReceiptParameters) => getTransactionReceipt(
             this.getConfig(configKey),
             params
@@ -221,7 +207,6 @@ export class JSWagmiCore {
     )
 
     sendTransaction = this.#guard(
-        'sendTransaction',
         async (configKey: string, params: SendTransactionParameters) => sendTransaction(
             this.getConfig(configKey),
             params
@@ -229,7 +214,6 @@ export class JSWagmiCore {
     )
 
     watchChainId = this.#guard(
-        'watchChainId',
         async (configKey: string, params: WatchChainIdParameters) => watchChainId(
             this.getConfig(configKey),
             params
@@ -237,7 +221,6 @@ export class JSWagmiCore {
     )
 
     watchContractEvent = this.#guard(
-        'watchContractEvent',
         async (configKey: string, params: WatchContractEventParameters) => watchContractEvent(
             this.getConfig(configKey),
             params
@@ -245,7 +228,6 @@ export class JSWagmiCore {
     )
 
     writeContract = this.#guard(
-        'writeContract',
         async (configKey: string, params: WriteContractParameters) => writeContract(
             this.getConfig(configKey),
             params
@@ -253,7 +235,6 @@ export class JSWagmiCore {
     )
 
     estimateGas = this.#guard(
-        'estimateGas',
         async (configKey: string, params: EstimateGasParameters) => estimateGas(
             this.getConfig(configKey),
             params
@@ -261,7 +242,6 @@ export class JSWagmiCore {
     )
 
     estimateFeesPerGas = this.#guard(
-        'estimateFeesPerGas',
         async (configKey: string, params: EstimateFeesPerGasParameters) => estimateFeesPerGas(
             this.getConfig(configKey),
             params
@@ -269,7 +249,6 @@ export class JSWagmiCore {
     )
 
     estimateMaxPriorityFeePerGas = this.#guard(
-        'estimateMaxPriorityFeePerGas',
         async (configKey: string, params: EstimateMaxPriorityFeePerGasParameters) => estimateMaxPriorityFeePerGas(
             this.getConfig(configKey),
             params
@@ -278,7 +257,6 @@ export class JSWagmiCore {
     )
 
     getBytecode = this.#guard(
-        'getBytecode',
         async (configKey: string, params: GetBytecodeParameters) => getBytecode(
             this.getConfig(configKey),
             params
@@ -286,7 +264,6 @@ export class JSWagmiCore {
     )
 
     disconnect = this.#guard(
-        'disconnect',
         async (configKey: string, params: DisconnectParameters) => disconnect(
             this.getConfig(configKey),
             params
@@ -294,7 +271,6 @@ export class JSWagmiCore {
     )
 
     waitForTransactionReceipt = this.#guard(
-        'waitForTransactionReceipt',
         async (configKey: string, params: WaitForTransactionReceiptParameters) => waitForTransactionReceipt(
             this.getConfig(configKey),
             params
@@ -302,7 +278,6 @@ export class JSWagmiCore {
     )
 
     getFeeHistory = this.#guard(
-        'getFeeHistory',
         async (configKey: string, params: GetFeeHistoryParameters) => getFeeHistory(
             this.getConfig(configKey),
             params
@@ -310,42 +285,36 @@ export class JSWagmiCore {
     )
 
     watchConnections = this.#guard(
-        'watchConnections',
         async (configKey: string, params: WatchConnectionsParameters) => watchConnections(
             this.getConfig(configKey),
             params
         )
     )
     switchChain = this.#guard(
-        'switchChain',
         async (configKey: string, params: SwitchChainParameters) => switchChain(
             this.getConfig(configKey),
             params
         )
     )
     switchAccount = this.#guard(
-        'switchAccount',
         async (configKey: string, params: SwitchAccountParameters) => switchAccount(
             this.getConfig(configKey),
             params
         )
     )
     watchAccount = this.#guard(
-        'watchAccount',
         async (configKey: string, params: WatchAccountParameters) => watchAccount(
             this.getConfig(configKey),
             params
         )
     )
     verifyMessage = this.#guard(
-        'verifyMessage',
         async (configKey: string, params: VerifyMessageParameters) => verifyMessage(
             this.getConfig(configKey),
             params
         )
     )
     getWalletClient = this.#guard(
-        'getWalletClient',
         async (configKey: string, params: GetWalletClientParameters) => {
             return await getWalletClient(
                 this.getConfig(configKey),
@@ -354,7 +323,6 @@ export class JSWagmiCore {
         }
     )
     deployContract = this.#guard(
-        'deployContract',
         async (configKey: string, params: DeployContractParameters) => {
             return await deployContract(
                 this.getConfig(configKey),
@@ -363,7 +331,6 @@ export class JSWagmiCore {
         }
     )
     watchAsset = this.#guard(
-        'watchAsset',
         async (configKey: string, params: WatchAssetParameters) => {
             return await watchAsset(
                 this.getConfig(configKey),
@@ -386,14 +353,7 @@ export class JSWagmiCore {
     }
 
 
-    #guard<ParamsT, ResultT>(actionName: string, action: (configKey: string, params: ParamsT) => Promise<ResultT>): (configKey: string, params: ParamsT) => Promise<ResultT> {
-        return async (configKey: string, params: ParamsT) => {
-            try {
-                return await action(configKey, illegalNullsToUndefined(params))
-            } catch (error) {
-                console.error(`Error ${actionName} (${JSON.stringify(params)}) : `, error)
-                throw error
-            }
-        }
+    #guard<ParamsT, ResultT>(action: (configKey: string, params: ParamsT) => Promise<ResultT>): (configKey: string, params: ParamsT) => Promise<ResultT> {
+        return async (configKey: string, params: ParamsT) => await action(configKey, illegalNullsToUndefined(params))
     }
 }
