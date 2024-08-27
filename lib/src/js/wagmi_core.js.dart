@@ -39,6 +39,6 @@ extension type JSWagmiCore(JSObject _) implements JSObject {
     JSWatchChainIdParameters watchChainIdParameters,
   );
   external JSPromise<JSBigInt> estimateGas(
-    JSEstimateGasParameters estimateGasParameters,
+    JSObject estimateGasParameters,
   );
 }

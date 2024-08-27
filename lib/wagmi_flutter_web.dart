@@ -26,6 +26,7 @@ export 'src/models/chain_formatters.dart';
 export 'src/models/chain_native_currency.dart';
 export 'src/models/chain_rpc_urls.dart';
 export 'src/models/chain_serializers.dart';
+export 'src/models/fees_values.dart';
 export 'src/wagmi_core.dart';
 export 'src/wagmi_web3modal.dart';
 
