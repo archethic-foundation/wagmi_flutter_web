@@ -19,5 +19,5 @@ class ReadContractsReturnType {
     required this.value,
   });
 
-  final JSArray<JSArray<JSObject>> value;
+  final List<Map<String, dynamic>> value;
 }

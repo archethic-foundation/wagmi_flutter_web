@@ -35,6 +35,9 @@ extension type JSWagmiCore(JSObject _) implements JSObject {
   external JSPromise<JSWriteContractReturnType> writeContract(
     JSWriteContractParameters writeContractParameters,
   );
+  external JSPromise<JSString> sendTransaction(
+    JSObject sendTransactionParameters,
+  );
   external JSPromise<JSWatchChainIdReturnType> watchChainId(
     JSWatchChainIdParameters watchChainIdParameters,
   );

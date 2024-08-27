@@ -1,31 +1,25 @@
-abstract class FeeValues {
-  const FeeValues();
-}
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-class FeeValuesLegacy extends FeeValues {
-  FeeValuesLegacy({required this.gasPrice});
+part 'fees_values.freezed.dart';
+part 'fees_values.g.dart';
 
-  final BigInt gasPrice;
-}
+@freezed
+class FeeValues with _$FeeValues {
+  const factory FeeValues.legacy({
+    required BigInt gasPrice,
+  }) = FeeValuesLegacy;
 
-class FeeValuesEIP1559 extends FeeValues {
-  FeeValuesEIP1559({
-    required this.maxFeePerGas,
-    required this.maxPriorityFeePerGas,
-  });
+  const factory FeeValues.eip1559({
+    required BigInt maxFeePerGas,
+    required BigInt maxPriorityFeePerGas,
+  }) = FeeValuesEIP1559;
 
-  final BigInt maxFeePerGas;
-  final BigInt maxPriorityFeePerGas;
-}
+  const factory FeeValues.eip4844({
+    required BigInt maxFeePerBlobGas,
+    required BigInt maxFeePerGas,
+    required BigInt maxPriorityFeePerGas,
+  }) = FeeValuesEIP4844;
 
-class FeeValuesEIP4844 extends FeeValues {
-  FeeValuesEIP4844({
-    required this.maxFeePerBlobGas,
-    required this.maxFeePerGas,
-    required this.maxPriorityFeePerGas,
-  });
-
-  final BigInt maxFeePerBlobGas;
-  final BigInt maxFeePerGas;
-  final BigInt maxPriorityFeePerGas;
+  factory FeeValues.fromJson(Map<String, dynamic> json) =>
+      _$FeeValuesFromJson(json);
 }

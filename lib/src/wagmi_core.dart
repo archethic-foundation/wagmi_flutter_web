@@ -1,13 +1,14 @@
+import 'dart:convert';
 import 'dart:js_interop';
-
-import 'package:wagmi_flutter_web/src/actions/estimate_gas.dart';
 import 'package:wagmi_flutter_web/src/actions/get_balance.dart';
 import 'package:wagmi_flutter_web/src/actions/get_block_number.dart';
 import 'package:wagmi_flutter_web/src/actions/get_gas_price.dart';
 import 'package:wagmi_flutter_web/src/actions/get_token.dart';
 import 'package:wagmi_flutter_web/src/actions/get_transaction_count.dart';
 import 'package:wagmi_flutter_web/src/actions/get_transaction_receipt.dart';
+import 'package:wagmi_flutter_web/src/actions/send_transaction.dart';
 import 'package:wagmi_flutter_web/src/actions/read_contract.dart';
+import 'package:wagmi_flutter_web/src/actions/estimate_gas.dart';
 import 'package:wagmi_flutter_web/src/actions/read_contracts.dart';
 import 'package:wagmi_flutter_web/src/actions/sign_message.dart';
 import 'package:wagmi_flutter_web/src/actions/watch_chain_id.dart';
@@ -148,6 +149,17 @@ class Core {
     final result = await window.wagmiCore
         .watchChainId(
           watchChainIdParameters.toJS,
+        )
+        .toDart;
+    return result.toDart;
+  }
+
+  static Future<String> sendTransaction(
+    SendTransactionParameters sendTransactionParameters,
+  ) async {
+    final result = await window.wagmiCore
+        .sendTransaction(
+          sendTransactionParameters.toJS!,
         )
         .toDart;
     return result.toDart;

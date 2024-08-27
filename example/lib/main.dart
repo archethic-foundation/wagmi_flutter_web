@@ -34,10 +34,11 @@ class _MyAppState extends State<MyApp> {
   String bitTokenAddress =
       '0x2237605711227D0254Ccb33CE70767871Cf1CCc3'; // contract address deployed on polygonAmoy network only
   String hash =
-      '0x28c67e05c4f32710697629c996e33f94f251e733e373f80ea84d432926ca9260';
+      '0xe255cfe8de5f85d9db7cf4d5eac3a64182a6d41de3445a5e3ac98429c0fa1d1d';
 
   String testTokenA1 = '0x4D8cb4Fa6Df53d47f0B7d76a05d4AC881B2f4101';
   String tempWallet = '0xfAd3b616BCD747A12A7c0a6203E7a481606B12E8';
+  String txHash = '';
 
   @override
   void initState() {
@@ -51,6 +52,7 @@ class _MyAppState extends State<MyApp> {
             wagmi.Chain.mainnet.name,
             wagmi.Chain.sepolia.name,
             wagmi.Chain.polygonAmoy.name,
+            wagmi.Chain.polygon.name,
           ],
           true,
           true,
@@ -434,6 +436,41 @@ class _MyAppState extends State<MyApp> {
                 ),
               const SizedBox(
                 height: 10,
+              ),
+              ElevatedButton(
+                onPressed: () async {
+                  final sendTransactionParameters =
+                      wagmi.SendTransactionParameters(
+                    to: '0xfAd3b616BCD747A12A7c0a6203E7a481606B12E8',
+                    // gasPrice: BigInt.parse('150000000000'),
+                    gas: BigInt.from(15000000000),
+                    feeValues: wagmi.FeeValues.legacy(
+                      gasPrice: BigInt.parse('150000000000'),
+                    ),
+                    // chainId: account!.chain!.id,
+                    account: account!.address!,
+                    type: 'legacy',
+                    value: BigInt.parse('10000000000000000'),
+                  );
+                  final result = await wagmi.Core.sendTransaction(
+                      sendTransactionParameters);
+                  print('result: ${result}');
+                  setState(() {
+                    txHash = result;
+                  });
+                },
+                child: const Text('Send Transaction'),
+              ),
+              const SizedBox(
+                height: 7,
+              ),
+              // txHash is not empty then show the transaction hash
+              if (txHash.isNotEmpty)
+                Text('Transaction Hash: $txHash')
+              else
+                Container(),
+              const SizedBox(
+                height: 7,
               ),
               if (watchChainIdUnsubscribe != null)
                 ElevatedButton(
