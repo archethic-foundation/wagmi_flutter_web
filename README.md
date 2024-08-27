@@ -111,7 +111,7 @@ For more details, refer to the [API documentation](https://wagmi.sh/core/api/act
 | `watchAsset`                   | 🔴                 |
 | `watchBlockNumber`             | 🔴                 |
 | `watchBlocks`                  | 🔴                 |
-| `watchChainId`                 | 🔴                 |
+| `watchChainId`                 | ✅ Implemented     |
 | `watchClient`                  | 🔴                 |
 | `watchConnections`             | 🔴                 |
 | `watchConnectors`              | 🔴                 |

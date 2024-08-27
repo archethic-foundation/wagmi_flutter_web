@@ -14,6 +14,7 @@ export 'src/actions/get_transaction_receipt.dart';
 export 'src/actions/read_contract.dart';
 export 'src/actions/read_contracts.dart';
 export 'src/actions/sign_message.dart';
+export 'src/actions/watch_chain_id.dart';
 export 'src/actions/write_contract.dart';
 export 'src/models/account.dart';
 export 'src/models/chain.dart';
