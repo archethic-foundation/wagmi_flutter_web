@@ -90,3 +90,44 @@ extension type JSEstimateGasParametersLegacy._(JSObject _) implements JSObject {
 
 @JS()
 extension type JSEstimateGasErrorType(JSObject _) implements JSObject {}
+
+extension EstimatedGasParametersToJS on EstimateGasParameters {
+  JSObject get toJS => map(
+        legacy: (legacy) => JSEstimateGasParametersLegacy(
+          accessList: accessList?.jsify() as JSArray<JSObject>?,
+          account: account?.toJS,
+          chainId: chainId?.toJS,
+          data: data?.toJS,
+          gas: gas?.toJS ?? BigInt.zero.toJS,
+          gasPrice: legacy.feeValues?.gasPrice.toJS,
+          type: 'legacy'.toJS,
+          to: to?.toJS,
+          value: value?.toJS,
+        ),
+        eip1559: (eip1559) => JSEstimateGasParametersEIP1559(
+          accessList: accessList?.jsify() as JSArray<JSObject>?,
+          account: account?.toJS,
+          chainId: chainId?.toJS,
+          data: data?.toJS,
+          gas: gas?.toJS ?? BigInt.zero.toJS,
+          maxFeePerGas: eip1559.feeValues?.maxFeePerGas.toJS,
+          maxPriorityFeePerGas: eip1559.feeValues?.maxPriorityFeePerGas.toJS,
+          type: 'eip1559'.toJS,
+          to: to?.toJS,
+          value: value?.toJS,
+        ),
+        eip4844: (eip4844) => JSEstimateGasParametersEIP4844(
+          accessList: accessList?.jsify() as JSArray<JSObject>?,
+          account: account?.toJS,
+          chainId: chainId?.toJS,
+          data: data?.toJS,
+          gas: gas?.toJS ?? BigInt.zero.toJS,
+          maxFeePerGas: eip4844.feeValues?.maxFeePerGas.toJS,
+          maxPriorityFeePerGas: eip4844.feeValues?.maxPriorityFeePerGas.toJS,
+          maxFeePerBlobGas: eip4844.feeValues?.maxFeePerBlobGas.toJS,
+          type: 'eip4844'.toJS,
+          to: to?.toJS,
+          value: value?.toJS,
+        ),
+      );
+}

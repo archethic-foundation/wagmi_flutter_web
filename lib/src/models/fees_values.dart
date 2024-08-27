@@ -1,25 +1,31 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
+abstract class FeeValues {
+  const FeeValues();
+}
 
-part 'fees_values.freezed.dart';
-part 'fees_values.g.dart';
+class FeeValuesLegacy extends FeeValues {
+  FeeValuesLegacy({required this.gasPrice});
 
-@freezed
-class FeeValues with _$FeeValues {
-  const factory FeeValues.legacy({
-    required BigInt gasPrice,
-  }) = FeeValuesLegacy;
+  final BigInt gasPrice;
+}
 
-  const factory FeeValues.eip1559({
-    required BigInt maxFeePerGas,
-    required BigInt maxPriorityFeePerGas,
-  }) = FeeValuesEIP1559;
+class FeeValuesEIP1559 extends FeeValues {
+  FeeValuesEIP1559({
+    required this.maxFeePerGas,
+    required this.maxPriorityFeePerGas,
+  });
 
-  const factory FeeValues.eip4844({
-    required BigInt maxFeePerBlobGas,
-    required BigInt maxFeePerGas,
-    required BigInt maxPriorityFeePerGas,
-  }) = FeeValuesEIP4844;
+  final BigInt maxFeePerGas;
+  final BigInt maxPriorityFeePerGas;
+}
 
-  factory FeeValues.fromJson(Map<String, dynamic> json) =>
-      _$FeeValuesFromJson(json);
+class FeeValuesEIP4844 extends FeeValues {
+  FeeValuesEIP4844({
+    required this.maxFeePerBlobGas,
+    required this.maxFeePerGas,
+    required this.maxPriorityFeePerGas,
+  });
+
+  final BigInt maxFeePerBlobGas;
+  final BigInt maxFeePerGas;
+  final BigInt maxPriorityFeePerGas;
 }

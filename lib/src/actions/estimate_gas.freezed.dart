@@ -14,25 +14,6 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
-EstimateGasParameters _$EstimateGasParametersFromJson(
-    Map<String, dynamic> json) {
-  switch (json['runtimeType']) {
-    case 'legacy':
-      return EstimateGasParametersLegacy.fromJson(json);
-    case 'eip1559':
-      return EstimateGasParametersEIP1559.fromJson(json);
-    case 'eip4844':
-      return EstimateGasParametersEIP4844.fromJson(json);
-
-    default:
-      throw CheckedFromJsonException(
-          json,
-          'runtimeType',
-          'EstimateGasParameters',
-          'Invalid union type "${json['runtimeType']}"!');
-  }
-}
-
 /// @nodoc
 mixin _$EstimateGasParameters {
   List<Map<String, dynamic>>? get accessList =>
@@ -53,7 +34,7 @@ mixin _$EstimateGasParameters {
             int? chainId,
             String? data,
             BigInt? gas,
-            FeeValues? feeValues,
+            FeeValuesLegacy? feeValues,
             BigInt? nonce,
             String? to,
             BigInt? value)
@@ -64,7 +45,7 @@ mixin _$EstimateGasParameters {
             int? chainId,
             String? data,
             BigInt? gas,
-            FeeValues? feeValues,
+            FeeValuesEIP1559? feeValues,
             BigInt? nonce,
             String? to,
             BigInt? value)
@@ -75,7 +56,7 @@ mixin _$EstimateGasParameters {
             int? chainId,
             String? data,
             BigInt? gas,
-            FeeValues? feeValues,
+            FeeValuesEIP4844? feeValues,
             BigInt? nonce,
             String? to,
             BigInt? value)
@@ -90,7 +71,7 @@ mixin _$EstimateGasParameters {
             int? chainId,
             String? data,
             BigInt? gas,
-            FeeValues? feeValues,
+            FeeValuesLegacy? feeValues,
             BigInt? nonce,
             String? to,
             BigInt? value)?
@@ -101,7 +82,7 @@ mixin _$EstimateGasParameters {
             int? chainId,
             String? data,
             BigInt? gas,
-            FeeValues? feeValues,
+            FeeValuesEIP1559? feeValues,
             BigInt? nonce,
             String? to,
             BigInt? value)?
@@ -112,7 +93,7 @@ mixin _$EstimateGasParameters {
             int? chainId,
             String? data,
             BigInt? gas,
-            FeeValues? feeValues,
+            FeeValuesEIP4844? feeValues,
             BigInt? nonce,
             String? to,
             BigInt? value)?
@@ -127,7 +108,7 @@ mixin _$EstimateGasParameters {
             int? chainId,
             String? data,
             BigInt? gas,
-            FeeValues? feeValues,
+            FeeValuesLegacy? feeValues,
             BigInt? nonce,
             String? to,
             BigInt? value)?
@@ -138,7 +119,7 @@ mixin _$EstimateGasParameters {
             int? chainId,
             String? data,
             BigInt? gas,
-            FeeValues? feeValues,
+            FeeValuesEIP1559? feeValues,
             BigInt? nonce,
             String? to,
             BigInt? value)?
@@ -149,7 +130,7 @@ mixin _$EstimateGasParameters {
             int? chainId,
             String? data,
             BigInt? gas,
-            FeeValues? feeValues,
+            FeeValuesEIP4844? feeValues,
             BigInt? nonce,
             String? to,
             BigInt? value)?
@@ -179,7 +160,7 @@ mixin _$EstimateGasParameters {
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+
   @JsonKey(ignore: true)
   $EstimateGasParametersCopyWith<EstimateGasParameters> get copyWith =>
       throw _privateConstructorUsedError;
@@ -197,12 +178,9 @@ abstract class $EstimateGasParametersCopyWith<$Res> {
       int? chainId,
       String? data,
       BigInt? gas,
-      FeeValues? feeValues,
       BigInt? nonce,
       String? to,
       BigInt? value});
-
-  $FeeValuesCopyWith<$Res>? get feeValues;
 }
 
 /// @nodoc
@@ -224,7 +202,6 @@ class _$EstimateGasParametersCopyWithImpl<$Res,
     Object? chainId = freezed,
     Object? data = freezed,
     Object? gas = freezed,
-    Object? feeValues = freezed,
     Object? nonce = freezed,
     Object? to = freezed,
     Object? value = freezed,
@@ -250,10 +227,6 @@ class _$EstimateGasParametersCopyWithImpl<$Res,
           ? _value.gas
           : gas // ignore: cast_nullable_to_non_nullable
               as BigInt?,
-      feeValues: freezed == feeValues
-          ? _value.feeValues
-          : feeValues // ignore: cast_nullable_to_non_nullable
-              as FeeValues?,
       nonce: freezed == nonce
           ? _value.nonce
           : nonce // ignore: cast_nullable_to_non_nullable
@@ -267,18 +240,6 @@ class _$EstimateGasParametersCopyWithImpl<$Res,
           : value // ignore: cast_nullable_to_non_nullable
               as BigInt?,
     ) as $Val);
-  }
-
-  @override
-  @pragma('vm:prefer-inline')
-  $FeeValuesCopyWith<$Res>? get feeValues {
-    if (_value.feeValues == null) {
-      return null;
-    }
-
-    return $FeeValuesCopyWith<$Res>(_value.feeValues!, (value) {
-      return _then(_value.copyWith(feeValues: value) as $Val);
-    });
   }
 }
 
@@ -297,13 +258,10 @@ abstract class _$$EstimateGasParametersLegacyImplCopyWith<$Res>
       int? chainId,
       String? data,
       BigInt? gas,
-      FeeValues? feeValues,
+      FeeValuesLegacy? feeValues,
       BigInt? nonce,
       String? to,
       BigInt? value});
-
-  @override
-  $FeeValuesCopyWith<$Res>? get feeValues;
 }
 
 /// @nodoc
@@ -353,7 +311,7 @@ class __$$EstimateGasParametersLegacyImplCopyWithImpl<$Res>
       feeValues: freezed == feeValues
           ? _value.feeValues
           : feeValues // ignore: cast_nullable_to_non_nullable
-              as FeeValues?,
+              as FeeValuesLegacy?,
       nonce: freezed == nonce
           ? _value.nonce
           : nonce // ignore: cast_nullable_to_non_nullable
@@ -371,8 +329,8 @@ class __$$EstimateGasParametersLegacyImplCopyWithImpl<$Res>
 }
 
 /// @nodoc
-@JsonSerializable()
-class _$EstimateGasParametersLegacyImpl implements EstimateGasParametersLegacy {
+
+class _$EstimateGasParametersLegacyImpl extends EstimateGasParametersLegacy {
   const _$EstimateGasParametersLegacyImpl(
       {final List<Map<String, dynamic>>? accessList,
       this.account,
@@ -382,14 +340,9 @@ class _$EstimateGasParametersLegacyImpl implements EstimateGasParametersLegacy {
       this.feeValues,
       this.nonce,
       this.to,
-      this.value,
-      final String? $type})
+      this.value})
       : _accessList = accessList,
-        $type = $type ?? 'legacy';
-
-  factory _$EstimateGasParametersLegacyImpl.fromJson(
-          Map<String, dynamic> json) =>
-      _$$EstimateGasParametersLegacyImplFromJson(json);
+        super._();
 
   final List<Map<String, dynamic>>? _accessList;
   @override
@@ -410,16 +363,13 @@ class _$EstimateGasParametersLegacyImpl implements EstimateGasParametersLegacy {
   @override
   final BigInt? gas;
   @override
-  final FeeValues? feeValues;
+  final FeeValuesLegacy? feeValues;
   @override
   final BigInt? nonce;
   @override
   final String? to;
   @override
   final BigInt? value;
-
-  @JsonKey(name: 'runtimeType')
-  final String $type;
 
   @override
   String toString() {
@@ -444,7 +394,6 @@ class _$EstimateGasParametersLegacyImpl implements EstimateGasParametersLegacy {
             (identical(other.value, value) || other.value == value));
   }
 
-  @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
       runtimeType,
@@ -474,7 +423,7 @@ class _$EstimateGasParametersLegacyImpl implements EstimateGasParametersLegacy {
             int? chainId,
             String? data,
             BigInt? gas,
-            FeeValues? feeValues,
+            FeeValuesLegacy? feeValues,
             BigInt? nonce,
             String? to,
             BigInt? value)
@@ -485,7 +434,7 @@ class _$EstimateGasParametersLegacyImpl implements EstimateGasParametersLegacy {
             int? chainId,
             String? data,
             BigInt? gas,
-            FeeValues? feeValues,
+            FeeValuesEIP1559? feeValues,
             BigInt? nonce,
             String? to,
             BigInt? value)
@@ -496,7 +445,7 @@ class _$EstimateGasParametersLegacyImpl implements EstimateGasParametersLegacy {
             int? chainId,
             String? data,
             BigInt? gas,
-            FeeValues? feeValues,
+            FeeValuesEIP4844? feeValues,
             BigInt? nonce,
             String? to,
             BigInt? value)
@@ -515,7 +464,7 @@ class _$EstimateGasParametersLegacyImpl implements EstimateGasParametersLegacy {
             int? chainId,
             String? data,
             BigInt? gas,
-            FeeValues? feeValues,
+            FeeValuesLegacy? feeValues,
             BigInt? nonce,
             String? to,
             BigInt? value)?
@@ -526,7 +475,7 @@ class _$EstimateGasParametersLegacyImpl implements EstimateGasParametersLegacy {
             int? chainId,
             String? data,
             BigInt? gas,
-            FeeValues? feeValues,
+            FeeValuesEIP1559? feeValues,
             BigInt? nonce,
             String? to,
             BigInt? value)?
@@ -537,7 +486,7 @@ class _$EstimateGasParametersLegacyImpl implements EstimateGasParametersLegacy {
             int? chainId,
             String? data,
             BigInt? gas,
-            FeeValues? feeValues,
+            FeeValuesEIP4844? feeValues,
             BigInt? nonce,
             String? to,
             BigInt? value)?
@@ -556,7 +505,7 @@ class _$EstimateGasParametersLegacyImpl implements EstimateGasParametersLegacy {
             int? chainId,
             String? data,
             BigInt? gas,
-            FeeValues? feeValues,
+            FeeValuesLegacy? feeValues,
             BigInt? nonce,
             String? to,
             BigInt? value)?
@@ -567,7 +516,7 @@ class _$EstimateGasParametersLegacyImpl implements EstimateGasParametersLegacy {
             int? chainId,
             String? data,
             BigInt? gas,
-            FeeValues? feeValues,
+            FeeValuesEIP1559? feeValues,
             BigInt? nonce,
             String? to,
             BigInt? value)?
@@ -578,7 +527,7 @@ class _$EstimateGasParametersLegacyImpl implements EstimateGasParametersLegacy {
             int? chainId,
             String? data,
             BigInt? gas,
-            FeeValues? feeValues,
+            FeeValuesEIP4844? feeValues,
             BigInt? nonce,
             String? to,
             BigInt? value)?
@@ -625,29 +574,20 @@ class _$EstimateGasParametersLegacyImpl implements EstimateGasParametersLegacy {
     }
     return orElse();
   }
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$EstimateGasParametersLegacyImplToJson(
-      this,
-    );
-  }
 }
 
-abstract class EstimateGasParametersLegacy implements EstimateGasParameters {
+abstract class EstimateGasParametersLegacy extends EstimateGasParameters {
   const factory EstimateGasParametersLegacy(
       {final List<Map<String, dynamic>>? accessList,
       final String? account,
       final int? chainId,
       final String? data,
       final BigInt? gas,
-      final FeeValues? feeValues,
+      final FeeValuesLegacy? feeValues,
       final BigInt? nonce,
       final String? to,
       final BigInt? value}) = _$EstimateGasParametersLegacyImpl;
-
-  factory EstimateGasParametersLegacy.fromJson(Map<String, dynamic> json) =
-      _$EstimateGasParametersLegacyImpl.fromJson;
+  const EstimateGasParametersLegacy._() : super._();
 
   @override
   List<Map<String, dynamic>>? get accessList;
@@ -660,7 +600,7 @@ abstract class EstimateGasParametersLegacy implements EstimateGasParameters {
   @override
   BigInt? get gas;
   @override
-  FeeValues? get feeValues;
+  FeeValuesLegacy? get feeValues;
   @override
   BigInt? get nonce;
   @override
@@ -688,13 +628,10 @@ abstract class _$$EstimateGasParametersEIP1559ImplCopyWith<$Res>
       int? chainId,
       String? data,
       BigInt? gas,
-      FeeValues? feeValues,
+      FeeValuesEIP1559? feeValues,
       BigInt? nonce,
       String? to,
       BigInt? value});
-
-  @override
-  $FeeValuesCopyWith<$Res>? get feeValues;
 }
 
 /// @nodoc
@@ -744,7 +681,7 @@ class __$$EstimateGasParametersEIP1559ImplCopyWithImpl<$Res>
       feeValues: freezed == feeValues
           ? _value.feeValues
           : feeValues // ignore: cast_nullable_to_non_nullable
-              as FeeValues?,
+              as FeeValuesEIP1559?,
       nonce: freezed == nonce
           ? _value.nonce
           : nonce // ignore: cast_nullable_to_non_nullable
@@ -762,9 +699,8 @@ class __$$EstimateGasParametersEIP1559ImplCopyWithImpl<$Res>
 }
 
 /// @nodoc
-@JsonSerializable()
-class _$EstimateGasParametersEIP1559Impl
-    implements EstimateGasParametersEIP1559 {
+
+class _$EstimateGasParametersEIP1559Impl extends EstimateGasParametersEIP1559 {
   const _$EstimateGasParametersEIP1559Impl(
       {final List<Map<String, dynamic>>? accessList,
       this.account,
@@ -774,14 +710,9 @@ class _$EstimateGasParametersEIP1559Impl
       this.feeValues,
       this.nonce,
       this.to,
-      this.value,
-      final String? $type})
+      this.value})
       : _accessList = accessList,
-        $type = $type ?? 'eip1559';
-
-  factory _$EstimateGasParametersEIP1559Impl.fromJson(
-          Map<String, dynamic> json) =>
-      _$$EstimateGasParametersEIP1559ImplFromJson(json);
+        super._();
 
   final List<Map<String, dynamic>>? _accessList;
   @override
@@ -802,16 +733,13 @@ class _$EstimateGasParametersEIP1559Impl
   @override
   final BigInt? gas;
   @override
-  final FeeValues? feeValues;
+  final FeeValuesEIP1559? feeValues;
   @override
   final BigInt? nonce;
   @override
   final String? to;
   @override
   final BigInt? value;
-
-  @JsonKey(name: 'runtimeType')
-  final String $type;
 
   @override
   String toString() {
@@ -836,7 +764,6 @@ class _$EstimateGasParametersEIP1559Impl
             (identical(other.value, value) || other.value == value));
   }
 
-  @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
       runtimeType,
@@ -867,7 +794,7 @@ class _$EstimateGasParametersEIP1559Impl
             int? chainId,
             String? data,
             BigInt? gas,
-            FeeValues? feeValues,
+            FeeValuesLegacy? feeValues,
             BigInt? nonce,
             String? to,
             BigInt? value)
@@ -878,7 +805,7 @@ class _$EstimateGasParametersEIP1559Impl
             int? chainId,
             String? data,
             BigInt? gas,
-            FeeValues? feeValues,
+            FeeValuesEIP1559? feeValues,
             BigInt? nonce,
             String? to,
             BigInt? value)
@@ -889,7 +816,7 @@ class _$EstimateGasParametersEIP1559Impl
             int? chainId,
             String? data,
             BigInt? gas,
-            FeeValues? feeValues,
+            FeeValuesEIP4844? feeValues,
             BigInt? nonce,
             String? to,
             BigInt? value)
@@ -908,7 +835,7 @@ class _$EstimateGasParametersEIP1559Impl
             int? chainId,
             String? data,
             BigInt? gas,
-            FeeValues? feeValues,
+            FeeValuesLegacy? feeValues,
             BigInt? nonce,
             String? to,
             BigInt? value)?
@@ -919,7 +846,7 @@ class _$EstimateGasParametersEIP1559Impl
             int? chainId,
             String? data,
             BigInt? gas,
-            FeeValues? feeValues,
+            FeeValuesEIP1559? feeValues,
             BigInt? nonce,
             String? to,
             BigInt? value)?
@@ -930,7 +857,7 @@ class _$EstimateGasParametersEIP1559Impl
             int? chainId,
             String? data,
             BigInt? gas,
-            FeeValues? feeValues,
+            FeeValuesEIP4844? feeValues,
             BigInt? nonce,
             String? to,
             BigInt? value)?
@@ -949,7 +876,7 @@ class _$EstimateGasParametersEIP1559Impl
             int? chainId,
             String? data,
             BigInt? gas,
-            FeeValues? feeValues,
+            FeeValuesLegacy? feeValues,
             BigInt? nonce,
             String? to,
             BigInt? value)?
@@ -960,7 +887,7 @@ class _$EstimateGasParametersEIP1559Impl
             int? chainId,
             String? data,
             BigInt? gas,
-            FeeValues? feeValues,
+            FeeValuesEIP1559? feeValues,
             BigInt? nonce,
             String? to,
             BigInt? value)?
@@ -971,7 +898,7 @@ class _$EstimateGasParametersEIP1559Impl
             int? chainId,
             String? data,
             BigInt? gas,
-            FeeValues? feeValues,
+            FeeValuesEIP4844? feeValues,
             BigInt? nonce,
             String? to,
             BigInt? value)?
@@ -1018,29 +945,20 @@ class _$EstimateGasParametersEIP1559Impl
     }
     return orElse();
   }
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$EstimateGasParametersEIP1559ImplToJson(
-      this,
-    );
-  }
 }
 
-abstract class EstimateGasParametersEIP1559 implements EstimateGasParameters {
+abstract class EstimateGasParametersEIP1559 extends EstimateGasParameters {
   const factory EstimateGasParametersEIP1559(
       {final List<Map<String, dynamic>>? accessList,
       final String? account,
       final int? chainId,
       final String? data,
       final BigInt? gas,
-      final FeeValues? feeValues,
+      final FeeValuesEIP1559? feeValues,
       final BigInt? nonce,
       final String? to,
       final BigInt? value}) = _$EstimateGasParametersEIP1559Impl;
-
-  factory EstimateGasParametersEIP1559.fromJson(Map<String, dynamic> json) =
-      _$EstimateGasParametersEIP1559Impl.fromJson;
+  const EstimateGasParametersEIP1559._() : super._();
 
   @override
   List<Map<String, dynamic>>? get accessList;
@@ -1053,7 +971,7 @@ abstract class EstimateGasParametersEIP1559 implements EstimateGasParameters {
   @override
   BigInt? get gas;
   @override
-  FeeValues? get feeValues;
+  FeeValuesEIP1559? get feeValues;
   @override
   BigInt? get nonce;
   @override
@@ -1082,13 +1000,10 @@ abstract class _$$EstimateGasParametersEIP4844ImplCopyWith<$Res>
       int? chainId,
       String? data,
       BigInt? gas,
-      FeeValues? feeValues,
+      FeeValuesEIP4844? feeValues,
       BigInt? nonce,
       String? to,
       BigInt? value});
-
-  @override
-  $FeeValuesCopyWith<$Res>? get feeValues;
 }
 
 /// @nodoc
@@ -1138,7 +1053,7 @@ class __$$EstimateGasParametersEIP4844ImplCopyWithImpl<$Res>
       feeValues: freezed == feeValues
           ? _value.feeValues
           : feeValues // ignore: cast_nullable_to_non_nullable
-              as FeeValues?,
+              as FeeValuesEIP4844?,
       nonce: freezed == nonce
           ? _value.nonce
           : nonce // ignore: cast_nullable_to_non_nullable
@@ -1156,9 +1071,8 @@ class __$$EstimateGasParametersEIP4844ImplCopyWithImpl<$Res>
 }
 
 /// @nodoc
-@JsonSerializable()
-class _$EstimateGasParametersEIP4844Impl
-    implements EstimateGasParametersEIP4844 {
+
+class _$EstimateGasParametersEIP4844Impl extends EstimateGasParametersEIP4844 {
   const _$EstimateGasParametersEIP4844Impl(
       {final List<Map<String, dynamic>>? accessList,
       this.account,
@@ -1168,14 +1082,9 @@ class _$EstimateGasParametersEIP4844Impl
       this.feeValues,
       this.nonce,
       this.to,
-      this.value,
-      final String? $type})
+      this.value})
       : _accessList = accessList,
-        $type = $type ?? 'eip4844';
-
-  factory _$EstimateGasParametersEIP4844Impl.fromJson(
-          Map<String, dynamic> json) =>
-      _$$EstimateGasParametersEIP4844ImplFromJson(json);
+        super._();
 
   final List<Map<String, dynamic>>? _accessList;
   @override
@@ -1196,16 +1105,13 @@ class _$EstimateGasParametersEIP4844Impl
   @override
   final BigInt? gas;
   @override
-  final FeeValues? feeValues;
+  final FeeValuesEIP4844? feeValues;
   @override
   final BigInt? nonce;
   @override
   final String? to;
   @override
   final BigInt? value;
-
-  @JsonKey(name: 'runtimeType')
-  final String $type;
 
   @override
   String toString() {
@@ -1230,7 +1136,6 @@ class _$EstimateGasParametersEIP4844Impl
             (identical(other.value, value) || other.value == value));
   }
 
-  @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
       runtimeType,
@@ -1261,7 +1166,7 @@ class _$EstimateGasParametersEIP4844Impl
             int? chainId,
             String? data,
             BigInt? gas,
-            FeeValues? feeValues,
+            FeeValuesLegacy? feeValues,
             BigInt? nonce,
             String? to,
             BigInt? value)
@@ -1272,7 +1177,7 @@ class _$EstimateGasParametersEIP4844Impl
             int? chainId,
             String? data,
             BigInt? gas,
-            FeeValues? feeValues,
+            FeeValuesEIP1559? feeValues,
             BigInt? nonce,
             String? to,
             BigInt? value)
@@ -1283,7 +1188,7 @@ class _$EstimateGasParametersEIP4844Impl
             int? chainId,
             String? data,
             BigInt? gas,
-            FeeValues? feeValues,
+            FeeValuesEIP4844? feeValues,
             BigInt? nonce,
             String? to,
             BigInt? value)
@@ -1302,7 +1207,7 @@ class _$EstimateGasParametersEIP4844Impl
             int? chainId,
             String? data,
             BigInt? gas,
-            FeeValues? feeValues,
+            FeeValuesLegacy? feeValues,
             BigInt? nonce,
             String? to,
             BigInt? value)?
@@ -1313,7 +1218,7 @@ class _$EstimateGasParametersEIP4844Impl
             int? chainId,
             String? data,
             BigInt? gas,
-            FeeValues? feeValues,
+            FeeValuesEIP1559? feeValues,
             BigInt? nonce,
             String? to,
             BigInt? value)?
@@ -1324,7 +1229,7 @@ class _$EstimateGasParametersEIP4844Impl
             int? chainId,
             String? data,
             BigInt? gas,
-            FeeValues? feeValues,
+            FeeValuesEIP4844? feeValues,
             BigInt? nonce,
             String? to,
             BigInt? value)?
@@ -1343,7 +1248,7 @@ class _$EstimateGasParametersEIP4844Impl
             int? chainId,
             String? data,
             BigInt? gas,
-            FeeValues? feeValues,
+            FeeValuesLegacy? feeValues,
             BigInt? nonce,
             String? to,
             BigInt? value)?
@@ -1354,7 +1259,7 @@ class _$EstimateGasParametersEIP4844Impl
             int? chainId,
             String? data,
             BigInt? gas,
-            FeeValues? feeValues,
+            FeeValuesEIP1559? feeValues,
             BigInt? nonce,
             String? to,
             BigInt? value)?
@@ -1365,7 +1270,7 @@ class _$EstimateGasParametersEIP4844Impl
             int? chainId,
             String? data,
             BigInt? gas,
-            FeeValues? feeValues,
+            FeeValuesEIP4844? feeValues,
             BigInt? nonce,
             String? to,
             BigInt? value)?
@@ -1412,29 +1317,20 @@ class _$EstimateGasParametersEIP4844Impl
     }
     return orElse();
   }
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$EstimateGasParametersEIP4844ImplToJson(
-      this,
-    );
-  }
 }
 
-abstract class EstimateGasParametersEIP4844 implements EstimateGasParameters {
+abstract class EstimateGasParametersEIP4844 extends EstimateGasParameters {
   const factory EstimateGasParametersEIP4844(
       {final List<Map<String, dynamic>>? accessList,
       final String? account,
       final int? chainId,
       final String? data,
       final BigInt? gas,
-      final FeeValues? feeValues,
+      final FeeValuesEIP4844? feeValues,
       final BigInt? nonce,
       final String? to,
       final BigInt? value}) = _$EstimateGasParametersEIP4844Impl;
-
-  factory EstimateGasParametersEIP4844.fromJson(Map<String, dynamic> json) =
-      _$EstimateGasParametersEIP4844Impl.fromJson;
+  const EstimateGasParametersEIP4844._() : super._();
 
   @override
   List<Map<String, dynamic>>? get accessList;
@@ -1447,7 +1343,7 @@ abstract class EstimateGasParametersEIP4844 implements EstimateGasParameters {
   @override
   BigInt? get gas;
   @override
-  FeeValues? get feeValues;
+  FeeValuesEIP4844? get feeValues;
   @override
   BigInt? get nonce;
   @override
