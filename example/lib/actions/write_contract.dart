@@ -14,6 +14,7 @@ class _WriteContractsExampleState extends State<WriteContractsExample> {
   bool? walletConnected;
   int? accountChainId;
   BigInt? gasPrice;
+  wagmi.WatchContractEventReturnType? watchContractEventUnsubscribe;
 
   @override
   void initState() {
@@ -103,11 +104,53 @@ class _WriteContractsExampleState extends State<WriteContractsExample> {
                 chainId: 11155111,
               );
 
+              final watchContractEventParameters =
+                  wagmi.WatchContractEventParameters(
+                abi: [
+                  {
+                    'anonymous': false,
+                    'inputs': [
+                      {
+                        'indexed': true,
+                        'internalType': 'address',
+                        'name': 'owner',
+                        'type': 'address',
+                      },
+                      {
+                        'indexed': true,
+                        'internalType': 'address',
+                        'name': 'spender',
+                        'type': 'address',
+                      },
+                      {
+                        'indexed': false,
+                        'internalType': 'uint256',
+                        'name': 'value',
+                        'type': 'uint256',
+                      }
+                    ],
+                    'name': 'Approval',
+                    'type': 'event',
+                  },
+                ],
+                address: '0xCBBd3374090113732393DAE1433Bc14E5233d5d7',
+                eventName: 'Approval',
+                onError: (error) => print('watchContractEventt ERROR $error'),
+                onLogs: (logs, prevLogs) =>
+                    print('watchContractEventt LOGS $logs, $prevLogs'),
+              );
+
+              final unwatch = await wagmi.Core.watchContractEvent(
+                watchContractEventParameters,
+              );
+
               final writeContractReturnType =
                   await wagmi.Core.writeContract(writeContractParameters);
 
               setState(() {
-                hashApproval = writeContractReturnType.hash;
+                hashApproval = writeContractReturnType;
+                watchContractEventUnsubscribe = unwatch;
+                watchContractEventUnsubscribe?.call();
               });
             },
             child: const Text('Call approve function'),

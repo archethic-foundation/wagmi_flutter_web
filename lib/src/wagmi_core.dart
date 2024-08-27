@@ -178,7 +178,7 @@ class Core {
     return result.toDart;
   }
 
-  static Future<WriteContractReturnType> writeContract(
+  static Future<String> writeContract(
     WriteContractParameters writeContractParameters,
   ) async {
     final result = await window.wagmiCore
