@@ -2,15 +2,7 @@ import 'dart:js_interop';
 // ignore: avoid_web_libraries_in_flutter
 import 'dart:js_util' as js_util;
 
-import 'package:wagmi_flutter_web/src/actions/get_chains.dart';
-import 'package:wagmi_flutter_web/src/actions/get_token.dart';
-import 'package:wagmi_flutter_web/src/actions/get_transaction_receipt.dart';
-import 'package:wagmi_flutter_web/src/actions/read_contract.dart';
-import 'package:wagmi_flutter_web/src/actions/read_contracts.dart';
-import 'package:wagmi_flutter_web/src/actions/watch_contract_event.dart';
-import 'package:wagmi_flutter_web/src/actions/write_contract.dart';
-import 'package:wagmi_flutter_web/src/models/account.dart';
-import 'package:wagmi_flutter_web/src/models/chain.dart';
+import 'package:wagmi_flutter_web/wagmi_flutter_web.dart';
 
 part 'actions/call.js.dart';
 part 'actions/disconnect.js.dart';
