@@ -1,3 +1,4 @@
+import 'package:example/actions/components/tab_header.dart';
 import 'package:flutter/material.dart';
 import 'package:wagmi_flutter_web/wagmi_flutter_web.dart' as wagmi;
 
@@ -26,6 +27,10 @@ class _WriteContractsExampleState extends State<WriteContractsExample> {
       padding: const EdgeInsets.symmetric(vertical: 10),
       child: Column(
         children: [
+          const TabHeader(
+            methodName: 'writeContracts',
+          ),
+          _howto(),
           ElevatedButton(
             onPressed: () async {
               setState(() {
@@ -130,6 +135,24 @@ class _WriteContractsExampleState extends State<WriteContractsExample> {
               if (gasPrice != null) Text('Gas Price: $gasPrice'),
               if (hashApproval != null) Text('Hash approval: $hashApproval'),
             ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _howto() {
+    return const Padding(
+      padding: EdgeInsets.symmetric(vertical: 10),
+      child: Column(
+        children: [
+          Text('Click on approve function button to test the method'),
+          Text('The ABI used is ERC20 approve function'),
+          Text(
+            'The address of the ERC20 token is 0xCBBd3374090113732393DAE1433Bc14E5233d5d7 available on Sepolia',
+          ),
+          Text(
+            'The approve method target a contract (0x08Bfc8BA9fD137Fb632F79548B150FE0Be493254) and request 1500000 GWei',
           ),
         ],
       ),

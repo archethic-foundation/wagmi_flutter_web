@@ -1,3 +1,4 @@
+import 'package:example/actions/components/tab_header.dart';
 import 'package:flutter/material.dart';
 import 'package:wagmi_flutter_web/wagmi_flutter_web.dart' as wagmi;
 
@@ -25,6 +26,9 @@ class _GasPriceExampleState extends State<GasPriceExample> {
       padding: const EdgeInsets.symmetric(vertical: 10),
       child: Column(
         children: [
+          const TabHeader(
+            methodName: 'getGasPrice',
+          ),
           ElevatedButton(
             onPressed: () async {
               final account = wagmi.Core.getAccount();
