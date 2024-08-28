@@ -57,11 +57,3 @@ class WriteContractParameters with _$WriteContractParameters {
     String? type,
   }) = WriteContractParametersEIP4844;
 }
-
-class WriteContractReturnType {
-  WriteContractReturnType({
-    required this.hash,
-  });
-
-  String hash;
-}

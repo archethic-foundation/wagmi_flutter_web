@@ -22,6 +22,7 @@ import {
     SignMessageParameters,
     WaitForTransactionReceiptParameters,
     WatchChainIdParameters,
+    WatchContractEventParameters,
     WriteContractParameters,
     call,
     disconnect,
@@ -49,6 +50,7 @@ import {
     signMessage,
     waitForTransactionReceipt,
     watchChainId,
+    watchContractEvent,
     writeContract,
 } from "@wagmi/core";
 import { InvalidAddressError } from "viem";
@@ -275,7 +277,16 @@ export class JSWagmiCore {
             )
         } catch (error) {
             console.error("Error watchChainId:", error)
-            return null
+            throw error;
+        }
+    }
+
+    watchContractEvent = async function (watchContractEventParameters: WatchContractEventParameters) {
+        try {
+            return await watchContractEvent(JSWagmiContext.instance.config, watchContractEventParameters)
+        } catch (error) {
+            console.error("Error watchContractEvent:", error)
+            throw error;
         }
     }
 
