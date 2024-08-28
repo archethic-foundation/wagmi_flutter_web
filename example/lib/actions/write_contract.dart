@@ -148,7 +148,7 @@ class _WriteContractsExampleState extends State<WriteContractsExample> {
                   await wagmi.Core.writeContract(writeContractParameters);
 
               setState(() {
-                hashApproval = writeContractReturnType.hash;
+                hashApproval = writeContractReturnType;
                 watchContractEventUnsubscribe = unwatch;
                 watchContractEventUnsubscribe?.call();
               });
