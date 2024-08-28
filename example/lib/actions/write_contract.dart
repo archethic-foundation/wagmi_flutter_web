@@ -91,11 +91,11 @@ class _WriteContractsExampleState extends State<WriteContractsExample> {
                 account: account.address,
                 functionName: 'approve',
                 gas: wagmi.EtherAmount.fromInt(
-                  wagmi.EtherUnit.gwei,
+                  wagmi.EtherUnit.wei,
                   1500000,
                 ).getInWei,
                 feeValues: wagmi.FeeValuesLegacy(
-                  gasPrice: gasPrice ?? BigInt.zero,
+                  gasPrice: getGasPriceReturnType,
                 ),
                 args: [
                   '0x08Bfc8BA9fD137Fb632F79548B150FE0Be493254',
