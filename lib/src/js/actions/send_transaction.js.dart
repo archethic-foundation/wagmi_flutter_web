@@ -110,7 +110,7 @@ extension SendTransactionParametersToJS on SendTransactionParameters {
               nonce: nonce?.toJS,
               type: 'legacy'.toJS,
               to: to.toJS,
-              value: value?.toJS,
+              value: value == null ? BigInt.from(0).toJS : value?.toJS,
               connector: connector?.toJS,
             )
           : JSSendTransactionParametersLegacy(
@@ -122,7 +122,7 @@ extension SendTransactionParametersToJS on SendTransactionParameters {
               gasPrice: legacy.feeValues?.gasPrice.toJS,
               type: 'legacy'.toJS,
               to: to.toJS,
-              value: value?.toJS,
+              value: value == null ? BigInt.from(0).toJS : value?.toJS,
               connector: connector?.toJS,
             ),
       eip1559: (eip1559) => nonce != null
@@ -138,7 +138,7 @@ extension SendTransactionParametersToJS on SendTransactionParameters {
               nonce: nonce?.toJS,
               type: 'eip1559'.toJS,
               to: to.toJS,
-              value: value?.toJS,
+              value: value == null ? BigInt.from(0).toJS : value?.toJS,
               connector: connector?.toJS,
             )
           : JSSendTransactionParametersEIP1559(
@@ -152,7 +152,7 @@ extension SendTransactionParametersToJS on SendTransactionParameters {
                   eip1559.feeValues?.maxPriorityFeePerGas.toJS,
               type: 'eip1559'.toJS,
               to: to.toJS,
-              value: value?.toJS,
+              value: value == null ? BigInt.from(0).toJS : value?.toJS,
               connector: connector?.toJS,
             ),
       eip4844: (eip4844) => nonce != null
@@ -169,7 +169,7 @@ extension SendTransactionParametersToJS on SendTransactionParameters {
               type: 'eip4844'.toJS,
               nonce: nonce?.toJS,
               to: to.toJS,
-              value: value?.toJS,
+              value: value == null ? BigInt.from(0).toJS : value?.toJS,
               connector: connector?.toJS,
             )
           : JSSendTransactionParametersEIP4844(
@@ -184,7 +184,7 @@ extension SendTransactionParametersToJS on SendTransactionParameters {
               maxFeePerBlobGas: eip4844.feeValues?.maxFeePerBlobGas.toJS,
               type: 'eip4844'.toJS,
               to: to.toJS,
-              value: value?.toJS,
+              value: value == null ? BigInt.from(0).toJS : value?.toJS,
               connector: connector?.toJS,
             ));
 }

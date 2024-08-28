@@ -19,60 +19,68 @@ class GetTransactionParameters {
   final BigInt? chainId;
   final int? index;
 
-  JSGetTransactionParameters get toJS => JSGetTransactionParameters(
-        hash: hash?.toJS,
-        blockHash: blockHash?.toJS,
-        blockNumber: blockNumber?.toJS,
-        blockTag: blockTag?.toJS,
-        chainId: chainId?.toJS,
-        index: index?.toJS,
-      );
+  JSGetTransactionParameters get toJS => blockNumber != null
+      ? JSGetTransactionParameters(
+          hash: hash?.toJS,
+          blockHash: blockHash?.toJS,
+          blockNumber: blockNumber?.toJS,
+          blockTag: blockTag?.toJS,
+          chainId: chainId?.toJS,
+          index: index?.toJS,
+        )
+      : JSGetTransactionParameters(
+          hash: hash?.toJS,
+          blockHash: blockHash?.toJS,
+          blockTag: blockTag?.toJS,
+          chainId: chainId?.toJS,
+          index: index?.toJS,
+        );
 }
 
 class GetTransactionReturnType {
   GetTransactionReturnType({
     required this.accessList,
     required this.blockHash,
-    required this.blockNumber,
+    this.blockNumber,
     required this.chainId,
     required this.from,
-    required this.gas,
-    required this.gasPrice,
+    this.gas,
+    this.gasPrice,
     required this.hash,
     required this.input,
-    required this.maxFeePerGas,
-    required this.maxPriorityFeePerGas,
-    required this.nonce,
+    this.maxFeePerGas,
+    this.maxPriorityFeePerGas,
+    this.nonce,
     required this.r,
     required this.s,
     required this.to,
-    required this.transactionIndex,
-    required this.v,
-    required this.value,
+    this.transactionIndex,
+    this.v,
+    this.value,
     required this.type,
-    required this.typeHex,
-    required this.yParity,
+    this.typeHex,
+    this.yParity,
   });
 
   final List<dynamic> accessList;
   final String blockHash;
-  final BigInt blockNumber;
+  final BigInt? blockNumber;
   final int chainId;
   final String from;
-  final BigInt gas;
-  final BigInt gasPrice;
+  final BigInt? gas;
+  final BigInt? gasPrice;
   final String hash;
   final String input;
-  final BigInt maxFeePerGas;
-  final BigInt maxPriorityFeePerGas;
-  final BigInt nonce;
+  final BigInt? maxFeePerGas;
+  final BigInt? maxPriorityFeePerGas;
+  final int? nonce;
   final String r;
   final String s;
   final String to;
-  final BigInt transactionIndex;
-  final BigInt v;
-  final BigInt value;
+  final int? transactionIndex;
+  final BigInt? v;
+  final BigInt? value;
   final String type;
-  final BigInt typeHex;
-  final BigInt yParity;
+  final String? typeHex;
+  final int? yParity;
 }

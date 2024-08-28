@@ -2,6 +2,8 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:wagmi_flutter_web/wagmi_flutter_web.dart' as wagmi;
+// import 'package:web3dart/crypto.dart';
+// import 'package:web3dart/web3dart.dart';
 
 void main() {
   runApp(const MaterialApp(title: 'Web3Modal Example', home: MyApp()));
@@ -39,6 +41,8 @@ class _MyAppState extends State<MyApp> {
   String testTokenA1 = '0x4D8cb4Fa6Df53d47f0B7d76a05d4AC881B2f4101';
   String tempWallet = '0xfAd3b616BCD747A12A7c0a6203E7a481606B12E8';
   String txHash = '';
+  BigInt blockConfirmationNumber = BigInt.zero;
+  int? transactionsCountOfChain;
 
   @override
   void initState() {
@@ -457,6 +461,41 @@ class _MyAppState extends State<MyApp> {
                   setState(() {
                     txHash = result;
                   });
+
+                  // send transaction on contract
+                  // DeployedContract contract = DeployedContract(
+                  //   ContractAbi.fromJson(test3BitApi, 'Bit3Api'),
+                  //   EthereumAddress.fromHex(bitTokenAddress),
+                  // );
+                  // String data = bytesToHex(
+                  //     contract.function('transfer').encodeCall([
+                  //       EthereumAddress.fromHex(
+                  //           '0xfA9F840d49D5774Fb3fc46AF9d8cE66087CBB79a'),
+                  //       BigInt.parse('1000000')
+                  //     ]),
+                  //     include0x: true,
+                  //     padToEvenLength: true);
+                  // print('data: $data');
+
+                  // final sendTransactionParameters =
+                  //     wagmi.SendTransactionParameters.legacy(
+                  //   to: bitTokenAddress,
+                  //   gas: BigInt.from(15000000),
+                  //   feeValues: wagmi.FeeValuesLegacy(
+                  //     gasPrice: BigInt.parse('150000000'),
+                  //   ),
+                  //   // chainId: account!.chain!.id,
+                  //   account: account!.address!,
+                  //   type: 'legacy',
+                  //   data: data,
+                  //   // value: BigInt.parse('10000000000000000'),
+                  // );
+                  // final result = await wagmi.Core.sendTransaction(
+                  //     sendTransactionParameters);
+                  // print('result: ${result}');
+                  // setState(() {
+                  //   txHash = result;
+                  // });
                 },
                 child: const Text('Send Transaction'),
               ),
@@ -520,12 +559,88 @@ class _MyAppState extends State<MyApp> {
                   );
                   final getTransactionReturnType =
                       await wagmi.Core.getTransaction(getTransactionParameters);
-                  // print(
-                  //     'getTransactionReturnType: ${getTransactionReturnType.from}');
+                  showTransactionDetails(context, getTransactionReturnType);
                 },
                 child: const Text('Get Transaction'),
               ),
               const SizedBox(height: 7),
+
+              // get transaction confirmations
+              ElevatedButton(
+                onPressed: () async {
+                  final getTransactionConfirmationsParameters =
+                      wagmi.GetTransactionConfirmationsParameters(
+                    hash:
+                        '0x6f79870e05ebfb529d7ee291cfdf7cbfe05222313045a1d43c24c0906e65e4a7',
+                  );
+                  final getTransactionConfirmationsReturnType =
+                      await wagmi.Core.getTransactionConfirmations(
+                    getTransactionConfirmationsParameters,
+                  );
+                  setState(() {
+                    blockConfirmationNumber =
+                        getTransactionConfirmationsReturnType;
+                  });
+                },
+                child: const Text('Get Transaction Confirmations'),
+              ),
+              const SizedBox(height: 7),
+              // txHash is not empty then show the transaction hash
+              if (blockConfirmationNumber > BigInt.zero)
+                Text('Block Confirmation: $blockConfirmationNumber')
+              else
+                Container(),
+              const SizedBox(
+                height: 7,
+              ),
+              // get block
+              ElevatedButton(
+                onPressed: () async {
+                  final getBlockParameters = wagmi.GetBlockParameters(
+                    blockNumber: BigInt.from(11268698),
+                  );
+                  final getBlockReturnType = await wagmi.Core.getBlock(
+                    getBlockParameters,
+                  );
+                  print(
+                      'getBlockReturnType: ${getBlockReturnType.baseFeePerGas}');
+                  showBlockDetails(context, getBlockReturnType);
+                },
+                child: const Text('Get Block'),
+              ),
+              const SizedBox(
+                height: 7,
+              ),
+
+              // get block transaction count
+              ElevatedButton(
+                onPressed: () async {
+                  final getBlockTransactionCountParameters =
+                      wagmi.GetBlockTransactionCountParameters(
+                    chainId: account!.chain!.id,
+                  );
+                  final getBlockTransactionCountReturnType =
+                      await wagmi.Core.getBlockTransactionCount(
+                    getBlockTransactionCountParameters,
+                  );
+                  setState(() {
+                    transactionsCountOfChain =
+                        getBlockTransactionCountReturnType;
+                  });
+                },
+                child: const Text('Get Block Transaction Count'),
+              ),
+              const SizedBox(
+                height: 7,
+              ),
+              // transactionsCountOfChain is not empty then show the transaction hash
+              if (transactionsCountOfChain != null)
+                Text('Transactions Count: $transactionsCountOfChain')
+              else
+                Container(),
+              const SizedBox(
+                height: 7,
+              ),
             ],
           ),
         ),
@@ -557,6 +672,87 @@ class _MyAppState extends State<MyApp> {
       'type': 'function',
     }
   ];
+
+  // abi for test3BitApi
+  final String test3BitApi =
+      '[{"inputs":[{"internalType":"address","name":"recipient","type":"address"},{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"transfer","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"nonpayable","type":"function"}]';
+
+  // show block details
+  void showBlockDetails(
+    BuildContext context,
+    wagmi.GetBlockReturnType getBlockReturnType,
+  ) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: const Text('Block Details'),
+          content: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text('baseFeePerGas: ${getBlockReturnType.baseFeePerGas}'),
+                // space
+                const SizedBox(height: 8),
+                Text('blobGasUsed: ${getBlockReturnType.blobGasUsed}'),
+                const SizedBox(height: 8),
+                Text('chainId: ${getBlockReturnType.chainId}'),
+                const SizedBox(height: 8),
+                Text('difficulty: ${getBlockReturnType.difficulty}'),
+                const SizedBox(height: 8),
+                Text('excessBlobGas: ${getBlockReturnType.excessBlobGas}'),
+                const SizedBox(height: 8),
+                Text('extraData: ${getBlockReturnType.extraData}'),
+                const SizedBox(height: 8),
+                Text('gasLimit: ${getBlockReturnType.gasLimit}'),
+                const SizedBox(height: 8),
+                Text('gasUsed: ${getBlockReturnType.gasUsed}'),
+                const SizedBox(height: 8),
+                Text('hash: ${getBlockReturnType.hash}'),
+                const SizedBox(height: 8),
+                Text('logsBloom: ${getBlockReturnType.logsBloom}'),
+                const SizedBox(height: 8),
+                Text('miner: ${getBlockReturnType.miner}'),
+                const SizedBox(height: 8),
+                Text('mixHash: ${getBlockReturnType.mixHash}'),
+                const SizedBox(height: 8),
+                Text('nonce: ${getBlockReturnType.nonce}'),
+                const SizedBox(height: 8),
+                Text('number: ${getBlockReturnType.number}'),
+                const SizedBox(height: 8),
+                Text('parentHash: ${getBlockReturnType.parentHash}'),
+                const SizedBox(height: 8),
+                Text('receiptsRoot: ${getBlockReturnType.receiptsRoot}'),
+                const SizedBox(height: 8),
+                Text('sha3Uncles: ${getBlockReturnType.sha3Uncles}'),
+                const SizedBox(height: 8),
+                Text('size: ${getBlockReturnType.size}'),
+                const SizedBox(height: 8),
+                Text('stateRoot: ${getBlockReturnType.stateRoot}'),
+                const SizedBox(height: 8),
+                Text('timestamp: ${getBlockReturnType.timestamp}'),
+                const SizedBox(height: 8),
+                Text('totalDifficulty: ${getBlockReturnType.totalDifficulty}'),
+                Text(
+                    'transactionsRoot: ${getBlockReturnType.transactionsRoot}'),
+                const SizedBox(height: 8),
+                Text('uncles: ${getBlockReturnType.uncles}'),
+                Text('transactions: ${getBlockReturnType.transactions}'),
+              ],
+            ),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text('Close'),
+            ),
+          ],
+        );
+      },
+    );
+  }
 
   // dialog to show transaction receipt
   void showTransactionReceiptDialog(
@@ -687,6 +883,77 @@ class _MyAppState extends State<MyApp> {
                   ],
                 );
               },
+            ),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text('Close'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  void showTransactionDetails(BuildContext context,
+      wagmi.GetTransactionReturnType getTransactionReturnType) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: const Text('Transaction Details'),
+          content: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text('accessList: ${getTransactionReturnType.accessList}'),
+                // space
+                const SizedBox(height: 8),
+                Text('blockHash: ${getTransactionReturnType.blockHash}'),
+                const SizedBox(height: 8),
+                Text('blockNumber: ${getTransactionReturnType.blockNumber}'),
+                const SizedBox(height: 8),
+                Text('chainId: ${getTransactionReturnType.chainId}'),
+                const SizedBox(height: 8),
+                Text('from: ${getTransactionReturnType.from}'),
+                const SizedBox(height: 8),
+                Text('gas: ${getTransactionReturnType.gas}'),
+                const SizedBox(height: 8),
+                Text('gasPrice: ${getTransactionReturnType.gasPrice}'),
+                const SizedBox(height: 8),
+                Text('hash: ${getTransactionReturnType.hash}'),
+                const SizedBox(height: 8),
+                Text('input: ${getTransactionReturnType.input}'),
+                const SizedBox(height: 8),
+                Text('maxFeePerGas: ${getTransactionReturnType.maxFeePerGas}'),
+                const SizedBox(height: 8),
+                Text(
+                    'maxPriorityFeePerGas: ${getTransactionReturnType.maxPriorityFeePerGas}'),
+                const SizedBox(height: 8),
+                Text('nonce: ${getTransactionReturnType.nonce}'),
+                const SizedBox(height: 8),
+                Text('r: ${getTransactionReturnType.r}'),
+                const SizedBox(height: 8),
+                Text('s: ${getTransactionReturnType.s}'),
+                const SizedBox(height: 8),
+                Text('to: ${getTransactionReturnType.to}'),
+                const SizedBox(height: 8),
+                Text(
+                    'transactionIndex: ${getTransactionReturnType.transactionIndex}'),
+                const SizedBox(height: 8),
+                Text('v: ${getTransactionReturnType.v}'),
+                const SizedBox(height: 8),
+                Text('value: ${getTransactionReturnType.value}'),
+                const SizedBox(height: 8),
+                Text('type: ${getTransactionReturnType.type}'),
+                const SizedBox(height: 8),
+                Text('typeHex: ${getTransactionReturnType.typeHex}'),
+                const SizedBox(height: 8),
+                Text('yParity: ${getTransactionReturnType.yParity}'),
+              ],
             ),
           ),
           actions: [

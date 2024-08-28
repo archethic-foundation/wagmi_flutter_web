@@ -23,48 +23,48 @@ extension type JSGetTransactionParameters._(JSObject _) implements JSObject {
 extension type JSGetTransactionReturnType(JSObject _) implements JSObject {
   external JSArray accessList;
   external JSString blockHash;
-  external JSBigInt blockNumber;
+  external JSBigInt? blockNumber;
   external JSNumber chainId;
   external JSString from;
-  external JSBigInt gas;
-  external JSBigInt gasPrice;
+  external JSBigInt? gas;
+  external JSBigInt? gasPrice;
   external JSString hash;
   external JSString input;
-  external JSBigInt maxFeePerGas;
-  external JSBigInt maxPriorityFeePerGas;
-  external JSBigInt nonce;
+  external JSBigInt? maxFeePerGas;
+  external JSBigInt? maxPriorityFeePerGas;
+  external JSNumber? nonce;
   external JSString r;
   external JSString s;
   external JSString to;
-  external JSBigInt transactionIndex;
-  external JSBigInt v;
-  external JSBigInt value;
+  external JSNumber? transactionIndex;
+  external JSBigInt? v;
+  external JSBigInt? value;
   external JSString type;
-  external JSBigInt typeHex;
-  external JSBigInt yParity;
+  external JSString? typeHex;
+  external JSNumber? yParity;
 
   GetTransactionReturnType get toDart => GetTransactionReturnType(
         accessList: accessList.toDart,
         blockHash: blockHash.toDart,
-        blockNumber: blockNumber.toDart,
+        blockNumber: blockNumber?.toDart,
         chainId: chainId.toDartInt,
         from: from.toDart,
-        gas: gas.toDart,
-        gasPrice: gasPrice.toDart,
+        gas: gas?.toDart,
+        gasPrice: gasPrice?.toDart,
         hash: hash.toDart,
         input: input.toDart,
-        maxFeePerGas: maxFeePerGas.toDart,
-        maxPriorityFeePerGas: maxPriorityFeePerGas.toDart,
-        nonce: nonce.toDart,
+        maxFeePerGas: maxFeePerGas?.toDart,
+        maxPriorityFeePerGas: maxPriorityFeePerGas?.toDart,
+        nonce: nonce?.toDartInt,
         r: r.toDart,
         s: s.toDart,
         to: to.toDart,
-        transactionIndex: transactionIndex.toDart,
-        v: v.toDart,
-        value: value.toDart,
+        transactionIndex: transactionIndex?.toDartInt,
+        v: v?.toDart,
+        value: value?.toDart,
         type: type.toDart,
-        typeHex: typeHex.toDart,
-        yParity: yParity.toDart,
+        typeHex: typeHex?.toDart,
+        yParity: yParity?.toDartInt,
       );
 }
 

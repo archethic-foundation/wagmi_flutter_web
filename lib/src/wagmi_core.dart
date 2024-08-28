@@ -1,12 +1,15 @@
 import 'dart:convert';
 import 'dart:js_interop';
 import 'package:wagmi_flutter_web/src/actions/get_balance.dart';
+import 'package:wagmi_flutter_web/src/actions/get_block.dart';
 import 'package:wagmi_flutter_web/src/actions/get_block_number.dart';
+import 'package:wagmi_flutter_web/src/actions/get_block_transaction_count.dart';
 import 'package:wagmi_flutter_web/src/actions/get_gas_price.dart';
 import 'package:wagmi_flutter_web/src/actions/get_token.dart';
 import 'package:wagmi_flutter_web/src/actions/get_transaction.dart';
 import 'package:wagmi_flutter_web/src/actions/get_transaction_count.dart';
 import 'package:wagmi_flutter_web/src/actions/get_transaction_receipt.dart';
+import 'package:wagmi_flutter_web/src/actions/get_transaction_confirmations.dart';
 import 'package:wagmi_flutter_web/src/actions/send_transaction.dart';
 import 'package:wagmi_flutter_web/src/actions/read_contract.dart';
 import 'package:wagmi_flutter_web/src/actions/estimate_gas.dart';
@@ -197,5 +200,38 @@ class Core {
         )
         .toDart;
     return result.toDart;
+  }
+
+  static Future<BigInt> getTransactionConfirmations(
+    GetTransactionConfirmationsParameters getTransactionConfirmationsParameters,
+  ) async {
+    final result = await window.wagmiCore
+        .getTransactionConfirmations(
+          getTransactionConfirmationsParameters.toJS,
+        )
+        .toDart;
+    return result.toDart;
+  }
+
+  static Future<GetBlockReturnType> getBlock(
+    GetBlockParameters getBlockParameters,
+  ) async {
+    final result = await window.wagmiCore
+        .getBlock(
+          getBlockParameters.toJS,
+        )
+        .toDart;
+    return result.toDart;
+  }
+
+  static Future<int> getBlockTransactionCount(
+    GetBlockTransactionCountParameters getBlockTransactionCountParameters,
+  ) async {
+    final result = await window.wagmiCore
+        .getBlockTransactionCount(
+          getBlockTransactionCountParameters.toJS,
+        )
+        .toDart;
+    return result.toDartInt;
   }
 }
