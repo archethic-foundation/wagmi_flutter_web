@@ -1,10 +1,13 @@
+import 'package:wagmi_flutter_web/src/models/error.dart';
+import 'package:wagmi_flutter_web/src/models/log.dart';
+
 /// [Documentation API](https://wagmi.sh/core/api/actions/watchContractEvent)
 
 typedef OnLogCallback = void Function(
-  String logs,
-  String? prevLogs,
+  List<Log> logs,
+  List<Log>? prevLogs,
 );
-typedef OnErrorCallback = void Function(String error);
+typedef OnErrorCallback = void Function(WagmiError error);
 
 class WatchContractEventParameters {
   WatchContractEventParameters({
