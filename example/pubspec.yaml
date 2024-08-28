@@ -39,7 +39,6 @@ dependencies:
 
   wagmi_flutter_web:
     path: ../
-  # web3dart: ^2.7.3
 
 dev_dependencies:
   flutter_test:

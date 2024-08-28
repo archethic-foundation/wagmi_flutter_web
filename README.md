@@ -51,7 +51,7 @@ wagmi.Web3Modal.open();
 🔴 Not Implemented Yet.\
 🟠 Work In Progress.\
 ✅ Implemented.\
-🛠️ Lacks WASM Support. (Needs rework in future.)
+🛠️ Blocking WASM Support. (Needs rework in future.)\
 📄 TODO to be managed 
 
 
@@ -68,9 +68,9 @@ For more details, refer to the [API documentation](https://wagmi.sh/core/api/act
 | `estimateMaxPriorityFeePerGas` | 🔴               |
 | `getAccount`                   | ✅ Implemented   |
 | `getBalance`                   | ✅ Implemented   |
-| `getBlock`                     | 🔴               |
+| `getBlock`                     | ✅ Implemented   |
 | `getBlockNumber`               | 🟠 In progress   |
-| `getBlockTransactionCount`     | 🔴               |
+| `getBlockTransactionCount`     | ✅ Implemented   |
 | `getBytecode`                  | 🔴               |
 | `getChainId`                   | ✅ Implemented   |
 | `getChains`                    | 🟠 In progress   |
@@ -89,8 +89,8 @@ For more details, refer to the [API documentation](https://wagmi.sh/core/api/act
 | `getPublicClient`              | 🔴               |
 | `getStorageAt`                 | 🔴               |
 | `getToken`                     | 🟠 In progress   |
-| `getTransaction`               | 🔴               |
-| `getTransactionConfirmations`  | 🔴               |
+| `getTransaction`               | ✅ Implemented   |
+| `getTransactionConfirmations`  | ✅ Implemented   |
 | `getTransactionCount`          | ✅ Implemented   |
 | `getTransactionReceipt`        | ✅ Implemented   |
 | `getWalletClient`              | 🔴               |
@@ -99,7 +99,7 @@ For more details, refer to the [API documentation](https://wagmi.sh/core/api/act
 | `readContract`                 | ✅ Implemented   |
 | `readContracts`                | ✅ Implemented 🛠️ |
 | `reconnect`                    | 🔴               |
-| `sendTransaction`              | 🔴               |
+| `sendTransaction`              | ✅ Implemented   |
 | `signMessage`                  | ✅ Implemented   |
 | `signTypedData`                | 🔴               |
 | `simulateContract`             | 🔴               |
