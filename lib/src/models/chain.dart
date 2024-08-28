@@ -118,15 +118,10 @@ class Chain {
   static final fantom = Chain(id: 250, name: 'fantom');
   static final fraxtal = Chain(id: 252, name: 'fraxtal');
   static final kroma = Chain(id: 255, name: 'kroma');
-  static final zkSyncInMemoryNode = Chain(id: 260, name: 'zkSyncInMemoryNode');
-  static final zkSyncLocalNode = Chain(id: 270, name: 'zkSyncLocalNode');
-  static final zkSyncTestnet = Chain(id: 280, name: 'zkSyncTestnet');
   static final boba = Chain(id: 288, name: 'boba');
   static final hedera = Chain(id: 295, name: 'hedera');
   static final hederaTestnet = Chain(id: 296, name: 'hederaTestnet');
   static final hederaPreviewnet = Chain(id: 297, name: 'hederaPreviewnet');
-  static final zkSyncSepoliaTestnet =
-      Chain(id: 300, name: 'zkSyncSepoliaTestnet');
   static final filecoin = Chain(id: 314, name: 'filecoin');
   static final kcc = Chain(id: 321, name: 'kcc');
   static final zkSync = Chain(id: 324, name: 'zkSync');
