@@ -6,13 +6,18 @@ import 'dart:html' as html;
 
 export 'src/actions/estimate_gas.dart';
 export 'src/actions/get_balance.dart';
+export 'src/actions/get_block.dart';
 export 'src/actions/get_block_number.dart';
+export 'src/actions/get_block_transaction_count.dart';
 export 'src/actions/get_gas_price.dart';
 export 'src/actions/get_token.dart';
+export 'src/actions/get_transaction.dart';
+export 'src/actions/get_transaction_confirmations.dart';
 export 'src/actions/get_transaction_count.dart';
 export 'src/actions/get_transaction_receipt.dart';
 export 'src/actions/read_contract.dart';
 export 'src/actions/read_contracts.dart';
+export 'src/actions/send_transaction.dart';
 export 'src/actions/sign_message.dart';
 export 'src/actions/watch_chain_id.dart';
 export 'src/actions/write_contract.dart';

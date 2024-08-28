@@ -2,13 +2,18 @@ import 'dart:js_interop';
 
 import 'package:wagmi_flutter_web/src/actions/estimate_gas.dart';
 import 'package:wagmi_flutter_web/src/actions/get_balance.dart';
+import 'package:wagmi_flutter_web/src/actions/get_block.dart';
 import 'package:wagmi_flutter_web/src/actions/get_block_number.dart';
+import 'package:wagmi_flutter_web/src/actions/get_block_transaction_count.dart';
 import 'package:wagmi_flutter_web/src/actions/get_gas_price.dart';
 import 'package:wagmi_flutter_web/src/actions/get_token.dart';
+import 'package:wagmi_flutter_web/src/actions/get_transaction.dart';
+import 'package:wagmi_flutter_web/src/actions/get_transaction_confirmations.dart';
 import 'package:wagmi_flutter_web/src/actions/get_transaction_count.dart';
 import 'package:wagmi_flutter_web/src/actions/get_transaction_receipt.dart';
 import 'package:wagmi_flutter_web/src/actions/read_contract.dart';
 import 'package:wagmi_flutter_web/src/actions/read_contracts.dart';
+import 'package:wagmi_flutter_web/src/actions/send_transaction.dart';
 import 'package:wagmi_flutter_web/src/actions/sign_message.dart';
 import 'package:wagmi_flutter_web/src/actions/watch_chain_id.dart';
 import 'package:wagmi_flutter_web/src/actions/write_contract.dart';
@@ -153,6 +158,17 @@ class Core {
     return result.toDart;
   }
 
+  static Future<String> sendTransaction(
+    SendTransactionParameters sendTransactionParameters,
+  ) async {
+    final result = await window.wagmiCore
+        .sendTransaction(
+          sendTransactionParameters.toJS,
+        )
+        .toDart;
+    return result.toDart;
+  }
+
   static Future<WriteContractReturnType> writeContract(
     WriteContractParameters writeContractParameters,
   ) async {
@@ -173,5 +189,49 @@ class Core {
         )
         .toDart;
     return result.toDart;
+  }
+
+  static Future<GetTransactionReturnType> getTransaction(
+    GetTransactionParameters getTransactionParameters,
+  ) async {
+    final result = await window.wagmiCore
+        .getTransaction(
+          getTransactionParameters.toJS,
+        )
+        .toDart;
+    return result.toDart;
+  }
+
+  static Future<BigInt> getTransactionConfirmations(
+    GetTransactionConfirmationsParameters getTransactionConfirmationsParameters,
+  ) async {
+    final result = await window.wagmiCore
+        .getTransactionConfirmations(
+          getTransactionConfirmationsParameters.toJS,
+        )
+        .toDart;
+    return result.toDart;
+  }
+
+  static Future<GetBlockReturnType> getBlock(
+    GetBlockParameters getBlockParameters,
+  ) async {
+    final result = await window.wagmiCore
+        .getBlock(
+          getBlockParameters.toJS,
+        )
+        .toDart;
+    return result.toDart;
+  }
+
+  static Future<int> getBlockTransactionCount(
+    GetBlockTransactionCountParameters getBlockTransactionCountParameters,
+  ) async {
+    final result = await window.wagmiCore
+        .getBlockTransactionCount(
+          getBlockTransactionCountParameters.toJS,
+        )
+        .toDart;
+    return result.toDartInt;
   }
 }
