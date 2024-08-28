@@ -425,7 +425,66 @@ class _MyAppState extends State<MyApp> {
             const SizedBox(
               height: 7,
             ),
+            ElevatedButton(
+              onPressed: () async {
+                final sendTransactionParameters =
+                    wagmi.SendTransactionParameters.legacy(
+                  to: '0xfA9F840d49D5774Fb3fc46AF9d8cE66087CBB79a',
+                  gas: BigInt.from(15000000000),
+                  feeValues: wagmi.FeeValuesLegacy(
+                    gasPrice: BigInt.parse('150000000000'),
+                  ),
+                  // chainId: account!.chain!.id,
+                  account: account!.address!,
+                  type: 'legacy',
+                  value: BigInt.parse('10000000000000000'),
+                );
+                final result =
+                    await wagmi.Core.sendTransaction(sendTransactionParameters);
+                setState(() {
+                  txHash = result;
+                });
 
+                // send transaction on contract
+                // DeployedContract contract = DeployedContract(
+                //   ContractAbi.fromJson(test3BitApi, 'Bit3Api'),
+                //   EthereumAddress.fromHex(bitTokenAddress),
+                // );
+                // String data = bytesToHex(
+                //     contract.function('transfer').encodeCall([
+                //       EthereumAddress.fromHex(
+                //           '0xfA9F840d49D5774Fb3fc46AF9d8cE66087CBB79a'),
+                //       BigInt.parse('1000000')
+                //     ]),
+                //     include0x: true,
+                //     padToEvenLength: true);
+                // print('data: $data');
+
+                // final sendTransactionParameters =
+                //     wagmi.SendTransactionParameters.legacy(
+                //   to: bitTokenAddress,
+                //   gas: BigInt.from(15000000),
+                //   feeValues: wagmi.FeeValuesLegacy(
+                //     gasPrice: BigInt.parse('150000000'),
+                //   ),
+                //   // chainId: account!.chain!.id,
+                //   account: account!.address!,
+                //   type: 'legacy',
+                //   data: data,
+                //   // value: BigInt.parse('10000000000000000'),
+                // );
+                // final result = await wagmi.Core.sendTransaction(
+                //     sendTransactionParameters);
+                // print('result: ${result}');
+                // setState(() {
+                //   txHash = result;
+                // });
+              },
+              child: const Text('Send Transaction'),
+            ),
+            const SizedBox(
+              height: 7,
+            ),
             // get transaction method
             ElevatedButton(
               onPressed: () async {
@@ -478,8 +537,6 @@ class _MyAppState extends State<MyApp> {
                 final getBlockReturnType = await wagmi.Core.getBlock(
                   getBlockParameters,
                 );
-                print(
-                    'getBlockReturnType: ${getBlockReturnType.baseFeePerGas}');
                 showBlockDetails(context, getBlockReturnType);
               },
               child: const Text('Get Block'),
@@ -551,8 +608,10 @@ class _MyAppState extends State<MyApp> {
   final String test3BitApi =
       '[{"inputs":[{"internalType":"address","name":"recipient","type":"address"},{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"transfer","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"nonpayable","type":"function"}]';
 
-  void showTransactionDetails(BuildContext context,
-      wagmi.GetTransactionReturnType getTransactionReturnType) {
+  void showTransactionDetails(
+    BuildContext context,
+    wagmi.GetTransactionReturnType getTransactionReturnType,
+  ) {
     showDialog(
       context: context,
       builder: (context) {
@@ -584,7 +643,8 @@ class _MyAppState extends State<MyApp> {
                 Text('maxFeePerGas: ${getTransactionReturnType.maxFeePerGas}'),
                 const SizedBox(height: 8),
                 Text(
-                    'maxPriorityFeePerGas: ${getTransactionReturnType.maxPriorityFeePerGas}'),
+                  'maxPriorityFeePerGas: ${getTransactionReturnType.maxPriorityFeePerGas}',
+                ),
                 const SizedBox(height: 8),
                 Text('nonce: ${getTransactionReturnType.nonce}'),
                 const SizedBox(height: 8),
@@ -595,7 +655,8 @@ class _MyAppState extends State<MyApp> {
                 Text('to: ${getTransactionReturnType.to}'),
                 const SizedBox(height: 8),
                 Text(
-                    'transactionIndex: ${getTransactionReturnType.transactionIndex}'),
+                  'transactionIndex: ${getTransactionReturnType.transactionIndex}',
+                ),
                 const SizedBox(height: 8),
                 Text('v: ${getTransactionReturnType.v}'),
                 const SizedBox(height: 8),
@@ -679,7 +740,8 @@ class _MyAppState extends State<MyApp> {
                 const SizedBox(height: 8),
                 Text('totalDifficulty: ${getBlockReturnType.totalDifficulty}'),
                 Text(
-                    'transactionsRoot: ${getBlockReturnType.transactionsRoot}'),
+                  'transactionsRoot: ${getBlockReturnType.transactionsRoot}',
+                ),
                 const SizedBox(height: 8),
                 Text('uncles: ${getBlockReturnType.uncles}'),
                 Text('transactions: ${getBlockReturnType.transactions}'),
