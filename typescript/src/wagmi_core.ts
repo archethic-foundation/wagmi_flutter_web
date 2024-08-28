@@ -6,11 +6,16 @@ import {
     GetTokenParameters,
     GetTransactionCountParameters,
     GetTransactionReceiptParameters,
+    GetBlockParameters,
+    GetBlockTransactionCountParameters,
+    GetTransactionConfirmationsParameters,
+    GetTransactionParameters,
     ReadContractParameters,
     ReadContractsParameters,
     SignMessageParameters,
     WatchChainIdParameters,
     WriteContractParameters,
+    SendTransactionParameters,
     estimateGas,
     getAccount,
     getBalance,
@@ -19,6 +24,11 @@ import {
     getChains,
     getGasPrice,
     getToken,
+    sendTransaction,
+    getTransaction,
+    getTransactionConfirmations,
+    getBlock,
+    getBlockTransactionCount,
     getTransactionCount,
     getTransactionReceipt,
     readContract,
@@ -75,6 +85,42 @@ export class JSWagmiCore {
         } catch (error) {
             console.error("Error fetching balance:", error)
             throw error
+        }
+    }
+
+    getBlock = async function (getBlockParameters: GetBlockParameters) {
+        try {
+            return await getBlock(JSWagmiContext.instance.config, getBlockParameters);
+        } catch (error) {
+            console.error("Error getBlock:", error);
+            throw error;
+        }
+    }
+
+    getBlockTransactionCount = async function (getBlockTransactionCountParameters: GetBlockTransactionCountParameters) {
+        try {
+            return await getBlockTransactionCount(JSWagmiContext.instance.config, getBlockTransactionCountParameters);
+        } catch (error) {
+            console.error("Error get block transaction count:", error);
+            throw error;
+        }
+    }
+
+    getTransaction = async function (getTransactionParameters: GetTransactionParameters) {
+        try {
+            return await getTransaction(JSWagmiContext.instance.config, getTransactionParameters);
+        } catch (error) {
+            console.error("Error get transaction:", error);
+            throw error;
+        }
+    }
+
+    getTransactionConfirmations = async function (getTransactionConfirmationsParameters: GetTransactionConfirmationsParameters) {
+        try {
+            return await getTransactionConfirmations(JSWagmiContext.instance.config, getTransactionConfirmationsParameters);
+        } catch (error) {
+            console.error("Error get transaction confirmations:", error);
+            throw error;
         }
     }
 
@@ -141,6 +187,15 @@ export class JSWagmiCore {
         } catch (error) {
             console.error("Error getTransactionReceipt:", error)
             throw error
+        }
+    }
+
+    sendTransaction = async function (sendTransactionParameters: SendTransactionParameters) {
+        try {
+            return await sendTransaction(JSWagmiContext.instance.config, sendTransactionParameters);
+        } catch (error) {
+            console.error("Error sendTransaction:", error);
+            throw error;
         }
     }
 
