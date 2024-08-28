@@ -54,8 +54,21 @@ extension JSWatchContractEventParametersConversion
         args: UtilsJS.convertArgs(args),
         batch: batch?.toJS,
         chainId: chainId?.toJS,
-        onError: onError?.toJS,
-        onLogs: onLogs?.toJS,
+        onError: onError == null
+            ? null
+            : ((JSError jsError) {
+                onError!(jsError.toDart);
+              }).toJS,
+        onLogs: onLogs == null
+            ? null
+            : ((JSArray<JSLog> jsLogs, JSArray<JSLog>? jsPreviousLogs) {
+                final logs =
+                    jsLogs.toDart.map((jsLog) => jsLog.toDart).toList();
+                final previousLogs = jsPreviousLogs?.toDart
+                    .map((jsLog) => jsLog.toDart)
+                    .toList();
+                onLogs!(logs, previousLogs);
+              }).toJS,
         poll: poll?.toJS,
         pollingInterval: pollingInterval?.toJS,
         strict: strict?.toJS,
