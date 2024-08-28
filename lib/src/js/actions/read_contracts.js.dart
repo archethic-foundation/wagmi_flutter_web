@@ -10,11 +10,4 @@ extension type JSReadContractsParameters._(JSObject _) implements JSObject {
 }
 
 @JS()
-extension type JSReadContractsReturnType(JSObject _) implements JSObject {
-  external JSArray<JSArray<JSObject>> data;
-
-  ReadContractsReturnType get toDart => ReadContractsReturnType(value: data);
-}
-
-@JS()
 extension type JSReadContractsErrorType(JSObject _) implements JSObject {}
