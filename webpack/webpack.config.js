@@ -3,7 +3,6 @@ module.exports = {
     entry: {
         main: path.resolve(__dirname, "..", "typescript", "main.ts"),
     },
-    devtool: 'inline-source-map',
     output: {
         library: "[name]",
         path: path.join(__dirname, "../lib/assets"),
