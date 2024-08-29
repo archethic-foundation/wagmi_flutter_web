@@ -1,12 +1,15 @@
 name: wagmi_flutter_web
 description: "Wagmi JS SDK wrapper for Dart Web"
-version: 0.0.1-dev.1
+version: 0.0.1-dev.2
 homepage: https://github.com/archethic-foundation/wagmi_flutter_web
 
 environment:
   sdk: ">=3.3.3 <4.0.0"
 
 dependencies:
+  # The decimal package allows you to deal with decimal numbers without losing precision
+  decimal: ^3.0.2
+
   flutter:
     sdk: flutter
 
@@ -19,9 +22,6 @@ dependencies:
 dev_dependencies:
   # A build system for Dart code generation and modular compilation.
   build_runner: ^2.4.8
-
-  # The decimal package allows you to deal with decimal numbers without losing precision
-  decimal: ^3.0.2
 
   flutter_lints: ^3.0.0
   flutter_test:
