@@ -121,8 +121,8 @@ export class JSWagmiCore {
                 illegalNullsToUndefined(getBlockParameters)
             )
         } catch (error) {
-            console.error("Error getBlock:", error);
-            throw error;
+            console.error("Error getBlock:", error)
+            throw error
         }
     }
 
@@ -133,8 +133,8 @@ export class JSWagmiCore {
                 illegalNullsToUndefined(getBlockTransactionCountParameters)
             )
         } catch (error) {
-            console.error("Error get block transaction count:", error);
-            throw error;
+            console.error("Error get block transaction count:", error)
+            throw error
         }
     }
 
@@ -145,8 +145,8 @@ export class JSWagmiCore {
                 illegalNullsToUndefined(getTransactionParameters)
             )
         } catch (error) {
-            console.error("Error get transaction:", error);
-            throw error;
+            console.error("Error get transaction:", error)
+            throw error
         }
     }
     call = async function (callParameters: CallParameters) {
@@ -168,8 +168,8 @@ export class JSWagmiCore {
                 illegalNullsToUndefined(getTransactionConfirmationsParameters)
             )
         } catch (error) {
-            console.error("Error get transaction confirmations:", error);
-            throw error;
+            console.error("Error get transaction confirmations:", error)
+            throw error
         }
     }
 
@@ -264,8 +264,8 @@ export class JSWagmiCore {
                 illegalNullsToUndefined(sendTransactionParameters)
             )
         } catch (error) {
-            console.error("Error sendTransaction:", error);
-            throw error;
+            console.error("Error sendTransaction:", error)
+            throw error
         }
     }
 
@@ -277,16 +277,19 @@ export class JSWagmiCore {
             )
         } catch (error) {
             console.error("Error watchChainId:", error)
-            throw error;
+            throw error
         }
     }
 
     watchContractEvent = async function (watchContractEventParameters: WatchContractEventParameters) {
         try {
-            return await watchContractEvent(JSWagmiContext.instance.config, watchContractEventParameters)
+            return await watchContractEvent(
+                JSWagmiContext.instance.config,
+                illegalNullsToUndefined(watchContractEventParameters)
+            )
         } catch (error) {
             console.error("Error watchContractEvent:", error)
-            throw error;
+            throw error
         }
     }
 
@@ -298,7 +301,7 @@ export class JSWagmiCore {
             )
         } catch (error) {
             console.error("Error writeContract:", error)
-            return null
+            throw error
         }
     }
 
