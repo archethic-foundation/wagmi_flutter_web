@@ -56,4 +56,7 @@ extension type JSWagmiCore(JSObject _) implements JSObject {
   external JSPromise<JSNumber> getBlockTransactionCount(
     JSGetBlockTransactionCountParameters getBlockTransactionCountParameters,
   );
+  external JSPromise<JSCallReturnType> call(
+    JSCallParameters callParameters,
+  );
 }

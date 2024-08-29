@@ -37,6 +37,7 @@ wagmi.Web3Modal.init(
         url: 'https://web3modal.com',
         icons: ['https://avatars.githubusercontent.com/u/37784886'],
     ),
+    false // email
 );
 
 // Opens the Wallet connection modal.

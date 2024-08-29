@@ -17,20 +17,17 @@ class GetBlockParameters {
   final BigInt? chainId;
   final bool? includeTransactions;
 
-  JSGetBlockParameters get toJS => blockNumber != null
-      ? JSGetBlockParameters(
-          blockHash: blockHash?.toJS,
-          blockNumber: blockNumber?.toJS,
-          blockTag: blockTag?.toJS,
-          chainId: chainId?.toJS,
-          includeTransactions: includeTransactions?.toJS,
-        )
-      : JSGetBlockParameters(
-          blockHash: blockHash?.toJS,
-          blockTag: blockTag?.toJS,
-          chainId: chainId?.toJS,
-          includeTransactions: includeTransactions?.toJS,
-        );
+  JSGetBlockParameters get toJS {
+    final jsBlockParams = JSGetBlockParameters();
+    if (blockHash != null) jsBlockParams.blockHash = blockHash?.toJS;
+    if (blockNumber != null) jsBlockParams.blockNumber = blockNumber?.toJS;
+    if (blockTag != null) jsBlockParams.blockTag = blockTag?.toJS;
+    if (chainId != null) jsBlockParams.chainId = chainId?.toJS;
+    if (includeTransactions != null) {
+      jsBlockParams.includeTransactions = includeTransactions?.toJS;
+    }
+    return jsBlockParams;
+  }
 }
 
 class GetBlockReturnType {

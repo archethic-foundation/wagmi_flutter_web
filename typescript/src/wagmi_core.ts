@@ -16,6 +16,7 @@ import {
     WatchChainIdParameters,
     WriteContractParameters,
     SendTransactionParameters,
+    CallParameters,
     estimateGas,
     getAccount,
     getBalance,
@@ -36,6 +37,7 @@ import {
     signMessage,
     watchChainId,
     writeContract,
+    call,
 } from "@wagmi/core"
 import { InvalidAddressError } from "viem"
 import { JSWagmiContext } from "./context"
@@ -111,6 +113,14 @@ export class JSWagmiCore {
             return await getTransaction(JSWagmiContext.instance.config, getTransactionParameters);
         } catch (error) {
             console.error("Error get transaction:", error);
+            throw error;
+        }
+    }
+    call = async function (callParameters: CallParameters) {
+        try {
+            return await call(JSWagmiContext.instance.config, callParameters);
+        } catch (error) {
+            console.error("Error call:", error);
             throw error;
         }
     }

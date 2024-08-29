@@ -30,6 +30,7 @@ environment:
 dependencies:
   # The decimal package allows you to deal with decimal numbers without losing precision
   decimal: ^3.0.2
+  web3dart: ^2.7.3
 
   flutter:
     sdk: flutter
