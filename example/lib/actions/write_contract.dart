@@ -1,3 +1,4 @@
+import 'package:example/actions/components/snackbar.dart';
 import 'package:example/actions/components/tab_header.dart';
 import 'package:flutter/material.dart';
 import 'package:wagmi_flutter_web/wagmi_flutter_web.dart' as wagmi;
@@ -12,7 +13,7 @@ class WriteContractsExample extends StatefulWidget {
 class _WriteContractsExampleState extends State<WriteContractsExample> {
   String? hashApproval;
   bool? walletConnected;
-  int? accountChainId;
+  wagmi.Account? account;
   BigInt? gasPrice;
   wagmi.WatchContractEventReturnType? watchContractEventUnsubscribe;
 
@@ -21,6 +22,9 @@ class _WriteContractsExampleState extends State<WriteContractsExample> {
     walletConnected = false;
     super.initState();
   }
+
+  bool get isProcessing => watchContractEventUnsubscribe != null;
+  int? get accountChainId => account?.chain?.id;
 
   @override
   Widget build(BuildContext context) {
@@ -33,126 +37,26 @@ class _WriteContractsExampleState extends State<WriteContractsExample> {
           ),
           _howto(),
           ElevatedButton(
-            onPressed: () async {
-              setState(() {
-                walletConnected = null;
-                accountChainId = null;
-                gasPrice = null;
-                hashApproval = null;
-              });
+            onPressed: isProcessing
+                ? null
+                : () async {
+                    await _initOperation();
 
-              final account = wagmi.Core.getAccount();
-              if (account.chain == null) {
-                wagmi.Web3Modal.open();
-              }
-              setState(() {
-                walletConnected = true;
-                accountChainId = account.chain?.id;
-              });
-              final getGasPriceParameters = wagmi.GetGasPriceParameters(
-                chainId: account.chain?.id,
-              );
-              final getGasPriceReturnType =
-                  await wagmi.Core.getGasPrice(getGasPriceParameters);
+                    if (gasPrice == null || account == null) {
+                      _operationFailed(
+                        'Unable to fetch Account & GasPrice data',
+                      );
+                      return;
+                    }
 
-              setState(() {
-                gasPrice = getGasPriceReturnType;
-              });
+                    try {
+                      await _startWatching();
 
-              final writeContractParameters =
-                  wagmi.WriteContractParameters.legacy(
-                abi: [
-                  {
-                    'inputs': [
-                      {
-                        'internalType': 'address',
-                        'name': 'spender',
-                        'type': 'address',
-                      },
-                      {
-                        'internalType': 'uint256',
-                        'name': 'amount',
-                        'type': 'uint256',
-                      }
-                    ],
-                    'name': 'approve',
-                    'outputs': [
-                      {
-                        'internalType': 'bool',
-                        'name': '',
-                        'type': 'bool',
-                      },
-                    ],
-                    'stateMutability': 'nonpayable',
-                    'type': 'function',
+                      await _writeContract();
+                    } catch (error) {
+                      _operationFailed(error.toString());
+                    }
                   },
-                ],
-                address: '0xCBBd3374090113732393DAE1433Bc14E5233d5d7',
-                account: account.address,
-                functionName: 'approve',
-                gas: wagmi.EtherAmount.fromInt(
-                  wagmi.EtherUnit.wei,
-                  1500000,
-                ).getInWei,
-                feeValues: wagmi.FeeValuesLegacy(
-                  gasPrice: getGasPriceReturnType,
-                ),
-                args: [
-                  '0x08Bfc8BA9fD137Fb632F79548B150FE0Be493254',
-                  BigInt.from(498500000000000),
-                ],
-                chainId: 11155111,
-              );
-
-              final watchContractEventParameters =
-                  wagmi.WatchContractEventParameters(
-                abi: [
-                  {
-                    'anonymous': false,
-                    'inputs': [
-                      {
-                        'indexed': true,
-                        'internalType': 'address',
-                        'name': 'owner',
-                        'type': 'address',
-                      },
-                      {
-                        'indexed': true,
-                        'internalType': 'address',
-                        'name': 'spender',
-                        'type': 'address',
-                      },
-                      {
-                        'indexed': false,
-                        'internalType': 'uint256',
-                        'name': 'value',
-                        'type': 'uint256',
-                      }
-                    ],
-                    'name': 'Approval',
-                    'type': 'event',
-                  },
-                ],
-                address: '0xCBBd3374090113732393DAE1433Bc14E5233d5d7',
-                eventName: 'Approval',
-                onError: (error) => print('watchContractEventt ERROR $error'),
-                onLogs: (logs, prevLogs) =>
-                    print('watchContractEventt LOGS $logs, $prevLogs'),
-              );
-
-              final unwatch = await wagmi.Core.watchContractEvent(
-                watchContractEventParameters,
-              );
-
-              final writeContractReturnType =
-                  await wagmi.Core.writeContract(writeContractParameters);
-
-              setState(() {
-                hashApproval = writeContractReturnType;
-                watchContractEventUnsubscribe = unwatch;
-                watchContractEventUnsubscribe?.call();
-              });
-            },
             child: const Text('Call approve function'),
           ),
           const SizedBox(
@@ -177,11 +81,135 @@ class _WriteContractsExampleState extends State<WriteContractsExample> {
                 ),
               if (gasPrice != null) Text('Gas Price: $gasPrice'),
               if (hashApproval != null) Text('Hash approval: $hashApproval'),
+              if (isProcessing)
+                const Padding(
+                  padding: EdgeInsets.only(top: 8),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text('Waiting for Approval'),
+                      SizedBox(
+                        width: 12,
+                      ),
+                      SizedBox.square(
+                        dimension: 18,
+                        child: CircularProgressIndicator(
+                          strokeWidth: 2,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
             ],
           ),
         ],
       ),
     );
+  }
+
+  void _operationFailed(String? message) {
+    print('Approval failed : $message');
+    context.showFailure(
+      'Approval failed : $message',
+    );
+
+    watchContractEventUnsubscribe?.call();
+    setState(() {
+      watchContractEventUnsubscribe = null;
+    });
+  }
+
+  void _operationSucceed(String? message) {
+    print('Approval succeed : $message');
+    context.showSuccess(
+      'Approval succeed : $message',
+    );
+
+    watchContractEventUnsubscribe?.call();
+    setState(() {
+      watchContractEventUnsubscribe = null;
+    });
+  }
+
+  Future<void> _initOperation() async {
+    setState(() {
+      walletConnected = null;
+      account = null;
+      gasPrice = null;
+      hashApproval = null;
+    });
+
+    final _account = wagmi.Core.getAccount();
+    if (_account.chain == null) {
+      wagmi.Web3Modal.open();
+    }
+    setState(() {
+      walletConnected = true;
+      account = _account;
+    });
+    final getGasPriceParameters = wagmi.GetGasPriceParameters(
+      chainId: _account.chain?.id,
+    );
+    final getGasPriceReturnType = await wagmi.Core.getGasPrice(
+      getGasPriceParameters,
+    );
+
+    setState(() {
+      gasPrice = getGasPriceReturnType;
+    });
+  }
+
+  Future<void> _startWatching() async {
+    final watchContractEventParameters = wagmi.WatchContractEventParameters(
+      abi: [
+        {
+          'anonymous': false,
+          'inputs': [
+            {
+              'indexed': true,
+              'internalType': 'address',
+              'name': 'owner',
+              'type': 'address',
+            },
+            {
+              'indexed': true,
+              'internalType': 'address',
+              'name': 'spender',
+              'type': 'address',
+            },
+            {
+              'indexed': false,
+              'internalType': 'uint256',
+              'name': 'value',
+              'type': 'uint256',
+            }
+          ],
+          'name': 'Approval',
+          'type': 'event',
+        },
+      ],
+      address: '0xCBBd3374090113732393DAE1433Bc14E5233d5d7',
+      eventName: 'Approval',
+      onError: (error) {
+        _operationFailed(error.toString());
+      },
+      onLogs: (logs) {
+        if (!logs.any(
+          (log) => log.transactionHash == hashApproval,
+        )) return;
+
+        _operationSucceed(
+          'Approval succeed for Tx : $hashApproval : ${logs.map((log) => log.toString())}',
+        );
+      },
+    );
+
+    final unwatch = await wagmi.Core.watchContractEvent(
+      watchContractEventParameters,
+    );
+    setState(() {
+      watchContractEventUnsubscribe = unwatch;
+    });
   }
 
   Widget _howto() {
@@ -200,5 +228,59 @@ class _WriteContractsExampleState extends State<WriteContractsExample> {
         ],
       ),
     );
+  }
+
+  Future<void> _writeContract() async {
+    final writeContractParameters = wagmi.WriteContractParameters.legacy(
+      abi: [
+        {
+          'inputs': [
+            {
+              'internalType': 'address',
+              'name': 'spender',
+              'type': 'address',
+            },
+            {
+              'internalType': 'uint256',
+              'name': 'amount',
+              'type': 'uint256',
+            }
+          ],
+          'name': 'approve',
+          'outputs': [
+            {
+              'internalType': 'bool',
+              'name': '',
+              'type': 'bool',
+            },
+          ],
+          'stateMutability': 'nonpayable',
+          'type': 'function',
+        },
+      ],
+      address: '0xCBBd3374090113732393DAE1433Bc14E5233d5d7',
+      account: account!.address,
+      functionName: 'approve',
+      gas: wagmi.EtherAmount.fromInt(
+        wagmi.EtherUnit.wei,
+        100000,
+      ).getInWei,
+      feeValues: wagmi.FeeValuesLegacy(
+        gasPrice: gasPrice!,
+      ),
+      args: [
+        '0x08Bfc8BA9fD137Fb632F79548B150FE0Be493254',
+        BigInt.from(498500000000000),
+      ],
+      chainId: 11155111,
+    );
+
+    final writeContractReturnType = await wagmi.Core.writeContract(
+      writeContractParameters,
+    );
+
+    setState(() {
+      hashApproval = writeContractReturnType;
+    });
   }
 }

@@ -12,6 +12,7 @@ extension type JSWagmiWeb3Modal(JSObject _) implements JSObject {
     JSArray<JSString>? socials,
     JSBoolean showWallets,
     JSBoolean walletFeatures,
+    JSFunction? transportBuilder,
   );
   external void open();
   external void close();

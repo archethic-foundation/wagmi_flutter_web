@@ -1,6 +1,7 @@
 import 'dart:js_interop';
 
 import 'package:wagmi_flutter_web/src/js/wagmi.js.dart';
+import 'package:wagmi_flutter_web/src/models/transport.dart';
 
 class Web3Modal {
   /// Initializes [Web3Modal].
@@ -16,9 +17,10 @@ class Web3Modal {
     required bool enableOnRamp,
     required Web3ModalMetadata metadata,
     required bool email,
-    required List<String>? socials,
+    List<String>? socials,
     required bool showWallets,
     required bool walletFeatures,
+    TransportBuilder? transportBuilder,
   }) {
     window.web3modal.init(
       projectId.toJS,
@@ -35,6 +37,7 @@ class Web3Modal {
       socials.jsify() as JSArray<JSString>?,
       showWallets.toJS,
       walletFeatures.toJS,
+      transportBuilder?.toJS,
     );
   }
 

@@ -61,13 +61,10 @@ extension JSWatchContractEventParametersConversion
               }).toJS,
         onLogs: onLogs == null
             ? null
-            : ((JSArray<JSLog> jsLogs, JSArray<JSLog>? jsPreviousLogs) {
+            : ((JSArray<JSLog> jsLogs) {
                 final logs =
                     jsLogs.toDart.map((jsLog) => jsLog.toDart).toList();
-                final previousLogs = jsPreviousLogs?.toDart
-                    .map((jsLog) => jsLog.toDart)
-                    .toList();
-                onLogs!(logs, previousLogs);
+                onLogs!(logs);
               }).toJS,
         poll: poll?.toJS,
         pollingInterval: pollingInterval?.toJS,
