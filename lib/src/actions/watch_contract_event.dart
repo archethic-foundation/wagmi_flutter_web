@@ -5,7 +5,6 @@ import 'package:wagmi_flutter_web/src/models/log.dart';
 
 typedef OnLogCallback = void Function(
   List<Log> logs,
-  List<Log>? prevLogs,
 );
 typedef OnErrorCallback = void Function(WagmiError error);
 

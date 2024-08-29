@@ -43,6 +43,7 @@ part 'models/error.js.dart';
 part 'models/format_unit.js.dart';
 part 'models/jsFunctionToDart.js.dart';
 part 'models/log.js.dart';
+part 'models/transport.js.dart';
 part 'wagmi_core.js.dart';
 part 'wagmi_web3modal.js.dart';
 

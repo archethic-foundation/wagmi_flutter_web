@@ -1,21 +1,18 @@
-class Log {
-  Log({
-    required this.address,
-    this.blockHash,
-    this.blockNumber,
-    required this.data,
-    this.logIndex,
-    this.transactionHash,
-    this.transactionIndex,
-    required this.removed,
-  });
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-  final String address;
-  final String? blockHash;
-  final BigInt? blockNumber;
-  final String data;
-  final int? logIndex;
-  final String? transactionHash;
-  final int? transactionIndex;
-  final bool removed;
+part 'log.freezed.dart';
+
+@freezed
+class Log with _$Log {
+  const factory Log({
+    required String address,
+    String? blockHash,
+    BigInt? blockNumber,
+    required String data,
+    int? logIndex,
+    String? transactionHash,
+    int? transactionIndex,
+    required bool removed,
+  }) = _Log;
+  const Log._();
 }

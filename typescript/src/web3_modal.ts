@@ -1,7 +1,9 @@
 import { AppKit } from "@web3modal/base"
 import * as Web3modal from '@web3modal/wagmi'
+import { Chain, Client, createClient, EIP1193RequestFn, http, Transport, webSocket } from "viem"
 import { chainsFromStrings } from "./chains"
 import { JSWagmiContext } from "./context"
+import { JSHttpTransport, JSTransport, JSTransportBuilder, JSWebsocketTransport } from "./transport"
 
 export class JSWeb3Modal {
     _modalInstance: AppKit | undefined
@@ -26,7 +28,8 @@ export class JSWeb3Modal {
         email: boolean,
         socials: [] | undefined,
         showWallets: boolean,
-        walletFeatures: boolean
+        walletFeatures: boolean,
+        transportBuilder: JSTransportBuilder | undefined
     ) {
         JSWagmiContext.instance.config = Web3modal.defaultWagmiConfig({
             chains: chainsFromStrings(chains),
@@ -37,7 +40,8 @@ export class JSWeb3Modal {
                 socials: socials?.length === 0 ? undefined : socials,
                 showWallets: showWallets,
                 walletFeatures: walletFeatures
-            }
+            },
+            client: !transportBuilder ? undefined : this.#clientBuilder(transportBuilder),
         })
 
         this._modalInstance = Web3modal.createWeb3Modal({
@@ -54,5 +58,26 @@ export class JSWeb3Modal {
 
     close() {
         return this._modal().close()
+    }
+
+    #clientBuilder(transportBuilder: JSTransportBuilder): ((parameters: { chain: Chain; }) => Client<Transport<string, Record<string, any>, EIP1193RequestFn>, Chain>) {
+        return (parameters: { chain: Chain; }) => {
+            const transport = transportBuilder(parameters.chain.id);
+            return createClient({
+                chain: parameters.chain,
+                transport: this.#transportBuilder(transport)
+            })
+        }
+    }
+
+    #transportBuilder(jsTransport: JSTransport): Transport<string, Record<string, any>, EIP1193RequestFn> {
+        switch (jsTransport.type) {
+            case JSHttpTransport.type:
+                return http(jsTransport.url)
+            case JSWebsocketTransport.type:
+                return webSocket(jsTransport.url)
+            default:
+                throw new Error(`Unknown Transport type ${typeof jsTransport}`)
+        }
     }
 }
