@@ -4,6 +4,8 @@ import 'package:example/actions/gas_price.dart';
 import 'package:example/actions/write_contract.dart';
 import 'package:flutter/material.dart';
 import 'package:wagmi_flutter_web/wagmi_flutter_web.dart' as wagmi;
+import 'package:web3dart/crypto.dart';
+import 'package:web3dart/web3dart.dart';
 
 void main() {
   runApp(const MaterialApp(title: 'Web3Modal Example', home: MyApp()));
@@ -42,6 +44,7 @@ class _MyAppState extends State<MyApp> {
   String txHash = '';
   BigInt blockConfirmationNumber = BigInt.zero;
   int? transactionsCountOfChain;
+  BigInt callReturnType = BigInt.zero;
 
   final tabs = [
     const Tab(text: 'Main'),
@@ -72,6 +75,7 @@ class _MyAppState extends State<MyApp> {
             url: 'https://web3modal.com',
             icons: ['https://avatars.githubusercontent.com/u/37784886'],
           ),
+          false, // email
         );
       },
     );
@@ -113,6 +117,14 @@ class _MyAppState extends State<MyApp> {
             const SizedBox(
               height: 10,
             ),
+            // disconnect wallet
+            const ElevatedButton(
+              onPressed: wagmi.Web3Modal.close,
+              child: Text('Disconnect Wallet'),
+            ),
+            const SizedBox(
+              height: 10,
+            ),
             ElevatedButton(
               onPressed: () {
                 setState(() {
@@ -123,6 +135,7 @@ class _MyAppState extends State<MyApp> {
               },
               child: const Text('Get Account info'),
             ),
+
             const SizedBox(
               height: 10,
             ),
@@ -130,6 +143,10 @@ class _MyAppState extends State<MyApp> {
             Text('account status:  ${account?.status ?? 'unknown'}'),
             Text('account chain ID: ${account?.chain?.id ?? 'unknown'}'),
             Text('Chain ID: $chainId'),
+            const SizedBox(
+              height: 10,
+            ),
+
             ElevatedButton(
               onPressed: () {
                 chains = wagmi.Core.getChains();
@@ -569,6 +586,63 @@ class _MyAppState extends State<MyApp> {
             else
               Container(),
             const SizedBox(
+              height: 10,
+            ),
+            // call function
+            ElevatedButton(
+              onPressed: () async {
+                final contract = DeployedContract(
+                  ContractAbi.fromJson(callContract, 'Bit3Api'),
+                  EthereumAddress.fromHex(bitTokenAddress),
+                );
+                final data = bytesToHex(
+                  contract.function('totalSupply').encodeCall([
+                    // EthereumAddress.fromHex(
+                    //     '0xfA9F840d49D5774Fb3fc46AF9d8cE66087CBB79a'),
+                    // BigInt.parse('1000000')
+                  ]),
+                  include0x: true,
+                  padToEvenLength: true,
+                );
+
+                final callParameters = wagmi.CallParameters(
+                  to: bitTokenAddress,
+                  data: data,
+                );
+                final res = await wagmi.Core.call(callParameters);
+                // print('callReturnType: ${res.data}');
+                setState(() {
+                  callReturnType = BigInt.parse(res.data.toString());
+                });
+              },
+              child: const Text('Call Function'),
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            if (callReturnType > BigInt.zero)
+              Text('Call Response: ${callReturnType / BigInt.from(1000000)}')
+            else
+              Container(),
+            const SizedBox(
+              height: 10,
+            ),
+            // estimate fees per gas
+            ElevatedButton(
+              onPressed: () async {
+                final estimateFeesPerGasParameters =
+                    wagmi.EstimateFeesPerGasParameters(
+                  formatUnits: 'gwei',
+                  chainId: account!.chain!.id,
+                );
+                final result = await wagmi.Core.estimateFeesPerGas(
+                  estimateFeesPerGasParameters,
+                );
+                showEstimateFeesPerGasDialog(context, result);
+              },
+              child: const Text('Estimate Fees Per Gas'),
+            ),
+            const SizedBox(
               height: 7,
             ),
           ],
@@ -601,10 +675,51 @@ class _MyAppState extends State<MyApp> {
       'type': 'function',
     }
   ];
+  final String callContract =
+      '[{"inputs":[],"name":"totalSupply","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"}]';
 
   // abi for test3BitApi
   final String test3BitApi =
       '[{"inputs":[{"internalType":"address","name":"recipient","type":"address"},{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"transfer","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"nonpayable","type":"function"}]';
+
+// show estimate fees per gas dialog
+  void showEstimateFeesPerGasDialog(
+    BuildContext context,
+    wagmi.EstimateFeesPerGasReturnType estimateFeesPerGasReturnType,
+  ) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: const Text('Estimate Fees Per Gas'),
+          content: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'Gas Price: ${estimateFeesPerGasReturnType.gasPrice}',
+              ),
+              const SizedBox(height: 8),
+              Text(
+                'Max Fee Per Gas: ${estimateFeesPerGasReturnType.maxFeePerGas}',
+              ),
+              const SizedBox(height: 8),
+              Text(
+                'Max Priority Fee Per Gas: ${estimateFeesPerGasReturnType.maxPriorityFeePerGas}',
+              ),
+            ],
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text('Close'),
+            ),
+          ],
+        );
+      },
+    );
+  }
 
   void showTransactionDetails(
     BuildContext context,

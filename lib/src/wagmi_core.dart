@@ -1,6 +1,8 @@
 import 'dart:js_interop';
 
+import 'package:wagmi_flutter_web/src/actions/call.dart';
 import 'package:wagmi_flutter_web/src/actions/estimate_gas.dart';
+import 'package:wagmi_flutter_web/src/actions/estimate_fees_per_gas.dart';
 import 'package:wagmi_flutter_web/src/actions/get_balance.dart';
 import 'package:wagmi_flutter_web/src/actions/get_block.dart';
 import 'package:wagmi_flutter_web/src/actions/get_block_number.dart';
@@ -233,5 +235,29 @@ class Core {
         )
         .toDart;
     return result.toDartInt;
+  }
+
+  // call function
+  static Future<CallReturnType> call(
+    CallParameters callParameters,
+  ) async {
+    final result = await window.wagmiCore
+        .call(
+          callParameters.toJS,
+        )
+        .toDart;
+    return result.toDart;
+  }
+
+  // estimate fees per gas
+  static Future<EstimateFeesPerGasReturnType> estimateFeesPerGas(
+    EstimateFeesPerGasParameters estimateFeesPerGasParameters,
+  ) async {
+    final result = await window.wagmiCore
+        .estimateFeesPerGas(
+          estimateFeesPerGasParameters.toJS,
+        )
+        .toDart;
+    return result.toDart;
   }
 }
