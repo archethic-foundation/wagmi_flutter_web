@@ -59,4 +59,7 @@ extension type JSWagmiCore(JSObject _) implements JSObject {
   external JSPromise<JSCallReturnType> call(
     JSCallParameters callParameters,
   );
+  external JSPromise<JSEstimateFeesPerGasReturnType> estimateFeesPerGas(
+    JSEstimateFeesPerGasParameters estimateFeesPerGasParameters,
+  );
 }

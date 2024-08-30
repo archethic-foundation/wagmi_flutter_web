@@ -627,6 +627,24 @@ class _MyAppState extends State<MyApp> {
             const SizedBox(
               height: 10,
             ),
+            // estimate fees per gas
+            ElevatedButton(
+              onPressed: () async {
+                final estimateFeesPerGasParameters =
+                    wagmi.EstimateFeesPerGasParameters(
+                  formatUnits: 'gwei',
+                  chainId: account!.chain!.id,
+                );
+                final result = await wagmi.Core.estimateFeesPerGas(
+                  estimateFeesPerGasParameters,
+                );
+                showEstimateFeesPerGasDialog(context, result);
+              },
+              child: const Text('Estimate Fees Per Gas'),
+            ),
+            const SizedBox(
+              height: 7,
+            ),
           ],
         ),
       ),
@@ -663,6 +681,45 @@ class _MyAppState extends State<MyApp> {
   // abi for test3BitApi
   final String test3BitApi =
       '[{"inputs":[{"internalType":"address","name":"recipient","type":"address"},{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"transfer","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"nonpayable","type":"function"}]';
+
+// show estimate fees per gas dialog
+  void showEstimateFeesPerGasDialog(
+    BuildContext context,
+    wagmi.EstimateFeesPerGasReturnType estimateFeesPerGasReturnType,
+  ) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: const Text('Estimate Fees Per Gas'),
+          content: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'Gas Price: ${estimateFeesPerGasReturnType.gasPrice}',
+              ),
+              const SizedBox(height: 8),
+              Text(
+                'Max Fee Per Gas: ${estimateFeesPerGasReturnType.maxFeePerGas}',
+              ),
+              const SizedBox(height: 8),
+              Text(
+                'Max Priority Fee Per Gas: ${estimateFeesPerGasReturnType.maxPriorityFeePerGas}',
+              ),
+            ],
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text('Close'),
+            ),
+          ],
+        );
+      },
+    );
+  }
 
   void showTransactionDetails(
     BuildContext context,

@@ -5,6 +5,7 @@ import 'dart:async';
 import 'dart:html' as html;
 export 'src/actions/call.dart';
 export 'src/actions/estimate_gas.dart';
+export 'src/actions/estimate_fees_per_gas.dart';
 export 'src/actions/get_balance.dart';
 export 'src/actions/get_block.dart';
 export 'src/actions/get_block_number.dart';

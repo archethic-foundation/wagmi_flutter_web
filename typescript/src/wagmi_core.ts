@@ -1,5 +1,6 @@
 import {
     EstimateGasParameters,
+    EstimateFeesPerGasParameters,
     GetBalanceParameters,
     GetBlockNumberParameters,
     GetGasPriceParameters,
@@ -18,6 +19,7 @@ import {
     SendTransactionParameters,
     CallParameters,
     estimateGas,
+    estimateFeesPerGas,
     getAccount,
     getBalance,
     getBlockNumber,
@@ -232,6 +234,14 @@ export class JSWagmiCore {
             return await estimateGas(JSWagmiContext.instance.config, estimateGasParameters)
         } catch (error) {
             console.error("Error estimateGas:", error)
+            throw error
+        }
+    }
+    estimateFeesPerGas = async function (estimateFeesPerGasParameters: EstimateFeesPerGasParameters) {
+        try {
+            return await estimateFeesPerGas(JSWagmiContext.instance.config, estimateFeesPerGasParameters)
+        } catch (error) {
+            console.error("Error estimateFeesPerGas:", error)
             throw error
         }
     }
