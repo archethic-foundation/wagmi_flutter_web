@@ -60,13 +60,13 @@ For more details, refer to the [API documentation](https://wagmi.sh/core/api/act
 
 | Action Name                    | Status          |
 | ------------------------------ | --------------- |
-| `call`                         | 🔴               |
+| `call`                         | ✅ Implemented   |
 | `connect`                      | 🔴               |
 | `deployContract`               | 🔴               |
 | `disconnect`                   | 🔴               |
-| `estimateFeesPerGas`           | 🔴               |
+| `estimateFeesPerGas`           | ✅ Implemented   |
 | `estimateGas`                  | ✅ Implemented   |
-| `estimateMaxPriorityFeePerGas` | 🔴               |
+| `estimateMaxPriorityFeePerGas` | ✅ Implemented   |
 | `getAccount`                   | ✅ Implemented   |
 | `getBalance`                   | ✅ Implemented   |
 | `getBlock`                     | ✅ Implemented   |
