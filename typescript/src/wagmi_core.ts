@@ -250,9 +250,7 @@ export class JSWagmiCore {
 
     estimateMaxPriorityFeePerGas = async function (estimateMaxPriorityFeePerGasParameters: EstimateMaxPriorityFeePerGasParameters) {
         try {
-            var result = await estimateMaxPriorityFeePerGas(JSWagmiContext.instance.config, estimateMaxPriorityFeePerGasParameters);
-            console.log("estimateMaxPriorityFeePerGas result:", result);
-            return result;
+            return await estimateMaxPriorityFeePerGas(JSWagmiContext.instance.config, estimateMaxPriorityFeePerGasParameters);
         } catch (error) {
             console.error("Error estimateMaxPriorityFeePerGas:", error)
             throw error
