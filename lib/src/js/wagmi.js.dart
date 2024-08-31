@@ -1,10 +1,12 @@
 import 'dart:js_interop';
 
+import 'package:wagmi_flutter_web/src/actions/estimate_max_priority_fee_per_gas.dart';
 import 'package:wagmi_flutter_web/src/actions/get_chains.dart';
 import 'package:wagmi_flutter_web/wagmi_flutter_web.dart';
 
 part 'actions/estimate_gas.js.dart';
 part 'actions/estimate_fees_per_gas.js.dart';
+part 'actions/estimate_max_priority_fee_per_gas.js.dart';
 part 'actions/get_balance.js.dart';
 part 'actions/get_block_number.js.dart';
 part 'actions/get_chain_id.js.dart';

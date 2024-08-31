@@ -1,6 +1,7 @@
 import {
     EstimateGasParameters,
     EstimateFeesPerGasParameters,
+    EstimateMaxPriorityFeePerGasParameters,
     GetBalanceParameters,
     GetBlockNumberParameters,
     GetGasPriceParameters,
@@ -20,6 +21,7 @@ import {
     CallParameters,
     estimateGas,
     estimateFeesPerGas,
+    estimateMaxPriorityFeePerGas,
     getAccount,
     getBalance,
     getBlockNumber,
@@ -242,6 +244,17 @@ export class JSWagmiCore {
             return await estimateFeesPerGas(JSWagmiContext.instance.config, estimateFeesPerGasParameters)
         } catch (error) {
             console.error("Error estimateFeesPerGas:", error)
+            throw error
+        }
+    }
+
+    estimateMaxPriorityFeePerGas = async function (estimateMaxPriorityFeePerGasParameters: EstimateMaxPriorityFeePerGasParameters) {
+        try {
+            var result = await estimateMaxPriorityFeePerGas(JSWagmiContext.instance.config, estimateMaxPriorityFeePerGasParameters);
+            console.log("estimateMaxPriorityFeePerGas result:", result);
+            return result;
+        } catch (error) {
+            console.error("Error estimateMaxPriorityFeePerGas:", error)
             throw error
         }
     }

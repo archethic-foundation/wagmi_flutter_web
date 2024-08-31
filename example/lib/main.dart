@@ -42,7 +42,8 @@ class _MyAppState extends State<MyApp> {
   String tempWallet = '0xfAd3b616BCD747A12A7c0a6203E7a481606B12E8';
 
   String txHash = '';
-  BigInt blockConfirmationNumber = BigInt.zero;
+  BigInt blockConfirmationNumber = BigInt.zero,
+      estimateMaxPriorityFeePerGas = BigInt.zero;
   int? transactionsCountOfChain;
   BigInt callReturnType = BigInt.zero;
 
@@ -75,7 +76,7 @@ class _MyAppState extends State<MyApp> {
             url: 'https://web3modal.com',
             icons: ['https://avatars.githubusercontent.com/u/37784886'],
           ),
-          false, // email
+          true, // email
         );
       },
     );
@@ -642,6 +643,33 @@ class _MyAppState extends State<MyApp> {
               },
               child: const Text('Estimate Fees Per Gas'),
             ),
+            const SizedBox(
+              height: 7,
+            ),
+
+            // estimate max priority fee per gas
+            ElevatedButton(
+              onPressed: () async {
+                final estimateMaxPriorityFeePerGasParameters =
+                    wagmi.EstimateMaxPriorityFeePerGasParameters(
+                  chainId: account!.chain!.id,
+                );
+                final result = await wagmi.Core.estimateMaxPriorityFeePerGas(
+                  estimateMaxPriorityFeePerGasParameters,
+                );
+                setState(() {
+                  estimateMaxPriorityFeePerGas = result;
+                });
+              },
+              child: const Text('Estimate Max Priority Fee Per Gas'),
+            ),
+            const SizedBox(
+              height: 7,
+            ),
+            if (estimateMaxPriorityFeePerGas > BigInt.zero)
+              Text('Max Priority Fee Per Gas: $estimateMaxPriorityFeePerGas')
+            else
+              Container(),
             const SizedBox(
               height: 7,
             ),
