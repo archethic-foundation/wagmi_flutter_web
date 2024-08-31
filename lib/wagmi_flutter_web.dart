@@ -76,7 +76,7 @@ void _completeOnReadyEvent(Completer completer) {
 }
 
 Future<void> _injectJavascriptModule(String assetPath) async {
-  final scriptPath = 'packages/wagmi_flutter_web/$assetPath';
+  final scriptPath = 'assets/packages/wagmi_flutter_web/$assetPath';
 
   final scriptNode = html.ScriptElement()
     ..type = 'module'

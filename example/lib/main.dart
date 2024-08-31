@@ -76,7 +76,7 @@ class _MyAppState extends State<MyApp> {
             url: 'https://web3modal.com',
             icons: ['https://avatars.githubusercontent.com/u/37784886'],
           ),
-          true, // email
+          false, // email
         );
       },
     );
