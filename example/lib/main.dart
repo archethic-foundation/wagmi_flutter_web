@@ -4,8 +4,8 @@ import 'package:example/actions/gas_price.dart';
 import 'package:example/actions/write_contract.dart';
 import 'package:flutter/material.dart';
 import 'package:wagmi_flutter_web/wagmi_flutter_web.dart' as wagmi;
-import 'package:web3dart/crypto.dart';
-import 'package:web3dart/web3dart.dart';
+import 'package:webthree/crypto.dart';
+import 'package:webthree/webthree.dart';
 
 void main() {
   runApp(const MaterialApp(title: 'Web3Modal Example', home: MyApp()));
