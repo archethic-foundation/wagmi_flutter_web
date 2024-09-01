@@ -139,6 +139,7 @@ Following commands will build `JS` code to embed in the web browser.
 npm install
 cd webpack
 npx webpack --mode production  (To keep main.js in one file)
+npx webpack --mode development // for dev
  
 
 //old Method
