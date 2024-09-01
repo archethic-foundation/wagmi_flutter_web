@@ -1,5 +1,7 @@
 import {
     EstimateGasParameters,
+    EstimateFeesPerGasParameters,
+    EstimateMaxPriorityFeePerGasParameters,
     GetBalanceParameters,
     GetBlockNumberParameters,
     GetGasPriceParameters,
@@ -16,7 +18,10 @@ import {
     WatchChainIdParameters,
     WriteContractParameters,
     SendTransactionParameters,
+    CallParameters,
     estimateGas,
+    estimateFeesPerGas,
+    estimateMaxPriorityFeePerGas,
     getAccount,
     getBalance,
     getBlockNumber,
@@ -36,6 +41,7 @@ import {
     signMessage,
     watchChainId,
     writeContract,
+    call,
 } from "@wagmi/core"
 import { InvalidAddressError } from "viem"
 import { JSWagmiContext } from "./context"
@@ -111,6 +117,14 @@ export class JSWagmiCore {
             return await getTransaction(JSWagmiContext.instance.config, getTransactionParameters);
         } catch (error) {
             console.error("Error get transaction:", error);
+            throw error;
+        }
+    }
+    call = async function (callParameters: CallParameters) {
+        try {
+            return await call(JSWagmiContext.instance.config, callParameters);
+        } catch (error) {
+            console.error("Error call:", error);
             throw error;
         }
     }
@@ -222,6 +236,23 @@ export class JSWagmiCore {
             return await estimateGas(JSWagmiContext.instance.config, estimateGasParameters)
         } catch (error) {
             console.error("Error estimateGas:", error)
+            throw error
+        }
+    }
+    estimateFeesPerGas = async function (estimateFeesPerGasParameters: EstimateFeesPerGasParameters) {
+        try {
+            return await estimateFeesPerGas(JSWagmiContext.instance.config, estimateFeesPerGasParameters)
+        } catch (error) {
+            console.error("Error estimateFeesPerGas:", error)
+            throw error
+        }
+    }
+
+    estimateMaxPriorityFeePerGas = async function (estimateMaxPriorityFeePerGasParameters: EstimateMaxPriorityFeePerGasParameters) {
+        try {
+            return await estimateMaxPriorityFeePerGas(JSWagmiContext.instance.config, estimateMaxPriorityFeePerGasParameters);
+        } catch (error) {
+            console.error("Error estimateMaxPriorityFeePerGas:", error)
             throw error
         }
     }

@@ -23,11 +23,15 @@ export class JSWeb3Modal {
             url: string
             icons: string[]
         },
+        email: boolean
     ) {
         JSWagmiContext.instance.config = Web3modal.defaultWagmiConfig({
             chains: chainsFromStrings(chains),
             projectId: projectId,
             metadata: metadata,
+            auth: {
+                email: email
+            },
         })
 
         this._modalInstance = Web3modal.createWeb3Modal({

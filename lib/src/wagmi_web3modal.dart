@@ -15,6 +15,7 @@ class Web3Modal {
     bool enableAnalytics,
     bool enableOnRamp,
     Web3ModalMetadata metadata,
+    bool email,
   ) {
     window.web3modal.init(
       projectId.toJS,
@@ -27,6 +28,7 @@ class Web3Modal {
       enableAnalytics.toJS,
       enableOnRamp.toJS,
       metadata._toJS(),
+      email.toJS,
     );
   }
 
