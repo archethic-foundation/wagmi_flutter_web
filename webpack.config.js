@@ -26,14 +26,6 @@ const commonConfig = {
 
 const productionConfig = {
     mode: 'production',
-    optimization: {
-        minimize: true,
-        concatenateModules: true,
-        splitChunks: {
-            chunks: 'all', // Consider all types of chunks (entry, async, etc.)
-            name: 'main', // Force all chunks into a single 'main' chunk
-        },
-    },
 };
 
 const developmentConfig = {
