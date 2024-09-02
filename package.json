@@ -1,8 +1,8 @@
 {
   "scripts": {
-    "build": "webpack --config webpack/webpack.config.js --mode=production",
-    "build_dev": "webpack --config webpack/webpack.config.js --mode=development",
-    "clean": "rm -Rf lib/assets/*.js lib/assets/*.LICENSE.txt"
+    "build": "webpack --mode=production",
+    "dev": "webpack --watch --mode=development",
+    "clean": "rm -Rf assets"
   },
   "devDependencies": {
     "terser-webpack-plugin": "^5.3.10",
