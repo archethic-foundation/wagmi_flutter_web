@@ -3,11 +3,11 @@ const { merge } = require('webpack-merge');
 
 const commonConfig = {
     entry: {
-        main: path.resolve(__dirname, "..", "typescript", "main.ts"),
+        main: path.resolve(__dirname, "typescript", "main.ts"),
     },
     output: {
         library: "[name]",
-        path: path.join(__dirname, "../assets"),
+        path: path.join(__dirname, "assets"),
         filename: "[name].js",
     },
     resolve: {
