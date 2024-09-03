@@ -30,7 +30,10 @@ export class JSWeb3Modal {
             projectId: projectId,
             metadata: metadata,
             auth: {
-                email: email
+                email: email,
+                socials: undefined,
+                showWallets: true,
+                walletFeatures: true
             },
         })
 

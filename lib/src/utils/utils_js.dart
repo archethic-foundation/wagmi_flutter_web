@@ -5,7 +5,8 @@ import 'dart:js_util' as js_util;
 import 'package:wagmi_flutter_web/src/js/wagmi.js.dart';
 
 class UtilsJS {
-  static Map<String, dynamic> jsObjectToMap(JSObject jsObject) {
+  static Map<String, dynamic> jsObjectToMap(JSObject jsObject,
+      {bool deep = true}) {
     final map = <String, dynamic>{};
 
     // Get the keys of the JSObject
@@ -16,12 +17,16 @@ class UtilsJS {
     );
 
     // Iterate over the keys and assign values to the Dart map
+    if (keys.isEmpty) {
+      return map;
+    }
     for (final key in keys) {
       final keyString = key! as String;
       var value = js_util.getProperty(jsObject, keyString);
-
-      if (value is JSObject) {
-        value = jsObjectToMap(value);
+      if (deep) {
+        if (value is JSObject) {
+          value = jsObjectToMap(value);
+        }
       }
 
       map[keyString] = value;

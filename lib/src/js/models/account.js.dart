@@ -9,6 +9,7 @@ extension type JSAccount(JSObject _) implements JSObject {
   external JSBoolean isReconnecting;
   external JSBoolean isConnected;
   external JSBoolean isDisconnected;
+  external JSObject? get connector;
 
   Account get toDart => Account(
         address: address?.toDart,

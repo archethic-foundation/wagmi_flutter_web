@@ -1,8 +1,10 @@
+import 'dart:convert';
 import 'dart:math';
 
 import 'package:example/actions/gas_price.dart';
 import 'package:example/actions/write_contract.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:wagmi_flutter_web/wagmi_flutter_web.dart' as wagmi;
 import 'package:webthree/crypto.dart';
 import 'package:webthree/webthree.dart';
@@ -133,6 +135,7 @@ class _MyAppState extends State<MyApp> {
                   account = wagmi.Core.getAccount();
                   chainId = wagmi.Core.getChainId();
                 });
+                showAccountDetails(context, account);
               },
               child: const Text('Get Account info'),
             ),
@@ -144,6 +147,7 @@ class _MyAppState extends State<MyApp> {
             Text('account status:  ${account?.status ?? 'unknown'}'),
             Text('account chain ID: ${account?.chain?.id ?? 'unknown'}'),
             Text('Chain ID: $chainId'),
+
             const SizedBox(
               height: 10,
             ),
@@ -673,6 +677,20 @@ class _MyAppState extends State<MyApp> {
             const SizedBox(
               height: 7,
             ),
+
+            // get byte code
+            ElevatedButton(
+              onPressed: () async {
+                final getByteCodeParameters = wagmi.GetByteCodeParameters(
+                  address: bitTokenAddress,
+                );
+                final result = await wagmi.Core.getBytecode(
+                  getByteCodeParameters,
+                );
+                print('byteCode: ${result.hexByteCode}');
+              },
+              child: const Text('Get Byte Code'),
+            ),
           ],
         ),
       ),
@@ -709,6 +727,67 @@ class _MyAppState extends State<MyApp> {
   // abi for test3BitApi
   final String test3BitApi =
       '[{"inputs":[{"internalType":"address","name":"recipient","type":"address"},{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"transfer","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"nonpayable","type":"function"}]';
+  void showAccountDetails(BuildContext context, wagmi.Account? account) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: const Text('Account Details'),
+          content: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text('address: ${account?.address}'),
+              const SizedBox(height: 8),
+              Text('status: ${account?.status}'),
+              const SizedBox(height: 8),
+              Text('chain: ${account?.chain?.name}'),
+              const SizedBox(height: 8),
+              Text('isConnecting: ${account?.isConnecting}'),
+              const SizedBox(height: 8),
+              Text('isReconnecting: ${account?.isReconnecting}'),
+              const SizedBox(height: 8),
+              Text('isConnected: ${account?.isConnected}'),
+              const SizedBox(height: 8),
+              Text('isDisconnected: ${account?.isDisconnected}'),
+              const SizedBox(height: 8),
+              const Text('Connector',
+                  style: TextStyle(fontWeight: FontWeight.bold)),
+              const SizedBox(height: 8),
+              if (account?.connector?.icon != null)
+                SvgPicture.string(
+                  utf8.decode(base64Decode(account?.connector?.icon ?? '')),
+                  width: 50,
+                  height: 50,
+                )
+              else
+                Container(),
+              const SizedBox(height: 8),
+              Text('id: ${account?.connector?.id}'),
+              const SizedBox(height: 8),
+              Text('name: ${account?.connector?.name}'),
+              const SizedBox(height: 8),
+              Text('type: ${account?.connector?.type}'),
+              const SizedBox(height: 8),
+              Text('uid: ${account?.connector?.uid}'),
+              const SizedBox(height: 8),
+              Text(
+                  'supportsSimulation: ${account?.connector?.supportsSimulation}'),
+              const SizedBox(height: 8),
+            ],
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text('Close'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
 // show estimate fees per gas dialog
   void showEstimateFeesPerGasDialog(
     BuildContext context,
