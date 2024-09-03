@@ -137,7 +137,6 @@ Following commands will build `JS` code to embed in the web browser.
 
 ```sh
 npm install
-cd webpack
 npm run build // build production lib
 npm run dev // build & watch in dev mode
 ``` 
