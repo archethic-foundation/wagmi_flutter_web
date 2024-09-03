@@ -1,8 +1,8 @@
 import 'dart:js_interop';
 
 import 'package:wagmi_flutter_web/src/actions/call.dart';
-import 'package:wagmi_flutter_web/src/actions/estimate_gas.dart';
 import 'package:wagmi_flutter_web/src/actions/estimate_fees_per_gas.dart';
+import 'package:wagmi_flutter_web/src/actions/estimate_gas.dart';
 import 'package:wagmi_flutter_web/src/actions/estimate_max_priority_fee_per_gas.dart';
 import 'package:wagmi_flutter_web/src/actions/get_balance.dart';
 import 'package:wagmi_flutter_web/src/actions/get_block.dart';
