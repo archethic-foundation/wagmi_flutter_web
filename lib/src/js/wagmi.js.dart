@@ -1,5 +1,6 @@
 import 'dart:js_interop';
-
+import 'dart:js_util' as js_util;
+import 'package:wagmi_flutter_web/src/actions/estimate_max_priority_fee_per_gas.dart';
 import 'package:wagmi_flutter_web/src/actions/get_chains.dart';
 import 'package:wagmi_flutter_web/wagmi_flutter_web.dart';
 
@@ -10,6 +11,8 @@ part 'actions/estimate_max_priority_fee_per_gas.js.dart';
 part 'actions/get_balance.js.dart';
 part 'actions/get_block.js.dart';
 part 'actions/get_block_number.js.dart';
+part 'actions/get_byte_code.js.dart';
+part 'actions/get_connectors.js.dart';
 part 'actions/get_block_transaction_count.js.dart';
 part 'actions/get_chain_id.js.dart';
 part 'actions/get_chains.js.dart';
@@ -26,8 +29,10 @@ part 'actions/sign_message.js.dart';
 part 'actions/watch_chain_id.js.dart';
 part 'actions/write_contract.js.dart';
 part 'models/account.js.dart';
+part 'models/jsFunctionToDart.js.dart';
 part 'models/bigint.js.dart';
 part 'models/chain.js.dart';
+part 'models/connector.js.dart';
 part 'wagmi_core.js.dart';
 part 'wagmi_web3modal.js.dart';
 

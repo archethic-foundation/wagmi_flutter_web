@@ -1,4 +1,5 @@
 import 'package:wagmi_flutter_web/src/models/chain.dart';
+import 'package:wagmi_flutter_web/src/models/connector.dart';
 
 class Account {
   Account({
@@ -9,6 +10,7 @@ class Account {
     required this.isReconnecting,
     required this.isConnected,
     required this.isDisconnected,
+    this.connector,
   });
 
   final String? address;
@@ -18,4 +20,5 @@ class Account {
   final bool isReconnecting;
   final bool isConnected;
   final bool isDisconnected;
+  Connector? connector;
 }

@@ -19,6 +19,7 @@ import {
     WriteContractParameters,
     SendTransactionParameters,
     CallParameters,
+    GetBytecodeParameters,
     estimateGas,
     estimateFeesPerGas,
     estimateMaxPriorityFeePerGas,
@@ -42,14 +43,22 @@ import {
     watchChainId,
     writeContract,
     call,
+    getBytecode,
+    getConnectors,
 } from "@wagmi/core"
 import { InvalidAddressError } from "viem"
 import { JSWagmiContext } from "./context"
 
 export class JSWagmiCore {
     getAccount = function () {
-        const account = getAccount(JSWagmiContext.instance.config)
+        const account = getAccount(JSWagmiContext.instance.config);
+        console.log("account", account);
         return account
+    }
+    getConnectors = function () {
+        const connectorRes = getConnectors(JSWagmiContext.instance.config);
+        console.log("connectorRes", connectorRes);
+        return connectorRes
     }
 
     getChainId = function () {
@@ -215,7 +224,9 @@ export class JSWagmiCore {
 
     watchChainId = async function (watchChainIdParameters: WatchChainIdParameters) {
         try {
-            return await watchChainId(JSWagmiContext.instance.config, watchChainIdParameters)
+            var s = await watchChainId(JSWagmiContext.instance.config, watchChainIdParameters);
+            console.log("watchChain response", s);
+            return s;
         } catch (error) {
             console.error("Error watchChainId:", error)
             return null
@@ -253,6 +264,16 @@ export class JSWagmiCore {
             return await estimateMaxPriorityFeePerGas(JSWagmiContext.instance.config, estimateMaxPriorityFeePerGasParameters);
         } catch (error) {
             console.error("Error estimateMaxPriorityFeePerGas:", error)
+            throw error
+        }
+    }
+    getBytecode = async function (getBytecodeParameters: GetBytecodeParameters) {
+        try {
+            var bytecode = await getBytecode(JSWagmiContext.instance.config, getBytecodeParameters);
+            console.log("bytecode", bytecode);
+            return bytecode;
+        } catch (error) {
+            console.error("Error getBytecode:", error)
             throw error
         }
     }

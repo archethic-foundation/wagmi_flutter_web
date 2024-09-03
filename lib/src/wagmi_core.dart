@@ -9,6 +9,7 @@ import 'package:wagmi_flutter_web/src/actions/get_block.dart';
 import 'package:wagmi_flutter_web/src/actions/get_block_number.dart';
 import 'package:wagmi_flutter_web/src/actions/get_block_transaction_count.dart';
 import 'package:wagmi_flutter_web/src/actions/get_gas_price.dart';
+import 'package:wagmi_flutter_web/src/actions/get_byte_code.dart';
 import 'package:wagmi_flutter_web/src/actions/get_token.dart';
 import 'package:wagmi_flutter_web/src/actions/get_transaction.dart';
 import 'package:wagmi_flutter_web/src/actions/get_transaction_confirmations.dart';
@@ -23,11 +24,20 @@ import 'package:wagmi_flutter_web/src/actions/write_contract.dart';
 import 'package:wagmi_flutter_web/src/js/wagmi.js.dart';
 import 'package:wagmi_flutter_web/src/models/account.dart';
 import 'package:wagmi_flutter_web/src/models/chain.dart';
+import 'package:wagmi_flutter_web/src/models/connector.dart';
 import 'package:wagmi_flutter_web/src/utils/utils_js.dart';
 
 class Core {
   static Account getAccount() {
-    return window.wagmiCore.getAccount().toDart;
+    final result = window.wagmiCore.getAccount();
+    late Account account;
+    if (result.connector != null) {
+      account = result.toDart;
+      final connectorMap =
+          UtilsJS.jsObjectToMap(result.connector!, deep: false);
+      account.connector = Connector.fromMap(connectorMap);
+    }
+    return account;
   }
 
   static int getChainId() {
@@ -270,6 +280,18 @@ class Core {
     final result = await window.wagmiCore
         .estimateMaxPriorityFeePerGas(
           estimateMaxPriorityFeePerGasParameters.toJS,
+        )
+        .toDart;
+    return result.toDart;
+  }
+
+  // get byte code
+  static Future<GetByteCodeReturnType> getBytecode(
+    GetByteCodeParameters getByteCodeParameters,
+  ) async {
+    final result = await window.wagmiCore
+        .getBytecode(
+          getByteCodeParameters.toJS,
         )
         .toDart;
     return result.toDart;

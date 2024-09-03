@@ -3,6 +3,7 @@ part of 'wagmi.js.dart';
 @JS()
 extension type JSWagmiCore(JSObject _) implements JSObject {
   external JSAccount getAccount();
+  // external GetConnectorsReturnType getConnectors();
   external JSNumber getChainId();
   external JSArray<JSObject> getChains();
   external JSPromise<JSGetBlockNumberReturnType> getBlockNumber(
@@ -65,5 +66,8 @@ extension type JSWagmiCore(JSObject _) implements JSObject {
   );
   external JSPromise<JSEstimateFeesPerGasReturnType> estimateFeesPerGas(
     JSEstimateFeesPerGasParameters estimateFeesPerGasParameters,
+  );
+  external JSPromise<JSGetByteCodeReturnType> getBytecode(
+    JSGetByteCodeParameters getByteCodeParameters,
   );
 }

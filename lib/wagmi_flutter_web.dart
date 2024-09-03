@@ -12,6 +12,7 @@ export 'src/actions/get_balance.dart';
 export 'src/actions/get_block.dart';
 export 'src/actions/get_block_number.dart';
 export 'src/actions/get_block_transaction_count.dart';
+export 'src/actions/get_byte_code.dart';
 export 'src/actions/get_gas_price.dart';
 export 'src/actions/get_token.dart';
 export 'src/actions/get_transaction.dart';
