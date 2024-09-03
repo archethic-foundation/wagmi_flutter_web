@@ -30,7 +30,6 @@ environment:
 dependencies:
   # The decimal package allows you to deal with decimal numbers without losing precision
   decimal: ^3.0.2
-  webthree: ^2.7.5
 
   flutter:
     sdk: flutter
@@ -40,6 +39,8 @@ dependencies:
 
   wagmi_flutter_web:
     path: ../
+
+  webthree: ^2.7.5
 
 dev_dependencies:
   flutter_test:
