@@ -121,9 +121,15 @@ class _MyAppState extends State<MyApp> {
               height: 10,
             ),
             // disconnect wallet
-            const ElevatedButton(
-              onPressed: wagmi.Web3Modal.close,
-              child: Text('Disconnect Wallet'),
+            ElevatedButton(
+              onPressed: () async {
+                // disconnect wallet
+                final getTokenParameters = wagmi.DisconnectParameters(
+                  connector: account?.connector!.id,
+                );
+                await wagmi.Core.disconnect(getTokenParameters);
+              },
+              child: const Text('Disconnect Wallet'),
             ),
             const SizedBox(
               height: 10,
@@ -687,9 +693,12 @@ class _MyAppState extends State<MyApp> {
                 final result = await wagmi.Core.getBytecode(
                   getByteCodeParameters,
                 );
-                print('byteCode: ${result.hexByteCode}');
+                showByteCodeDialog(context, result);
               },
               child: const Text('Get Byte Code'),
+            ),
+            const SizedBox(
+              height: 7,
             ),
           ],
         ),
@@ -813,6 +822,34 @@ class _MyAppState extends State<MyApp> {
                 'Max Priority Fee Per Gas: ${estimateFeesPerGasReturnType.maxPriorityFeePerGas}',
               ),
             ],
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text('Close'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  // show byte code dialog
+  void showByteCodeDialog(BuildContext context, String byteCode) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: const Text('Byte Code'),
+          content: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text('byteCode: $byteCode'),
+              ],
+            ),
           ),
           actions: [
             TextButton(

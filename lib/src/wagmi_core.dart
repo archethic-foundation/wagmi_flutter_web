@@ -1,8 +1,9 @@
 import 'dart:js_interop';
 
 import 'package:wagmi_flutter_web/src/actions/call.dart';
-import 'package:wagmi_flutter_web/src/actions/estimate_fees_per_gas.dart';
+import 'package:wagmi_flutter_web/src/actions/disconnect.dart';
 import 'package:wagmi_flutter_web/src/actions/estimate_gas.dart';
+import 'package:wagmi_flutter_web/src/actions/estimate_fees_per_gas.dart';
 import 'package:wagmi_flutter_web/src/actions/estimate_max_priority_fee_per_gas.dart';
 import 'package:wagmi_flutter_web/src/actions/get_balance.dart';
 import 'package:wagmi_flutter_web/src/actions/get_block.dart';
@@ -286,7 +287,7 @@ class Core {
   }
 
   // get byte code
-  static Future<GetByteCodeReturnType> getBytecode(
+  static Future<String> getBytecode(
     GetByteCodeParameters getByteCodeParameters,
   ) async {
     final result = await window.wagmiCore
@@ -295,5 +296,16 @@ class Core {
         )
         .toDart;
     return result.toDart;
+  }
+
+  // disconnect
+  static Future<void> disconnect(
+    DisconnectParameters disconnectParameters,
+  ) async {
+    await window.wagmiCore
+        .disconnect(
+          disconnectParameters.toJS,
+        )
+        .toDart;
   }
 }

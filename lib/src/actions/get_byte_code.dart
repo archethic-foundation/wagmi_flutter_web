@@ -17,12 +17,21 @@ class GetByteCodeParameters {
   final String? blockTag;
   final int? chainId;
 
-  JSGetByteCodeParameters get toJS => JSGetByteCodeParameters(
-        address: address.toJS,
-        blockNumber: blockNumber?.toJS,
-        blockTag: blockTag?.toJS,
-        chainId: chainId?.toJS,
-      );
+  JSGetByteCodeParameters get toJS {
+    final jsBlockParams = JSGetByteCodeParameters(
+      address: address.toJS,
+    );
+    if (chainId != null) {
+      jsBlockParams.chainId = chainId?.toJS;
+    }
+    if (blockNumber != null) {
+      jsBlockParams.blockNumber = blockNumber?.toJS;
+    }
+    if (blockTag != null) {
+      jsBlockParams.blockTag = blockTag?.toJS;
+    }
+    return jsBlockParams;
+  }
 }
 
 class GetByteCodeReturnType {

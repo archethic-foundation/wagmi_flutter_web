@@ -5,6 +5,7 @@ import 'dart:async';
 import 'dart:html' as html;
 
 export 'src/actions/call.dart';
+export 'src/actions/disconnect.dart';
 export 'src/actions/estimate_fees_per_gas.dart';
 export 'src/actions/estimate_gas.dart';
 export 'src/actions/estimate_max_priority_fee_per_gas.dart';
