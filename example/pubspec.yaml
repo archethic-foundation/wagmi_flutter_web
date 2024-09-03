@@ -36,6 +36,7 @@ dependencies:
 
   # Flutter plugin for launching a URL. Supports web, phone, SMS, and email schemes
   url_launcher: ^6.2.5
+  flutter_svg: ^2.0.10+1
 
   wagmi_flutter_web:
     path: ../
