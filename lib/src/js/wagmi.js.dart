@@ -16,6 +16,7 @@ part 'actions/get_connectors.js.dart';
 part 'actions/get_block_transaction_count.js.dart';
 part 'actions/get_chain_id.js.dart';
 part 'actions/get_chains.js.dart';
+part 'actions/disconnect.js.dart';
 part 'actions/get_gas_price.js.dart';
 part 'actions/get_token.js.dart';
 part 'actions/get_transaction.js.dart';

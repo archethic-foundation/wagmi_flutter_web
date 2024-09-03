@@ -17,13 +17,4 @@ extension type JSGetByteCodeParameters._(JSObject _) implements JSObject {
 }
 
 @JS()
-extension type JSGetByteCodeReturnType(JSObject _) implements JSObject {
-  external JSString hexByteCode;
-
-  GetByteCodeReturnType get toDart => GetByteCodeReturnType(
-        hexByteCode: hexByteCode.toDart,
-      );
-}
-
-@JS()
 extension type JSGetByteCodeErrorType(JSObject _) implements JSObject {}

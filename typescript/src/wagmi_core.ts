@@ -20,6 +20,7 @@ import {
     SendTransactionParameters,
     CallParameters,
     GetBytecodeParameters,
+    DisconnectParameters,
     estimateGas,
     estimateFeesPerGas,
     estimateMaxPriorityFeePerGas,
@@ -44,6 +45,7 @@ import {
     writeContract,
     call,
     getBytecode,
+    disconnect,
     getConnectors,
 } from "@wagmi/core"
 import { InvalidAddressError } from "viem"
@@ -269,11 +271,17 @@ export class JSWagmiCore {
     }
     getBytecode = async function (getBytecodeParameters: GetBytecodeParameters) {
         try {
-            var bytecode = await getBytecode(JSWagmiContext.instance.config, getBytecodeParameters);
-            console.log("bytecode", bytecode);
-            return bytecode;
+            return await getBytecode(JSWagmiContext.instance.config, getBytecodeParameters);
         } catch (error) {
             console.error("Error getBytecode:", error)
+            throw error
+        }
+    }
+    disconnect = async function (disconnectParameters: DisconnectParameters) {
+        try {
+            return await disconnect(JSWagmiContext.instance.config, disconnectParameters);
+        } catch (error) {
+            console.error("Error disconnect:", error)
             throw error
         }
     }
