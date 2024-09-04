@@ -55,7 +55,7 @@ class Core {
     return list;
   }
 
-  static Future<GetBlockNumberReturnType> getBlockNumber(
+  static Future<BigInt> getBlockNumber(
     GetBlockNumberParameters getBlockNumberParameters,
   ) async {
     final result = await window.wagmiCore
@@ -107,6 +107,7 @@ class Core {
           getTokenParameters.toJS,
         )
         .toDart;
+
     return result.toDart;
   }
 

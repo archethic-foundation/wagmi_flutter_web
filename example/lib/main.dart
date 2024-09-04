@@ -27,7 +27,6 @@ class _MyAppState extends State<MyApp> {
   List<wagmi.Chain> chains = [];
   BigInt? blockNumber;
   String? signedMessage;
-  String? token;
   wagmi.WatchChainIdReturnType? watchChainIdUnsubscribe;
   String? watchChainIdInfo;
   int? gasEstimation;
@@ -79,6 +78,9 @@ class _MyAppState extends State<MyApp> {
             icons: ['https://avatars.githubusercontent.com/u/37784886'],
           ),
           false, // email
+          [], // social networks
+          true, // showWallets
+          true, // walletFeatures
         );
       },
     );
@@ -180,7 +182,7 @@ class _MyAppState extends State<MyApp> {
                   getBlockNumberParameters,
                 );
                 setState(() {
-                  blockNumber = getBlockNumberReturnType.blockNumber;
+                  blockNumber = getBlockNumberReturnType;
                 });
               },
               child: const Text('Get Block number'),
@@ -245,21 +247,17 @@ class _MyAppState extends State<MyApp> {
             ElevatedButton(
               onPressed: () async {
                 final getTokenParameters = wagmi.GetTokenParameters(
-                  address: tokenAddressToSearch,
+                  address: bitTokenAddress,
                   chainId: account!.chain!.id,
                 );
                 final getTokenReturnType =
                     await wagmi.Core.getToken(getTokenParameters);
-                setState(() {
-                  token =
-                      '${getTokenReturnType.name} ${getTokenReturnType.symbol}';
-                });
+                showTokenInfoDialog(context, getTokenReturnType);
               },
               child: Text(
-                'Get Token info ($tokenAddressToSearch / ${account?.chain!.id})',
+                'Get Token info ($bitTokenAddress / ${account?.chain!.id})',
               ),
             ),
-            if (token != null) Text('token: $token'),
             const SizedBox(
               height: 10,
             ),
@@ -736,6 +734,44 @@ class _MyAppState extends State<MyApp> {
   // abi for test3BitApi
   final String test3BitApi =
       '[{"inputs":[{"internalType":"address","name":"recipient","type":"address"},{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"transfer","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"nonpayable","type":"function"}]';
+
+  // show token info dialog
+  void showTokenInfoDialog(
+    BuildContext context,
+    wagmi.GetTokenReturnType getTokenReturnType,
+  ) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: const Text('Token Info'),
+          content: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text('address: ${getTokenReturnType.address}'),
+              const SizedBox(height: 8),
+              Text('decimals: ${getTokenReturnType.decimals}'),
+              const SizedBox(height: 8),
+              Text('name: ${getTokenReturnType.name}'),
+              const SizedBox(height: 8),
+              Text('symbol: ${getTokenReturnType.symbol}'),
+              const SizedBox(height: 8),
+              Text('totalSupply: ${getTokenReturnType.totalSupply}'),
+            ],
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text('Close'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   void showAccountDetails(BuildContext context, wagmi.Account? account) {
     showDialog(
       context: context,

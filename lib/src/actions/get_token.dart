@@ -23,14 +23,14 @@ class GetTokenParameters {
 class GetTokenReturnType {
   GetTokenReturnType({
     required this.address,
-    required this.decimals,
-    required this.name,
-    required this.symbol,
-    required this.totalSupply,
+    this.decimals,
+    this.name,
+    this.symbol,
+    this.totalSupply,
   });
 
   final String address;
-  final int decimals;
+  final int? decimals;
   final String? name;
   final String? symbol;
   final Map? totalSupply;

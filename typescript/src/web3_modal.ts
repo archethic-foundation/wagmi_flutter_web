@@ -23,18 +23,28 @@ export class JSWeb3Modal {
             url: string
             icons: string[]
         },
-        email: boolean
+        email: boolean,
+        socials: [] | undefined,
+        showWallets: boolean,
+        walletFeatures: boolean
     ) {
         JSWagmiContext.instance.config = Web3modal.defaultWagmiConfig({
             chains: chainsFromStrings(chains),
             projectId: projectId,
             metadata: metadata,
-            auth: {
+            auth: typeof (socials) === 'undefined' || (
+                typeof (socials) === 'object' && socials.length === 0
+            ) ? {
                 email: email,
                 socials: undefined,
-                showWallets: true,
-                walletFeatures: true
-            },
+                showWallets: showWallets,
+                walletFeatures: walletFeatures
+            } : {
+                email: email,
+                socials: socials,
+                showWallets: showWallets,
+                walletFeatures: walletFeatures
+            }
         })
 
         this._modalInstance = Web3modal.createWeb3Modal({
