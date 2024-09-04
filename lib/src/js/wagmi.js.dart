@@ -1,6 +1,6 @@
 import 'dart:js_interop';
+// ignore: avoid_web_libraries_in_flutter
 import 'dart:js_util' as js_util;
-import 'package:wagmi_flutter_web/src/actions/estimate_max_priority_fee_per_gas.dart';
 import 'package:wagmi_flutter_web/src/actions/get_chains.dart';
 import 'package:wagmi_flutter_web/wagmi_flutter_web.dart';
 

@@ -2,15 +2,15 @@ import 'dart:js_interop';
 
 import 'package:wagmi_flutter_web/src/actions/call.dart';
 import 'package:wagmi_flutter_web/src/actions/disconnect.dart';
-import 'package:wagmi_flutter_web/src/actions/estimate_gas.dart';
 import 'package:wagmi_flutter_web/src/actions/estimate_fees_per_gas.dart';
+import 'package:wagmi_flutter_web/src/actions/estimate_gas.dart';
 import 'package:wagmi_flutter_web/src/actions/estimate_max_priority_fee_per_gas.dart';
 import 'package:wagmi_flutter_web/src/actions/get_balance.dart';
 import 'package:wagmi_flutter_web/src/actions/get_block.dart';
 import 'package:wagmi_flutter_web/src/actions/get_block_number.dart';
 import 'package:wagmi_flutter_web/src/actions/get_block_transaction_count.dart';
-import 'package:wagmi_flutter_web/src/actions/get_gas_price.dart';
 import 'package:wagmi_flutter_web/src/actions/get_byte_code.dart';
+import 'package:wagmi_flutter_web/src/actions/get_gas_price.dart';
 import 'package:wagmi_flutter_web/src/actions/get_token.dart';
 import 'package:wagmi_flutter_web/src/actions/get_transaction.dart';
 import 'package:wagmi_flutter_web/src/actions/get_transaction_confirmations.dart';
