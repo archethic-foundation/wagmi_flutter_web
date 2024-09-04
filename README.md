@@ -87,7 +87,7 @@ For more details, refer to the [API documentation](https://wagmi.sh/core/api/act
 | `getEnsName`                   | 🔴               |
 | `getEnsResolver`               | 🔴               |
 | `getEnsText`                   | 🔴               |
-| `getFeeHistory`                | 🔴               |
+| `getFeeHistory`                | ✅ Implemented   |
 | `getGasPrice`                  | ✅ Implemented   |
 | `getProof`                     | 🔴               |
 | `getPublicClient`              | 🔴               |
@@ -111,7 +111,7 @@ For more details, refer to the [API documentation](https://wagmi.sh/core/api/act
 | `switchChain`                  | 🔴               |
 | `verifyMessage`                | 🔴               |
 | `verifyTypedData`              | 🔴               |
-| `waitForTransactionReceipt`    | 🔴               |
+| `waitForTransactionReceipt`    | ✅ Implemented   |
 | `watchAccount`                 | 🔴               |
 | `watchAsset`                   | 🔴               |
 | `watchBlockNumber`             | 🔴               |
