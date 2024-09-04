@@ -3,10 +3,9 @@ part of 'wagmi.js.dart';
 @JS()
 extension type JSWagmiCore(JSObject _) implements JSObject {
   external JSAccount getAccount();
-  // external GetConnectorsReturnType getConnectors();
   external JSNumber getChainId();
   external JSArray<JSObject> getChains();
-  external JSPromise<JSGetBlockNumberReturnType> getBlockNumber(
+  external JSPromise<JSBigInt> getBlockNumber(
     JSGetBlockNumberParameters getBlockNumberParameters,
   );
   external JSPromise<JSNumber> getTransactionCount(

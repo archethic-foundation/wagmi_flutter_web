@@ -12,13 +12,4 @@ extension type JSGetBlockNumberParameters._(JSObject _) implements JSObject {
 }
 
 @JS()
-extension type JSGetBlockNumberReturnType(JSObject _) implements JSObject {
-  external JSBigInt blockNumber;
-
-  GetBlockNumberReturnType get toDart => GetBlockNumberReturnType(
-        blockNumber: blockNumber.toDart,
-      );
-}
-
-@JS()
 extension type GetBlockNumberErrorType(JSObject _) implements JSObject {}

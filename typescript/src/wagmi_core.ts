@@ -46,22 +46,15 @@ import {
     call,
     getBytecode,
     disconnect,
-    getConnectors,
 } from "@wagmi/core"
 import { InvalidAddressError } from "viem"
 import { JSWagmiContext } from "./context"
 
 export class JSWagmiCore {
     getAccount = function () {
-        const account = getAccount(JSWagmiContext.instance.config);
-        console.log("account", account);
-        return account
+        return getAccount(JSWagmiContext.instance.config);
     }
-    getConnectors = function () {
-        const connectorRes = getConnectors(JSWagmiContext.instance.config);
-        console.log("connectorRes", connectorRes);
-        return connectorRes
-    }
+
 
     getChainId = function () {
         const chainId = getChainId(JSWagmiContext.instance.config)
@@ -226,9 +219,7 @@ export class JSWagmiCore {
 
     watchChainId = async function (watchChainIdParameters: WatchChainIdParameters) {
         try {
-            var s = await watchChainId(JSWagmiContext.instance.config, watchChainIdParameters);
-            console.log("watchChain response", s);
-            return s;
+            return await watchChainId(JSWagmiContext.instance.config, watchChainIdParameters);
         } catch (error) {
             console.error("Error watchChainId:", error)
             return null

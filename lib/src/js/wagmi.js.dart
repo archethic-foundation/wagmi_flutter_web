@@ -12,7 +12,6 @@ part 'actions/get_balance.js.dart';
 part 'actions/get_block.js.dart';
 part 'actions/get_block_number.js.dart';
 part 'actions/get_byte_code.js.dart';
-part 'actions/get_connectors.js.dart';
 part 'actions/get_block_transaction_count.js.dart';
 part 'actions/get_chain_id.js.dart';
 part 'actions/get_chains.js.dart';

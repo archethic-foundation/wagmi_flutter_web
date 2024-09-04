@@ -9,6 +9,9 @@ extension type JSWagmiWeb3Modal(JSObject _) implements JSObject {
     JSBoolean enableOnRamp,
     JSWagmiWeb3ModalMetadata metadata,
     JSBoolean email,
+    JSArray<JSString>? socials,
+    JSBoolean showWallets,
+    JSBoolean walletFeatures,
   );
   external void open();
   external void close();

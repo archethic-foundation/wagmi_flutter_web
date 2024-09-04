@@ -16,6 +16,9 @@ class Web3Modal {
     bool enableOnRamp,
     Web3ModalMetadata metadata,
     bool email,
+    List<String>? socials,
+    bool showWallets,
+    bool walletFeatures,
   ) {
     window.web3modal.init(
       projectId.toJS,
@@ -29,6 +32,9 @@ class Web3Modal {
       enableOnRamp.toJS,
       metadata._toJS(),
       email.toJS,
+      socials.jsify() as JSArray<JSString>?,
+      showWallets.toJS,
+      walletFeatures.toJS,
     );
   }
 
