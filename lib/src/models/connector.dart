@@ -25,11 +25,12 @@ class Connector {
     }
 
     return Connector(
-        icon: connectorMap['icon'],
-        id: connectorMap['id'],
-        name: connectorMap['name'],
-        type: connectorMap['type'],
-        uid: connectorMap['uid'],
-        supportsSimulation: connectorMap['supportsSimulation']);
+      icon: connectorMap['icon'],
+      id: connectorMap['id'],
+      name: connectorMap['name'],
+      type: connectorMap['type'],
+      uid: connectorMap['uid'],
+      supportsSimulation: connectorMap['supportsSimulation'],
+    );
   }
 }

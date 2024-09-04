@@ -795,8 +795,10 @@ class _MyAppState extends State<MyApp> {
               const SizedBox(height: 8),
               Text('isDisconnected: ${account?.isDisconnected}'),
               const SizedBox(height: 8),
-              const Text('Connector',
-                  style: TextStyle(fontWeight: FontWeight.bold)),
+              const Text(
+                'Connector',
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
               const SizedBox(height: 8),
               if (account?.connector?.icon != null)
                 SvgPicture.string(
@@ -816,7 +818,8 @@ class _MyAppState extends State<MyApp> {
               Text('uid: ${account?.connector?.uid}'),
               const SizedBox(height: 8),
               Text(
-                  'supportsSimulation: ${account?.connector?.supportsSimulation}'),
+                'supportsSimulation: ${account?.connector?.supportsSimulation}',
+              ),
               const SizedBox(height: 8),
             ],
           ),
