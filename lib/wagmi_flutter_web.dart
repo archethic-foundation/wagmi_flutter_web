@@ -20,6 +20,8 @@ export 'src/actions/get_transaction.dart';
 export 'src/actions/get_transaction_confirmations.dart';
 export 'src/actions/get_transaction_count.dart';
 export 'src/actions/get_transaction_receipt.dart';
+export 'src/actions/wait_for_transaction_receipt.dart';
+export 'src/actions/get_fee_history.dart';
 export 'src/actions/read_contract.dart';
 export 'src/actions/read_contracts.dart';
 export 'src/actions/send_transaction.dart';
