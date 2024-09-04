@@ -38,6 +38,9 @@ wagmi.Web3Modal.init(
         icons: ['https://avatars.githubusercontent.com/u/37784886'],
     ),
     false // email
+    [], // social networks
+    true, // showWallets
+    true, // walletFeatures
 );
 
 // Opens the Wallet connection modal.
@@ -70,9 +73,9 @@ For more details, refer to the [API documentation](https://wagmi.sh/core/api/act
 | `getAccount`                   | ✅ Implemented   |
 | `getBalance`                   | ✅ Implemented   |
 | `getBlock`                     | ✅ Implemented   |
-| `getBlockNumber`               | 🟠 In progress   |
+| `getBlockNumber`               | ✅ Implemented   |
 | `getBlockTransactionCount`     | ✅ Implemented   |
-| `getBytecode`                  | 🔴               |
+| `getBytecode`                  | ✅ Implemented   |
 | `getChainId`                   | ✅ Implemented   |
 | `getChains`                    | 🟠 In progress   |
 | `getClient`                    | 🔴               |
@@ -89,7 +92,7 @@ For more details, refer to the [API documentation](https://wagmi.sh/core/api/act
 | `getProof`                     | 🔴               |
 | `getPublicClient`              | 🔴               |
 | `getStorageAt`                 | 🔴               |
-| `getToken`                     | 🟠 In progress   |
+| `getToken`                     | ✅ Implemented   |
 | `getTransaction`               | ✅ Implemented   |
 | `getTransactionConfirmations`  | ✅ Implemented   |
 | `getTransactionCount`          | ✅ Implemented   |
