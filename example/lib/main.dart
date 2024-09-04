@@ -702,8 +702,9 @@ class _MyAppState extends State<MyApp> {
               onPressed: () async {
                 final waitForTransactionReceiptParameters =
                     wagmi.WaitForTransactionReceiptParameters(
-                        hash:
-                            '0x041f2da24620eeef645e646f07399b3b374b86201931b228578c4632fb41abf4');
+                  hash:
+                      '0x041f2da24620eeef645e646f07399b3b374b86201931b228578c4632fb41abf4',
+                );
                 final result = await wagmi.Core.waitForTransactionReceipt(
                   waitForTransactionReceiptParameters,
                 );
@@ -821,17 +822,21 @@ class _MyAppState extends State<MyApp> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                  'blockHash: ${waitForTransactionReceiptReturnType.blockHash}'),
+                'blockHash: ${waitForTransactionReceiptReturnType.blockHash}',
+              ),
               // space
               const SizedBox(height: 8),
               Text(
-                  'blockNumber: ${waitForTransactionReceiptReturnType.blockNumber}'),
+                'blockNumber: ${waitForTransactionReceiptReturnType.blockNumber}',
+              ),
               const SizedBox(height: 8),
               Text(
-                  'contractAddress: ${waitForTransactionReceiptReturnType.contractAddress}'),
+                'contractAddress: ${waitForTransactionReceiptReturnType.contractAddress}',
+              ),
               const SizedBox(height: 8),
               Text(
-                  'cumulativeGasUsed: ${waitForTransactionReceiptReturnType.cumulativeGasUsed}'),
+                'cumulativeGasUsed: ${waitForTransactionReceiptReturnType.cumulativeGasUsed}',
+              ),
               const SizedBox(height: 8),
               Text('from: ${waitForTransactionReceiptReturnType.from}'),
               const SizedBox(height: 8),
@@ -844,10 +849,12 @@ class _MyAppState extends State<MyApp> {
               Text('to: ${waitForTransactionReceiptReturnType.to}'),
               const SizedBox(height: 8),
               Text(
-                  'transactionHash: ${waitForTransactionReceiptReturnType.transactionHash}'),
+                'transactionHash: ${waitForTransactionReceiptReturnType.transactionHash}',
+              ),
               const SizedBox(height: 8),
               Text(
-                  'transactionIndex: ${waitForTransactionReceiptReturnType.transactionIndex}'),
+                'transactionIndex: ${waitForTransactionReceiptReturnType.transactionIndex}',
+              ),
             ],
           ),
           actions: [
