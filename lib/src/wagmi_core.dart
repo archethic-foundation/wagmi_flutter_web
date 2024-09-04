@@ -10,6 +10,7 @@ import 'package:wagmi_flutter_web/src/actions/get_block.dart';
 import 'package:wagmi_flutter_web/src/actions/get_block_number.dart';
 import 'package:wagmi_flutter_web/src/actions/get_block_transaction_count.dart';
 import 'package:wagmi_flutter_web/src/actions/get_byte_code.dart';
+import 'package:wagmi_flutter_web/src/actions/get_fee_history.dart';
 import 'package:wagmi_flutter_web/src/actions/get_gas_price.dart';
 import 'package:wagmi_flutter_web/src/actions/get_token.dart';
 import 'package:wagmi_flutter_web/src/actions/get_transaction.dart';
@@ -20,6 +21,7 @@ import 'package:wagmi_flutter_web/src/actions/read_contract.dart';
 import 'package:wagmi_flutter_web/src/actions/read_contracts.dart';
 import 'package:wagmi_flutter_web/src/actions/send_transaction.dart';
 import 'package:wagmi_flutter_web/src/actions/sign_message.dart';
+import 'package:wagmi_flutter_web/src/actions/wait_for_transaction_receipt.dart';
 import 'package:wagmi_flutter_web/src/actions/watch_chain_id.dart';
 import 'package:wagmi_flutter_web/src/actions/write_contract.dart';
 import 'package:wagmi_flutter_web/src/js/wagmi.js.dart';
@@ -32,8 +34,8 @@ class Core {
   static Account getAccount() {
     final result = window.wagmiCore.getAccount();
     late Account account;
+    account = result.toDart;
     if (result.connector != null) {
-      account = result.toDart;
       final connectorMap =
           UtilsJS.jsObjectToMap(result.connector!, deep: false);
       account.connector = Connector.fromMap(connectorMap);
@@ -308,5 +310,28 @@ class Core {
           disconnectParameters.toJS,
         )
         .toDart;
+  }
+
+  static Future<WaitForTransactionReceiptReturnType> waitForTransactionReceipt(
+    WaitForTransactionReceiptParameters waitForTransactionReceiptParameters,
+  ) async {
+    final result = await window.wagmiCore
+        .waitForTransactionReceipt(
+          waitForTransactionReceiptParameters.toJS,
+        )
+        .toDart;
+    return result.toDart;
+  }
+
+  // get fee history
+  static Future<GetFeeHistoryReturnType> getFeeHistory(
+    GetFeeHistoryParameters getFeeHistoryParameters,
+  ) async {
+    final result = await window.wagmiCore
+        .getFeeHistory(
+          getFeeHistoryParameters.toJS,
+        )
+        .toDart;
+    return result.toDart;
   }
 }

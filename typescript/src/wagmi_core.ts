@@ -21,6 +21,8 @@ import {
     CallParameters,
     GetBytecodeParameters,
     DisconnectParameters,
+    WaitForTransactionReceiptParameters,
+    GetFeeHistoryParameters,
     estimateGas,
     estimateFeesPerGas,
     estimateMaxPriorityFeePerGas,
@@ -46,6 +48,8 @@ import {
     call,
     getBytecode,
     disconnect,
+    waitForTransactionReceipt,
+    getFeeHistory,
 } from "@wagmi/core"
 import { InvalidAddressError } from "viem"
 import { JSWagmiContext } from "./context"
@@ -273,6 +277,22 @@ export class JSWagmiCore {
             return await disconnect(JSWagmiContext.instance.config, disconnectParameters);
         } catch (error) {
             console.error("Error disconnect:", error)
+            throw error
+        }
+    }
+    waitForTransactionReceipt = async function (waitForTransactionReceiptParameters: WaitForTransactionReceiptParameters) {
+        try {
+            return await waitForTransactionReceipt(JSWagmiContext.instance.config, waitForTransactionReceiptParameters);
+        } catch (error) {
+            console.error("Error waitForTransactionReceipt:", error)
+            throw error
+        }
+    }
+    getFeeHistory = async function (getFeeHistoryParameters: GetFeeHistoryParameters) {
+        try {
+            return await getFeeHistory(JSWagmiContext.instance.config, getFeeHistoryParameters);
+        } catch (error) {
+            console.error("Error getFeeHistory:", error)
             throw error
         }
     }

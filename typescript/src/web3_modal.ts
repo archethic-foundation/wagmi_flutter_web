@@ -32,16 +32,9 @@ export class JSWeb3Modal {
             chains: chainsFromStrings(chains),
             projectId: projectId,
             metadata: metadata,
-            auth: typeof (socials) === 'undefined' || (
-                typeof (socials) === 'object' && socials.length === 0
-            ) ? {
+            auth: {
                 email: email,
-                socials: undefined,
-                showWallets: showWallets,
-                walletFeatures: walletFeatures
-            } : {
-                email: email,
-                socials: socials,
+                socials: socials?.length === 0 ? undefined : socials,
                 showWallets: showWallets,
                 walletFeatures: walletFeatures
             }

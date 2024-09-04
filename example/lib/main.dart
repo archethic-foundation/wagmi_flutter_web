@@ -698,6 +698,42 @@ class _MyAppState extends State<MyApp> {
             const SizedBox(
               height: 7,
             ),
+            ElevatedButton(
+              onPressed: () async {
+                final waitForTransactionReceiptParameters =
+                    wagmi.WaitForTransactionReceiptParameters(
+                        hash:
+                            '0x041f2da24620eeef645e646f07399b3b374b86201931b228578c4632fb41abf4');
+                final result = await wagmi.Core.waitForTransactionReceipt(
+                  waitForTransactionReceiptParameters,
+                );
+                showWaitForTransactionReceiptDialog(context, result);
+              },
+              child: const Text('Wait For Transaction Receipt'),
+            ),
+            const SizedBox(
+              height: 7,
+            ),
+            // get fee history
+            ElevatedButton(
+              onPressed: () async {
+                final getFeeHistoryParameters = wagmi.GetFeeHistoryParameters(
+                  chainId: account!.chain!.id,
+                  blockCount: 10,
+                  rewardPercentiles: [10, 50, 90],
+                  blockNumber: BigInt.from(11268698),
+                  blockTag: 'latest',
+                );
+                final result = await wagmi.Core.getFeeHistory(
+                  getFeeHistoryParameters,
+                );
+                showGetFeeHistoryDialog(context, result);
+              },
+              child: const Text('Get Fee History'),
+            ),
+            const SizedBox(
+              height: 7,
+            ),
           ],
         ),
       ),
@@ -734,6 +770,98 @@ class _MyAppState extends State<MyApp> {
   // abi for test3BitApi
   final String test3BitApi =
       '[{"inputs":[{"internalType":"address","name":"recipient","type":"address"},{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"transfer","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"nonpayable","type":"function"}]';
+
+  // show get fee history dialog
+  void showGetFeeHistoryDialog(
+    BuildContext context,
+    wagmi.GetFeeHistoryReturnType getFeeHistoryReturnType,
+  ) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: const Text('Get Fee History'),
+          content: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text('baseFeePerGas: ${getFeeHistoryReturnType.baseFeePerGas}'),
+              const SizedBox(height: 8),
+              Text('gasUsedRatio: ${getFeeHistoryReturnType.gasUsedRatio}'),
+              const SizedBox(height: 8),
+              Text('oldestBlock: ${getFeeHistoryReturnType.oldestBlock}'),
+              const SizedBox(height: 8),
+              Text('reward: ${getFeeHistoryReturnType.reward}'),
+            ],
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text('Close'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  // show wait for transaction receipt dialog
+  void showWaitForTransactionReceiptDialog(
+    BuildContext context,
+    wagmi.WaitForTransactionReceiptReturnType
+        waitForTransactionReceiptReturnType,
+  ) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: const Text('Wait For Transaction Receipt'),
+          content: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                  'blockHash: ${waitForTransactionReceiptReturnType.blockHash}'),
+              // space
+              const SizedBox(height: 8),
+              Text(
+                  'blockNumber: ${waitForTransactionReceiptReturnType.blockNumber}'),
+              const SizedBox(height: 8),
+              Text(
+                  'contractAddress: ${waitForTransactionReceiptReturnType.contractAddress}'),
+              const SizedBox(height: 8),
+              Text(
+                  'cumulativeGasUsed: ${waitForTransactionReceiptReturnType.cumulativeGasUsed}'),
+              const SizedBox(height: 8),
+              Text('from: ${waitForTransactionReceiptReturnType.from}'),
+              const SizedBox(height: 8),
+              Text('gasUsed: ${waitForTransactionReceiptReturnType.gasUsed}'),
+              const SizedBox(height: 8),
+              // Text('logs: ${waitForTransactionReceiptReturnType.logs}'),
+              // Text('logsBloom: ${waitForTransactionReceiptReturnType.logsBloom}'),
+              Text('status: ${waitForTransactionReceiptReturnType.status}'),
+              const SizedBox(height: 8),
+              Text('to: ${waitForTransactionReceiptReturnType.to}'),
+              const SizedBox(height: 8),
+              Text(
+                  'transactionHash: ${waitForTransactionReceiptReturnType.transactionHash}'),
+              const SizedBox(height: 8),
+              Text(
+                  'transactionIndex: ${waitForTransactionReceiptReturnType.transactionIndex}'),
+            ],
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text('Close'),
+            ),
+          ],
+        );
+      },
+    );
+  }
 
   // show token info dialog
   void showTokenInfoDialog(

@@ -72,4 +72,14 @@ extension type JSWagmiCore(JSObject _) implements JSObject {
   external JSPromise disconnect(
     JSDisconnectParameters disconnectParameters,
   );
+  // wait for transaction receipt
+  external JSPromise<JSWaitForTransactionReceiptReturnType>
+      waitForTransactionReceipt(
+    JSWaitForTransactionReceiptParameters waitForTransactionReceipt,
+  );
+
+  // get fee history
+  external JSPromise<JSGetFeeHistoryReturnType> getFeeHistory(
+    JSGetFeeHistoryParameters getFeeHistoryParameters,
+  );
 }
