@@ -23,7 +23,7 @@ class GetFeeHistoryParameters {
   JSGetFeeHistoryParameters get toJS => JSGetFeeHistoryParameters(
         chainId: chainId?.toJS,
         blockCount: blockCount.toJS,
-        rewardPercentiles: rewardPercentiles.jsify() as JSArray<JSNumber>?,
+        rewardPercentiles: rewardPercentiles.jsify()! as JSArray<JSNumber>,
         blockNumber: blockNumber?.toJS,
         blockTag: blockTag?.toJS,
       );
