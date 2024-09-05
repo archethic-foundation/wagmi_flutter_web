@@ -688,6 +688,7 @@ class _MyAppState extends State<MyApp> {
               onPressed: () async {
                 final getByteCodeParameters = wagmi.GetByteCodeParameters(
                   address: bitTokenAddress,
+                  blockTag: const wagmi.BlockTag.finalized(),
                 );
                 final result = await wagmi.Core.getBytecode(
                   getByteCodeParameters,
