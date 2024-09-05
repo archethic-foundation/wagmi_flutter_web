@@ -11,8 +11,8 @@ typedef OnErrorCallback = void Function(WagmiError error);
 class WatchContractEventParameters {
   WatchContractEventParameters({
     required this.abi,
-    required this.address,
     required this.eventName,
+    this.address,
     this.args,
     this.batch,
     this.chainId,
@@ -25,8 +25,8 @@ class WatchContractEventParameters {
   });
 
   final List<Map> abi;
-  final String address;
   final String eventName;
+  final String? address;
   final List<dynamic>? args;
   final bool? batch;
   final int? chainId;

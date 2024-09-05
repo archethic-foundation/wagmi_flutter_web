@@ -5,9 +5,9 @@ part of '../wagmi.js.dart';
 extension type JSWatchContractEventParameters._(JSObject _)
     implements JSObject {
   external JSWatchContractEventParameters({
-    required JSAny? abi,
-    required JSString address,
+    required JSAny abi,
     required JSString eventName,
+    JSString? address,
     JSArray? args,
     JSBoolean? batch,
     JSNumber? chainId,
@@ -20,8 +20,8 @@ extension type JSWatchContractEventParameters._(JSObject _)
   });
 
   external JSAny abi;
-  external JSString address;
   external JSString eventName;
+  external JSString? address;
   external JSArray? args;
   external JSBoolean? batch;
   external JSNumber? chainId;
@@ -48,8 +48,8 @@ extension JSWatchContractEventReturnTypeConversion
 extension JSWatchContractEventParametersConversion
     on WatchContractEventParameters {
   JSWatchContractEventParameters get toJS => JSWatchContractEventParameters(
-        abi: abi.jsify(),
-        address: address.toJS,
+        abi: abi.jsify()!,
+        address: address?.toJS,
         eventName: eventName.toJS,
         args: UtilsJS.convertArgs(args),
         batch: batch?.toJS,
