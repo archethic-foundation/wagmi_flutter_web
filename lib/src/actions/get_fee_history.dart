@@ -7,23 +7,23 @@ import 'package:wagmi_flutter_web/src/models/block_tag.dart';
 
 class GetFeeHistoryParameters {
   GetFeeHistoryParameters({
+    required this.blockCount,
+    required this.rewardPercentiles,
     this.chainId,
-    this.blockCount,
-    this.rewardPercentiles,
     this.blockNumber,
     this.blockTag,
   });
 
   final int? chainId;
-  final int? blockCount;
-  final List<int>? rewardPercentiles;
+  final int blockCount;
+  final List<int> rewardPercentiles;
   final BigInt? blockNumber;
   final BlockTag? blockTag;
 
   JSGetFeeHistoryParameters get toJS => JSGetFeeHistoryParameters(
         chainId: chainId?.toJS,
-        blockCount: blockCount?.toJS,
-        rewardPercentiles: rewardPercentiles?.jsify() as JSArray<JSNumber>?,
+        blockCount: blockCount.toJS,
+        rewardPercentiles: rewardPercentiles.jsify() as JSArray<JSNumber>?,
         blockNumber: blockNumber?.toJS,
         blockTag: blockTag?.toJS,
       );
