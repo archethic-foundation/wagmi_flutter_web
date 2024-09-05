@@ -3,7 +3,6 @@ import 'dart:js_interop';
 import 'dart:js_util' as js_util;
 
 import 'package:wagmi_flutter_web/src/actions/get_chains.dart';
-import 'package:wagmi_flutter_web/src/models/connector.dart';
 import 'package:wagmi_flutter_web/wagmi_flutter_web.dart';
 
 part 'actions/call.js.dart';
@@ -37,6 +36,7 @@ part 'models/bigint.js.dart';
 part 'models/chain.js.dart';
 part 'models/connector.js.dart';
 part 'models/data_image.js.dart';
+part 'models/format_unit.js.dart';
 part 'models/jsFunctionToDart.js.dart';
 part 'wagmi_core.js.dart';
 part 'wagmi_web3modal.js.dart';

@@ -6,11 +6,11 @@ extension type JSGetTokenParameters._(JSObject _) implements JSObject {
   external JSGetTokenParameters({
     required JSString address,
     JSNumber? chainId,
-    JSString? formatUnits,
+    JSAny? formatUnits,
   });
   external JSString address;
   external JSNumber? chainId;
-  external JSString? formatUnits;
+  external JSAny? formatUnits;
 }
 
 @JS()

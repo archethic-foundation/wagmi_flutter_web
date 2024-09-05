@@ -249,6 +249,7 @@ class _MyAppState extends State<MyApp> {
                 final getTokenParameters = wagmi.GetTokenParameters(
                   address: bitTokenAddress,
                   chainId: account!.chain!.id,
+                  formatUnits: const wagmi.FormatUnit.wei(),
                 );
                 final getTokenReturnType =
                     await wagmi.Core.getToken(getTokenParameters);
