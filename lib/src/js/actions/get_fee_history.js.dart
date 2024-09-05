@@ -5,14 +5,14 @@ part of '../wagmi.js.dart';
 extension type JSGetFeeHistoryParameters._(JSObject _) implements JSObject {
   external JSGetFeeHistoryParameters({
     JSNumber? chainId,
-    JSNumber? blockCount,
-    JSArray<JSNumber>? rewardPercentiles,
+    required JSNumber blockCount,
+    required JSArray<JSNumber> rewardPercentiles,
     JSBigInt? blockNumber,
     JSString? blockTag,
   });
   external JSNumber? chainId;
-  external JSBigInt? blockCount;
-  external JSArray<JSNumber>? rewardPercentiles;
+  external JSBigInt blockCount;
+  external JSArray<JSNumber> rewardPercentiles;
   external JSBigInt? blockNumber;
   external JSString? blockTag;
 }
