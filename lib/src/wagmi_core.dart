@@ -27,20 +27,11 @@ import 'package:wagmi_flutter_web/src/actions/write_contract.dart';
 import 'package:wagmi_flutter_web/src/js/wagmi.js.dart';
 import 'package:wagmi_flutter_web/src/models/account.dart';
 import 'package:wagmi_flutter_web/src/models/chain.dart';
-import 'package:wagmi_flutter_web/src/models/connector.dart';
 import 'package:wagmi_flutter_web/src/utils/utils_js.dart';
 
 class Core {
   static Account getAccount() {
-    final result = window.wagmiCore.getAccount();
-    late Account account;
-    account = result.toDart;
-    if (result.connector != null) {
-      final connectorMap =
-          UtilsJS.jsObjectToMap(result.connector!, deep: false);
-      account.connector = Connector.fromMap(connectorMap);
-    }
-    return account;
+    return window.wagmiCore.getAccount().toDart;
   }
 
   static int getChainId() {
