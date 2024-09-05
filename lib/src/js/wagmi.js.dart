@@ -3,6 +3,7 @@ import 'dart:js_interop';
 import 'dart:js_util' as js_util;
 
 import 'package:wagmi_flutter_web/src/actions/get_chains.dart';
+import 'package:wagmi_flutter_web/src/models/block_tag.dart';
 import 'package:wagmi_flutter_web/wagmi_flutter_web.dart';
 
 part 'actions/call.js.dart';
@@ -33,6 +34,7 @@ part 'actions/watch_chain_id.js.dart';
 part 'actions/write_contract.js.dart';
 part 'models/account.js.dart';
 part 'models/bigint.js.dart';
+part 'models/block_tag.js.dart';
 part 'models/chain.js.dart';
 part 'models/connector.js.dart';
 part 'models/data_image.js.dart';

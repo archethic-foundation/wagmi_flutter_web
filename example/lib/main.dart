@@ -724,7 +724,7 @@ class _MyAppState extends State<MyApp> {
                   blockCount: 10,
                   rewardPercentiles: [10, 50, 90],
                   blockNumber: BigInt.from(11268698),
-                  blockTag: 'latest',
+                  blockTag: const wagmi.BlockTag.latest(),
                 );
                 final result = await wagmi.Core.getFeeHistory(
                   getFeeHistoryParameters,
