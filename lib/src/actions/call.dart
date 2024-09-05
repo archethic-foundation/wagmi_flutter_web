@@ -1,6 +1,7 @@
 import 'dart:js_interop';
 
 import 'package:wagmi_flutter_web/src/js/wagmi.js.dart';
+import 'package:wagmi_flutter_web/src/models/block_tag.dart';
 
 /// [Documentation API](https://wagmi.sh/core/api/actions/call)
 class CallParameters {
@@ -31,7 +32,7 @@ class CallParameters {
   final int? nonce;
   final BigInt? value;
   final int? blockNumber;
-  final String? blockTag;
+  final BlockTag? blockTag;
   final int? chainId;
 
   JSCallParameters get toJS {
