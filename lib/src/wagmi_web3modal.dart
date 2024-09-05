@@ -9,17 +9,17 @@ class Web3Modal {
   /// interactions with [Web3Modal].
   ///
   /// [Web3Modal documentation](https://docs.walletconnect.com/appkit/javascript/core/installation#implementation)
-  static void init(
-    String projectId,
-    List<String> chains,
-    bool enableAnalytics,
-    bool enableOnRamp,
-    Web3ModalMetadata metadata,
-    bool email,
-    List<String>? socials,
-    bool showWallets,
-    bool walletFeatures,
-  ) {
+  static void init({
+    required String projectId,
+    required List<String> chains,
+    required bool enableAnalytics,
+    required bool enableOnRamp,
+    required Web3ModalMetadata metadata,
+    required bool email,
+    required List<String>? socials,
+    required bool showWallets,
+    required bool walletFeatures,
+  }) {
     window.web3modal.init(
       projectId.toJS,
       chains
