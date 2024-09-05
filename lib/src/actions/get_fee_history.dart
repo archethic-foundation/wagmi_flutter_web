@@ -1,6 +1,7 @@
 import 'dart:js_interop';
 
 import 'package:wagmi_flutter_web/src/js/wagmi.js.dart';
+import 'package:wagmi_flutter_web/src/models/block_tag.dart';
 
 /// [Documentation API](https://wagmi.sh/core/api/actions/getFeeHistory)
 
@@ -17,7 +18,7 @@ class GetFeeHistoryParameters {
   final int? blockCount;
   final List<int>? rewardPercentiles;
   final BigInt? blockNumber;
-  final String? blockTag;
+  final BlockTag? blockTag;
 
   JSGetFeeHistoryParameters get toJS => JSGetFeeHistoryParameters(
         chainId: chainId?.toJS,
