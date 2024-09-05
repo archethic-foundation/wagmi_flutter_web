@@ -14,25 +14,31 @@ extension type JSGetTokenParameters._(JSObject _) implements JSObject {
 }
 
 @JS()
+extension type JSTokenTotalSupply(JSObject _) implements JSObject {
+  external JSString formatted;
+  external JSBigInt value;
+
+  TokenTotalSupply get toDart => TokenTotalSupply(
+        formatted: formatted.toDart,
+        value: value.toDart,
+      );
+}
+
+@JS()
 extension type JSGetTokenReturnType(JSObject _) implements JSObject {
   external JSString address;
-  external JSNumber? decimals;
+  external JSNumber decimals;
   external JSString? name;
   external JSString? symbol;
-  external JSAny? totalSupply;
+  external JSTokenTotalSupply totalSupply;
 
   GetTokenReturnType get toDart {
-    var supply = <String, dynamic>{};
-    if (totalSupply != null) {
-      supply = UtilsJS.jsObjectToMap(totalSupply! as JSObject);
-    }
-
     return GetTokenReturnType(
       address: address.toDart,
-      decimals: decimals?.toDartInt,
+      decimals: decimals.toDartInt,
       name: name?.toDart,
       symbol: symbol?.toDart,
-      totalSupply: supply,
+      totalSupply: totalSupply.toDart,
     );
   }
 }
