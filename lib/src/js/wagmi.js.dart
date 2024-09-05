@@ -3,7 +3,6 @@ import 'dart:js_interop';
 import 'dart:js_util' as js_util;
 
 import 'package:wagmi_flutter_web/src/actions/get_chains.dart';
-import 'package:wagmi_flutter_web/src/models/block_tag.dart';
 import 'package:wagmi_flutter_web/wagmi_flutter_web.dart';
 
 part 'actions/call.js.dart';

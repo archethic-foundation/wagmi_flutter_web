@@ -77,7 +77,6 @@ extension type JSWagmiCore(JSObject _) implements JSObject {
       waitForTransactionReceipt(
     JSWaitForTransactionReceiptParameters waitForTransactionReceipt,
   );
-
   // get fee history
   external JSPromise<JSGetFeeHistoryReturnType> getFeeHistory(
     JSGetFeeHistoryParameters getFeeHistoryParameters,

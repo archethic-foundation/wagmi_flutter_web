@@ -1,7 +1,8 @@
 import 'dart:js_interop';
 
+import 'package:decimal/decimal.dart';
 import 'package:wagmi_flutter_web/src/js/wagmi.js.dart';
-import 'package:wagmi_flutter_web/src/models/block_tag.dart';
+import 'package:wagmi_flutter_web/wagmi_flutter_web.dart';
 
 /// [Documentation API](https://wagmi.sh/core/api/actions/getFeeHistory)
 
@@ -31,14 +32,14 @@ class GetFeeHistoryParameters {
 
 class GetFeeHistoryReturnType {
   GetFeeHistoryReturnType({
-    this.baseFeePerGas,
-    this.gasUsedRatio,
-    this.oldestBlock,
+    required this.baseFeePerGas,
+    required this.gasUsedRatio,
+    required this.oldestBlock,
     this.reward,
   });
 
-  final List<dynamic>? baseFeePerGas;
-  final List<dynamic>? gasUsedRatio;
-  final BigInt? oldestBlock;
-  final List<dynamic>? reward;
+  final List<BigInt> baseFeePerGas;
+  final List<Decimal> gasUsedRatio;
+  final BigInt oldestBlock;
+  final List<List<BigInt>>? reward;
 }
