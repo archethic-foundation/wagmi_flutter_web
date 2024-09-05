@@ -61,26 +61,26 @@ class _MyAppState extends State<MyApp> {
         await wagmi.init();
 
         wagmi.Web3Modal.init(
-          'f642e3f39ba3e375f8f714f18354faa4',
-          [
+          projectId: 'f642e3f39ba3e375f8f714f18354faa4',
+          chains: [
             wagmi.Chain.mainnet.name,
             wagmi.Chain.sepolia.name,
             wagmi.Chain.polygonAmoy.name,
             wagmi.Chain.polygon.name,
           ],
-          true,
-          true,
-          wagmi.Web3ModalMetadata(
+          enableAnalytics: true,
+          enableOnRamp: true,
+          metadata: wagmi.Web3ModalMetadata(
             name: 'Web3Modal',
             description: 'Web3Modal Example',
             // url must match your domain & subdomain
             url: 'https://web3modal.com',
             icons: ['https://avatars.githubusercontent.com/u/37784886'],
           ),
-          false, // email
-          [], // social networks
-          true, // showWallets
-          true, // walletFeatures
+          email: false, // email
+          socials: [], // social networks
+          showWallets: true, // showWallets
+          walletFeatures: true, // walletFeatures
         );
       },
     );
