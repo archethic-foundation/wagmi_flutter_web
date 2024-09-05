@@ -3,6 +3,8 @@ import 'dart:js_interop';
 import 'package:wagmi_flutter_web/src/js/wagmi.js.dart';
 
 /// [Documentation API](https://wagmi.sh/core/api/actions/waitForTransactionReceipt)
+
+// TODO: Add missing parameters
 typedef OnReplacedCallback = void Function();
 
 class WaitForTransactionReceiptParameters {

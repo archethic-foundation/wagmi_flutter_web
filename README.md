@@ -111,7 +111,7 @@ For more details, refer to the [API documentation](https://wagmi.sh/core/api/act
 | `switchChain`                  | 🔴               |
 | `verifyMessage`                | 🔴               |
 | `verifyTypedData`              | 🔴               |
-| `waitForTransactionReceipt`    | ✅ Implemented   |
+| `waitForTransactionReceipt`    | 🟠 In progress   |
 | `watchAccount`                 | 🔴               |
 | `watchAsset`                   | 🔴               |
 | `watchBlockNumber`             | 🔴               |
