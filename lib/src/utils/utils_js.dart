@@ -2,6 +2,7 @@ import 'dart:js_interop';
 // ignore: avoid_web_libraries_in_flutter
 import 'dart:js_util' as js_util;
 
+import 'package:decimal/decimal.dart';
 import 'package:wagmi_flutter_web/src/js/wagmi.js.dart';
 
 class UtilsJS {
@@ -54,4 +55,13 @@ class UtilsJS {
     }
     return jsArgs;
   }
+}
+
+extension JSBigIntArrayToList on JSArray<JSBigInt> {
+  List<BigInt> get toDartList => toDart.map((item) => item.toDart).toList();
+}
+
+extension JSNumberArrayToList on JSArray<JSNumber> {
+  List<Decimal> get toDartDecimalList =>
+      toDart.map((item) => Decimal.parse(item.toString())).toList();
 }

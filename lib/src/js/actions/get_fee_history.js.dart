@@ -19,16 +19,16 @@ extension type JSGetFeeHistoryParameters._(JSObject _) implements JSObject {
 
 @JS()
 extension type JSGetFeeHistoryReturnType(JSObject _) implements JSObject {
-  external JSArray<JSBigInt>? baseFeePerGas;
-  external JSArray<JSNumber>? gasUsedRatio;
-  external JSBigInt? oldestBlock;
+  external JSArray<JSBigInt> baseFeePerGas;
+  external JSArray<JSNumber> gasUsedRatio;
+  external JSBigInt oldestBlock;
   external JSArray<JSArray<JSBigInt>>? reward;
 
   GetFeeHistoryReturnType get toDart => GetFeeHistoryReturnType(
-        baseFeePerGas: baseFeePerGas?.jsify() as List<dynamic>?,
-        gasUsedRatio: gasUsedRatio?.jsify() as List<dynamic>?,
-        oldestBlock: oldestBlock?.toDart,
-        reward: reward?.jsify() as List<dynamic>?,
+        baseFeePerGas: baseFeePerGas.toDartList,
+        gasUsedRatio: gasUsedRatio.toDartDecimalList,
+        oldestBlock: oldestBlock.toDart,
+        reward: reward?.toDart.map((jsList) => jsList.toDartList).toList(),
       );
 }
 
