@@ -891,7 +891,9 @@ class _MyAppState extends State<MyApp> {
               const SizedBox(height: 8),
               Text('symbol: ${getTokenReturnType.symbol}'),
               const SizedBox(height: 8),
-              Text('totalSupply: ${getTokenReturnType.totalSupply}'),
+              Text(
+                'totalSupply: {formatted : ${getTokenReturnType.totalSupply.formatted}, value:  ${getTokenReturnType.totalSupply.value}}',
+              ),
             ],
           ),
           actions: [

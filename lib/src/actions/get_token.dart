@@ -20,18 +20,28 @@ class GetTokenParameters {
       );
 }
 
+class TokenTotalSupply {
+  TokenTotalSupply({
+    required this.formatted,
+    required this.value,
+  });
+
+  final String formatted;
+  final BigInt value;
+}
+
 class GetTokenReturnType {
   GetTokenReturnType({
     required this.address,
-    this.decimals,
+    required this.decimals,
+    required this.totalSupply,
     this.name,
     this.symbol,
-    this.totalSupply,
   });
 
   final String address;
-  final int? decimals;
+  final int decimals;
+  final TokenTotalSupply totalSupply;
   final String? name;
   final String? symbol;
-  final Map? totalSupply;
 }
