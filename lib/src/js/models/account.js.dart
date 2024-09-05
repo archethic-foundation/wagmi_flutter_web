@@ -19,5 +19,6 @@ extension type JSAccount(JSObject _) implements JSObject {
         isReconnecting: isReconnecting.toDart,
         isConnected: isConnected.toDart,
         isDisconnected: isDisconnected.toDart,
+        connector: connector?.toDart,
       );
 }

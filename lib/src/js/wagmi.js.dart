@@ -1,23 +1,24 @@
 import 'dart:js_interop';
 // ignore: avoid_web_libraries_in_flutter
 import 'dart:js_util' as js_util;
+
 import 'package:wagmi_flutter_web/src/actions/get_chains.dart';
 import 'package:wagmi_flutter_web/src/models/connector.dart';
 import 'package:wagmi_flutter_web/wagmi_flutter_web.dart';
 
 part 'actions/call.js.dart';
+part 'actions/disconnect.js.dart';
 part 'actions/estimate_fees_per_gas.js.dart';
 part 'actions/estimate_gas.js.dart';
 part 'actions/estimate_max_priority_fee_per_gas.js.dart';
 part 'actions/get_balance.js.dart';
 part 'actions/get_block.js.dart';
 part 'actions/get_block_number.js.dart';
-part 'actions/get_byte_code.js.dart';
 part 'actions/get_block_transaction_count.js.dart';
-part 'actions/get_fee_history.js.dart';
+part 'actions/get_byte_code.js.dart';
 part 'actions/get_chain_id.js.dart';
 part 'actions/get_chains.js.dart';
-part 'actions/disconnect.js.dart';
+part 'actions/get_fee_history.js.dart';
 part 'actions/get_gas_price.js.dart';
 part 'actions/get_token.js.dart';
 part 'actions/get_transaction.js.dart';
@@ -28,14 +29,15 @@ part 'actions/read_contract.js.dart';
 part 'actions/read_contracts.js.dart';
 part 'actions/send_transaction.js.dart';
 part 'actions/sign_message.js.dart';
+part 'actions/wait_for_transaction_receipt.js.dart';
 part 'actions/watch_chain_id.js.dart';
 part 'actions/write_contract.js.dart';
-part 'actions/wait_for_transaction_receipt.js.dart';
 part 'models/account.js.dart';
-part 'models/jsFunctionToDart.js.dart';
 part 'models/bigint.js.dart';
 part 'models/chain.js.dart';
 part 'models/connector.js.dart';
+part 'models/data_image.js.dart';
+part 'models/jsFunctionToDart.js.dart';
 part 'wagmi_core.js.dart';
 part 'wagmi_web3modal.js.dart';
 
