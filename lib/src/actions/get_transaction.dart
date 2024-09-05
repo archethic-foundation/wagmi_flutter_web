@@ -19,22 +19,14 @@ class GetTransactionParameters {
   final BigInt? chainId;
   final int? index;
 
-  JSGetTransactionParameters get toJS => blockNumber != null
-      ? JSGetTransactionParameters(
-          hash: hash?.toJS,
-          blockHash: blockHash?.toJS,
-          blockNumber: blockNumber?.toJS,
-          blockTag: blockTag?.toJS,
-          chainId: chainId?.toJS,
-          index: index?.toJS,
-        )
-      : JSGetTransactionParameters(
-          hash: hash?.toJS,
-          blockHash: blockHash?.toJS,
-          blockTag: blockTag?.toJS,
-          chainId: chainId?.toJS,
-          index: index?.toJS,
-        );
+  JSGetTransactionParameters get toJS => JSGetTransactionParameters(
+        hash: hash?.toJS,
+        blockHash: blockHash?.toJS,
+        blockNumber: blockNumber?.toJS,
+        blockTag: blockTag?.toJS,
+        chainId: chainId?.toJS,
+        index: index?.toJS,
+      );
 }
 
 class GetTransactionReturnType {

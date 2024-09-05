@@ -12,8 +12,7 @@ extension type JSEstimateGasParametersEIP1559._(JSObject _)
     JSBigInt? gas,
     JSBigInt? maxFeePerGas,
     JSBigInt? maxPriorityFeePerGas,
-    // TODO: I don't understand why but it doesn't work when nonce is null. Normally it should be undefined... To be analyzed
-    // JSBigInt? nonce,
+    JSBigInt? nonce,
     JSString? to,
     JSString type,
     JSBigInt? value,
@@ -25,7 +24,7 @@ extension type JSEstimateGasParametersEIP1559._(JSObject _)
   external JSBigInt? gas;
   external JSBigInt? maxFeePerGas;
   external JSBigInt? maxPriorityFeePerGas;
-  // external JSBigInt? nonce;
+  external JSBigInt? nonce;
   external JSString? to;
   external JSString type;
   external JSBigInt? value;
@@ -43,7 +42,7 @@ extension type JSEstimateGasParametersEIP4844._(JSObject _)
     JSBigInt? maxFeePerGas,
     JSBigInt? maxPriorityFeePerGas,
     JSBigInt? maxFeePerBlobGas,
-    //  JSBigInt? nonce,
+    JSBigInt? nonce,
     JSString? to,
     JSString type,
     JSBigInt? value,
@@ -56,7 +55,7 @@ extension type JSEstimateGasParametersEIP4844._(JSObject _)
   external JSBigInt? maxFeePerGas;
   external JSBigInt? maxPriorityFeePerGas;
   external JSBigInt? maxFeePerBlobGas;
-  // external JSBigInt? nonce;
+  external JSBigInt? nonce;
   external JSString? to;
   external JSString type;
   external JSBigInt? value;
@@ -71,7 +70,7 @@ extension type JSEstimateGasParametersLegacy._(JSObject _) implements JSObject {
     JSString? data,
     JSBigInt? gas,
     JSBigInt? gasPrice,
-    // JSBigInt? nonce,
+    JSBigInt? nonce,
     JSString? to,
     JSString? type,
     JSBigInt? value,
@@ -82,7 +81,7 @@ extension type JSEstimateGasParametersLegacy._(JSObject _) implements JSObject {
   external JSString? data;
   external JSBigInt? gas;
   external JSBigInt? gasPrice;
-  // external JSBigInt? nonce;
+  external JSBigInt? nonce;
   external JSString? to;
   external JSString type;
   external JSBigInt? value;
@@ -100,6 +99,7 @@ extension EstimatedGasParametersToJS on EstimateGasParameters {
           data: data?.toJS,
           gas: gas?.toJS ?? BigInt.zero.toJS,
           gasPrice: legacy.feeValues?.gasPrice.toJS,
+          nonce: legacy.nonce?.toJS,
           type: 'legacy'.toJS,
           to: to?.toJS,
           value: value?.toJS,
@@ -110,6 +110,7 @@ extension EstimatedGasParametersToJS on EstimateGasParameters {
           chainId: chainId?.toJS,
           data: data?.toJS,
           gas: gas?.toJS ?? BigInt.zero.toJS,
+          nonce: eip1559.nonce?.toJS,
           maxFeePerGas: eip1559.feeValues?.maxFeePerGas.toJS,
           maxPriorityFeePerGas: eip1559.feeValues?.maxPriorityFeePerGas.toJS,
           type: 'eip1559'.toJS,
@@ -122,6 +123,7 @@ extension EstimatedGasParametersToJS on EstimateGasParameters {
           chainId: chainId?.toJS,
           data: data?.toJS,
           gas: gas?.toJS ?? BigInt.zero.toJS,
+          nonce: eip4844.nonce?.toJS,
           maxFeePerGas: eip4844.feeValues?.maxFeePerGas.toJS,
           maxPriorityFeePerGas: eip4844.feeValues?.maxPriorityFeePerGas.toJS,
           maxFeePerBlobGas: eip4844.feeValues?.maxFeePerBlobGas.toJS,

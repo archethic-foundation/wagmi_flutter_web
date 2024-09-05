@@ -1,58 +1,59 @@
 import {
-    EstimateGasParameters,
+    CallParameters,
+    DisconnectParameters,
     EstimateFeesPerGasParameters,
+    EstimateGasParameters,
     EstimateMaxPriorityFeePerGasParameters,
     GetBalanceParameters,
     GetBlockNumberParameters,
-    GetGasPriceParameters,
-    GetTokenParameters,
-    GetTransactionCountParameters,
-    GetTransactionReceiptParameters,
     GetBlockParameters,
     GetBlockTransactionCountParameters,
+    GetBytecodeParameters,
+    GetFeeHistoryParameters,
+    GetGasPriceParameters,
+    GetTokenParameters,
     GetTransactionConfirmationsParameters,
+    GetTransactionCountParameters,
     GetTransactionParameters,
+    GetTransactionReceiptParameters,
     ReadContractParameters,
     ReadContractsParameters,
+    SendTransactionParameters,
     SignMessageParameters,
+    WaitForTransactionReceiptParameters,
     WatchChainIdParameters,
     WriteContractParameters,
-    SendTransactionParameters,
-    CallParameters,
-    GetBytecodeParameters,
-    DisconnectParameters,
-    WaitForTransactionReceiptParameters,
-    GetFeeHistoryParameters,
-    estimateGas,
+    call,
+    disconnect,
     estimateFeesPerGas,
+    estimateGas,
     estimateMaxPriorityFeePerGas,
     getAccount,
     getBalance,
+    getBlock,
     getBlockNumber,
+    getBlockTransactionCount,
+    getBytecode,
     getChainId,
     getChains,
+    getFeeHistory,
     getGasPrice,
     getToken,
-    sendTransaction,
     getTransaction,
     getTransactionConfirmations,
-    getBlock,
-    getBlockTransactionCount,
     getTransactionCount,
     getTransactionReceipt,
     readContract,
     readContracts,
+    sendTransaction,
     signMessage,
+    waitForTransactionReceipt,
     watchChainId,
     writeContract,
-    call,
-    getBytecode,
-    disconnect,
-    waitForTransactionReceipt,
-    getFeeHistory,
-} from "@wagmi/core"
-import { InvalidAddressError } from "viem"
-import { JSWagmiContext } from "./context"
+} from "@wagmi/core";
+import { InvalidAddressError } from "viem";
+import { JSWagmiContext } from "./context";
+import { illegalNullsToUndefined } from "./parameters_utils";
 
 export class JSWagmiCore {
     getAccount = function () {
@@ -72,7 +73,10 @@ export class JSWagmiCore {
 
     getBlockNumber = async function (getBlockNumberParameters: GetBlockNumberParameters) {
         try {
-            return await getBlockNumber(JSWagmiContext.instance.config, getBlockNumberParameters)
+            return await getBlockNumber(
+                JSWagmiContext.instance.config,
+                illegalNullsToUndefined(getBlockNumberParameters)
+            )
         } catch (error) {
             console.error("Error fetching block number:", error)
             throw error
@@ -81,7 +85,10 @@ export class JSWagmiCore {
 
     getGasPrice = async function (getGasPriceParameters: GetGasPriceParameters) {
         try {
-            return await getGasPrice(JSWagmiContext.instance.config, getGasPriceParameters)
+            return await getGasPrice(
+                JSWagmiContext.instance.config,
+                illegalNullsToUndefined(getGasPriceParameters)
+            )
         } catch (error) {
             console.error("Error fetching gas price:", error)
             throw error
@@ -95,7 +102,10 @@ export class JSWagmiCore {
         }
 
         try {
-            return await getBalance(JSWagmiContext.instance.config, getBalanceParameters)
+            return await getBalance(
+                JSWagmiContext.instance.config,
+                illegalNullsToUndefined(getBalanceParameters)
+            )
         } catch (error) {
             console.error("Error fetching balance:", error)
             throw error
@@ -104,7 +114,10 @@ export class JSWagmiCore {
 
     getBlock = async function (getBlockParameters: GetBlockParameters) {
         try {
-            return await getBlock(JSWagmiContext.instance.config, getBlockParameters);
+            return await getBlock(
+                JSWagmiContext.instance.config,
+                illegalNullsToUndefined(getBlockParameters)
+            )
         } catch (error) {
             console.error("Error getBlock:", error);
             throw error;
@@ -113,7 +126,10 @@ export class JSWagmiCore {
 
     getBlockTransactionCount = async function (getBlockTransactionCountParameters: GetBlockTransactionCountParameters) {
         try {
-            return await getBlockTransactionCount(JSWagmiContext.instance.config, getBlockTransactionCountParameters);
+            return await getBlockTransactionCount(
+                JSWagmiContext.instance.config,
+                illegalNullsToUndefined(getBlockTransactionCountParameters)
+            )
         } catch (error) {
             console.error("Error get block transaction count:", error);
             throw error;
@@ -122,7 +138,10 @@ export class JSWagmiCore {
 
     getTransaction = async function (getTransactionParameters: GetTransactionParameters) {
         try {
-            return await getTransaction(JSWagmiContext.instance.config, getTransactionParameters);
+            return await getTransaction(
+                JSWagmiContext.instance.config,
+                illegalNullsToUndefined(getTransactionParameters)
+            )
         } catch (error) {
             console.error("Error get transaction:", error);
             throw error;
@@ -130,7 +149,10 @@ export class JSWagmiCore {
     }
     call = async function (callParameters: CallParameters) {
         try {
-            return await call(JSWagmiContext.instance.config, callParameters);
+            return await call(
+                JSWagmiContext.instance.config,
+                illegalNullsToUndefined(callParameters)
+            )
         } catch (error) {
             console.error("Error call:", error);
             throw error;
@@ -139,7 +161,10 @@ export class JSWagmiCore {
 
     getTransactionConfirmations = async function (getTransactionConfirmationsParameters: GetTransactionConfirmationsParameters) {
         try {
-            return await getTransactionConfirmations(JSWagmiContext.instance.config, getTransactionConfirmationsParameters);
+            return await getTransactionConfirmations(
+                JSWagmiContext.instance.config,
+                illegalNullsToUndefined(getTransactionConfirmationsParameters)
+            )
         } catch (error) {
             console.error("Error get transaction confirmations:", error);
             throw error;
@@ -154,7 +179,10 @@ export class JSWagmiCore {
         }
 
         try {
-            return await getTransactionCount(JSWagmiContext.instance.config, getTransactionCountParameters)
+            return await getTransactionCount(
+                JSWagmiContext.instance.config,
+                illegalNullsToUndefined(getTransactionCountParameters)
+            )
         } catch (error) {
             console.error("Error fetching transaction count:", error)
             throw error
@@ -163,7 +191,10 @@ export class JSWagmiCore {
 
     getToken = async function (getTokenParameters: GetTokenParameters) {
         try {
-            return await getToken(JSWagmiContext.instance.config, getTokenParameters)
+            return await getToken(
+                JSWagmiContext.instance.config,
+                illegalNullsToUndefined(getTokenParameters)
+            )
         } catch (error) {
             console.error("Error fetching token info:", error)
             throw error
@@ -177,7 +208,10 @@ export class JSWagmiCore {
             return null
         }
         try {
-            return await signMessage(JSWagmiContext.instance.config, signMessageParameters)
+            return await signMessage(
+                JSWagmiContext.instance.config,
+                illegalNullsToUndefined(signMessageParameters)
+            )
         } catch (error) {
             console.error("Error signMessage:", error)
             throw error
@@ -186,7 +220,10 @@ export class JSWagmiCore {
 
     readContract = async function (readContractParameters: ReadContractParameters) {
         try {
-            return await readContract(JSWagmiContext.instance.config, readContractParameters)
+            return await readContract(
+                JSWagmiContext.instance.config,
+                illegalNullsToUndefined(readContractParameters)
+            )
         } catch (error) {
             console.error("Error readContract:", error)
             throw error
@@ -195,7 +232,10 @@ export class JSWagmiCore {
 
     readContracts = async function (readContractsParameters: ReadContractsParameters) {
         try {
-            return await readContracts(JSWagmiContext.instance.config, readContractsParameters)
+            return await readContracts(
+                JSWagmiContext.instance.config,
+                illegalNullsToUndefined(readContractsParameters)
+            )
         } catch (error) {
             console.error("Error readContracts:", error)
             throw error
@@ -205,7 +245,10 @@ export class JSWagmiCore {
 
     getTransactionReceipt = async function (getTransactionReceiptParameters: GetTransactionReceiptParameters) {
         try {
-            return await getTransactionReceipt(JSWagmiContext.instance.config, getTransactionReceiptParameters)
+            return await getTransactionReceipt(
+                JSWagmiContext.instance.config,
+                illegalNullsToUndefined(getTransactionReceiptParameters)
+            )
         } catch (error) {
             console.error("Error getTransactionReceipt:", error)
             throw error
@@ -214,7 +257,10 @@ export class JSWagmiCore {
 
     sendTransaction = async function (sendTransactionParameters: SendTransactionParameters) {
         try {
-            return await sendTransaction(JSWagmiContext.instance.config, sendTransactionParameters);
+            return await sendTransaction(
+                JSWagmiContext.instance.config,
+                illegalNullsToUndefined(sendTransactionParameters)
+            )
         } catch (error) {
             console.error("Error sendTransaction:", error);
             throw error;
@@ -223,7 +269,10 @@ export class JSWagmiCore {
 
     watchChainId = async function (watchChainIdParameters: WatchChainIdParameters) {
         try {
-            return await watchChainId(JSWagmiContext.instance.config, watchChainIdParameters);
+            return await watchChainId(
+                JSWagmiContext.instance.config,
+                illegalNullsToUndefined(watchChainIdParameters)
+            )
         } catch (error) {
             console.error("Error watchChainId:", error)
             return null
@@ -232,7 +281,10 @@ export class JSWagmiCore {
 
     writeContract = async function (writeContractParameters: WriteContractParameters) {
         try {
-            return await writeContract(JSWagmiContext.instance.config, writeContractParameters)
+            return await writeContract(
+                JSWagmiContext.instance.config,
+                illegalNullsToUndefined(writeContractParameters)
+            )
         } catch (error) {
             console.error("Error writeContract:", error)
             return null
@@ -241,7 +293,10 @@ export class JSWagmiCore {
 
     estimateGas = async function (estimateGasParameters: EstimateGasParameters) {
         try {
-            return await estimateGas(JSWagmiContext.instance.config, estimateGasParameters)
+            return await estimateGas(
+                JSWagmiContext.instance.config,
+                illegalNullsToUndefined(estimateGasParameters)
+            )
         } catch (error) {
             console.error("Error estimateGas:", error)
             throw error
@@ -249,7 +304,10 @@ export class JSWagmiCore {
     }
     estimateFeesPerGas = async function (estimateFeesPerGasParameters: EstimateFeesPerGasParameters) {
         try {
-            return await estimateFeesPerGas(JSWagmiContext.instance.config, estimateFeesPerGasParameters)
+            return await estimateFeesPerGas(
+                JSWagmiContext.instance.config,
+                illegalNullsToUndefined(estimateFeesPerGasParameters)
+            )
         } catch (error) {
             console.error("Error estimateFeesPerGas:", error)
             throw error
@@ -258,7 +316,10 @@ export class JSWagmiCore {
 
     estimateMaxPriorityFeePerGas = async function (estimateMaxPriorityFeePerGasParameters: EstimateMaxPriorityFeePerGasParameters) {
         try {
-            return await estimateMaxPriorityFeePerGas(JSWagmiContext.instance.config, estimateMaxPriorityFeePerGasParameters);
+            return await estimateMaxPriorityFeePerGas(
+                JSWagmiContext.instance.config,
+                illegalNullsToUndefined(estimateMaxPriorityFeePerGasParameters)
+            )
         } catch (error) {
             console.error("Error estimateMaxPriorityFeePerGas:", error)
             throw error
@@ -266,7 +327,10 @@ export class JSWagmiCore {
     }
     getBytecode = async function (getBytecodeParameters: GetBytecodeParameters) {
         try {
-            return await getBytecode(JSWagmiContext.instance.config, getBytecodeParameters);
+            return await getBytecode(
+                JSWagmiContext.instance.config,
+                illegalNullsToUndefined(getBytecodeParameters)
+            )
         } catch (error) {
             console.error("Error getBytecode:", error)
             throw error
@@ -274,7 +338,10 @@ export class JSWagmiCore {
     }
     disconnect = async function (disconnectParameters: DisconnectParameters) {
         try {
-            return await disconnect(JSWagmiContext.instance.config, disconnectParameters);
+            return await disconnect(
+                JSWagmiContext.instance.config,
+                illegalNullsToUndefined(disconnectParameters)
+            )
         } catch (error) {
             console.error("Error disconnect:", error)
             throw error
@@ -282,7 +349,10 @@ export class JSWagmiCore {
     }
     waitForTransactionReceipt = async function (waitForTransactionReceiptParameters: WaitForTransactionReceiptParameters) {
         try {
-            return await waitForTransactionReceipt(JSWagmiContext.instance.config, waitForTransactionReceiptParameters);
+            return await waitForTransactionReceipt(
+                JSWagmiContext.instance.config,
+                illegalNullsToUndefined(waitForTransactionReceiptParameters)
+            )
         } catch (error) {
             console.error("Error waitForTransactionReceipt:", error)
             throw error
@@ -290,7 +360,10 @@ export class JSWagmiCore {
     }
     getFeeHistory = async function (getFeeHistoryParameters: GetFeeHistoryParameters) {
         try {
-            return await getFeeHistory(JSWagmiContext.instance.config, getFeeHistoryParameters);
+            return await getFeeHistory(
+                JSWagmiContext.instance.config,
+                illegalNullsToUndefined(getFeeHistoryParameters)
+            )
         } catch (error) {
             console.error("Error getFeeHistory:", error)
             throw error

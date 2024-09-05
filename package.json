@@ -16,6 +16,7 @@
     "@wagmi/connectors": "^5.1.7",
     "@wagmi/core": "^2.13.4",
     "@web3modal/wagmi": "5.1.5",
+    "reflect-metadata": "^0.2.2",
     "viem": "^2.20.0"
   }
 }
