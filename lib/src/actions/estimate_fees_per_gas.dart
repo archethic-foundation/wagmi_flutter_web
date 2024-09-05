@@ -13,19 +13,11 @@ class EstimateFeesPerGasParameters {
   final String? formatUnits;
   final int? chainId;
 
-  JSEstimateFeesPerGasParameters get toJS {
-    final jsBlockParams = JSEstimateFeesPerGasParameters();
-    if (chainId != null) {
-      jsBlockParams.chainId = chainId?.toJS;
-    }
-    if (type != null) {
-      jsBlockParams.type = type?.toJS;
-    }
-    if (formatUnits != null) {
-      jsBlockParams.formatUnits = formatUnits?.toJS;
-    }
-    return jsBlockParams;
-  }
+  JSEstimateFeesPerGasParameters get toJS => JSEstimateFeesPerGasParameters(
+        chainId: chainId?.toJS,
+        type: type?.toJS,
+        formatUnits: formatUnits?.toJS,
+      );
 }
 
 class EstimateFeesPerGasReturnType {

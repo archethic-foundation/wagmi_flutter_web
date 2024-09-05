@@ -34,27 +34,21 @@ class CallParameters {
   final String? blockTag;
   final int? chainId;
 
-  JSCallParameters get toJS {
-    final jsCallParams = JSCallParameters();
-    if (account != null) jsCallParams.account = account!.toJS;
-    if (data != null) jsCallParams.data = data!.toJS;
-    if (to != null) jsCallParams.to = to!.toJS;
-    if (accessList != null) {
-      jsCallParams.accessList = accessList?.jsify() as JSArray<JSObject>?;
-    }
-    if (gas != null) jsCallParams.gas = gas!.toJS;
-    if (gasPrice != null) jsCallParams.gasPrice = gasPrice!.toJS;
-    if (maxFeePerGas != null) jsCallParams.maxFeePerGas = maxFeePerGas!.toJS;
-    if (maxPriorityFeePerGas != null) {
-      jsCallParams.maxPriorityFeePerGas = maxPriorityFeePerGas!.toJS;
-    }
-    if (nonce != null) jsCallParams.nonce = nonce!.toJS;
-    if (value != null) jsCallParams.value = value!.toJS;
-    if (blockNumber != null) jsCallParams.blockNumber = blockNumber!.toJS;
-    if (blockTag != null) jsCallParams.blockTag = blockTag!.toJS;
-    if (chainId != null) jsCallParams.chainId = chainId!.toJS;
-    return jsCallParams;
-  }
+  JSCallParameters get toJS => JSCallParameters(
+        account: account?.toJS,
+        data: data?.toJS,
+        to: to?.toJS,
+        accessList: accessList?.jsify() as JSArray<JSObject>?,
+        gas: gas?.toJS,
+        gasPrice: gasPrice?.toJS,
+        maxFeePerGas: maxFeePerGas?.toJS,
+        maxPriorityFeePerGas: maxPriorityFeePerGas?.toJS,
+        nonce: nonce?.toJS,
+        value: value?.toJS,
+        blockNumber: blockNumber?.toJS,
+        blockTag: blockTag?.toJS,
+        chainId: chainId?.toJS,
+      );
 }
 
 class CallReturnType {
