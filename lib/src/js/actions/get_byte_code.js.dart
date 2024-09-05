@@ -1,6 +1,6 @@
 part of '../wagmi.js.dart';
 
-/// [Documentation API](https://wagmi.sh/core/api/actions/getByteCode)
+/// [Documentation API](https://wagmi.sh/core/api/actions/getBytecode)
 
 @JS()
 extension type JSGetByteCodeParameters._(JSObject _) implements JSObject {

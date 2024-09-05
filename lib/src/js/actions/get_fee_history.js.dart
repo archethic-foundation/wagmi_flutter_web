@@ -1,6 +1,6 @@
 part of '../wagmi.js.dart';
 
-/// [Documentation API](https://wagmi.sh/core/api/actions/GetFeeHistory)
+/// [Documentation API](https://wagmi.sh/core/api/actions/getFeeHistory)
 @JS()
 extension type JSGetFeeHistoryParameters._(JSObject _) implements JSObject {
   external JSGetFeeHistoryParameters({
