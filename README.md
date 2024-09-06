@@ -120,10 +120,10 @@ For more details, refer to the [API documentation](https://wagmi.sh/core/api/act
 | `watchClient`                  | 🔴               |
 | `watchConnections`             | 🔴               |
 | `watchConnectors`              | 🔴               |
-| `watchContractEvent`           | 🔴               |
+| `watchContractEvent`           | ✅ Implemented   |
 | `watchPendingTransactions`     | 🔴               |
 | `watchPublicClient`            | 🔴               |
-| `writeContract`                | ✅ Implemented 📄 |
+| `writeContract`                | ✅ Implemented   |
 
 
 ## Development environment
