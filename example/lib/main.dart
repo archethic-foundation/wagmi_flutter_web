@@ -82,7 +82,7 @@ class _MyAppState extends State<MyApp> {
           walletFeatures: true, // walletFeatures
           transportBuilder: (chainId) => const wagmi.Transport.websocket(
             url:
-                'wss://polygon-mainnet.g.alchemy.com/v2/0aM2uAp3J-LsOlijDBZ3aZiCUvZdjiHb',
+                'wss://eth-sepolia.g.alchemy.com/v2/eLhVAxz79HO5n2y98mdIl_gMkKSDc3G8',
           ),
         );
       },

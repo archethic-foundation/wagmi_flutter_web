@@ -270,7 +270,10 @@ class _WriteContractsExampleState extends State<WriteContractsExample> {
       ),
       args: [
         '0x08Bfc8BA9fD137Fb632F79548B150FE0Be493254',
-        BigInt.from(498500000000000),
+        wagmi.EtherAmount.fromInt(
+          wagmi.EtherUnit.wei,
+          1,
+        ).getInWei,
       ],
       chainId: 11155111,
     );
