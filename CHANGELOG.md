@@ -1,3 +1,16 @@
+## 0.0.1-dev.4
+
+* ✨ Add methods :
+  * `getBytecode`
+  * `getBlockNumber` 
+  * `getToken`
+  * `getFeeHistory`
+  * `waitForTransactionReceipt`
+  * `watchContractEvent`
+* Social Login Controls
+* Improve API typing
+
+
 ## 0.0.1-dev.3
 
 * Fix release build
