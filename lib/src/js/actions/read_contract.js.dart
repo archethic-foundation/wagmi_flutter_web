@@ -5,12 +5,22 @@ part of '../wagmi.js.dart';
 extension type JSReadContractParameters._(JSObject _) implements JSObject {
   external JSReadContractParameters({
     required JSAny abi,
-    JSString? address,
-    JSString? functionName,
+    required JSString address,
+    required JSString functionName,
+    JSString? account,
+    JSArray<JSObject>? args,
+    JSBigInt? blockNumber,
+    JSString? blockTag,
+    JSNumber? chainId,
   });
   external JSAny abi;
-  external JSString? address;
-  external JSString? functionName;
+  external JSString address;
+  external JSString functionName;
+  external JSString? account;
+  external JSArray<JSObject>? args;
+  external JSBigInt? blockNumber;
+  external JSString? blockTag;
+  external JSNumber? chainId;
 }
 
 @JS()
