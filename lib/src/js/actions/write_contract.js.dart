@@ -5,7 +5,7 @@ part of '../wagmi.js.dart';
 extension type JSWriteContractParametersEIP1559._(JSObject _)
     implements JSObject {
   external JSWriteContractParametersEIP1559({
-    required JSAny? abi,
+    required JSAny abi,
     required JSString address,
     required JSString functionName,
     JSArray<JSObject>? accessList,
@@ -21,7 +21,7 @@ extension type JSWriteContractParametersEIP1559._(JSObject _)
     JSBigInt? value,
   });
 
-  external JSAny? abi;
+  external JSAny abi;
   external JSString address;
   external JSArray<JSObject>? accessList;
   external JSString? account;
@@ -133,7 +133,7 @@ extension WriteContractParametersToJS on WriteContractParameters {
           value: value?.toJS,
         ),
         eip1559: (eip1559) => JSWriteContractParametersEIP1559(
-          abi: abi.jsify(),
+          abi: abi.jsify()!,
           address: address.toJS,
           functionName: functionName.toJS,
           accessList: accessList?.jsify() as JSArray<JSObject>?,
