@@ -58,27 +58,27 @@ import { JSWagmiContext } from "./context";
 import { illegalNullsToUndefined } from "./parameters_utils";
 
 export class JSWagmiCore {
-    getAccount = function (useSecondConfig: boolean) {
-        return getAccount(useSecondConfig ? JSWagmiContext.instance.config2 : JSWagmiContext.instance.config);
+    getAccount = function (transportOnlyConfig: boolean) {
+        return getAccount(transportOnlyConfig ? JSWagmiContext.instance.transportOnlyConfig : JSWagmiContext.instance.config);
     }
 
 
-    getChainId = function (useSecondConfig: boolean) {
-        const chainId = getChainId(useSecondConfig ? JSWagmiContext.instance.config2 : JSWagmiContext.instance.config)
+    getChainId = function (transportOnlyConfig: boolean) {
+        const chainId = getChainId(transportOnlyConfig ? JSWagmiContext.instance.transportOnlyConfig : JSWagmiContext.instance.config)
         return chainId
     }
 
-    getChains = function (useSecondConfig: boolean) {
-        const chains = getChains(useSecondConfig ? JSWagmiContext.instance.config2 : JSWagmiContext.instance.config)
+    getChains = function (transportOnlyConfig: boolean) {
+        const chains = getChains(transportOnlyConfig ? JSWagmiContext.instance.transportOnlyConfig : JSWagmiContext.instance.config)
         return chains
     }
 
     getBlockNumber = async function (getBlockNumberParameters: GetBlockNumberParameters,
-        useSecondConfig: boolean
+        transportOnlyConfig: boolean
     ) {
         try {
             return await getBlockNumber(
-                useSecondConfig ? JSWagmiContext.instance.config2 : JSWagmiContext.instance.config,
+                transportOnlyConfig ? JSWagmiContext.instance.transportOnlyConfig : JSWagmiContext.instance.config,
                 illegalNullsToUndefined(getBlockNumberParameters)
             )
         } catch (error) {
@@ -87,10 +87,10 @@ export class JSWagmiCore {
         }
     }
 
-    getGasPrice = async function (getGasPriceParameters: GetGasPriceParameters, useSecondConfig: boolean) {
+    getGasPrice = async function (getGasPriceParameters: GetGasPriceParameters, transportOnlyConfig: boolean) {
         try {
             return await getGasPrice(
-                useSecondConfig ? JSWagmiContext.instance.config2 : JSWagmiContext.instance.config,
+                transportOnlyConfig ? JSWagmiContext.instance.transportOnlyConfig : JSWagmiContext.instance.config,
                 illegalNullsToUndefined(getGasPriceParameters)
             )
         } catch (error) {
@@ -99,7 +99,7 @@ export class JSWagmiCore {
         }
     }
 
-    getBalance = async function (getBalanceParameters: GetBalanceParameters, useSecondConfig: boolean) {
+    getBalance = async function (getBalanceParameters: GetBalanceParameters, transportOnlyConfig: boolean) {
         if (!getBalanceParameters.address || !/^0x[a-fA-F0-9]{40}$/.test(getBalanceParameters.address)) {
             console.error("Invalid address provided")
             throw new InvalidAddressError({ address: getBalanceParameters.address })
@@ -107,7 +107,7 @@ export class JSWagmiCore {
 
         try {
             return await getBalance(
-                useSecondConfig ? JSWagmiContext.instance.config2 : JSWagmiContext.instance.config,
+                transportOnlyConfig ? JSWagmiContext.instance.transportOnlyConfig : JSWagmiContext.instance.config,
                 illegalNullsToUndefined(getBalanceParameters)
             )
         } catch (error) {
@@ -116,10 +116,10 @@ export class JSWagmiCore {
         }
     }
 
-    getBlock = async function (getBlockParameters: GetBlockParameters, useSecondConfig: boolean) {
+    getBlock = async function (getBlockParameters: GetBlockParameters, transportOnlyConfig: boolean) {
         try {
             return await getBlock(
-                useSecondConfig ? JSWagmiContext.instance.config2 : JSWagmiContext.instance.config,
+                transportOnlyConfig ? JSWagmiContext.instance.transportOnlyConfig : JSWagmiContext.instance.config,
                 illegalNullsToUndefined(getBlockParameters)
             )
         } catch (error) {
@@ -128,10 +128,10 @@ export class JSWagmiCore {
         }
     }
 
-    getBlockTransactionCount = async function (getBlockTransactionCountParameters: GetBlockTransactionCountParameters, useSecondConfig: boolean) {
+    getBlockTransactionCount = async function (getBlockTransactionCountParameters: GetBlockTransactionCountParameters, transportOnlyConfig: boolean) {
         try {
             return await getBlockTransactionCount(
-                useSecondConfig ? JSWagmiContext.instance.config2 : JSWagmiContext.instance.config,
+                transportOnlyConfig ? JSWagmiContext.instance.transportOnlyConfig : JSWagmiContext.instance.config,
                 illegalNullsToUndefined(getBlockTransactionCountParameters)
             )
         } catch (error) {
@@ -140,10 +140,10 @@ export class JSWagmiCore {
         }
     }
 
-    getTransaction = async function (getTransactionParameters: GetTransactionParameters, useSecondConfig: boolean) {
+    getTransaction = async function (getTransactionParameters: GetTransactionParameters, transportOnlyConfig: boolean) {
         try {
             return await getTransaction(
-                useSecondConfig ? JSWagmiContext.instance.config2 : JSWagmiContext.instance.config,
+                transportOnlyConfig ? JSWagmiContext.instance.transportOnlyConfig : JSWagmiContext.instance.config,
                 illegalNullsToUndefined(getTransactionParameters)
             )
         } catch (error) {
@@ -151,10 +151,10 @@ export class JSWagmiCore {
             throw error
         }
     }
-    call = async function (callParameters: CallParameters, useSecondConfig: boolean) {
+    call = async function (callParameters: CallParameters, transportOnlyConfig: boolean) {
         try {
             return await call(
-                useSecondConfig ? JSWagmiContext.instance.config2 : JSWagmiContext.instance.config,
+                transportOnlyConfig ? JSWagmiContext.instance.transportOnlyConfig : JSWagmiContext.instance.config,
                 illegalNullsToUndefined(callParameters)
             )
         } catch (error) {
@@ -163,10 +163,10 @@ export class JSWagmiCore {
         }
     }
 
-    getTransactionConfirmations = async function (getTransactionConfirmationsParameters: GetTransactionConfirmationsParameters, useSecondConfig: boolean) {
+    getTransactionConfirmations = async function (getTransactionConfirmationsParameters: GetTransactionConfirmationsParameters, transportOnlyConfig: boolean) {
         try {
             return await getTransactionConfirmations(
-                useSecondConfig ? JSWagmiContext.instance.config2 : JSWagmiContext.instance.config,
+                transportOnlyConfig ? JSWagmiContext.instance.transportOnlyConfig : JSWagmiContext.instance.config,
                 illegalNullsToUndefined(getTransactionConfirmationsParameters)
             )
         } catch (error) {
@@ -175,7 +175,7 @@ export class JSWagmiCore {
         }
     }
 
-    getTransactionCount = async function (getTransactionCountParameters: GetTransactionCountParameters, useSecondConfig: boolean) {
+    getTransactionCount = async function (getTransactionCountParameters: GetTransactionCountParameters, transportOnlyConfig: boolean) {
 
         if (!getTransactionCountParameters.address || !/^0x[a-fA-F0-9]{40}$/.test(getTransactionCountParameters.address)) {
             console.error("Invalid address provided")
@@ -184,7 +184,7 @@ export class JSWagmiCore {
 
         try {
             return await getTransactionCount(
-                useSecondConfig ? JSWagmiContext.instance.config2 : JSWagmiContext.instance.config,
+                transportOnlyConfig ? JSWagmiContext.instance.transportOnlyConfig : JSWagmiContext.instance.config,
                 illegalNullsToUndefined(getTransactionCountParameters)
             )
         } catch (error) {
@@ -193,10 +193,10 @@ export class JSWagmiCore {
         }
     }
 
-    getToken = async function (getTokenParameters: GetTokenParameters, useSecondConfig: boolean) {
+    getToken = async function (getTokenParameters: GetTokenParameters, transportOnlyConfig: boolean) {
         try {
             return await getToken(
-                useSecondConfig ? JSWagmiContext.instance.config2 : JSWagmiContext.instance.config,
+                transportOnlyConfig ? JSWagmiContext.instance.transportOnlyConfig : JSWagmiContext.instance.config,
                 illegalNullsToUndefined(getTokenParameters)
             )
         } catch (error) {
@@ -206,14 +206,14 @@ export class JSWagmiCore {
     }
 
 
-    signMessage = async function (signMessageParameters: SignMessageParameters, useSecondConfig: boolean) {
+    signMessage = async function (signMessageParameters: SignMessageParameters, transportOnlyConfig: boolean) {
         if (!signMessageParameters.message) {
             console.error("No message provided")
             return null
         }
         try {
             return await signMessage(
-                useSecondConfig ? JSWagmiContext.instance.config2 : JSWagmiContext.instance.config,
+                transportOnlyConfig ? JSWagmiContext.instance.transportOnlyConfig : JSWagmiContext.instance.config,
                 illegalNullsToUndefined(signMessageParameters)
             )
         } catch (error) {
@@ -222,10 +222,10 @@ export class JSWagmiCore {
         }
     }
 
-    readContract = async function (readContractParameters: ReadContractParameters, useSecondConfig: boolean) {
+    readContract = async function (readContractParameters: ReadContractParameters, transportOnlyConfig: boolean) {
         try {
             return await readContract(
-                useSecondConfig ? JSWagmiContext.instance.config2 : JSWagmiContext.instance.config,
+                transportOnlyConfig ? JSWagmiContext.instance.transportOnlyConfig : JSWagmiContext.instance.config,
                 illegalNullsToUndefined(readContractParameters)
             )
         } catch (error) {
@@ -234,10 +234,10 @@ export class JSWagmiCore {
         }
     }
 
-    readContracts = async function (readContractsParameters: ReadContractsParameters, useSecondConfig: boolean) {
+    readContracts = async function (readContractsParameters: ReadContractsParameters, transportOnlyConfig: boolean) {
         try {
             return await readContracts(
-                useSecondConfig ? JSWagmiContext.instance.config2 : JSWagmiContext.instance.config,
+                transportOnlyConfig ? JSWagmiContext.instance.transportOnlyConfig : JSWagmiContext.instance.config,
                 illegalNullsToUndefined(readContractsParameters)
             )
         } catch (error) {
@@ -247,10 +247,10 @@ export class JSWagmiCore {
     }
 
 
-    getTransactionReceipt = async function (getTransactionReceiptParameters: GetTransactionReceiptParameters, useSecondConfig: boolean) {
+    getTransactionReceipt = async function (getTransactionReceiptParameters: GetTransactionReceiptParameters, transportOnlyConfig: boolean) {
         try {
             return await getTransactionReceipt(
-                useSecondConfig ? JSWagmiContext.instance.config2 : JSWagmiContext.instance.config,
+                transportOnlyConfig ? JSWagmiContext.instance.transportOnlyConfig : JSWagmiContext.instance.config,
                 illegalNullsToUndefined(getTransactionReceiptParameters)
             )
         } catch (error) {
@@ -259,10 +259,10 @@ export class JSWagmiCore {
         }
     }
 
-    sendTransaction = async function (sendTransactionParameters: SendTransactionParameters, useSecondConfig: boolean) {
+    sendTransaction = async function (sendTransactionParameters: SendTransactionParameters, transportOnlyConfig: boolean) {
         try {
             return await sendTransaction(
-                useSecondConfig ? JSWagmiContext.instance.config2 : JSWagmiContext.instance.config,
+                transportOnlyConfig ? JSWagmiContext.instance.transportOnlyConfig : JSWagmiContext.instance.config,
                 illegalNullsToUndefined(sendTransactionParameters)
             )
         } catch (error) {
@@ -271,10 +271,10 @@ export class JSWagmiCore {
         }
     }
 
-    watchChainId = async function (watchChainIdParameters: WatchChainIdParameters, useSecondConfig: boolean) {
+    watchChainId = async function (watchChainIdParameters: WatchChainIdParameters, transportOnlyConfig: boolean) {
         try {
             return await watchChainId(
-                useSecondConfig ? JSWagmiContext.instance.config2 : JSWagmiContext.instance.config,
+                transportOnlyConfig ? JSWagmiContext.instance.transportOnlyConfig : JSWagmiContext.instance.config,
                 illegalNullsToUndefined(watchChainIdParameters)
             )
         } catch (error) {
@@ -283,10 +283,10 @@ export class JSWagmiCore {
         }
     }
 
-    watchContractEvent = async function (watchContractEventParameters: WatchContractEventParameters, useSecondConfig: boolean) {
+    watchContractEvent = async function (watchContractEventParameters: WatchContractEventParameters, transportOnlyConfig: boolean) {
         try {
             return await watchContractEvent(
-                useSecondConfig ? JSWagmiContext.instance.config2 : JSWagmiContext.instance.config,
+                transportOnlyConfig ? JSWagmiContext.instance.transportOnlyConfig : JSWagmiContext.instance.config,
                 illegalNullsToUndefined(watchContractEventParameters)
             )
         } catch (error) {
@@ -295,10 +295,10 @@ export class JSWagmiCore {
         }
     }
 
-    writeContract = async function (writeContractParameters: WriteContractParameters, useSecondConfig: boolean) {
+    writeContract = async function (writeContractParameters: WriteContractParameters, transportOnlyConfig: boolean) {
         try {
             return await writeContract(
-                useSecondConfig ? JSWagmiContext.instance.config2 : JSWagmiContext.instance.config,
+                transportOnlyConfig ? JSWagmiContext.instance.transportOnlyConfig : JSWagmiContext.instance.config,
                 illegalNullsToUndefined(writeContractParameters)
             )
         } catch (error) {
@@ -307,10 +307,10 @@ export class JSWagmiCore {
         }
     }
 
-    estimateGas = async function (estimateGasParameters: EstimateGasParameters, useSecondConfig: boolean) {
+    estimateGas = async function (estimateGasParameters: EstimateGasParameters, transportOnlyConfig: boolean) {
         try {
             return await estimateGas(
-                useSecondConfig ? JSWagmiContext.instance.config2 : JSWagmiContext.instance.config,
+                transportOnlyConfig ? JSWagmiContext.instance.transportOnlyConfig : JSWagmiContext.instance.config,
                 illegalNullsToUndefined(estimateGasParameters)
             )
         } catch (error) {
@@ -318,10 +318,10 @@ export class JSWagmiCore {
             throw error
         }
     }
-    estimateFeesPerGas = async function (estimateFeesPerGasParameters: EstimateFeesPerGasParameters, useSecondConfig: boolean) {
+    estimateFeesPerGas = async function (estimateFeesPerGasParameters: EstimateFeesPerGasParameters, transportOnlyConfig: boolean) {
         try {
             return await estimateFeesPerGas(
-                useSecondConfig ? JSWagmiContext.instance.config2 : JSWagmiContext.instance.config,
+                transportOnlyConfig ? JSWagmiContext.instance.transportOnlyConfig : JSWagmiContext.instance.config,
                 illegalNullsToUndefined(estimateFeesPerGasParameters)
             )
         } catch (error) {
@@ -330,10 +330,10 @@ export class JSWagmiCore {
         }
     }
 
-    estimateMaxPriorityFeePerGas = async function (estimateMaxPriorityFeePerGasParameters: EstimateMaxPriorityFeePerGasParameters, useSecondConfig: boolean) {
+    estimateMaxPriorityFeePerGas = async function (estimateMaxPriorityFeePerGasParameters: EstimateMaxPriorityFeePerGasParameters, transportOnlyConfig: boolean) {
         try {
             return await estimateMaxPriorityFeePerGas(
-                useSecondConfig ? JSWagmiContext.instance.config2 : JSWagmiContext.instance.config,
+                transportOnlyConfig ? JSWagmiContext.instance.transportOnlyConfig : JSWagmiContext.instance.config,
                 illegalNullsToUndefined(estimateMaxPriorityFeePerGasParameters)
             )
         } catch (error) {
@@ -341,10 +341,10 @@ export class JSWagmiCore {
             throw error
         }
     }
-    getBytecode = async function (getBytecodeParameters: GetBytecodeParameters, useSecondConfig: boolean) {
+    getBytecode = async function (getBytecodeParameters: GetBytecodeParameters, transportOnlyConfig: boolean) {
         try {
             return await getBytecode(
-                useSecondConfig ? JSWagmiContext.instance.config2 : JSWagmiContext.instance.config,
+                transportOnlyConfig ? JSWagmiContext.instance.transportOnlyConfig : JSWagmiContext.instance.config,
                 illegalNullsToUndefined(getBytecodeParameters)
             )
         } catch (error) {
@@ -352,10 +352,10 @@ export class JSWagmiCore {
             throw error
         }
     }
-    disconnect = async function (disconnectParameters: DisconnectParameters, useSecondConfig: boolean) {
+    disconnect = async function (disconnectParameters: DisconnectParameters, transportOnlyConfig: boolean) {
         try {
             return await disconnect(
-                useSecondConfig ? JSWagmiContext.instance.config2 : JSWagmiContext.instance.config,
+                transportOnlyConfig ? JSWagmiContext.instance.transportOnlyConfig : JSWagmiContext.instance.config,
                 illegalNullsToUndefined(disconnectParameters)
             )
         } catch (error) {
@@ -363,10 +363,10 @@ export class JSWagmiCore {
             throw error
         }
     }
-    waitForTransactionReceipt = async function (waitForTransactionReceiptParameters: WaitForTransactionReceiptParameters, useSecondConfig: boolean) {
+    waitForTransactionReceipt = async function (waitForTransactionReceiptParameters: WaitForTransactionReceiptParameters, transportOnlyConfig: boolean) {
         try {
             return await waitForTransactionReceipt(
-                useSecondConfig ? JSWagmiContext.instance.config2 : JSWagmiContext.instance.config,
+                transportOnlyConfig ? JSWagmiContext.instance.transportOnlyConfig : JSWagmiContext.instance.config,
                 illegalNullsToUndefined(waitForTransactionReceiptParameters)
             )
         } catch (error) {
@@ -374,10 +374,10 @@ export class JSWagmiCore {
             throw error
         }
     }
-    getFeeHistory = async function (getFeeHistoryParameters: GetFeeHistoryParameters, useSecondConfig: boolean) {
+    getFeeHistory = async function (getFeeHistoryParameters: GetFeeHistoryParameters, transportOnlyConfig: boolean) {
         try {
             return await getFeeHistory(
-                useSecondConfig ? JSWagmiContext.instance.config2 : JSWagmiContext.instance.config,
+                transportOnlyConfig ? JSWagmiContext.instance.transportOnlyConfig : JSWagmiContext.instance.config,
                 illegalNullsToUndefined(getFeeHistoryParameters)
             )
         } catch (error) {

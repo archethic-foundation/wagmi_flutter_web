@@ -2,111 +2,111 @@ part of 'wagmi.js.dart';
 
 @JS()
 extension type JSWagmiCore(JSObject _) implements JSObject {
-  external JSAccount getAccount(JSBoolean useSecondConfig);
-  external JSNumber getChainId(JSBoolean useSecondConfig);
-  external JSArray<JSObject> getChains(JSBoolean useSecondConfig);
+  external JSAccount getAccount(JSBoolean transportOnlyConfig);
+  external JSNumber getChainId(JSBoolean transportOnlyConfig);
+  external JSArray<JSObject> getChains(JSBoolean transportOnlyConfig);
   external JSPromise<JSBigInt> getBlockNumber(
     JSGetBlockNumberParameters getBlockNumberParameters,
-    JSBoolean useSecondConfig,
+    JSBoolean transportOnlyConfig,
   );
   external JSPromise<JSNumber> getTransactionCount(
     JSGetTransactionCountParameters getTransactionCountParameters,
-    JSBoolean useSecondConfig,
+    JSBoolean transportOnlyConfig,
   );
   external JSPromise<JSGetGasPriceReturnType> getGasPrice(
     JSGetGasPriceParameters getGasPriceParameters,
-    JSBoolean useSecondConfig,
+    JSBoolean transportOnlyConfig,
   );
   external JSPromise<JSGetBalanceReturnType> getBalance(
     JSGetBalanceParameters getBalanceParameters,
-    JSBoolean useSecondConfig,
+    JSBoolean transportOnlyConfig,
   );
   external JSPromise<JSGetTokenReturnType> getToken(
     JSGetTokenParameters getTokenParameters,
-    JSBoolean useSecondConfig,
+    JSBoolean transportOnlyConfig,
   );
   external JSPromise<JSSignMessageReturnType> signMessage(
     JSSignMessageParameters signMessageParameters,
-    JSBoolean useSecondConfig,
+    JSBoolean transportOnlyConfig,
   );
   external JSPromise<JSBigInt> readContract(
     JSReadContractParameters readContractParameters,
-    JSBoolean useSecondConfig,
+    JSBoolean transportOnlyConfig,
   );
   external JSPromise<JSArray<JSObject>> readContracts(
     JSReadContractsParameters readContractsParameters,
-    JSBoolean useSecondConfig,
+    JSBoolean transportOnlyConfig,
   );
   external JSPromise<JSGetTransactionReceiptReturnType> getTransactionReceipt(
     JSGetTransactionReceiptParameters getTransactionReceiptParameters,
-    JSBoolean useSecondConfig,
+    JSBoolean transportOnlyConfig,
   );
   external JSPromise<JSString> writeContract(
     JSObject writeContractParameters,
-    JSBoolean useSecondConfig,
+    JSBoolean transportOnlyConfig,
   );
   external JSPromise<JSString> sendTransaction(
     JSObject sendTransactionParameters,
-    JSBoolean useSecondConfig,
+    JSBoolean transportOnlyConfig,
   );
   external JSPromise<JSWatchChainIdReturnType> watchChainId(
     JSWatchChainIdParameters watchChainIdParameters,
-    JSBoolean useSecondConfig,
+    JSBoolean transportOnlyConfig,
   );
   external JSPromise<JSBigInt> estimateGas(
     JSObject estimateGasParameters,
-    JSBoolean useSecondConfig,
+    JSBoolean transportOnlyConfig,
   );
   external JSPromise<JSBigInt> estimateMaxPriorityFeePerGas(
     JSEstimateMaxPriorityFeePerGasParameters
         estimateMaxPriorityFeePerGasParameters,
-    JSBoolean useSecondConfig,
+    JSBoolean transportOnlyConfig,
   );
   external JSPromise<JSGetTransactionReturnType> getTransaction(
     JSGetTransactionParameters readContractsParameters,
-    JSBoolean useSecondConfig,
+    JSBoolean transportOnlyConfig,
   );
   external JSPromise<JSBigInt> getTransactionConfirmations(
     JSGetTransactionConfirmationsParameters readContractsParameters,
-    JSBoolean useSecondConfig,
+    JSBoolean transportOnlyConfig,
   );
   external JSPromise<JSGetBlockReturnType> getBlock(
     JSGetBlockParameters getBlockParameters,
-    JSBoolean useSecondConfig,
+    JSBoolean transportOnlyConfig,
   );
   external JSPromise<JSNumber> getBlockTransactionCount(
     JSGetBlockTransactionCountParameters getBlockTransactionCountParameters,
-    JSBoolean useSecondConfig,
+    JSBoolean transportOnlyConfig,
   );
   external JSPromise<JSCallReturnType> call(
     JSCallParameters callParameters,
-    JSBoolean useSecondConfig,
+    JSBoolean transportOnlyConfig,
   );
   external JSPromise<JSEstimateFeesPerGasReturnType> estimateFeesPerGas(
     JSEstimateFeesPerGasParameters estimateFeesPerGasParameters,
-    JSBoolean useSecondConfig,
+    JSBoolean transportOnlyConfig,
   );
   external JSPromise<JSString> getBytecode(
     JSGetByteCodeParameters getByteCodeParameters,
-    JSBoolean useSecondConfig,
+    JSBoolean transportOnlyConfig,
   );
   external JSPromise disconnect(
     JSDisconnectParameters disconnectParameters,
-    JSBoolean useSecondConfig,
+    JSBoolean transportOnlyConfig,
   );
   // wait for transaction receipt
   external JSPromise<JSWaitForTransactionReceiptReturnType>
       waitForTransactionReceipt(
     JSWaitForTransactionReceiptParameters waitForTransactionReceipt,
-    JSBoolean useSecondConfig,
+    JSBoolean transportOnlyConfig,
   );
   // get fee history
   external JSPromise<JSGetFeeHistoryReturnType> getFeeHistory(
     JSGetFeeHistoryParameters getFeeHistoryParameters,
-    JSBoolean useSecondConfig,
+    JSBoolean transportOnlyConfig,
   );
   external JSPromise<JSWatchContractEventReturnType> watchContractEvent(
     JSWatchContractEventParameters watchContractEventParameters,
-    JSBoolean useSecondConfig,
+    JSBoolean transportOnlyConfig,
   );
 }

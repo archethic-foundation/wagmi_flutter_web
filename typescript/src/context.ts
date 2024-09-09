@@ -5,7 +5,7 @@ export class JSWagmiContext {
 
 
     #config: Config | undefined
-    #config2: Config | undefined
+    #transportOnlyConfig: Config | undefined
 
     private constructor() { }
 
@@ -29,12 +29,12 @@ export class JSWagmiContext {
 
     // This is second config
     public get config2() {
-        if (this.#config2 === undefined) {
+        if (this.#transportOnlyConfig === undefined) {
             throw new Error('Wagmi not initialized. Call `Web3Modal.init` first.')
         }
-        return this.#config2
+        return this.#transportOnlyConfig
     }
-    public set config2(config: Config) {
-        this.#config2 = config
+    public set transportOnlyConfig(config: Config) {
+        this.#transportOnlyConfig = config
     }
 }

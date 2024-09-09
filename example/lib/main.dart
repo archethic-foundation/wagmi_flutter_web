@@ -189,7 +189,7 @@ class _MyAppState extends State<MyApp> {
                 final getBlockNumberReturnType =
                     await wagmi.Core.getBlockNumber(
                   getBlockNumberParameters,
-                  useSecondConfig: true,
+                  transportOnlyConfig: true,
                 );
                 setState(() {
                   blockNumber = getBlockNumberReturnType;
@@ -211,7 +211,7 @@ class _MyAppState extends State<MyApp> {
                     address: '0xfAd3b616BCD747A12A7c0a6203E7a481606B12E8',
                     blockTag: 'latest',
                   ),
-                  useSecondConfig: true,
+                  transportOnlyConfig: true,
                 );
                 setState(() {
                   balance = balanceResult;

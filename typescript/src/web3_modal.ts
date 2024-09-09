@@ -64,7 +64,7 @@ export class JSWeb3Modal {
                     transports[chainIds[index]] = webSocket(transport[index].ws);
                 }
             }
-            JSWagmiContext.instance.config2 = Web3modal.defaultWagmiConfig({
+            JSWagmiContext.instance.transportOnlyConfig = Web3modal.defaultWagmiConfig({
                 chains: chainsFromStrings(chains),
                 projectId: projectId,
                 metadata: metadata,
