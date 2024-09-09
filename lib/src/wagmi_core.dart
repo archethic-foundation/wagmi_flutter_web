@@ -31,16 +31,32 @@ import 'package:wagmi_flutter_web/src/models/chain.dart';
 import 'package:wagmi_flutter_web/src/utils/utils_js.dart';
 
 class Core {
-  static Account getAccount() {
-    return window.wagmiCore.getAccount().toDart;
+  static Account getAccount({
+    bool useSecondConfig = false,
+  }) {
+    return window.wagmiCore
+        .getAccount(
+          useSecondConfig.toJS,
+        )
+        .toDart;
   }
 
-  static int getChainId() {
-    return window.wagmiCore.getChainId().toDartInt;
+  static int getChainId({
+    bool useSecondConfig = false,
+  }) {
+    return window.wagmiCore
+        .getChainId(
+          useSecondConfig.toJS,
+        )
+        .toDartInt;
   }
 
-  static List<Chain> getChains() {
-    final result = window.wagmiCore.getChains();
+  static List<Chain> getChains({
+    bool useSecondConfig = false,
+  }) {
+    final result = window.wagmiCore.getChains(
+      useSecondConfig.toJS,
+    );
     final list = <Chain>[];
     for (var i = 0; i < result.toDart.length; i++) {
       final chainMap = UtilsJS.jsObjectToMap(result.toDart[i]);
@@ -50,55 +66,65 @@ class Core {
   }
 
   static Future<BigInt> getBlockNumber(
-    GetBlockNumberParameters getBlockNumberParameters,
-  ) async {
+    GetBlockNumberParameters getBlockNumberParameters, {
+    bool useSecondConfig = false,
+  }) async {
     final result = await window.wagmiCore
         .getBlockNumber(
           getBlockNumberParameters.toJS,
+          useSecondConfig.toJS,
         )
         .toDart;
     return result.toDart;
   }
 
   static Future<BigInt> getGasPrice(
-    GetGasPriceParameters getGasPriceParameters,
-  ) async {
+    GetGasPriceParameters getGasPriceParameters, {
+    bool useSecondConfig = false,
+  }) async {
     final result = await window.wagmiCore
         .getGasPrice(
           getGasPriceParameters.toJS,
+          useSecondConfig.toJS,
         )
         .toDart;
     return result.toDart;
   }
 
   static Future<GetBalanceReturnType> getBalance(
-    GetBalanceParameters getBalanceParameters,
-  ) async {
+    GetBalanceParameters getBalanceParameters, {
+    bool useSecondConfig = false,
+  }) async {
     final result = await window.wagmiCore
         .getBalance(
           getBalanceParameters.toJS,
+          useSecondConfig.toJS,
         )
         .toDart;
     return result.toDart;
   }
 
   static Future<int> getTransactionCount(
-    GetTransactionCountParameters getTransactionCountParameters,
-  ) async {
+    GetTransactionCountParameters getTransactionCountParameters, {
+    bool useSecondConfig = false,
+  }) async {
     final result = await window.wagmiCore
         .getTransactionCount(
           getTransactionCountParameters.toJS,
+          useSecondConfig.toJS,
         )
         .toDart;
     return result.toDartInt;
   }
 
   static Future<GetTokenReturnType> getToken(
-    GetTokenParameters getTokenParameters,
-  ) async {
+    GetTokenParameters getTokenParameters, {
+    bool useSecondConfig = false,
+  }) async {
     final result = await window.wagmiCore
         .getToken(
           getTokenParameters.toJS,
+          useSecondConfig.toJS,
         )
         .toDart;
 
@@ -106,11 +132,13 @@ class Core {
   }
 
   static Future<String> signMessage(
-    SignMessageParameters signMessageParameters,
-  ) async {
+    SignMessageParameters signMessageParameters, {
+    bool useSecondConfig = false,
+  }) async {
     final result = await window.wagmiCore
         .signMessage(
           signMessageParameters.toJS,
+          useSecondConfig.toJS,
         )
         .toDart;
     return result.toDart;
@@ -118,22 +146,26 @@ class Core {
 
   // read contract
   static Future<BigInt> readContract(
-    ReadContractParameters readContractParameters,
-  ) async {
+    ReadContractParameters readContractParameters, {
+    bool useSecondConfig = false,
+  }) async {
     final result = await window.wagmiCore
         .readContract(
           readContractParameters.toJS,
+          useSecondConfig.toJS,
         )
         .toDart;
     return result.toDart;
   }
 
   static Future<List<Map<String, dynamic>>> readContracts(
-    ReadContractsParameters readContractsParameters,
-  ) async {
+    ReadContractsParameters readContractsParameters, {
+    bool useSecondConfig = false,
+  }) async {
     final result = await window.wagmiCore
         .readContracts(
           readContractsParameters.toJS,
+          useSecondConfig.toJS,
         )
         .toDart;
     // call jsObjectToMap to convert JSObject to Dart Map
@@ -146,110 +178,131 @@ class Core {
 
   // get transaction receipt
   static Future<GetTransactionReceiptReturnType> getTransactionReceipt(
-    GetTransactionReceiptParameters getTransactionReceiptParameters,
-  ) async {
+    GetTransactionReceiptParameters getTransactionReceiptParameters, {
+    bool useSecondConfig = false,
+  }) async {
     final result = await window.wagmiCore
         .getTransactionReceipt(
           getTransactionReceiptParameters.toJS,
+          useSecondConfig.toJS,
         )
         .toDart;
     return result.toDart;
   }
 
   static Future<void Function()> watchChainId(
-    WatchChainIdParameters watchChainIdParameters,
-  ) async {
+    WatchChainIdParameters watchChainIdParameters, {
+    bool useSecondConfig = false,
+  }) async {
     final result = await window.wagmiCore
         .watchChainId(
           watchChainIdParameters.toJS,
+          useSecondConfig.toJS,
         )
         .toDart;
     return result.toDart;
   }
 
   static Future<String> sendTransaction(
-    SendTransactionParameters sendTransactionParameters,
-  ) async {
+    SendTransactionParameters sendTransactionParameters, {
+    bool useSecondConfig = false,
+  }) async {
     final result = await window.wagmiCore
         .sendTransaction(
           sendTransactionParameters.toJS,
+          useSecondConfig.toJS,
         )
         .toDart;
     return result.toDart;
   }
 
   static Future<String> writeContract(
-    WriteContractParameters writeContractParameters,
-  ) async {
+    WriteContractParameters writeContractParameters, {
+    bool useSecondConfig = false,
+  }) async {
     final result = await window.wagmiCore
         .writeContract(
           writeContractParameters.toJS,
+          useSecondConfig.toJS,
         )
         .toDart;
     return result.toDart;
   }
 
   static Future<BigInt> estimateGas(
-    EstimateGasParameters estimateGasParameters,
-  ) async {
+    EstimateGasParameters estimateGasParameters, {
+    bool useSecondConfig = false,
+  }) async {
     final result = await window.wagmiCore
         .estimateGas(
           estimateGasParameters.toJS,
+          useSecondConfig.toJS,
         )
         .toDart;
     return result.toDart;
   }
 
   static Future<GetTransactionReturnType> getTransaction(
-    GetTransactionParameters getTransactionParameters,
-  ) async {
+    GetTransactionParameters getTransactionParameters, {
+    bool useSecondConfig = false,
+  }) async {
     final result = await window.wagmiCore
         .getTransaction(
           getTransactionParameters.toJS,
+          useSecondConfig.toJS,
         )
         .toDart;
     return result.toDart;
   }
 
   static Future<WatchContractEventReturnType> watchContractEvent(
-    WatchContractEventParameters watchContractEventParameters,
-  ) async {
+    WatchContractEventParameters watchContractEventParameters, {
+    bool useSecondConfig = false,
+  }) async {
     final result = await window.wagmiCore
         .watchContractEvent(
           watchContractEventParameters.toJS,
+          useSecondConfig.toJS,
         )
         .toDart;
     return result.toDart;
   }
 
   static Future<BigInt> getTransactionConfirmations(
-    GetTransactionConfirmationsParameters getTransactionConfirmationsParameters,
-  ) async {
+    GetTransactionConfirmationsParameters
+        getTransactionConfirmationsParameters, {
+    bool useSecondConfig = false,
+  }) async {
     final result = await window.wagmiCore
         .getTransactionConfirmations(
           getTransactionConfirmationsParameters.toJS,
+          useSecondConfig.toJS,
         )
         .toDart;
     return result.toDart;
   }
 
   static Future<GetBlockReturnType> getBlock(
-    GetBlockParameters getBlockParameters,
-  ) async {
+    GetBlockParameters getBlockParameters, {
+    bool useSecondConfig = false,
+  }) async {
     final result = await window.wagmiCore
         .getBlock(
           getBlockParameters.toJS,
+          useSecondConfig.toJS,
         )
         .toDart;
     return result.toDart;
   }
 
   static Future<int> getBlockTransactionCount(
-    GetBlockTransactionCountParameters getBlockTransactionCountParameters,
-  ) async {
+    GetBlockTransactionCountParameters getBlockTransactionCountParameters, {
+    bool useSecondConfig = false,
+  }) async {
     final result = await window.wagmiCore
         .getBlockTransactionCount(
           getBlockTransactionCountParameters.toJS,
+          useSecondConfig.toJS,
         )
         .toDart;
     return result.toDartInt;
@@ -257,11 +310,13 @@ class Core {
 
   // call function
   static Future<CallReturnType> call(
-    CallParameters callParameters,
-  ) async {
+    CallParameters callParameters, {
+    bool useSecondConfig = false,
+  }) async {
     final result = await window.wagmiCore
         .call(
           callParameters.toJS,
+          useSecondConfig.toJS,
         )
         .toDart;
     return result.toDart;
@@ -269,11 +324,13 @@ class Core {
 
   // estimate fees per gas
   static Future<EstimateFeesPerGasReturnType> estimateFeesPerGas(
-    EstimateFeesPerGasParameters estimateFeesPerGasParameters,
-  ) async {
+    EstimateFeesPerGasParameters estimateFeesPerGasParameters, {
+    bool useSecondConfig = false,
+  }) async {
     final result = await window.wagmiCore
         .estimateFeesPerGas(
           estimateFeesPerGasParameters.toJS,
+          useSecondConfig.toJS,
         )
         .toDart;
     return result.toDart;
@@ -282,11 +339,13 @@ class Core {
   // estimate max priority fee per gas
   static Future<BigInt> estimateMaxPriorityFeePerGas(
     EstimateMaxPriorityFeePerGasParameters
-        estimateMaxPriorityFeePerGasParameters,
-  ) async {
+        estimateMaxPriorityFeePerGasParameters, {
+    bool useSecondConfig = false,
+  }) async {
     final result = await window.wagmiCore
         .estimateMaxPriorityFeePerGas(
           estimateMaxPriorityFeePerGasParameters.toJS,
+          useSecondConfig.toJS,
         )
         .toDart;
     return result.toDart;
@@ -294,11 +353,13 @@ class Core {
 
   // get byte code
   static Future<String> getBytecode(
-    GetByteCodeParameters getByteCodeParameters,
-  ) async {
+    GetByteCodeParameters getByteCodeParameters, {
+    bool useSecondConfig = false,
+  }) async {
     final result = await window.wagmiCore
         .getBytecode(
           getByteCodeParameters.toJS,
+          useSecondConfig.toJS,
         )
         .toDart;
     return result.toDart;
@@ -306,21 +367,25 @@ class Core {
 
   // disconnect
   static Future<void> disconnect(
-    DisconnectParameters disconnectParameters,
-  ) async {
+    DisconnectParameters disconnectParameters, {
+    bool useSecondConfig = false,
+  }) async {
     await window.wagmiCore
         .disconnect(
           disconnectParameters.toJS,
+          useSecondConfig.toJS,
         )
         .toDart;
   }
 
   static Future<WaitForTransactionReceiptReturnType> waitForTransactionReceipt(
-    WaitForTransactionReceiptParameters waitForTransactionReceiptParameters,
-  ) async {
+    WaitForTransactionReceiptParameters waitForTransactionReceiptParameters, {
+    bool useSecondConfig = false,
+  }) async {
     final result = await window.wagmiCore
         .waitForTransactionReceipt(
           waitForTransactionReceiptParameters.toJS,
+          useSecondConfig.toJS,
         )
         .toDart;
     return result.toDart;
@@ -328,11 +393,13 @@ class Core {
 
   // get fee history
   static Future<GetFeeHistoryReturnType> getFeeHistory(
-    GetFeeHistoryParameters getFeeHistoryParameters,
-  ) async {
+    GetFeeHistoryParameters getFeeHistoryParameters, {
+    bool useSecondConfig = false,
+  }) async {
     final result = await window.wagmiCore
         .getFeeHistory(
           getFeeHistoryParameters.toJS,
+          useSecondConfig.toJS,
         )
         .toDart;
     return result.toDart;

@@ -5,6 +5,7 @@ export class JSWagmiContext {
 
 
     #config: Config | undefined
+    #config2: Config | undefined
 
     private constructor() { }
 
@@ -24,5 +25,16 @@ export class JSWagmiContext {
 
     public set config(config: Config) {
         this.#config = config
+    }
+
+    // This is second config
+    public get config2() {
+        if (this.#config2 === undefined) {
+            throw new Error('Wagmi not initialized. Call `Web3Modal.init` first.')
+        }
+        return this.#config2
+    }
+    public set config2(config: Config) {
+        this.#config2 = config
     }
 }

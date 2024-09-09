@@ -2,6 +2,7 @@ import 'dart:js_interop';
 
 import 'package:wagmi_flutter_web/src/js/wagmi.js.dart';
 import 'package:wagmi_flutter_web/src/models/transport.dart';
+import 'package:wagmi_flutter_web/src/models/transport1.dart';
 
 class Web3Modal {
   /// Initializes [Web3Modal].
@@ -21,6 +22,7 @@ class Web3Modal {
     required bool showWallets,
     required bool walletFeatures,
     TransportBuilder? transportBuilder,
+    List<Transport1>? transport,
   }) {
     window.web3modal.init(
       projectId.toJS,
@@ -38,6 +40,7 @@ class Web3Modal {
       showWallets.toJS,
       walletFeatures.toJS,
       transportBuilder?.toJS,
+      transport?.map((e) => e.toJS).toList().toJS,
     );
   }
 

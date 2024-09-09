@@ -1,9 +1,10 @@
 import { AppKit } from "@web3modal/base"
 import * as Web3modal from '@web3modal/wagmi'
-import { Chain, Client, createClient, EIP1193RequestFn, http, Transport, webSocket } from "viem"
+import { Chain, Client, createClient, EIP1193RequestFn, http, fallback, Transport, webSocket } from "viem"
 import { chainsFromStrings } from "./chains"
 import { JSWagmiContext } from "./context"
 import { JSHttpTransport, JSTransport, JSTransportBuilder, JSWebsocketTransport } from "./transport"
+import { JSTransport1, JSTransportUrl } from "./transport1"
 
 export class JSWeb3Modal {
     _modalInstance: AppKit | undefined
@@ -29,7 +30,8 @@ export class JSWeb3Modal {
         socials: [] | undefined,
         showWallets: boolean,
         walletFeatures: boolean,
-        transportBuilder: JSTransportBuilder | undefined
+        transportBuilder: JSTransportBuilder | undefined,
+        transport: JSTransport1[] | undefined,
     ) {
         JSWagmiContext.instance.config = Web3modal.defaultWagmiConfig({
             chains: chainsFromStrings(chains),
@@ -43,6 +45,32 @@ export class JSWeb3Modal {
             },
             client: !transportBuilder ? undefined : this.#clientBuilder(transportBuilder),
         })
+
+        if (typeof (transport) !== 'undefined' && transport?.length > 0 && chains.length === transport.length) {
+            // get all chain ids
+            const chainIds = chainsFromStrings(chains).map(c => c.id);
+            let transports: { [key: string]: Transport<string, Record<string, any>, EIP1193RequestFn> } = {};
+
+            for (let index = 0; index < chainIds.length; index++) {
+
+                if (transport[index].http !== null && transport[index].ws !== null) {
+                    transports[chainIds[index]] = fallback([
+                        http(transport[index].http),
+                        webSocket(transport[index].ws)
+                    ]);
+                } else if (transport[index].http !== null) {
+                    transports[chainIds[index]] = http(transport[index].http);
+                } else if (transport[index].ws !== null) {
+                    transports[chainIds[index]] = webSocket(transport[index].ws);
+                }
+            }
+            JSWagmiContext.instance.config2 = Web3modal.defaultWagmiConfig({
+                chains: chainsFromStrings(chains),
+                projectId: projectId,
+                metadata: metadata,
+                transports: transports,
+            })
+        }
 
         this._modalInstance = Web3modal.createWeb3Modal({
             wagmiConfig: JSWagmiContext.instance.config,

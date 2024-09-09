@@ -63,10 +63,10 @@ class _MyAppState extends State<MyApp> {
         wagmi.Web3Modal.init(
           projectId: 'f642e3f39ba3e375f8f714f18354faa4',
           chains: [
-            wagmi.Chain.mainnet.name,
-            wagmi.Chain.sepolia.name,
+            // wagmi.Chain.mainnet.name,
+            // wagmi.Chain.sepolia.name,
             wagmi.Chain.polygonAmoy.name,
-            wagmi.Chain.polygon.name,
+            // wagmi.Chain.polygon.name,
           ],
           enableAnalytics: true,
           enableOnRamp: true,
@@ -80,10 +80,17 @@ class _MyAppState extends State<MyApp> {
           email: false, // email
           showWallets: true, // showWallets
           walletFeatures: true, // walletFeatures
-          transportBuilder: (chainId) => const wagmi.Transport.websocket(
-            url:
-                'wss://eth-sepolia.g.alchemy.com/v2/eLhVAxz79HO5n2y98mdIl_gMkKSDc3G8',
-          ),
+          // transportBuilder: (chainId) => const wagmi.Transport.websocket(
+          //   url:
+          //       'wss://eth-sepolia.g.alchemy.com/v2/eLhVAxz79HO5n2y98mdIl_gMkKSDc3G8',
+          // ),
+          transport: [
+            const wagmi.Transport1.url(
+              // http:
+              //     'https://polygon-mainnet.g.alchemy.com/v2/aX3VNdN-hBHFWAs4Gk0EveEEONI7ZEM_',
+              ws: 'wss://polygon-mainnet.g.alchemy.com/v2/aX3VNdN-hBHFWAs4Gk0EveEEONI7ZEM_',
+            ),
+          ],
         );
       },
     );
@@ -166,7 +173,6 @@ class _MyAppState extends State<MyApp> {
             ElevatedButton(
               onPressed: () {
                 chains = wagmi.Core.getChains();
-
                 showGetChainsMethodsResponse(context, chains);
               },
               child: const Text('Get chains'),
@@ -177,12 +183,13 @@ class _MyAppState extends State<MyApp> {
             ElevatedButton(
               onPressed: () async {
                 final getBlockNumberParameters = wagmi.GetBlockNumberParameters(
-                  chainId: account!.chain!.id,
+                  chainId: 80002,
                   cacheTime: 4000,
                 );
                 final getBlockNumberReturnType =
                     await wagmi.Core.getBlockNumber(
                   getBlockNumberParameters,
+                  useSecondConfig: true,
                 );
                 setState(() {
                   blockNumber = getBlockNumberReturnType;
@@ -201,9 +208,10 @@ class _MyAppState extends State<MyApp> {
               onPressed: () async {
                 final balanceResult = await wagmi.Core.getBalance(
                   wagmi.GetBalanceParameters(
-                    address: account?.address ?? '',
+                    address: '0xfAd3b616BCD747A12A7c0a6203E7a481606B12E8',
                     blockTag: 'latest',
                   ),
+                  useSecondConfig: true,
                 );
                 setState(() {
                   balance = balanceResult;
@@ -226,7 +234,8 @@ class _MyAppState extends State<MyApp> {
               onPressed: () async {
                 final balanceResult = await wagmi.Core.getBalance(
                   wagmi.GetBalanceParameters(
-                    address: account?.address ?? '',
+                    address: account?.address ??
+                        '0xfAd3b616BCD747A12A7c0a6203E7a481606B12E8',
                     token: bitTokenAddress,
                   ),
                 );
@@ -270,8 +279,9 @@ class _MyAppState extends State<MyApp> {
                 final transactionCountResult =
                     await wagmi.Core.getTransactionCount(
                   wagmi.GetTransactionCountParameters(
-                    address: account?.address ?? '',
-                    chainId: account!.chain!.id,
+                    address: account?.address ??
+                        '0xfAd3b616BCD747A12A7c0a6203E7a481606B12E8',
+                    chainId: 80002,
                     blockTag: 'latest',
                   ),
                 );
@@ -691,7 +701,7 @@ class _MyAppState extends State<MyApp> {
               onPressed: () async {
                 final getByteCodeParameters = wagmi.GetByteCodeParameters(
                   address: bitTokenAddress,
-                  blockTag: const wagmi.BlockTag.finalized(),
+                  blockTag: const wagmi.BlockTag.latest(),
                 );
                 final result = await wagmi.Core.getBytecode(
                   getByteCodeParameters,
