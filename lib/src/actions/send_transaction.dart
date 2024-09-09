@@ -8,7 +8,6 @@ class SendTransactionParameters with _$SendTransactionParameters {
   const SendTransactionParameters._();
 
   const factory SendTransactionParameters.legacy({
-    required String type,
     required String to,
     List<Map<String, dynamic>>? accessList,
     required String account,
@@ -22,7 +21,6 @@ class SendTransactionParameters with _$SendTransactionParameters {
   }) = SendTransactionParametersLegacy;
 
   const factory SendTransactionParameters.eip1559({
-    required String type,
     required String to,
     List<Map<String, dynamic>>? accessList,
     required String account,
@@ -36,7 +34,6 @@ class SendTransactionParameters with _$SendTransactionParameters {
   }) = SendTransactionParametersEIP1559;
 
   const factory SendTransactionParameters.eip4844({
-    required String type,
     required String to,
     List<Map<String, dynamic>>? accessList,
     required String account,

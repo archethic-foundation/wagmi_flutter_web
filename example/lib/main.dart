@@ -464,7 +464,6 @@ class _MyAppState extends State<MyApp> {
                   ),
                   // chainId: account!.chain!.id,
                   account: account!.address!,
-                  type: 'legacy',
                   value: BigInt.parse('10000000000000000'),
                 );
                 final result =

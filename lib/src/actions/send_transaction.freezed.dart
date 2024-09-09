@@ -16,7 +16,6 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$SendTransactionParameters {
-  String get type => throw _privateConstructorUsedError;
   String get to => throw _privateConstructorUsedError;
   List<Map<String, dynamic>>? get accessList =>
       throw _privateConstructorUsedError;
@@ -31,7 +30,6 @@ mixin _$SendTransactionParameters {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(
-            String type,
             String to,
             List<Map<String, dynamic>>? accessList,
             String account,
@@ -44,7 +42,6 @@ mixin _$SendTransactionParameters {
             dynamic connector)
         legacy,
     required TResult Function(
-            String type,
             String to,
             List<Map<String, dynamic>>? accessList,
             String account,
@@ -57,7 +54,6 @@ mixin _$SendTransactionParameters {
             dynamic connector)
         eip1559,
     required TResult Function(
-            String type,
             String to,
             List<Map<String, dynamic>>? accessList,
             String account,
@@ -74,7 +70,6 @@ mixin _$SendTransactionParameters {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(
-            String type,
             String to,
             List<Map<String, dynamic>>? accessList,
             String account,
@@ -87,7 +82,6 @@ mixin _$SendTransactionParameters {
             dynamic connector)?
         legacy,
     TResult? Function(
-            String type,
             String to,
             List<Map<String, dynamic>>? accessList,
             String account,
@@ -100,7 +94,6 @@ mixin _$SendTransactionParameters {
             dynamic connector)?
         eip1559,
     TResult? Function(
-            String type,
             String to,
             List<Map<String, dynamic>>? accessList,
             String account,
@@ -117,7 +110,6 @@ mixin _$SendTransactionParameters {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(
-            String type,
             String to,
             List<Map<String, dynamic>>? accessList,
             String account,
@@ -130,7 +122,6 @@ mixin _$SendTransactionParameters {
             dynamic connector)?
         legacy,
     TResult Function(
-            String type,
             String to,
             List<Map<String, dynamic>>? accessList,
             String account,
@@ -143,7 +134,6 @@ mixin _$SendTransactionParameters {
             dynamic connector)?
         eip1559,
     TResult Function(
-            String type,
             String to,
             List<Map<String, dynamic>>? accessList,
             String account,
@@ -193,8 +183,7 @@ abstract class $SendTransactionParametersCopyWith<$Res> {
       _$SendTransactionParametersCopyWithImpl<$Res, SendTransactionParameters>;
   @useResult
   $Res call(
-      {String type,
-      String to,
+      {String to,
       List<Map<String, dynamic>>? accessList,
       String account,
       int? chainId,
@@ -219,7 +208,6 @@ class _$SendTransactionParametersCopyWithImpl<$Res,
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? type = null,
     Object? to = null,
     Object? accessList = freezed,
     Object? account = null,
@@ -231,10 +219,6 @@ class _$SendTransactionParametersCopyWithImpl<$Res,
     Object? connector = freezed,
   }) {
     return _then(_value.copyWith(
-      type: null == type
-          ? _value.type
-          : type // ignore: cast_nullable_to_non_nullable
-              as String,
       to: null == to
           ? _value.to
           : to // ignore: cast_nullable_to_non_nullable
@@ -285,8 +269,7 @@ abstract class _$$SendTransactionParametersLegacyImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {String type,
-      String to,
+      {String to,
       List<Map<String, dynamic>>? accessList,
       String account,
       int? chainId,
@@ -311,7 +294,6 @@ class __$$SendTransactionParametersLegacyImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? type = null,
     Object? to = null,
     Object? accessList = freezed,
     Object? account = null,
@@ -324,10 +306,6 @@ class __$$SendTransactionParametersLegacyImplCopyWithImpl<$Res>
     Object? connector = freezed,
   }) {
     return _then(_$SendTransactionParametersLegacyImpl(
-      type: null == type
-          ? _value.type
-          : type // ignore: cast_nullable_to_non_nullable
-              as String,
       to: null == to
           ? _value.to
           : to // ignore: cast_nullable_to_non_nullable
@@ -377,8 +355,7 @@ class __$$SendTransactionParametersLegacyImplCopyWithImpl<$Res>
 class _$SendTransactionParametersLegacyImpl
     extends SendTransactionParametersLegacy {
   const _$SendTransactionParametersLegacyImpl(
-      {required this.type,
-      required this.to,
+      {required this.to,
       final List<Map<String, dynamic>>? accessList,
       required this.account,
       this.chainId,
@@ -391,8 +368,6 @@ class _$SendTransactionParametersLegacyImpl
       : _accessList = accessList,
         super._();
 
-  @override
-  final String type;
   @override
   final String to;
   final List<Map<String, dynamic>>? _accessList;
@@ -424,7 +399,7 @@ class _$SendTransactionParametersLegacyImpl
 
   @override
   String toString() {
-    return 'SendTransactionParameters.legacy(type: $type, to: $to, accessList: $accessList, account: $account, chainId: $chainId, data: $data, gas: $gas, feeValues: $feeValues, nonce: $nonce, value: $value, connector: $connector)';
+    return 'SendTransactionParameters.legacy(to: $to, accessList: $accessList, account: $account, chainId: $chainId, data: $data, gas: $gas, feeValues: $feeValues, nonce: $nonce, value: $value, connector: $connector)';
   }
 
   @override
@@ -432,7 +407,6 @@ class _$SendTransactionParametersLegacyImpl
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$SendTransactionParametersLegacyImpl &&
-            (identical(other.type, type) || other.type == type) &&
             (identical(other.to, to) || other.to == to) &&
             const DeepCollectionEquality()
                 .equals(other._accessList, _accessList) &&
@@ -450,7 +424,6 @@ class _$SendTransactionParametersLegacyImpl
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      type,
       to,
       const DeepCollectionEquality().hash(_accessList),
       account,
@@ -474,7 +447,6 @@ class _$SendTransactionParametersLegacyImpl
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(
-            String type,
             String to,
             List<Map<String, dynamic>>? accessList,
             String account,
@@ -487,7 +459,6 @@ class _$SendTransactionParametersLegacyImpl
             dynamic connector)
         legacy,
     required TResult Function(
-            String type,
             String to,
             List<Map<String, dynamic>>? accessList,
             String account,
@@ -500,7 +471,6 @@ class _$SendTransactionParametersLegacyImpl
             dynamic connector)
         eip1559,
     required TResult Function(
-            String type,
             String to,
             List<Map<String, dynamic>>? accessList,
             String account,
@@ -513,15 +483,14 @@ class _$SendTransactionParametersLegacyImpl
             dynamic connector)
         eip4844,
   }) {
-    return legacy(type, to, accessList, account, chainId, data, gas, feeValues,
-        nonce, value, connector);
+    return legacy(to, accessList, account, chainId, data, gas, feeValues, nonce,
+        value, connector);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(
-            String type,
             String to,
             List<Map<String, dynamic>>? accessList,
             String account,
@@ -534,7 +503,6 @@ class _$SendTransactionParametersLegacyImpl
             dynamic connector)?
         legacy,
     TResult? Function(
-            String type,
             String to,
             List<Map<String, dynamic>>? accessList,
             String account,
@@ -547,7 +515,6 @@ class _$SendTransactionParametersLegacyImpl
             dynamic connector)?
         eip1559,
     TResult? Function(
-            String type,
             String to,
             List<Map<String, dynamic>>? accessList,
             String account,
@@ -560,15 +527,14 @@ class _$SendTransactionParametersLegacyImpl
             dynamic connector)?
         eip4844,
   }) {
-    return legacy?.call(type, to, accessList, account, chainId, data, gas,
-        feeValues, nonce, value, connector);
+    return legacy?.call(to, accessList, account, chainId, data, gas, feeValues,
+        nonce, value, connector);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(
-            String type,
             String to,
             List<Map<String, dynamic>>? accessList,
             String account,
@@ -581,7 +547,6 @@ class _$SendTransactionParametersLegacyImpl
             dynamic connector)?
         legacy,
     TResult Function(
-            String type,
             String to,
             List<Map<String, dynamic>>? accessList,
             String account,
@@ -594,7 +559,6 @@ class _$SendTransactionParametersLegacyImpl
             dynamic connector)?
         eip1559,
     TResult Function(
-            String type,
             String to,
             List<Map<String, dynamic>>? accessList,
             String account,
@@ -609,8 +573,8 @@ class _$SendTransactionParametersLegacyImpl
     required TResult orElse(),
   }) {
     if (legacy != null) {
-      return legacy(type, to, accessList, account, chainId, data, gas,
-          feeValues, nonce, value, connector);
+      return legacy(to, accessList, account, chainId, data, gas, feeValues,
+          nonce, value, connector);
     }
     return orElse();
   }
@@ -653,8 +617,7 @@ class _$SendTransactionParametersLegacyImpl
 abstract class SendTransactionParametersLegacy
     extends SendTransactionParameters {
   const factory SendTransactionParametersLegacy(
-      {required final String type,
-      required final String to,
+      {required final String to,
       final List<Map<String, dynamic>>? accessList,
       required final String account,
       final int? chainId,
@@ -666,8 +629,6 @@ abstract class SendTransactionParametersLegacy
       final dynamic connector}) = _$SendTransactionParametersLegacyImpl;
   const SendTransactionParametersLegacy._() : super._();
 
-  @override
-  String get type;
   @override
   String get to;
   @override
@@ -705,8 +666,7 @@ abstract class _$$SendTransactionParametersEIP1559ImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {String type,
-      String to,
+      {String to,
       List<Map<String, dynamic>>? accessList,
       String account,
       int? chainId,
@@ -731,7 +691,6 @@ class __$$SendTransactionParametersEIP1559ImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? type = null,
     Object? to = null,
     Object? accessList = freezed,
     Object? account = null,
@@ -744,10 +703,6 @@ class __$$SendTransactionParametersEIP1559ImplCopyWithImpl<$Res>
     Object? connector = freezed,
   }) {
     return _then(_$SendTransactionParametersEIP1559Impl(
-      type: null == type
-          ? _value.type
-          : type // ignore: cast_nullable_to_non_nullable
-              as String,
       to: null == to
           ? _value.to
           : to // ignore: cast_nullable_to_non_nullable
@@ -797,8 +752,7 @@ class __$$SendTransactionParametersEIP1559ImplCopyWithImpl<$Res>
 class _$SendTransactionParametersEIP1559Impl
     extends SendTransactionParametersEIP1559 {
   const _$SendTransactionParametersEIP1559Impl(
-      {required this.type,
-      required this.to,
+      {required this.to,
       final List<Map<String, dynamic>>? accessList,
       required this.account,
       this.chainId,
@@ -811,8 +765,6 @@ class _$SendTransactionParametersEIP1559Impl
       : _accessList = accessList,
         super._();
 
-  @override
-  final String type;
   @override
   final String to;
   final List<Map<String, dynamic>>? _accessList;
@@ -844,7 +796,7 @@ class _$SendTransactionParametersEIP1559Impl
 
   @override
   String toString() {
-    return 'SendTransactionParameters.eip1559(type: $type, to: $to, accessList: $accessList, account: $account, chainId: $chainId, data: $data, gas: $gas, feeValues: $feeValues, nonce: $nonce, value: $value, connector: $connector)';
+    return 'SendTransactionParameters.eip1559(to: $to, accessList: $accessList, account: $account, chainId: $chainId, data: $data, gas: $gas, feeValues: $feeValues, nonce: $nonce, value: $value, connector: $connector)';
   }
 
   @override
@@ -852,7 +804,6 @@ class _$SendTransactionParametersEIP1559Impl
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$SendTransactionParametersEIP1559Impl &&
-            (identical(other.type, type) || other.type == type) &&
             (identical(other.to, to) || other.to == to) &&
             const DeepCollectionEquality()
                 .equals(other._accessList, _accessList) &&
@@ -870,7 +821,6 @@ class _$SendTransactionParametersEIP1559Impl
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      type,
       to,
       const DeepCollectionEquality().hash(_accessList),
       account,
@@ -894,7 +844,6 @@ class _$SendTransactionParametersEIP1559Impl
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(
-            String type,
             String to,
             List<Map<String, dynamic>>? accessList,
             String account,
@@ -907,7 +856,6 @@ class _$SendTransactionParametersEIP1559Impl
             dynamic connector)
         legacy,
     required TResult Function(
-            String type,
             String to,
             List<Map<String, dynamic>>? accessList,
             String account,
@@ -920,7 +868,6 @@ class _$SendTransactionParametersEIP1559Impl
             dynamic connector)
         eip1559,
     required TResult Function(
-            String type,
             String to,
             List<Map<String, dynamic>>? accessList,
             String account,
@@ -933,7 +880,7 @@ class _$SendTransactionParametersEIP1559Impl
             dynamic connector)
         eip4844,
   }) {
-    return eip1559(type, to, accessList, account, chainId, data, gas, feeValues,
+    return eip1559(to, accessList, account, chainId, data, gas, feeValues,
         nonce, value, connector);
   }
 
@@ -941,7 +888,6 @@ class _$SendTransactionParametersEIP1559Impl
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(
-            String type,
             String to,
             List<Map<String, dynamic>>? accessList,
             String account,
@@ -954,7 +900,6 @@ class _$SendTransactionParametersEIP1559Impl
             dynamic connector)?
         legacy,
     TResult? Function(
-            String type,
             String to,
             List<Map<String, dynamic>>? accessList,
             String account,
@@ -967,7 +912,6 @@ class _$SendTransactionParametersEIP1559Impl
             dynamic connector)?
         eip1559,
     TResult? Function(
-            String type,
             String to,
             List<Map<String, dynamic>>? accessList,
             String account,
@@ -980,15 +924,14 @@ class _$SendTransactionParametersEIP1559Impl
             dynamic connector)?
         eip4844,
   }) {
-    return eip1559?.call(type, to, accessList, account, chainId, data, gas,
-        feeValues, nonce, value, connector);
+    return eip1559?.call(to, accessList, account, chainId, data, gas, feeValues,
+        nonce, value, connector);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(
-            String type,
             String to,
             List<Map<String, dynamic>>? accessList,
             String account,
@@ -1001,7 +944,6 @@ class _$SendTransactionParametersEIP1559Impl
             dynamic connector)?
         legacy,
     TResult Function(
-            String type,
             String to,
             List<Map<String, dynamic>>? accessList,
             String account,
@@ -1014,7 +956,6 @@ class _$SendTransactionParametersEIP1559Impl
             dynamic connector)?
         eip1559,
     TResult Function(
-            String type,
             String to,
             List<Map<String, dynamic>>? accessList,
             String account,
@@ -1029,8 +970,8 @@ class _$SendTransactionParametersEIP1559Impl
     required TResult orElse(),
   }) {
     if (eip1559 != null) {
-      return eip1559(type, to, accessList, account, chainId, data, gas,
-          feeValues, nonce, value, connector);
+      return eip1559(to, accessList, account, chainId, data, gas, feeValues,
+          nonce, value, connector);
     }
     return orElse();
   }
@@ -1073,8 +1014,7 @@ class _$SendTransactionParametersEIP1559Impl
 abstract class SendTransactionParametersEIP1559
     extends SendTransactionParameters {
   const factory SendTransactionParametersEIP1559(
-      {required final String type,
-      required final String to,
+      {required final String to,
       final List<Map<String, dynamic>>? accessList,
       required final String account,
       final int? chainId,
@@ -1086,8 +1026,6 @@ abstract class SendTransactionParametersEIP1559
       final dynamic connector}) = _$SendTransactionParametersEIP1559Impl;
   const SendTransactionParametersEIP1559._() : super._();
 
-  @override
-  String get type;
   @override
   String get to;
   @override
@@ -1125,8 +1063,7 @@ abstract class _$$SendTransactionParametersEIP4844ImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {String type,
-      String to,
+      {String to,
       List<Map<String, dynamic>>? accessList,
       String account,
       int? chainId,
@@ -1151,7 +1088,6 @@ class __$$SendTransactionParametersEIP4844ImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? type = null,
     Object? to = null,
     Object? accessList = freezed,
     Object? account = null,
@@ -1164,10 +1100,6 @@ class __$$SendTransactionParametersEIP4844ImplCopyWithImpl<$Res>
     Object? connector = freezed,
   }) {
     return _then(_$SendTransactionParametersEIP4844Impl(
-      type: null == type
-          ? _value.type
-          : type // ignore: cast_nullable_to_non_nullable
-              as String,
       to: null == to
           ? _value.to
           : to // ignore: cast_nullable_to_non_nullable
@@ -1217,8 +1149,7 @@ class __$$SendTransactionParametersEIP4844ImplCopyWithImpl<$Res>
 class _$SendTransactionParametersEIP4844Impl
     extends SendTransactionParametersEIP4844 {
   const _$SendTransactionParametersEIP4844Impl(
-      {required this.type,
-      required this.to,
+      {required this.to,
       final List<Map<String, dynamic>>? accessList,
       required this.account,
       this.chainId,
@@ -1231,8 +1162,6 @@ class _$SendTransactionParametersEIP4844Impl
       : _accessList = accessList,
         super._();
 
-  @override
-  final String type;
   @override
   final String to;
   final List<Map<String, dynamic>>? _accessList;
@@ -1264,7 +1193,7 @@ class _$SendTransactionParametersEIP4844Impl
 
   @override
   String toString() {
-    return 'SendTransactionParameters.eip4844(type: $type, to: $to, accessList: $accessList, account: $account, chainId: $chainId, data: $data, gas: $gas, feeValues: $feeValues, nonce: $nonce, value: $value, connector: $connector)';
+    return 'SendTransactionParameters.eip4844(to: $to, accessList: $accessList, account: $account, chainId: $chainId, data: $data, gas: $gas, feeValues: $feeValues, nonce: $nonce, value: $value, connector: $connector)';
   }
 
   @override
@@ -1272,7 +1201,6 @@ class _$SendTransactionParametersEIP4844Impl
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$SendTransactionParametersEIP4844Impl &&
-            (identical(other.type, type) || other.type == type) &&
             (identical(other.to, to) || other.to == to) &&
             const DeepCollectionEquality()
                 .equals(other._accessList, _accessList) &&
@@ -1290,7 +1218,6 @@ class _$SendTransactionParametersEIP4844Impl
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      type,
       to,
       const DeepCollectionEquality().hash(_accessList),
       account,
@@ -1314,7 +1241,6 @@ class _$SendTransactionParametersEIP4844Impl
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(
-            String type,
             String to,
             List<Map<String, dynamic>>? accessList,
             String account,
@@ -1327,7 +1253,6 @@ class _$SendTransactionParametersEIP4844Impl
             dynamic connector)
         legacy,
     required TResult Function(
-            String type,
             String to,
             List<Map<String, dynamic>>? accessList,
             String account,
@@ -1340,7 +1265,6 @@ class _$SendTransactionParametersEIP4844Impl
             dynamic connector)
         eip1559,
     required TResult Function(
-            String type,
             String to,
             List<Map<String, dynamic>>? accessList,
             String account,
@@ -1353,7 +1277,7 @@ class _$SendTransactionParametersEIP4844Impl
             dynamic connector)
         eip4844,
   }) {
-    return eip4844(type, to, accessList, account, chainId, data, gas, feeValues,
+    return eip4844(to, accessList, account, chainId, data, gas, feeValues,
         nonce, value, connector);
   }
 
@@ -1361,7 +1285,6 @@ class _$SendTransactionParametersEIP4844Impl
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(
-            String type,
             String to,
             List<Map<String, dynamic>>? accessList,
             String account,
@@ -1374,7 +1297,6 @@ class _$SendTransactionParametersEIP4844Impl
             dynamic connector)?
         legacy,
     TResult? Function(
-            String type,
             String to,
             List<Map<String, dynamic>>? accessList,
             String account,
@@ -1387,7 +1309,6 @@ class _$SendTransactionParametersEIP4844Impl
             dynamic connector)?
         eip1559,
     TResult? Function(
-            String type,
             String to,
             List<Map<String, dynamic>>? accessList,
             String account,
@@ -1400,15 +1321,14 @@ class _$SendTransactionParametersEIP4844Impl
             dynamic connector)?
         eip4844,
   }) {
-    return eip4844?.call(type, to, accessList, account, chainId, data, gas,
-        feeValues, nonce, value, connector);
+    return eip4844?.call(to, accessList, account, chainId, data, gas, feeValues,
+        nonce, value, connector);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(
-            String type,
             String to,
             List<Map<String, dynamic>>? accessList,
             String account,
@@ -1421,7 +1341,6 @@ class _$SendTransactionParametersEIP4844Impl
             dynamic connector)?
         legacy,
     TResult Function(
-            String type,
             String to,
             List<Map<String, dynamic>>? accessList,
             String account,
@@ -1434,7 +1353,6 @@ class _$SendTransactionParametersEIP4844Impl
             dynamic connector)?
         eip1559,
     TResult Function(
-            String type,
             String to,
             List<Map<String, dynamic>>? accessList,
             String account,
@@ -1449,8 +1367,8 @@ class _$SendTransactionParametersEIP4844Impl
     required TResult orElse(),
   }) {
     if (eip4844 != null) {
-      return eip4844(type, to, accessList, account, chainId, data, gas,
-          feeValues, nonce, value, connector);
+      return eip4844(to, accessList, account, chainId, data, gas, feeValues,
+          nonce, value, connector);
     }
     return orElse();
   }
@@ -1493,8 +1411,7 @@ class _$SendTransactionParametersEIP4844Impl
 abstract class SendTransactionParametersEIP4844
     extends SendTransactionParameters {
   const factory SendTransactionParametersEIP4844(
-      {required final String type,
-      required final String to,
+      {required final String to,
       final List<Map<String, dynamic>>? accessList,
       required final String account,
       final int? chainId,
@@ -1506,8 +1423,6 @@ abstract class SendTransactionParametersEIP4844
       final dynamic connector}) = _$SendTransactionParametersEIP4844Impl;
   const SendTransactionParametersEIP4844._() : super._();
 
-  @override
-  String get type;
   @override
   String get to;
   @override
