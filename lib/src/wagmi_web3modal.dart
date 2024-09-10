@@ -12,7 +12,7 @@ class Web3Modal {
   /// [Web3Modal documentation](https://docs.walletconnect.com/appkit/javascript/core/installation#implementation)
   static void init({
     required String projectId,
-    required List<String> chains,
+    required List<int> chains,
     required bool enableAnalytics,
     required bool enableOnRamp,
     required Web3ModalMetadata metadata,
