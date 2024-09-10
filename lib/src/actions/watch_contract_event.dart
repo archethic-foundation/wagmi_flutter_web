@@ -1,3 +1,4 @@
+import 'package:wagmi_flutter_web/src/models/abi.dart';
 import 'package:wagmi_flutter_web/src/models/error.dart';
 import 'package:wagmi_flutter_web/src/models/log.dart';
 
@@ -24,7 +25,7 @@ class WatchContractEventParameters {
     this.syncConnectedChain,
   });
 
-  final List<Map> abi;
+  final Abi abi;
   final String eventName;
   final String? address;
   final List<dynamic>? args;

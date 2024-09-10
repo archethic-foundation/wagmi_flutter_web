@@ -15,7 +15,7 @@ class ReadContractParameters {
     this.blockTag,
     this.chainId,
   });
-  List<Map> abi;
+  Abi abi;
   String address;
   String functionName;
   String? account;
@@ -28,13 +28,10 @@ class ReadContractParameters {
         abi: abi.jsify()!,
         address: address.toJS,
         functionName: functionName.toJS,
+        account: account?.toJS,
+        args: UtilsJS.convertArgs(args),
+        blockNumber: blockNumber?.toJS,
+        blockTag: blockTag?.toJS,
+        chainId: chainId?.toJS,
       );
-}
-
-class ReadContractReturnType {
-  ReadContractReturnType({
-    required this.value,
-  });
-
-  final BigInt value;
 }

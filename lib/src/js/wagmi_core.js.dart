@@ -23,7 +23,7 @@ extension type JSWagmiCore(JSObject _) implements JSObject {
   external JSPromise<JSSignMessageReturnType> signMessage(
     JSSignMessageParameters signMessageParameters,
   );
-  external JSPromise<JSBigInt> readContract(
+  external JSPromise<JSAny> readContract(
     JSReadContractParameters readContractParameters,
   );
   external JSPromise<JSArray<JSObject>> readContracts(

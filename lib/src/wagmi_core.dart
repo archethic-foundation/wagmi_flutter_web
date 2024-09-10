@@ -117,7 +117,7 @@ class Core {
   }
 
   // read contract
-  static Future<BigInt> readContract(
+  static Future<dynamic> readContract(
     ReadContractParameters readContractParameters,
   ) async {
     final result = await window.wagmiCore
@@ -125,7 +125,8 @@ class Core {
           readContractParameters.toJS,
         )
         .toDart;
-    return result.toDart;
+
+    return result;
   }
 
   static Future<List<Map<String, dynamic>>> readContracts(
