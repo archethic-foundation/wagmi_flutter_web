@@ -4,7 +4,7 @@ part of 'wagmi.js.dart';
 extension type JSWagmiWeb3Modal(JSObject _) implements JSObject {
   external void init(
     JSString projectId,
-    JSArray<JSString> chains,
+    JSArray<JSNumber> chains,
     JSBoolean enableAnalytics,
     JSBoolean enableOnRamp,
     JSWagmiWeb3ModalMetadata metadata,

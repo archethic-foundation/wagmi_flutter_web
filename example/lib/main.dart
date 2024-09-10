@@ -63,10 +63,10 @@ class _MyAppState extends State<MyApp> {
         wagmi.Web3Modal.init(
           projectId: 'f642e3f39ba3e375f8f714f18354faa4',
           chains: [
-            wagmi.Chain.mainnet.name,
-            wagmi.Chain.sepolia.name,
-            wagmi.Chain.polygonAmoy.name,
-            wagmi.Chain.polygon.name,
+            wagmi.Chain.mainnet.id,
+            wagmi.Chain.sepolia.id,
+            wagmi.Chain.polygonAmoy.id,
+            wagmi.Chain.polygon.id,
           ],
           enableAnalytics: true,
           enableOnRamp: true,
@@ -296,9 +296,11 @@ class _MyAppState extends State<MyApp> {
                   abi: bitContractAbi,
                   address: bitTokenAddress,
                   functionName: 'totalSupply',
+                  args: [],
                 );
-                final readContractReturnType =
-                    await wagmi.Core.readContract(getTokenParameters);
+                final readContractReturnType = await wagmi.Core.readContract(
+                  getTokenParameters,
+                );
                 setState(() {
                   tokenSupply =
                       int.parse(readContractReturnType.toString()) / 1000000;
@@ -745,7 +747,7 @@ class _MyAppState extends State<MyApp> {
     );
   }
 
-  List<Map> bitContractAbi = [
+  wagmi.Abi bitContractAbi = [
     {
       'inputs': [],
       'name': 'totalSupply',
@@ -756,7 +758,7 @@ class _MyAppState extends State<MyApp> {
       'type': 'function',
     }
   ];
-  List<Map> testA1ContractAbi = [
+  wagmi.Abi testA1ContractAbi = [
     {
       'inputs': [
         {'internalType': 'address', 'name': 'account', 'type': 'address'},

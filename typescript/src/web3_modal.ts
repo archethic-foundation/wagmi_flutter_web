@@ -1,7 +1,7 @@
 import { AppKit } from "@web3modal/base"
 import * as Web3modal from '@web3modal/wagmi'
 import { Chain, Client, createClient, EIP1193RequestFn, http, Transport, webSocket } from "viem"
-import { chainsFromStrings } from "./chains"
+import { chainsFromIds } from "./chains"
 import { JSWagmiContext } from "./context"
 import { JSHttpTransport, JSTransport, JSTransportBuilder, JSWebsocketTransport } from "./transport"
 
@@ -16,7 +16,7 @@ export class JSWeb3Modal {
 
     init(
         projectId: string,
-        chains: string[],
+        chains: number[],
         enableAnalytics: boolean,
         enableOnRamp: boolean,
         metadata: {
@@ -32,7 +32,7 @@ export class JSWeb3Modal {
         transportBuilder: JSTransportBuilder | undefined
     ) {
         JSWagmiContext.instance.config = Web3modal.defaultWagmiConfig({
-            chains: chainsFromStrings(chains),
+            chains: chainsFromIds(chains),
             projectId: projectId,
             metadata: metadata,
             auth: {
