@@ -80,14 +80,26 @@ class _MyAppState extends State<MyApp> {
           email: false, // email
           showWallets: true, // showWallets
           walletFeatures: true, // walletFeatures
-          transportBuilder: (chainId) => const wagmi.Transport.websocket(
-            url:
-                'wss://eth-sepolia.g.alchemy.com/v2/eLhVAxz79HO5n2y98mdIl_gMkKSDc3G8',
+          transportBuilder: (chainId) => wagmi.Transport.websocket(
+            url: _transportUrl(chainId),
           ),
         );
       },
     );
     super.initState();
+  }
+
+  String _transportUrl(int chainId) {
+    if (chainId == wagmi.Chain.sepolia.id) {
+      return 'wss://eth-sepolia.g.alchemy.com/v2/eLhVAxz79HO5n2y98mdIl_gMkKSDc3G8';
+    }
+    if (chainId == wagmi.Chain.polygonAmoy.id) {
+      return 'wss://polygon-amoy.g.alchemy.com/v2/DynWKvz6PUFaeZNmlxPXNiV1nK4Ac_2D';
+    }
+    if (chainId == wagmi.Chain.polygon.id) {
+      return 'wss://polygon-mainnet.g.alchemy.com/v2/DynWKvz6PUFaeZNmlxPXNiV1nK4Ac_2D';
+    }
+    return 'wss://eth-mainnet.alchemyapi.io/v2/DynWKvz6PUFaeZNmlxPXNiV1nK4Ac_2D';
   }
 
   @override
