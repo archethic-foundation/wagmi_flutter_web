@@ -1,10 +1,10 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:wagmi_flutter_web/src/models/abi.dart';
 import 'package:wagmi_flutter_web/src/models/fees_values.dart';
-
-/// [Documentation API](https://wagmi.sh/core/api/actions/writeContract)
 
 part 'write_contract.freezed.dart';
 
+/// [Documentation API](https://wagmi.sh/core/api/actions/writeContract)
 @freezed
 class WriteContractParameters with _$WriteContractParameters {
   const WriteContractParameters._();
@@ -26,7 +26,7 @@ class WriteContractParameters with _$WriteContractParameters {
   }) = WriteContractParametersLegacy;
 
   const factory WriteContractParameters.eip1559({
-    required List<Map> abi,
+    required Abi abi,
     required String address,
     required String functionName,
     List<Map<String, dynamic>>? accessList,

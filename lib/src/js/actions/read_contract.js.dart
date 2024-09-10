@@ -24,12 +24,4 @@ extension type JSReadContractParameters._(JSObject _) implements JSObject {
 }
 
 @JS()
-extension type JSReadContractReturnType(JSObject _) implements JSObject {
-  external JSBigInt data;
-
-  ReadContractReturnType get toDart =>
-      ReadContractReturnType(value: data.toDart);
-}
-
-@JS()
 extension type JSReadContractErrorType(JSObject _) implements JSObject {}

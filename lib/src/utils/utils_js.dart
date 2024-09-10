@@ -65,3 +65,8 @@ extension JSNumberArrayToList on JSArray<JSNumber> {
   List<Decimal> get toDartDecimalList =>
       toDart.map((item) => Decimal.parse(item.toString())).toList();
 }
+
+extension JSObjectArrayToList on JSArray<JSObject> {
+  List<Map<String, dynamic>> get toDartObjectList =>
+      toDart.map(UtilsJS.jsObjectToMap).toList();
+}
