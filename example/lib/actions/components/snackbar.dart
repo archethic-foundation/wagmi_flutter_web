@@ -6,6 +6,7 @@ extension SnackbarExt on BuildContext {
       SnackBar(
         content: Text(message),
         backgroundColor: Colors.green,
+        duration: const Duration(days: 1),
       ),
     );
   }
@@ -15,6 +16,7 @@ extension SnackbarExt on BuildContext {
       SnackBar(
         content: Text(message),
         backgroundColor: Colors.red,
+        duration: const Duration(days: 1),
       ),
     );
   }
