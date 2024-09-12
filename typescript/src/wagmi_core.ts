@@ -97,7 +97,7 @@ export class JSWagmiCore {
                 throw new InvalidAddressError({ address: params.address })
             }
 
-            getBalance(
+            return getBalance(
                 JSWagmiContext.instance.config,
                 params
             )
@@ -152,7 +152,7 @@ export class JSWagmiCore {
                 throw new InvalidAddressError({ address: params.address })
             }
 
-            getTransactionCount(
+            return getTransactionCount(
                 JSWagmiContext.instance.config,
                 params
             )
@@ -175,7 +175,7 @@ export class JSWagmiCore {
                 console.error("No message provided")
                 return null
             }
-            signMessage(
+            return signMessage(
                 JSWagmiContext.instance.config,
                 params
             )
