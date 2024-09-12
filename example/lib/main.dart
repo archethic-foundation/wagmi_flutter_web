@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:math';
 
 import 'package:example/actions/gas_price.dart';
+import 'package:example/actions/read_contract.dart';
 import 'package:example/actions/write_contract.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -50,6 +51,7 @@ class _MyAppState extends State<MyApp> {
 
   final tabs = [
     const Tab(text: 'Main'),
+    const Tab(text: 'Read Contracts'),
     const Tab(text: 'Write Contracts'),
     const Tab(text: 'Gas Price'),
   ];
@@ -116,6 +118,7 @@ class _MyAppState extends State<MyApp> {
         body: TabBarView(
           children: [
             buildMainTab(),
+            const ReadContractExample(),
             const WriteContractsExample(),
             const GasPriceExample(),
           ],
@@ -301,34 +304,6 @@ class _MyAppState extends State<MyApp> {
             const SizedBox(
               height: 10,
             ),
-            ElevatedButton(
-              onPressed: () async {
-                // read contract
-                final getTokenParameters = wagmi.ReadContractParameters(
-                  abi: bitContractAbi,
-                  address: bitTokenAddress,
-                  functionName: 'totalSupply',
-                  args: [],
-                );
-                final readContractReturnType = await wagmi.Core.readContract(
-                  getTokenParameters,
-                );
-                setState(() {
-                  tokenSupply =
-                      int.parse(readContractReturnType.toString()) / 1000000;
-                });
-              },
-              child: const Text('Get Token Supply From Contract'),
-            ),
-            const SizedBox(
-              height: 7,
-            ),
-            if (tokenSupply != null)
-              Text(
-                'Total token supply :  $tokenSupply',
-              )
-            else
-              Container(),
             const SizedBox(
               height: 10,
             ),
