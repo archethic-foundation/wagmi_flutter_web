@@ -108,7 +108,7 @@ For more details, refer to the [API documentation](https://wagmi.sh/core/api/act
 | `signTypedData`                | 🔴               |
 | `simulateContract`             | 🔴               |
 | `switchAccount`                | 🔴               |
-| `switchChain`                  | 🔴               |
+| `switchChain`                  | 🟠 In progress   |
 | `verifyMessage`                | 🔴               |
 | `verifyTypedData`              | 🔴               |
 | `waitForTransactionReceipt`    | 🟠 In progress   |
@@ -134,7 +134,9 @@ You will need the following tools :
 - Flutter >= 3.22.3
 - nodejs >= 18
 
-### Compile TypeScript code
+### Compile & run project
+
+#### Compile TypeScript code
 
 Following commands will build `JS` code to embed in the web browser.
 
@@ -144,10 +146,24 @@ npm run build // build production lib
 npm run dev // build & watch in dev mode
 ``` 
 
-### Run Flutter project
+#### Run Flutter project
 
 Then, you can run Flutter project as usual. 
 
 ```sh
 flutter 
+```
+
+### Run Typescript tests
+
+```sh
+$ npm test
+```
+
+> When using VSCode, to enable debugging, create your terminal using the command `Debug: JavaScript Debug Terminal`.
+
+### Run Dart tests
+
+```sh
+$ dart test -p chrome
 ```

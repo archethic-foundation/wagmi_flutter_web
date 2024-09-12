@@ -1,6 +1,7 @@
 import 'dart:js_interop';
 // ignore: avoid_web_libraries_in_flutter
 import 'dart:js_util' as js_util;
+import 'dart:typed_data';
 
 import 'package:decimal/decimal.dart';
 import 'package:wagmi_flutter_web/src/js/wagmi.js.dart';
@@ -50,6 +51,8 @@ class UtilsJS {
       } else if (arg is bool) {
         jsArgs.push(arg.toJS);
       } else if (arg is BigInt) {
+        jsArgs.push(arg.toJS);
+      } else if (arg is Uint8List) {
         jsArgs.push(arg.toJS);
       }
     }
