@@ -41,12 +41,12 @@ class Core {
 
   static List<Chain> getChains() {
     final result = window.wagmiCore.getChains();
-    final list = <Chain>[];
-    for (var i = 0; i < result.toDart.length; i++) {
-      final chainMap = UtilsJS.jsObjectToMap(result.toDart[i]);
-      list.add(Chain.fromMap(chainMap));
-    }
-    return list;
+
+    return result.toDart
+        .map(
+          (item) => Chain.fromMap(item.toMap),
+        )
+        .toList();
   }
 
   static Future<BigInt> getBlockNumber(
@@ -125,8 +125,7 @@ class Core {
           readContractParameters.toJS,
         )
         .toDart;
-
-    return result;
+    return UtilsJS.dartify(result);
   }
 
   static Future<List<Map<String, dynamic>>> readContracts(
@@ -137,12 +136,7 @@ class Core {
           readContractsParameters.toJS,
         )
         .toDart;
-    // call jsObjectToMap to convert JSObject to Dart Map
-    final list = <Map<String, dynamic>>[];
-    for (var i = 0; i < result.toDart.length; i++) {
-      list.add(UtilsJS.jsObjectToMap(result.toDart[i]));
-    }
-    return list;
+    return result.toDartDynamicList.cast<Map<String, dynamic>>();
   }
 
   // get transaction receipt

@@ -20,11 +20,11 @@ void main() {
         Uint8List.fromList([0, 1, 2, 3, 4]),
       ];
 
-      final actual = UtilsJS.convertArgs(args);
+      final actual = args.toJSArray;
 
       expect(actual, isNotNull, reason: 'Should not be null');
       expect(
-        actual!.getProperty(0.toJS),
+        actual.getProperty(0.toJS),
         '1234567890987654321'.toJS,
         reason: 'String should be correctly converted',
       );
@@ -62,11 +62,11 @@ void main() {
         Uint8List.fromList([0, 1, 2, 3, 4]),
       ];
 
-      final actual = UtilsJS.convertArgs(args);
+      final actual = args.toJSArray;
 
       expect(actual, isNotNull, reason: 'Should not be null');
       expect(
-        actual!.getProperty(0.toJS),
+        actual.getProperty(0.toJS),
         '1234567890987654321'.toJS,
         reason: 'String should be correctly converted',
       );

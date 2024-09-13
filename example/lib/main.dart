@@ -1243,6 +1243,9 @@ class _MyAppState extends State<MyApp> {
     // list of multiple contract methods response
     List<Map<String, dynamic>> multipleContractMethodsResponse,
   ) {
+    final totalSupply = multipleContractMethodsResponse[0]['result'] as BigInt?;
+    final balance = multipleContractMethodsResponse[1]['result'] as BigInt?;
+
     showDialog(
       context: context,
       builder: (context) {
@@ -1258,7 +1261,7 @@ class _MyAppState extends State<MyApp> {
               // space
               const SizedBox(height: 4),
               Text(
-                'Total Supply: ${BigInt.parse(multipleContractMethodsResponse[0]['result'].toString()) / BigInt.from(1000000)}',
+                'Total Supply: ${totalSupply == null ? 0 : totalSupply / BigInt.from(1000000)}',
               ),
               // space
               const SizedBox(height: 8),
@@ -1268,7 +1271,7 @@ class _MyAppState extends State<MyApp> {
               ),
               const SizedBox(height: 4),
               Text(
-                'Balance of wallet $tempWallet : ${BigInt.parse(multipleContractMethodsResponse[1]['result'].toString()) / BigInt.from(1000000)}',
+                'Balance of wallet $tempWallet : ${balance == null ? 0 : balance / BigInt.from(1000000)}',
               ),
             ],
           ),

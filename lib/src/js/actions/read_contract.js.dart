@@ -8,7 +8,7 @@ extension type JSReadContractParameters._(JSObject _) implements JSObject {
     required JSString address,
     required JSString functionName,
     JSString? account,
-    JSArray<JSObject>? args,
+    JSArray<JSAny>? args,
     JSBigInt? blockNumber,
     JSString? blockTag,
     JSNumber? chainId,

@@ -25,10 +25,11 @@ extension type JSGetFeeHistoryReturnType(JSObject _) implements JSObject {
   external JSArray<JSArray<JSBigInt>>? reward;
 
   GetFeeHistoryReturnType get toDart => GetFeeHistoryReturnType(
-        baseFeePerGas: baseFeePerGas.toDartList,
+        baseFeePerGas: baseFeePerGas.toDartBigIntList,
         gasUsedRatio: gasUsedRatio.toDartDecimalList,
         oldestBlock: oldestBlock.toDart,
-        reward: reward?.toDart.map((jsList) => jsList.toDartList).toList(),
+        reward:
+            reward?.toDart.map((jsList) => jsList.toDartBigIntList).toList(),
       );
 }
 

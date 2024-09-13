@@ -4,9 +4,9 @@ part of '../wagmi.js.dart';
 @JS()
 extension type JSReadContractsParameters._(JSObject _) implements JSObject {
   external JSReadContractsParameters({
-    required JSAny contracts,
+    required JSArray<JSAny> contracts,
   });
-  external JSAny contracts;
+  external JSArray<JSAny> contracts;
 }
 
 @JS()
