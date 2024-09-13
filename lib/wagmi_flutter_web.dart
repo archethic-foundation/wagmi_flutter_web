@@ -33,6 +33,7 @@ export 'src/actions/write_contract.dart';
 export 'src/models/abi.dart';
 export 'src/models/account.dart';
 export 'src/models/block_tag.dart';
+export 'src/models/bytes.dart';
 export 'src/models/chain.dart';
 export 'src/models/chain_block_explorer.dart';
 export 'src/models/chain_contract.dart';
