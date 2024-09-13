@@ -51,7 +51,7 @@ extension JSWatchContractEventParametersConversion
         abi: abi.jsify()!,
         address: address?.toJS,
         eventName: eventName.toJS,
-        args: UtilsJS.convertArgs(args),
+        args: args?.toJSArray,
         batch: batch?.toJS,
         chainId: chainId?.toJS,
         onError: onError == null

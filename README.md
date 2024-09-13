@@ -166,4 +166,7 @@ $ npm test
 
 ```sh
 $ dart test -p chrome
+
+# Or with debug
+$ dart test -p chrome --pause-after-load     
 ```

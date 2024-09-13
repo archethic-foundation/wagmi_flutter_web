@@ -1,6 +1,5 @@
-import 'dart:js_interop';
-
 import 'package:wagmi_flutter_web/src/js/wagmi.js.dart';
+import 'package:wagmi_flutter_web/src/utils/utils_js.dart';
 
 /// [Documentation API](https://wagmi.sh/core/api/actions/readContracts)
 class ReadContractsParameters {
@@ -10,7 +9,7 @@ class ReadContractsParameters {
   List<Map> contracts;
 
   JSReadContractsParameters get toJS => JSReadContractsParameters(
-        contracts: contracts.jsify()!,
+        contracts: contracts.toNonNullableJSArray,
       );
 }
 

@@ -18,11 +18,13 @@ class _ReadContractExampleState extends State<ReadContractExample> {
 
   final addressController = TextEditingController();
   final abiController = TextEditingController();
+  final argsController = TextEditingController();
 
   final presets = [
     const Preset(
       name: '[Amoy] Total supply (bigint)',
       address: '0x2237605711227D0254Ccb33CE70767871Cf1CCc3',
+      args: '[]',
       abi: '''
 {
   "inputs": [],
@@ -37,6 +39,7 @@ class _ReadContractExampleState extends State<ReadContractExample> {
     const Preset(
       name: '[Amoy] Token decimals (uint8)',
       address: '0x2237605711227D0254Ccb33CE70767871Cf1CCc3',
+      args: '[]',
       abi: '''
 {
   "inputs": [],
@@ -46,6 +49,51 @@ class _ReadContractExampleState extends State<ReadContractExample> {
       "internalType": "uint8",
       "name": "",
       "type": "uint8"
+    }
+  ],
+  "stateMutability": "view",
+  "type": "function"
+}''',
+    ),
+    const Preset(
+      name: '[Sepolia] getSwapsByOwner',
+      address: '0xe983d3dBCB15038dbF2AE69A445A5576B0280d1c',
+      args: '''
+[
+    "0xAD1F4dF14DC3eb4094092CF44b713067431813B8"
+]''',
+      abi: '''
+{
+  "inputs": [
+    {
+      "internalType": "address",
+      "name": "owner",
+      "type": "address"
+    }
+  ],
+  "name": "getSwapsByOwner",
+  "outputs": [
+    {
+      "components": [
+        {
+          "internalType": "address",
+          "name": "evmAddress",
+          "type": "address"
+        },
+        {
+          "internalType": "bytes",
+          "name": "archethicAddress",
+          "type": "bytes"
+        },
+        {
+          "internalType": "enum IPool.SwapType",
+          "name": "swapType",
+          "type": "uint8"
+        }
+      ],
+      "internalType": "struct IPool.Swap[]",
+      "name": "swaps",
+      "type": "tuple[]"
     }
   ],
   "stateMutability": "view",
@@ -63,6 +111,7 @@ class _ReadContractExampleState extends State<ReadContractExample> {
   void dispose() {
     addressController.dispose();
     abiController.dispose();
+    argsController.dispose();
     super.dispose();
   }
 
@@ -82,6 +131,7 @@ class _ReadContractExampleState extends State<ReadContractExample> {
               onSelect: (Preset preset) {
                 abiController.text = preset.abi;
                 addressController.text = preset.address;
+                argsController.text = preset.args;
               },
               presets: presets,
             ),
@@ -91,6 +141,14 @@ class _ReadContractExampleState extends State<ReadContractExample> {
                 labelText: 'Contract Address',
               ),
               controller: addressController,
+            ),
+            Space.small(),
+            TextField(
+              decoration: const InputDecoration(
+                labelText: 'Arguments',
+              ),
+              controller: argsController,
+              maxLines: null,
             ),
             Space.small(),
             TextField(
@@ -106,16 +164,16 @@ class _ReadContractExampleState extends State<ReadContractExample> {
                 try {
                   final functionAbi = jsonDecode(abiController.text);
                   final functionName = functionAbi['name'];
-
+                  final args = jsonDecode(argsController.text);
                   final result = await wagmi.Core.readContract(
                     wagmi.ReadContractParameters(
                       abi: [functionAbi],
                       address: addressController.text,
                       functionName: functionName,
-                      args: [],
+                      args: args,
                     ),
                   );
-                  _operationSucceed(result);
+                  _operationSucceed(result.toString());
                 } catch (e) {
                   _operationFailed(e.toString());
                 }
@@ -148,11 +206,13 @@ class Preset {
     required this.name,
     required this.abi,
     required this.address,
+    required this.args,
   });
 
   final String name;
   final String abi;
   final String address;
+  final String args;
 }
 
 class _PresetSelector extends StatefulWidget {

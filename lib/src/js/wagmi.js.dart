@@ -57,5 +57,9 @@ extension type JSWindow(JSObject _) implements JSObject {
 }
 
 extension JSArrayExtension<T extends JSAny?> on JSArray<T> {
+  external void push(JSAny? _);
+}
+
+extension JSArrayNonNullableExtension<T extends JSAny> on JSArray<T> {
   external void push(JSAny _);
 }

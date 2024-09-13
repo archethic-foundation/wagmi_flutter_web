@@ -29,7 +29,7 @@ class ReadContractParameters {
         address: address.toJS,
         functionName: functionName.toJS,
         account: account?.toJS,
-        args: UtilsJS.convertArgs(args),
+        args: args?.toNonNullableJSArray,
         blockNumber: blockNumber?.toJS,
         blockTag: blockTag?.toJS,
         chainId: chainId?.toJS,

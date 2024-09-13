@@ -7,17 +7,84 @@ import 'package:decimal/decimal.dart';
 import 'package:wagmi_flutter_web/src/js/wagmi.js.dart';
 
 class UtilsJS {
-  static Map<String, dynamic> jsObjectToMap(
-    JSObject jsObject, {
-    bool deep = true,
-  }) {
+  static Object? dartify(JSAny? jsObject) {
+    if (jsObject == null) return null;
+    if (jsObject is JSBigInt) return jsObject.toDart;
+    if (jsObject is JSArray) return jsObject.toDartDynamicList;
+    if (jsObject is JSObject) return jsObject.toMap;
+
+    return jsObject.dartify();
+  }
+
+  static JSAny? jsify(dynamic dartObject) {
+    // We do exhaustive types check here
+    // because `dartObject.jsify()` throws a "NoSuchMethodError: 'jsify'"
+    // whthout explicit cast.
+    if (dartObject == null) return null;
+    if (dartObject is BigInt) return dartObject.toJS;
+    if (dartObject is Iterable) return dartObject.toJSArray;
+    if (dartObject is String) return dartObject.toJS;
+    if (dartObject is int) return dartObject.toJS;
+    if (dartObject is bool) return dartObject.toJS;
+    if (dartObject is double) return dartObject.toJS;
+    if (dartObject is num) return dartObject.toJS;
+    if (dartObject is Int8List) return dartObject.toJS;
+    if (dartObject is Uint8List) return dartObject.toJS;
+    if (dartObject is Int16List) return dartObject.toJS;
+    if (dartObject is Uint16List) return dartObject.toJS;
+    if (dartObject is Uint16List) return dartObject.toJS;
+    if (dartObject is Int32List) return dartObject.toJS;
+    if (dartObject is Uint32List) return dartObject.toJS;
+    if (dartObject is Float32List) return dartObject.toJS;
+    if (dartObject is Float64List) return dartObject.toJS;
+    if (dartObject is List) return dartObject.toJSArray;
+    return dartObject.jsify();
+  }
+}
+
+extension DartListToJS on Iterable {
+  JSArray<JSAny?> get toJSArray {
+    final jsArgs = JSArray<JSAny?>();
+    for (final arg in this) {
+      final jsValue = UtilsJS.jsify(arg as Object?);
+      jsArgs.push(jsValue);
+    }
+    return jsArgs;
+  }
+
+  JSArray<JSAny> get toNonNullableJSArray {
+    final jsArgs = JSArray<JSAny>();
+    for (final arg in this) {
+      final jsValue = UtilsJS.jsify(arg as Object?);
+      jsArgs.push(jsValue!);
+    }
+    return jsArgs;
+  }
+}
+
+extension JSBigIntArrayToList on JSArray<JSBigInt> {
+  List<BigInt> get toDartBigIntList =>
+      toDart.map((item) => item.toDart).toList();
+}
+
+extension JSNumberArrayToList on JSArray<JSNumber> {
+  List<Decimal> get toDartDecimalList =>
+      toDart.map((item) => Decimal.parse(item.toString())).toList();
+}
+
+extension JSAnyArrayToList on JSArray {
+  List<Object?> get toDartDynamicList => toDart.map(UtilsJS.dartify).toList();
+}
+
+extension JSObjectToMap on JSObject {
+  Map<String, dynamic> get toMap {
     final map = <String, dynamic>{};
 
     // Get the keys of the JSObject
     final List<Object?> keys = js_util.callMethod(
       js_util.getProperty(js_util.globalThis, 'Object'),
       'keys',
-      [jsObject],
+      [this],
     );
 
     // Iterate over the keys and assign values to the Dart map
@@ -26,50 +93,9 @@ class UtilsJS {
     }
     for (final key in keys) {
       final keyString = key! as String;
-      var value = js_util.getProperty(jsObject, keyString);
-      if (deep) {
-        if (value is JSObject) {
-          value = jsObjectToMap(value);
-        }
-      }
-
-      map[keyString] = value;
+      final value = js_util.getProperty(this, keyString);
+      map[keyString] = UtilsJS.dartify(value);
     }
     return map;
   }
-
-  static JSArray<JSObject>? convertArgs(List<dynamic>? args) {
-    if (args == null) {
-      return null;
-    }
-    final jsArgs = JSArray<JSObject>();
-    for (final arg in args) {
-      if (arg is String) {
-        jsArgs.push(arg.toJS);
-      } else if (arg is int) {
-        jsArgs.push(arg.toJS);
-      } else if (arg is bool) {
-        jsArgs.push(arg.toJS);
-      } else if (arg is BigInt) {
-        jsArgs.push(arg.toJS);
-      } else if (arg is Uint8List) {
-        jsArgs.push(arg.toJS);
-      }
-    }
-    return jsArgs;
-  }
-}
-
-extension JSBigIntArrayToList on JSArray<JSBigInt> {
-  List<BigInt> get toDartList => toDart.map((item) => item.toDart).toList();
-}
-
-extension JSNumberArrayToList on JSArray<JSNumber> {
-  List<Decimal> get toDartDecimalList =>
-      toDart.map((item) => Decimal.parse(item.toString())).toList();
-}
-
-extension JSObjectArrayToList on JSArray<JSObject> {
-  List<Map<String, dynamic>> get toDartObjectList =>
-      toDart.map(UtilsJS.jsObjectToMap).toList();
 }
