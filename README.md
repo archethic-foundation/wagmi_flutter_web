@@ -108,7 +108,7 @@ For more details, refer to the [API documentation](https://wagmi.sh/core/api/act
 | `signTypedData`                | 🔴               |
 | `simulateContract`             | 🔴               |
 | `switchAccount`                | 🔴               |
-| `switchChain`                  | 🟠 In progress   |
+| `switchChain`                  | 🔴               |
 | `verifyMessage`                | 🔴               |
 | `verifyTypedData`              | 🔴               |
 | `waitForTransactionReceipt`    | 🟠 In progress   |
