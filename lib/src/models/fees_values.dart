@@ -6,6 +6,9 @@ class FeeValuesLegacy extends FeeValues {
   FeeValuesLegacy({required this.gasPrice});
 
   final BigInt gasPrice;
+
+  @override
+  String toString() => 'gasPrice=$gasPrice';
 }
 
 class FeeValuesEIP1559 extends FeeValues {
@@ -16,6 +19,10 @@ class FeeValuesEIP1559 extends FeeValues {
 
   final BigInt maxFeePerGas;
   final BigInt maxPriorityFeePerGas;
+
+  @override
+  String toString() =>
+      'maxFeePerGas=$maxFeePerGas, maxPriorityFeePerGas=$maxPriorityFeePerGas';
 }
 
 class FeeValuesEIP4844 extends FeeValues {
@@ -28,4 +35,8 @@ class FeeValuesEIP4844 extends FeeValues {
   final BigInt maxFeePerBlobGas;
   final BigInt maxFeePerGas;
   final BigInt maxPriorityFeePerGas;
+
+  @override
+  String toString() =>
+      'maxFeePerBlobGas=$maxFeePerBlobGas, maxFeePerGas=$maxFeePerGas, maxPriorityFeePerGas=$maxPriorityFeePerGas';
 }
