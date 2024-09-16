@@ -127,7 +127,7 @@ class _MyAppState extends State<MyApp> {
           children: [
             buildMainTab(),
             const ReadContractExample(),
-            const WriteContractsExample(),
+            const WriteContractExample(),
             const GasPriceExample(),
           ],
         ),
