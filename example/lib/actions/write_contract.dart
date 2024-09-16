@@ -1,289 +1,216 @@
+import 'dart:convert';
+
+import 'package:example/actions/components/contract_function_preset.dart';
 import 'package:example/actions/components/snackbar.dart';
+import 'package:example/actions/components/spacer.dart';
 import 'package:example/actions/components/tab_header.dart';
 import 'package:flutter/material.dart';
 import 'package:wagmi_flutter_web/wagmi_flutter_web.dart' as wagmi;
 
-class WriteContractsExample extends StatefulWidget {
-  const WriteContractsExample({super.key});
+class WriteContractExample extends StatefulWidget {
+  const WriteContractExample({super.key});
 
   @override
-  State<WriteContractsExample> createState() => _WriteContractsExampleState();
+  State<WriteContractExample> createState() => _WriteContractExampleState();
 }
 
-class _WriteContractsExampleState extends State<WriteContractsExample> {
-  String? hashApproval;
-  bool? walletConnected;
+class _WriteContractExampleState extends State<WriteContractExample> {
   wagmi.Account? account;
-  BigInt? gasPrice;
-  wagmi.WatchContractEventReturnType? watchContractEventUnsubscribe;
+
+  final addressController = TextEditingController();
+  final abiController = TextEditingController();
+  final argsController = TextEditingController();
+
+  final presets = [
+    const ContractFunctionPreset(
+      name: '[Sepolia] provisionHTLC',
+      address: '0xe983d3dBCB15038dbF2AE69A445A5576B0280d1c',
+      args: '''
+[
+    "0x8ED0ED21B8DBCA44BEC0764B101385D94776176B47DAC91B5FDB7278983F694E",
+    9970000000000,
+    1726477620,
+    "0x000067e615f9538e1649d7669d4029b64c80dd6f46577e0ece87c4aa52cb0056e0ed",
+    "0x96A71752DA2F114BCB141DEE1F64FD45E1EB4F70470998BF3188A8DAE476188D",
+    "0x2B97182E65E18E0772045A6E451865287B36C9D7C139511DCBD9D75F8DA1D3C7",
+    27
+]''',
+      abi: '''
+{
+  "inputs": [
+    {
+      "internalType": "bytes32",
+      "name": "_hash",
+      "type": "bytes32"
+    },
+    {
+      "internalType": "uint256",
+      "name": "_amount",
+      "type": "uint256"
+    },
+    {
+      "internalType": "uint256",
+      "name": "_lockTime",
+      "type": "uint256"
+    },
+    {
+      "internalType": "bytes",
+      "name": "_archethicHTLCAddress",
+      "type": "bytes"
+    },
+    {
+      "internalType": "bytes32",
+      "name": "_r",
+      "type": "bytes32"
+    },
+    {
+      "internalType": "bytes32",
+      "name": "_s",
+      "type": "bytes32"
+    },
+    {
+      "internalType": "uint8",
+      "name": "_v",
+      "type": "uint8"
+    }
+  ],
+  "name": "provisionHTLC",
+  "outputs": [],
+  "stateMutability": "nonpayable",
+  "type": "function"
+}''',
+    ),
+    const ContractFunctionPreset(
+      name: '[Sepolia] approve',
+      address: '0xCBBd3374090113732393DAE1433Bc14E5233d5d7',
+      args: '''
+[
+    "0x08Bfc8BA9fD137Fb632F79548B150FE0Be493254",
+    1
+]''',
+      abi: '''
+{
+  "inputs": [
+    {
+      "internalType": "address",
+      "name": "spender",
+      "type": "address"
+    },
+    {
+      "internalType": "uint256",
+      "name": "amount",
+      "type": "uint256"
+    }
+  ],
+  "name": "approve",
+  "outputs": [
+    {
+      "internalType": "bool",
+      "name": "",
+      "type": "bool"
+    }
+  ],
+  "stateMutability": "nonpayable",
+  "type": "function"
+}''',
+    ),
+  ];
 
   @override
   void initState() {
-    walletConnected = false;
     super.initState();
   }
 
-  bool get isProcessing => watchContractEventUnsubscribe != null;
-  int? get accountChainId => account?.chain?.id;
+  @override
+  void dispose() {
+    addressController.dispose();
+    abiController.dispose();
+    argsController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 10),
-      child: Column(
-        children: [
-          const TabHeader(
-            methodName: 'writeContracts',
-          ),
-          _howto(),
-          ElevatedButton(
-            onPressed: isProcessing
-                ? null
-                : () async {
-                    await _initOperation();
-
-                    if (gasPrice == null || account == null) {
-                      _operationFailed(
-                        'Unable to fetch Account & GasPrice data',
-                      );
-                      return;
-                    }
-
-                    try {
-                      await _startWatching();
-
-                      await _writeContract();
-                    } catch (error) {
-                      _operationFailed(error.toString());
-                    }
-                  },
-            child: const Text('Call approve function'),
-          ),
-          const SizedBox(
-            height: 10,
-          ),
-          Column(
-            children: [
-              if (walletConnected != null)
-                Text('Wallet connected: $walletConnected'),
-              if (accountChainId != null)
-                Text('Account chain ID: $accountChainId'),
-              if (walletConnected != null &&
-                  walletConnected! == true &&
-                  accountChainId != null &&
-                  gasPrice == null)
-                const SizedBox(
-                  width: 10,
-                  height: 10,
-                  child: CircularProgressIndicator(
-                    strokeWidth: 1,
-                  ),
-                ),
-              if (gasPrice != null) Text('Gas Price: $gasPrice'),
-              if (hashApproval != null) Text('Hash approval: $hashApproval'),
-              if (isProcessing)
-                const Padding(
-                  padding: EdgeInsets.only(top: 8),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text('Waiting for Approval'),
-                      SizedBox(
-                        width: 12,
-                      ),
-                      SizedBox.square(
-                        dimension: 18,
-                        child: CircularProgressIndicator(
-                          strokeWidth: 2,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-            ],
-          ),
-        ],
+    return SingleChildScrollView(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 48),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const TabHeader(
+              methodName: 'writeContract',
+            ),
+            Space.large(),
+            ContractFunctionPresetSelector(
+              onSelect: (ContractFunctionPreset preset) {
+                abiController.text = preset.abi;
+                addressController.text = preset.address;
+                argsController.text = preset.args;
+              },
+              presets: presets,
+            ),
+            Space.large(),
+            TextField(
+              decoration: const InputDecoration(
+                labelText: 'Contract Address',
+              ),
+              controller: addressController,
+            ),
+            Space.small(),
+            TextField(
+              decoration: const InputDecoration(
+                labelText: 'Arguments',
+              ),
+              controller: argsController,
+              maxLines: null,
+            ),
+            Space.small(),
+            TextField(
+              decoration: const InputDecoration(
+                labelText: 'Contract ABI',
+              ),
+              maxLines: null,
+              controller: abiController,
+            ),
+            Space.large(),
+            ElevatedButton(
+              onPressed: () async {
+                try {
+                  final functionAbi = jsonDecode(abiController.text);
+                  final functionName = functionAbi['name'];
+                  final args = jsonDecode(argsController.text);
+                  final result = await wagmi.Core.writeContract(
+                    wagmi.WriteContractParameters.legacy(
+                      abi: [functionAbi],
+                      address: addressController.text,
+                      functionName: functionName,
+                      args: args,
+                    ),
+                  );
+                  _operationSucceed(result);
+                } catch (e) {
+                  _operationFailed(e.toString());
+                }
+              },
+              child: const Text('Write contract'),
+            ),
+          ],
+        ),
       ),
     );
   }
 
   void _operationFailed(String? message) {
-    print('Approval failed : $message');
+    print('Write contract failed : $message');
     context.showFailure(
-      'Approval failed : $message',
+      'Write contract failed : $message',
     );
-
-    watchContractEventUnsubscribe?.call();
-    setState(() {
-      watchContractEventUnsubscribe = null;
-    });
   }
 
   void _operationSucceed(String? message) {
-    print('Approval succeed : $message');
+    print('Write contract succeed : $message');
     context.showSuccess(
-      'Approval succeed : $message',
+      'Write contract succeed : $message',
     );
-
-    watchContractEventUnsubscribe?.call();
-    setState(() {
-      watchContractEventUnsubscribe = null;
-    });
-  }
-
-  Future<void> _initOperation() async {
-    setState(() {
-      walletConnected = null;
-      account = null;
-      gasPrice = null;
-      hashApproval = null;
-    });
-
-    final _account = wagmi.Core.getAccount();
-    if (_account.chain == null) {
-      wagmi.Web3Modal.open();
-    }
-    setState(() {
-      walletConnected = true;
-      account = _account;
-    });
-    final getGasPriceParameters = wagmi.GetGasPriceParameters(
-      chainId: _account.chain?.id,
-    );
-    final getGasPriceReturnType = await wagmi.Core.getGasPrice(
-      getGasPriceParameters,
-    );
-
-    setState(() {
-      gasPrice = getGasPriceReturnType;
-    });
-  }
-
-  Future<void> _startWatching() async {
-    final watchContractEventParameters = wagmi.WatchContractEventParameters(
-      abi: [
-        {
-          'anonymous': false,
-          'inputs': [
-            {
-              'indexed': true,
-              'internalType': 'address',
-              'name': 'owner',
-              'type': 'address',
-            },
-            {
-              'indexed': true,
-              'internalType': 'address',
-              'name': 'spender',
-              'type': 'address',
-            },
-            {
-              'indexed': false,
-              'internalType': 'uint256',
-              'name': 'value',
-              'type': 'uint256',
-            }
-          ],
-          'name': 'Approval',
-          'type': 'event',
-        },
-      ],
-      address: '0xCBBd3374090113732393DAE1433Bc14E5233d5d7',
-      eventName: 'Approval',
-      onError: (error) {
-        _operationFailed(error.toString());
-      },
-      onLogs: (logs) {
-        if (!logs.any(
-          (log) => log.transactionHash == hashApproval,
-        )) return;
-
-        _operationSucceed(
-          'Approval succeed for Tx : $hashApproval : ${logs.map((log) => log.toString())}',
-        );
-      },
-    );
-
-    final unwatch = await wagmi.Core.watchContractEvent(
-      watchContractEventParameters,
-    );
-    setState(() {
-      watchContractEventUnsubscribe = unwatch;
-    });
-  }
-
-  Widget _howto() {
-    return const Padding(
-      padding: EdgeInsets.symmetric(vertical: 10),
-      child: Column(
-        children: [
-          Text('Click on approve function button to test the method'),
-          Text('The ABI used is ERC20 approve function'),
-          Text(
-            'The address of the ERC20 token is 0xCBBd3374090113732393DAE1433Bc14E5233d5d7 available on Sepolia',
-          ),
-          Text(
-            'The approve method target a contract (0x08Bfc8BA9fD137Fb632F79548B150FE0Be493254) and request 1500000 GWei',
-          ),
-        ],
-      ),
-    );
-  }
-
-  Future<void> _writeContract() async {
-    final writeContractParameters = wagmi.WriteContractParameters.legacy(
-      abi: [
-        {
-          'inputs': [
-            {
-              'internalType': 'address',
-              'name': 'spender',
-              'type': 'address',
-            },
-            {
-              'internalType': 'uint256',
-              'name': 'amount',
-              'type': 'uint256',
-            }
-          ],
-          'name': 'approve',
-          'outputs': [
-            {
-              'internalType': 'bool',
-              'name': '',
-              'type': 'bool',
-            },
-          ],
-          'stateMutability': 'nonpayable',
-          'type': 'function',
-        },
-      ],
-      address: '0xCBBd3374090113732393DAE1433Bc14E5233d5d7',
-      account: account!.address,
-      functionName: 'approve',
-      gas: wagmi.EtherAmount.fromInt(
-        wagmi.EtherUnit.wei,
-        100000,
-      ).getInWei,
-      feeValues: wagmi.FeeValuesLegacy(
-        gasPrice: gasPrice!,
-      ),
-      args: [
-        '0x08Bfc8BA9fD137Fb632F79548B150FE0Be493254',
-        wagmi.EtherAmount.fromInt(
-          wagmi.EtherUnit.wei,
-          1,
-        ).getInWei,
-      ],
-      chainId: 11155111,
-    );
-
-    final writeContractReturnType = await wagmi.Core.writeContract(
-      writeContractParameters,
-    );
-
-    setState(() {
-      hashApproval = writeContractReturnType;
-    });
   }
 }

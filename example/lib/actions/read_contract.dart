@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:example/actions/components/contract_function_preset.dart';
 import 'package:example/actions/components/snackbar.dart';
 import 'package:example/actions/components/spacer.dart';
 import 'package:example/actions/components/tab_header.dart';
@@ -21,7 +22,7 @@ class _ReadContractExampleState extends State<ReadContractExample> {
   final argsController = TextEditingController();
 
   final presets = [
-    const Preset(
+    const ContractFunctionPreset(
       name: '[Amoy] Total supply (bigint)',
       address: '0x2237605711227D0254Ccb33CE70767871Cf1CCc3',
       args: '[]',
@@ -36,7 +37,7 @@ class _ReadContractExampleState extends State<ReadContractExample> {
   "type": "function"
 }''',
     ),
-    const Preset(
+    const ContractFunctionPreset(
       name: '[Amoy] Token decimals (uint8)',
       address: '0x2237605711227D0254Ccb33CE70767871Cf1CCc3',
       args: '[]',
@@ -55,7 +56,7 @@ class _ReadContractExampleState extends State<ReadContractExample> {
   "type": "function"
 }''',
     ),
-    const Preset(
+    const ContractFunctionPreset(
       name: '[Sepolia] getSwapsByOwner',
       address: '0xe983d3dBCB15038dbF2AE69A445A5576B0280d1c',
       args: '''
@@ -127,8 +128,8 @@ class _ReadContractExampleState extends State<ReadContractExample> {
               methodName: 'readContract',
             ),
             Space.large(),
-            _PresetSelector(
-              onSelect: (Preset preset) {
+            ContractFunctionPresetSelector(
+              onSelect: (ContractFunctionPreset preset) {
                 abiController.text = preset.abi;
                 addressController.text = preset.address;
                 argsController.text = preset.args;
@@ -197,71 +198,6 @@ class _ReadContractExampleState extends State<ReadContractExample> {
     print('Read contract succeed : $message');
     context.showSuccess(
       'Read contract succeed : $message',
-    );
-  }
-}
-
-class Preset {
-  const Preset({
-    required this.name,
-    required this.abi,
-    required this.address,
-    required this.args,
-  });
-
-  final String name;
-  final String abi;
-  final String address;
-  final String args;
-}
-
-class _PresetSelector extends StatefulWidget {
-  const _PresetSelector({
-    super.key,
-    required this.presets,
-    required this.onSelect,
-  });
-
-  final List<Preset> presets;
-  final Function(Preset preset) onSelect;
-
-  @override
-  State<_PresetSelector> createState() => _PresetSelectorState();
-}
-
-class _PresetSelectorState extends State<_PresetSelector> {
-  Preset? selectedPreset;
-
-  @override
-  void initState() {
-    _select(widget.presets.first);
-    super.initState();
-  }
-
-  void _select(Preset preset) {
-    widget.onSelect(preset);
-    setState(() {
-      selectedPreset = preset;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Wrap(
-      children: widget.presets
-          .map(
-            (preset) => Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 12),
-              child: ChoiceChip(
-                label: Text(preset.name),
-                selected: preset == selectedPreset,
-                onSelected: (selected) {
-                  if (selected) _select(preset);
-                },
-              ),
-            ),
-          )
-          .toList(),
     );
   }
 }
