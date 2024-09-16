@@ -69,6 +69,8 @@ class _MyAppState extends State<MyApp> {
             wagmi.Chain.sepolia.id,
             wagmi.Chain.polygonAmoy.id,
             wagmi.Chain.polygon.id,
+            wagmi.Chain.bsc.id,
+            wagmi.Chain.bscTestnet.id,
           ],
           enableAnalytics: true,
           enableOnRamp: true,
@@ -100,6 +102,12 @@ class _MyAppState extends State<MyApp> {
     }
     if (chainId == wagmi.Chain.polygon.id) {
       return 'wss://polygon-mainnet.g.alchemy.com/v2/DynWKvz6PUFaeZNmlxPXNiV1nK4Ac_2D';
+    }
+    if (chainId == wagmi.Chain.bsc.id) {
+      return 'wss://bsc-dataseed.bnbchain.org';
+    }
+    if (chainId == wagmi.Chain.bscTestnet.id) {
+      return 'wss://bsc-testnet.publicnode.com';
     }
     return 'wss://eth-mainnet.alchemyapi.io/v2/DynWKvz6PUFaeZNmlxPXNiV1nK4Ac_2D';
   }
