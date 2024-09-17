@@ -1,3 +1,6 @@
+## 0.0.1-dev.7
+* Remove the assets folder from the `.gitignore` to correctly include it in the package published on pub.dev.
+
 ## 0.0.1-dev.6
 * Add raw param in `SignMessage` method
 

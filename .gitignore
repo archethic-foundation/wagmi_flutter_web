@@ -31,5 +31,4 @@ build/
 
 # JS related
 node_modules
-assets/*.js
 assets/*.LICENSE.txt
