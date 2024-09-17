@@ -48,7 +48,7 @@ mixin _$WriteContractParameters {
             String? type)
         legacy,
     required TResult Function(
-            List<Map> abi,
+            List<Map<String, dynamic>> abi,
             String address,
             String functionName,
             List<Map<String, dynamic>>? accessList,
@@ -97,7 +97,7 @@ mixin _$WriteContractParameters {
             String? type)?
         legacy,
     TResult? Function(
-            List<Map> abi,
+            List<Map<String, dynamic>> abi,
             String address,
             String functionName,
             List<Map<String, dynamic>>? accessList,
@@ -146,7 +146,7 @@ mixin _$WriteContractParameters {
             String? type)?
         legacy,
     TResult Function(
-            List<Map> abi,
+            List<Map<String, dynamic>> abi,
             String address,
             String functionName,
             List<Map<String, dynamic>>? accessList,
@@ -213,8 +213,7 @@ abstract class $WriteContractParametersCopyWith<$Res> {
       _$WriteContractParametersCopyWithImpl<$Res, WriteContractParameters>;
   @useResult
   $Res call(
-      {List<Map<dynamic, dynamic>> abi,
-      String address,
+      {String address,
       String functionName,
       List<Map<String, dynamic>>? accessList,
       String? account,
@@ -241,7 +240,6 @@ class _$WriteContractParametersCopyWithImpl<$Res,
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? abi = null,
     Object? address = null,
     Object? functionName = null,
     Object? accessList = freezed,
@@ -255,10 +253,6 @@ class _$WriteContractParametersCopyWithImpl<$Res,
     Object? type = freezed,
   }) {
     return _then(_value.copyWith(
-      abi: null == abi
-          ? _value.abi
-          : abi // ignore: cast_nullable_to_non_nullable
-              as List<Map<dynamic, dynamic>>,
       address: null == address
           ? _value.address
           : address // ignore: cast_nullable_to_non_nullable
@@ -561,7 +555,7 @@ class _$WriteContractParametersLegacyImpl
             String? type)
         legacy,
     required TResult Function(
-            List<Map> abi,
+            List<Map<String, dynamic>> abi,
             String address,
             String functionName,
             List<Map<String, dynamic>>? accessList,
@@ -614,7 +608,7 @@ class _$WriteContractParametersLegacyImpl
             String? type)?
         legacy,
     TResult? Function(
-            List<Map> abi,
+            List<Map<String, dynamic>> abi,
             String address,
             String functionName,
             List<Map<String, dynamic>>? accessList,
@@ -667,7 +661,7 @@ class _$WriteContractParametersLegacyImpl
             String? type)?
         legacy,
     TResult Function(
-            List<Map> abi,
+            List<Map<String, dynamic>> abi,
             String address,
             String functionName,
             List<Map<String, dynamic>>? accessList,
@@ -800,7 +794,7 @@ abstract class _$$WriteContractParametersEIP1559ImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {List<Map> abi,
+      {List<Map<String, dynamic>> abi,
       String address,
       String functionName,
       List<Map<String, dynamic>>? accessList,
@@ -846,7 +840,7 @@ class __$$WriteContractParametersEIP1559ImplCopyWithImpl<$Res>
       abi: null == abi
           ? _value._abi
           : abi // ignore: cast_nullable_to_non_nullable
-              as List<Map>,
+              as List<Map<String, dynamic>>,
       address: null == address
           ? _value.address
           : address // ignore: cast_nullable_to_non_nullable
@@ -904,7 +898,7 @@ class __$$WriteContractParametersEIP1559ImplCopyWithImpl<$Res>
 class _$WriteContractParametersEIP1559Impl
     extends WriteContractParametersEIP1559 {
   const _$WriteContractParametersEIP1559Impl(
-      {required final List<Map> abi,
+      {required final List<Map<String, dynamic>> abi,
       required this.address,
       required this.functionName,
       final List<Map<String, dynamic>>? accessList,
@@ -922,9 +916,9 @@ class _$WriteContractParametersEIP1559Impl
         _args = args,
         super._();
 
-  final List<Map> _abi;
+  final List<Map<String, dynamic>> _abi;
   @override
-  List<Map> get abi {
+  List<Map<String, dynamic>> get abi {
     if (_abi is EqualUnmodifiableListView) return _abi;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_abi);
@@ -1044,7 +1038,7 @@ class _$WriteContractParametersEIP1559Impl
             String? type)
         legacy,
     required TResult Function(
-            List<Map> abi,
+            List<Map<String, dynamic>> abi,
             String address,
             String functionName,
             List<Map<String, dynamic>>? accessList,
@@ -1097,7 +1091,7 @@ class _$WriteContractParametersEIP1559Impl
             String? type)?
         legacy,
     TResult? Function(
-            List<Map> abi,
+            List<Map<String, dynamic>> abi,
             String address,
             String functionName,
             List<Map<String, dynamic>>? accessList,
@@ -1150,7 +1144,7 @@ class _$WriteContractParametersEIP1559Impl
             String? type)?
         legacy,
     TResult Function(
-            List<Map> abi,
+            List<Map<String, dynamic>> abi,
             String address,
             String functionName,
             List<Map<String, dynamic>>? accessList,
@@ -1225,7 +1219,7 @@ class _$WriteContractParametersEIP1559Impl
 
 abstract class WriteContractParametersEIP1559 extends WriteContractParameters {
   const factory WriteContractParametersEIP1559(
-      {required final List<Map> abi,
+      {required final List<Map<String, dynamic>> abi,
       required final String address,
       required final String functionName,
       final List<Map<String, dynamic>>? accessList,
@@ -1241,7 +1235,7 @@ abstract class WriteContractParametersEIP1559 extends WriteContractParameters {
   const WriteContractParametersEIP1559._() : super._();
 
   @override
-  List<Map> get abi;
+  List<Map<String, dynamic>> get abi;
   @override
   String get address;
   @override
@@ -1527,7 +1521,7 @@ class _$WriteContractParametersEIP4844Impl
             String? type)
         legacy,
     required TResult Function(
-            List<Map> abi,
+            List<Map<String, dynamic>> abi,
             String address,
             String functionName,
             List<Map<String, dynamic>>? accessList,
@@ -1580,7 +1574,7 @@ class _$WriteContractParametersEIP4844Impl
             String? type)?
         legacy,
     TResult? Function(
-            List<Map> abi,
+            List<Map<String, dynamic>> abi,
             String address,
             String functionName,
             List<Map<String, dynamic>>? accessList,
@@ -1633,7 +1627,7 @@ class _$WriteContractParametersEIP4844Impl
             String? type)?
         legacy,
     TResult Function(
-            List<Map> abi,
+            List<Map<String, dynamic>> abi,
             String address,
             String functionName,
             List<Map<String, dynamic>>? accessList,
