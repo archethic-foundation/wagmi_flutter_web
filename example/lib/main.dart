@@ -312,14 +312,12 @@ class _MyAppState extends State<MyApp> {
             const SizedBox(
               height: 10,
             ),
-            const SizedBox(
-              height: 10,
-            ),
             ElevatedButton(
               onPressed: () async {
                 final signMessageParameters = wagmi.SignMessageParameters(
                   account: account!.address!,
-                  message: messageToSign,
+                  message:
+                      wagmi.MessageToSign.stringMessage(message: messageToSign),
                 );
                 final signMessageReturnType =
                     await wagmi.Core.signMessage(signMessageParameters);
@@ -327,7 +325,26 @@ class _MyAppState extends State<MyApp> {
                   signedMessage = signMessageReturnType;
                 });
               },
-              child: Text('Personal sign ($messageToSign)'),
+              child: Text('Personal sign (string: $messageToSign)'),
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            ElevatedButton(
+              onPressed: () async {
+                final signMessageParameters = wagmi.SignMessageParameters(
+                  account: account!.address!,
+                  message: wagmi.MessageToSign.rawMessage(
+                    message: wagmi.RawMessage.hex(raw: messageToSign),
+                  ),
+                );
+                final signMessageReturnType =
+                    await wagmi.Core.signMessage(signMessageParameters);
+                setState(() {
+                  signedMessage = signMessageReturnType;
+                });
+              },
+              child: Text('Personal sign (raw: $messageToSign)'),
             ),
             if (signedMessage != null)
               Column(

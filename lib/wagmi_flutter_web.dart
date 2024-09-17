@@ -46,6 +46,7 @@ export 'src/models/chain_serializers.dart';
 export 'src/models/connector.dart';
 export 'src/models/fees_values.dart';
 export 'src/models/format_unit.dart';
+export 'src/models/message_to_sign.dart';
 export 'src/models/transport.dart';
 export 'src/utils/ether_amount.dart';
 export 'src/utils/utils_js.dart';

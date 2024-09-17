@@ -42,6 +42,7 @@ part 'models/data_image.js.dart';
 part 'models/error.js.dart';
 part 'models/format_unit.js.dart';
 part 'models/jsFunctionToDart.js.dart';
+part 'models/listIntToJSArray.js.dart';
 part 'models/log.js.dart';
 part 'models/transport.js.dart';
 part 'wagmi_core.js.dart';
