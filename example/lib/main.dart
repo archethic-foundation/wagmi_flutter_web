@@ -318,8 +318,8 @@ class _MyAppState extends State<MyApp> {
                     message: wagmi.RawMessage.hex(raw: messageToSign),
                   ),
                 );
-                final signMessageReturnType =
-                    await wagmi.Core.signMessage(signMessageParameters);
+                final signMessageReturnType = await wagmi.Core.signMessage(
+                    WagmiContext.main.config, signMessageParameters);
                 setState(() {
                   signedMessage = signMessageReturnType;
                 });
