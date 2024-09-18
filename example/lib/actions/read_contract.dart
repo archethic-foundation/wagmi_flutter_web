@@ -188,14 +188,14 @@ class _ReadContractExampleState extends State<ReadContractExample> {
   }
 
   void _operationFailed(String? message) {
-    print('Read contract failed : $message');
+    debugPrint('Read contract failed : $message');
     context.showFailure(
       'Read contract failed : $message',
     );
   }
 
   void _operationSucceed(String? message) {
-    print('Read contract succeed : $message');
+    debugPrint('Read contract succeed : $message');
     context.showSuccess(
       'Read contract succeed : $message',
     );

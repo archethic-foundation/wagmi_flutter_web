@@ -201,14 +201,14 @@ class _WriteContractExampleState extends State<WriteContractExample> {
   }
 
   void _operationFailed(String? message) {
-    print('Write contract failed : $message');
+    debugPrint('Write contract failed : $message');
     context.showFailure(
       'Write contract failed : $message',
     );
   }
 
   void _operationSucceed(String? message) {
-    print('Write contract succeed : $message');
+    debugPrint('Write contract succeed : $message');
     context.showSuccess(
       'Write contract succeed : $message',
     );
