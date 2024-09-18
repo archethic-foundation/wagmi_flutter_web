@@ -48,6 +48,9 @@ class _MyAppState extends State<MyApp> {
   String testTokenA1 = '0x4D8cb4Fa6Df53d47f0B7d76a05d4AC881B2f4101';
   String tempWallet = '0xfAd3b616BCD747A12A7c0a6203E7a481606B12E8';
 
+  // TODO(dev): Add your own project ID to use example
+  static const _projectId = '<TO UPDATE>';
+
   String txHash = '';
   BigInt blockConfirmationNumber = BigInt.zero,
       estimateMaxPriorityFeePerGas = BigInt.zero;
@@ -71,7 +74,7 @@ class _MyAppState extends State<MyApp> {
         await wagmi.init();
 
         wagmi.Web3Modal.init(
-          projectId: 'f642e3f39ba3e375f8f714f18354faa4',
+          projectId: _projectId,
           chains: [
             wagmi.Chain.mainnet.id,
             wagmi.Chain.sepolia.id,
@@ -94,7 +97,7 @@ class _MyAppState extends State<MyApp> {
 
         // create config
         wagmi.Web3Modal.createConfig(
-          projectId: 'f642e3f39ba3e375f8f714f18354faa4',
+          projectId: _projectId,
           configKey: 'withWSSTransport',
           chains: [
             // wagmi.Chain.mainnet.id,
@@ -114,7 +117,7 @@ class _MyAppState extends State<MyApp> {
           walletFeatures: true, // walletFeatures
           transportBuilder: (chainId) => const wagmi.Transport.http(
             url:
-                'https://polygon-amoy.g.alchemy.com/v2/tElwptdnZg_9h0k6rhfPCXowCNxqAl3h',
+                'https://polygon-amoy.g.alchemy.com/v2/', //TODO(dev): Add your own API Key to use example
           ),
         );
       },
