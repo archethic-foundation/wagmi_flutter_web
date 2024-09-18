@@ -89,6 +89,9 @@ class _$BlockTagCopyWithImpl<$Res, $Val extends BlockTag>
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
+
+  /// Create a copy of BlockTag
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -105,6 +108,9 @@ class __$$BlockTagLatestImplCopyWithImpl<$Res>
   __$$BlockTagLatestImplCopyWithImpl(
       _$BlockTagLatestImpl _value, $Res Function(_$BlockTagLatestImpl) _then)
       : super(_value, _then);
+
+  /// Create a copy of BlockTag
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -226,6 +232,9 @@ class __$$BlockTagEarliestImplCopyWithImpl<$Res>
   __$$BlockTagEarliestImplCopyWithImpl(_$BlockTagEarliestImpl _value,
       $Res Function(_$BlockTagEarliestImpl) _then)
       : super(_value, _then);
+
+  /// Create a copy of BlockTag
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -347,6 +356,9 @@ class __$$BlockTagPendingImplCopyWithImpl<$Res>
   __$$BlockTagPendingImplCopyWithImpl(
       _$BlockTagPendingImpl _value, $Res Function(_$BlockTagPendingImpl) _then)
       : super(_value, _then);
+
+  /// Create a copy of BlockTag
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -468,6 +480,9 @@ class __$$BlockTagSafeImplCopyWithImpl<$Res>
   __$$BlockTagSafeImplCopyWithImpl(
       _$BlockTagSafeImpl _value, $Res Function(_$BlockTagSafeImpl) _then)
       : super(_value, _then);
+
+  /// Create a copy of BlockTag
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -589,6 +604,9 @@ class __$$BlockTagFinalizedImplCopyWithImpl<$Res>
   __$$BlockTagFinalizedImplCopyWithImpl(_$BlockTagFinalizedImpl _value,
       $Res Function(_$BlockTagFinalizedImpl) _then)
       : super(_value, _then);
+
+  /// Create a copy of BlockTag
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc

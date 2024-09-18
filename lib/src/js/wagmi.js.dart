@@ -2,6 +2,7 @@ import 'dart:js_interop';
 // ignore: avoid_web_libraries_in_flutter
 import 'dart:js_util' as js_util;
 
+import 'package:wagmi_flutter_web/src/models/connections.dart';
 import 'package:wagmi_flutter_web/src/models/error.dart';
 import 'package:wagmi_flutter_web/src/models/log.dart';
 import 'package:wagmi_flutter_web/wagmi_flutter_web.dart';
@@ -32,12 +33,20 @@ part 'actions/sign_message.js.dart';
 part 'actions/wait_for_transaction_receipt.js.dart';
 part 'actions/watch_chain_id.js.dart';
 part 'actions/watch_contract_event.js.dart';
+part 'actions/watch_account.js.dart';
+part 'actions/watch_connections.js.dart';
+part 'actions/verify_message.js.dart';
+part 'actions/switch_account.js.dart';
+part 'actions/switch_chain.js.dart';
+
 part 'actions/write_contract.js.dart';
+
 part 'models/account.js.dart';
 part 'models/bigint.js.dart';
 part 'models/block_tag.js.dart';
 part 'models/chain.js.dart';
 part 'models/connector.js.dart';
+part 'models/connections.js.dart';
 part 'models/data_image.js.dart';
 part 'models/error.js.dart';
 part 'models/format_unit.js.dart';

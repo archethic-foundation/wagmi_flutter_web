@@ -29,6 +29,8 @@ class _MyAppState extends State<MyApp> {
   BigInt? blockNumber;
   String? signedMessage;
   wagmi.WatchChainIdReturnType? watchChainIdUnsubscribe;
+  wagmi.WatchAccountReturnType? watchAccountUnsubscribe;
+  wagmi.WatchConnectionsReturnType? watchConnectionsUnsubscribe;
   String? watchChainIdInfo;
   int? gasEstimation;
   int? transactionCount;
@@ -48,6 +50,7 @@ class _MyAppState extends State<MyApp> {
       estimateMaxPriorityFeePerGas = BigInt.zero;
   int? transactionsCountOfChain;
   BigInt callReturnType = BigInt.zero;
+  bool? verifyMsg;
 
   final tabs = [
     const Tab(text: 'Main'),
@@ -753,6 +756,134 @@ class _MyAppState extends State<MyApp> {
             const SizedBox(
               height: 7,
             ),
+            // switch chain
+            ElevatedButton(
+              onPressed: () async {
+                final switchChainParameters = wagmi.SwitchChainParameters(
+                  connector: account!.connector,
+                  chainId: 137,
+                );
+                final result =
+                    await wagmi.Core.switchChain(switchChainParameters);
+                showSwitchChainDialog(context, result);
+              },
+              child: const Text('Switch Chain'),
+            ),
+            const SizedBox(
+              height: 7,
+            ),
+            // switch account
+            ElevatedButton(
+              onPressed: () async {
+                final switchAccountParameters = wagmi.SwitchAccountParameters(
+                  connector: account!.connector,
+                );
+                final result =
+                    await wagmi.Core.switchAccount(switchAccountParameters);
+                showSwitchAccountDialog(context, result);
+              },
+              child: const Text('Switch Account'),
+            ),
+            const SizedBox(
+              height: 7,
+            ),
+            // verify message
+            ElevatedButton(
+              onPressed: () async {
+                final verifyMessageParameters = wagmi.VerifyMessageParameters(
+                  message: messageToSign,
+                  signature: signedMessage!,
+                  address: account!.address!,
+                );
+                final result = await wagmi.Core.verifyMessage(
+                  verifyMessageParameters,
+                );
+                setState(() {
+                  verifyMsg = result;
+                });
+              },
+              child: const Text('Verify Message'),
+            ),
+            const SizedBox(
+              height: 7,
+            ),
+            if (verifyMsg != null)
+              Text('Verify Message: $verifyMsg')
+            else
+              Container(),
+            const SizedBox(
+              height: 7,
+            ),
+
+            // watch account
+            if (watchAccountUnsubscribe != null)
+              ElevatedButton(
+                onPressed: () async {
+                  watchAccountUnsubscribe?.call();
+                  setState(() {
+                    watchAccountUnsubscribe = null;
+                  });
+                },
+                child: const Text('Unwatch Account'),
+              )
+            else
+              ElevatedButton(
+                onPressed: () async {
+                  final watchAccountParameters = wagmi.WatchAccountParameters(
+                    onChange: (account) => setState(() {
+                      debugPrint('account changed : $account');
+                    }),
+                  );
+
+                  final unwatch = await wagmi.Core.watchAccount(
+                    watchAccountParameters,
+                  );
+                  setState(() {
+                    watchAccountUnsubscribe = unwatch;
+                  });
+                },
+                child: const Text('Watch Account'),
+              ),
+            const SizedBox(
+              height: 7,
+            ),
+            // watch connections
+            if (watchConnectionsUnsubscribe != null)
+              ElevatedButton(
+                onPressed: () async {
+                  watchConnectionsUnsubscribe?.call();
+                  setState(() {
+                    watchConnectionsUnsubscribe = null;
+                  });
+                },
+                child: const Text('Unwatch Connections'),
+              )
+            else
+              ElevatedButton(
+                onPressed: () async {
+                  final watchConnectionsParameters =
+                      wagmi.WatchConnectionsParameters(
+                    onChange: (accounts) => setState(() {
+                      if (accounts.isNotEmpty) {
+                        debugPrint(
+                            'accounts111: ${accounts[0].connector.name}');
+                        debugPrint(
+                            'accounts222: ${accounts[0].connector.type}');
+                      } else {
+                        debugPrint('empty accounts: $accounts');
+                      }
+                    }),
+                  );
+
+                  final unwatch = await wagmi.Core.watchConnections(
+                    watchConnectionsParameters,
+                  );
+                  setState(() {
+                    watchConnectionsUnsubscribe = unwatch;
+                  });
+                },
+                child: const Text('Watch Connections'),
+              ),
           ],
         ),
       ),
@@ -825,6 +956,38 @@ class _MyAppState extends State<MyApp> {
     );
   }
 
+// switch account dialog
+  void showSwitchAccountDialog(
+    BuildContext context,
+    Map<String, dynamic> value,
+  ) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: const Text('Switch Account'),
+          content: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text('account: ${value['accounts']}'),
+              const SizedBox(height: 8),
+              Text('chainId: ${value['chainId']}'),
+              const SizedBox(height: 8),
+            ],
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text('Close'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   // show wait for transaction receipt dialog
   void showWaitForTransactionReceiptDialog(
     BuildContext context,
@@ -873,6 +1036,51 @@ class _MyAppState extends State<MyApp> {
               Text(
                 'transactionIndex: ${waitForTransactionReceiptReturnType.transactionIndex}',
               ),
+            ],
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text('Close'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  void showSwitchChainDialog(
+    BuildContext context,
+    Map<String, dynamic> data,
+  ) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: const Text('Switch Chain'),
+          content: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text('formatters: ${data['formatters']}'),
+              const SizedBox(height: 8),
+              Text('fees: ${data['fees']}'),
+              const SizedBox(height: 8),
+              Text('serializers: ${data['serializers']}'),
+              const SizedBox(height: 8),
+              Text('rpcUrls: ${data['rpcUrls']}'),
+              const SizedBox(height: 8),
+              Text('nativeCurrency: ${data['nativeCurrency']}'),
+              const SizedBox(height: 8),
+              Text('blockExplorer: ${data['blockExplorer']}'),
+              const SizedBox(height: 8),
+              Text('chainId: ${data['id']}'),
+              const SizedBox(height: 8),
+              Text('chainName: ${data['name']}'),
+              const SizedBox(height: 8),
+              Text('contracts: ${data['contracts']}'),
+              const SizedBox(height: 8),
             ],
           ),
           actions: [
