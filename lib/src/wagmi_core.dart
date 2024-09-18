@@ -388,13 +388,11 @@ class Core {
   }
 
   static Future<Map<String, dynamic>> switchChain(
-    SwitchChainParameters switchChainParameters, {
-    bool transportOnlyConfig = false,
-  }) async {
+      Config config, SwitchChainParameters switchChainParameters) async {
     final result = await window.wagmiCore
         .switchChain(
+          config,
           switchChainParameters.toJS,
-          transportOnlyConfig.toJS,
         )
         .toDart;
     return result.toMap();
@@ -402,13 +400,11 @@ class Core {
 
   // switch account
   static Future<Map<String, dynamic>> switchAccount(
-    SwitchAccountParameters switchAccountParameters, {
-    bool transportOnlyConfig = false,
-  }) async {
+      Config config, SwitchAccountParameters switchAccountParameters) async {
     final result = await window.wagmiCore
         .switchAccount(
+          config,
           switchAccountParameters.toJS,
-          transportOnlyConfig.toJS,
         )
         .toDart;
     return result.toMap();
@@ -416,13 +412,11 @@ class Core {
 
   // verify message
   static Future<bool> verifyMessage(
-    VerifyMessageParameters verifyMessageParameters, {
-    bool transportOnlyConfig = false,
-  }) async {
+      Config config, VerifyMessageParameters verifyMessageParameters) async {
     final result = await window.wagmiCore
         .verifyMessage(
+          config,
           verifyMessageParameters.toJS,
-          transportOnlyConfig.toJS,
         )
         .toDart;
     return result.toDart;
@@ -430,27 +424,23 @@ class Core {
 
   // watch account
   static Future<void Function()> watchAccount(
-    WatchAccountParameters watchAccountParameters, {
-    bool transportOnlyConfig = false,
-  }) async {
+      Config config, WatchAccountParameters watchAccountParameters) async {
     final result = await window.wagmiCore
         .watchAccount(
+          config,
           watchAccountParameters.toJS1,
-          transportOnlyConfig.toJS,
         )
         .toDart;
     return result.toDart;
   }
 
   // watch connections
-  static Future<void Function()> watchConnections(
-    WatchConnectionsParameters watchConnectionsParameters, {
-    bool transportOnlyConfig = false,
-  }) async {
+  static Future<void Function()> watchConnections(Config config,
+      WatchConnectionsParameters watchConnectionsParameters) async {
     final result = await window.wagmiCore
         .watchConnections(
+          config,
           watchConnectionsParameters.toJS2,
-          transportOnlyConfig.toJS,
         )
         .toDart;
     return result.toDart;

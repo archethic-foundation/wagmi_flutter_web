@@ -321,8 +321,8 @@ class _MyAppState extends State<MyApp> {
                     message: wagmi.RawMessage.hex(raw: messageToSign),
                   ),
                 );
-                final signMessageReturnType =
-                    await wagmi.Core.signMessage(signMessageParameters);
+                final signMessageReturnType = await wagmi.Core.signMessage(
+                    WagmiContext.main.config, signMessageParameters);
                 setState(() {
                   signedMessage = signMessageReturnType;
                 });
@@ -764,8 +764,10 @@ class _MyAppState extends State<MyApp> {
                   connector: account!.connector,
                   chainId: 137,
                 );
-                final result =
-                    await wagmi.Core.switchChain(switchChainParameters);
+                final result = await wagmi.Core.switchChain(
+                  WagmiContext.main.config,
+                  switchChainParameters,
+                );
                 showSwitchChainDialog(context, result);
               },
               child: const Text('Switch Chain'),
@@ -779,8 +781,8 @@ class _MyAppState extends State<MyApp> {
                 final switchAccountParameters = wagmi.SwitchAccountParameters(
                   connector: account!.connector,
                 );
-                final result =
-                    await wagmi.Core.switchAccount(switchAccountParameters);
+                final result = await wagmi.Core.switchAccount(
+                    WagmiContext.main.config, switchAccountParameters);
                 showSwitchAccountDialog(context, result);
               },
               child: const Text('Switch Account'),
@@ -797,6 +799,7 @@ class _MyAppState extends State<MyApp> {
                   address: account!.address!,
                 );
                 final result = await wagmi.Core.verifyMessage(
+                  WagmiContext.main.config,
                   verifyMessageParameters,
                 );
                 setState(() {
@@ -837,6 +840,7 @@ class _MyAppState extends State<MyApp> {
                   );
 
                   final unwatch = await wagmi.Core.watchAccount(
+                    WagmiContext.main.config,
                     watchAccountParameters,
                   );
                   setState(() {
@@ -879,6 +883,7 @@ class _MyAppState extends State<MyApp> {
                   );
 
                   final unwatch = await wagmi.Core.watchConnections(
+                    WagmiContext.main.config,
                     watchConnectionsParameters,
                   );
                   setState(() {
