@@ -201,7 +201,9 @@ mixin _$WriteContractParameters {
   }) =>
       throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of WriteContractParameters
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $WriteContractParametersCopyWith<WriteContractParameters> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -237,6 +239,8 @@ class _$WriteContractParametersCopyWithImpl<$Res,
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of WriteContractParameters
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -336,6 +340,8 @@ class __$$WriteContractParametersLegacyImplCopyWithImpl<$Res>
       $Res Function(_$WriteContractParametersLegacyImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of WriteContractParameters
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -528,7 +534,9 @@ class _$WriteContractParametersLegacyImpl
       value,
       type);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of WriteContractParameters
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$WriteContractParametersLegacyImplCopyWith<
@@ -777,8 +785,11 @@ abstract class WriteContractParametersLegacy extends WriteContractParameters {
   BigInt? get value;
   @override
   String? get type;
+
+  /// Create a copy of WriteContractParameters
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$WriteContractParametersLegacyImplCopyWith<
           _$WriteContractParametersLegacyImpl>
       get copyWith => throw _privateConstructorUsedError;
@@ -819,6 +830,8 @@ class __$$WriteContractParametersEIP1559ImplCopyWithImpl<$Res>
       $Res Function(_$WriteContractParametersEIP1559Impl) _then)
       : super(_value, _then);
 
+  /// Create a copy of WriteContractParameters
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -1011,7 +1024,9 @@ class _$WriteContractParametersEIP1559Impl
       value,
       type);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of WriteContractParameters
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$WriteContractParametersEIP1559ImplCopyWith<
@@ -1260,8 +1275,11 @@ abstract class WriteContractParametersEIP1559 extends WriteContractParameters {
   BigInt? get value;
   @override
   String? get type;
+
+  /// Create a copy of WriteContractParameters
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$WriteContractParametersEIP1559ImplCopyWith<
           _$WriteContractParametersEIP1559Impl>
       get copyWith => throw _privateConstructorUsedError;
@@ -1302,6 +1320,8 @@ class __$$WriteContractParametersEIP4844ImplCopyWithImpl<$Res>
       $Res Function(_$WriteContractParametersEIP4844Impl) _then)
       : super(_value, _then);
 
+  /// Create a copy of WriteContractParameters
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -1494,7 +1514,9 @@ class _$WriteContractParametersEIP4844Impl
       value,
       type);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of WriteContractParameters
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$WriteContractParametersEIP4844ImplCopyWith<
@@ -1743,8 +1765,11 @@ abstract class WriteContractParametersEIP4844 extends WriteContractParameters {
   BigInt? get value;
   @override
   String? get type;
+
+  /// Create a copy of WriteContractParameters
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$WriteContractParametersEIP4844ImplCopyWith<
           _$WriteContractParametersEIP4844Impl>
       get copyWith => throw _privateConstructorUsedError;

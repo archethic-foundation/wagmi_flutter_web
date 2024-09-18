@@ -35,7 +35,9 @@ class Chain {
           : null,
       rpcUrls: map['rpcUrls'] != null
           ? (map['rpcUrls'] as Map<String, dynamic>).map(
-              (key, value) => MapEntry(key, ChainRpcUrls.fromMap(value)),
+              (key, value) {
+                return MapEntry(key, ChainRpcUrls.fromMap(value));
+              },
             )
           : null,
       blockExplorers: map['blockExplorers'] != null
@@ -48,14 +50,17 @@ class Chain {
               (key, value) => MapEntry(key, ChainContract.fromMap(value)),
             )
           : null,
-      sourceId: map['sourceId'],
-      testnet: map['testnet'],
-      custom: map['custom'],
+      // ignore: prefer_if_null_operators
+      sourceId: map['sourceId'] != null ? map['sourceId'] : null,
+      // ignore: prefer_if_null_operators
+      testnet: map['testnet'] != null ? map['testnet'] : null,
+      // ignore: prefer_if_null_operators
+      custom: map['custom'] != null ? map['custom'] : null,
       fees: map['fees'] != null ? ChainFees.fromMap(map['fees']) : null,
-      formatters: map['formatters'] != null
+      formatters: map['formatters'] != null && map['formatters'] is Map
           ? ChainFormatters.fromMap(map['formatters'])
           : null,
-      serializers: map['serializers'] != null
+      serializers: map['serializers'] != null && map['serializers'] is Map
           ? ChainSerializers.fromMap(map['serializers'])
           : null,
     );

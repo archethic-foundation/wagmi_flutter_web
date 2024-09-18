@@ -25,6 +25,11 @@ import {
     WatchChainIdParameters,
     WatchContractEventParameters,
     WriteContractParameters,
+    WatchConnectionsParameters,
+    WatchAccountParameters,
+    SwitchChainParameters,
+    SwitchAccountParameters,
+    VerifyMessageParameters,
     call,
     disconnect,
     estimateFeesPerGas,
@@ -53,6 +58,11 @@ import {
     watchChainId,
     watchContractEvent,
     writeContract,
+    watchConnections,
+    switchChain,
+    switchAccount,
+    watchAccount,
+    verifyMessage,
 } from "@wagmi/core";
 import { InvalidAddressError } from "viem";
 import { illegalNullsToUndefined } from "./parameters_utils";
@@ -282,6 +292,42 @@ export class JSWagmiCore {
         'getFeeHistory',
         async (config: Config, params: GetFeeHistoryParameters) => getFeeHistory(
             config,
+            params
+        )
+    )
+
+    watchConnections = this.#guard(
+        'watchConnections',
+        async (config: Config,params: WatchConnectionsParameters) => watchConnections(
+             config,
+            params
+        )
+    )
+    switchChain = this.#guard(
+        'switchChain',
+        async (config: Config,params: SwitchChainParameters) => switchChain(
+             config,
+            params
+        )
+    )
+    switchAccount = this.#guard(
+        'switchAccount',
+        async (config: Config,params: SwitchAccountParameters) => switchAccount(
+             config,
+            params
+        )
+    )
+    watchAccount = this.#guard(
+        'watchAccount',
+        async (config: Config,params: WatchAccountParameters) => watchAccount(
+             config,
+            params
+        )
+    )
+    verifyMessage = this.#guard(
+        'verifyMessage',
+        async (config: Config,params: VerifyMessageParameters) => verifyMessage(
+             config,
             params
         )
     )
