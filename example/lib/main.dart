@@ -489,7 +489,7 @@ class _MyAppState extends State<MyApp> {
                 //     ]),
                 //     include0x: true,
                 //     padToEvenLength: true);
-                // print('data: $data');
+                // debugPrint('data: $data');
 
                 // final sendTransactionParameters =
                 //     wagmi.SendTransactionParameters.legacy(
@@ -506,7 +506,7 @@ class _MyAppState extends State<MyApp> {
                 // );
                 // final result = await wagmi.Core.sendTransaction(
                 //     sendTransactionParameters);
-                // print('result: ${result}');
+                // debugPrint('result: ${result}');
                 // setState(() {
                 //   txHash = result;
                 // });
@@ -867,9 +867,11 @@ class _MyAppState extends State<MyApp> {
                     onChange: (accounts) => setState(() {
                       if (accounts.isNotEmpty) {
                         debugPrint(
-                            'accounts111: ${accounts[0].connector.name}');
+                          'accounts111: ${accounts[0].connector.name}',
+                        );
                         debugPrint(
-                            'accounts222: ${accounts[0].connector.type}');
+                          'accounts222: ${accounts[0].connector.type}',
+                        );
                       } else {
                         debugPrint('empty accounts: $accounts');
                       }
