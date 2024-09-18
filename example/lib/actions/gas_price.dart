@@ -1,4 +1,5 @@
 import 'package:example/actions/components/tab_header.dart';
+import 'package:example/context.dart';
 import 'package:flutter/material.dart';
 import 'package:wagmi_flutter_web/wagmi_flutter_web.dart' as wagmi;
 
@@ -31,7 +32,9 @@ class _GasPriceExampleState extends State<GasPriceExample> {
           ),
           ElevatedButton(
             onPressed: () async {
-              final account = wagmi.Core.getAccount();
+              final account = wagmi.Core.getAccount(
+                WagmiContext.main.config,
+              );
               if (account.chain == null) {
                 wagmi.Web3Modal.open();
               }
@@ -42,8 +45,10 @@ class _GasPriceExampleState extends State<GasPriceExample> {
               final getGasPriceParameters = wagmi.GetGasPriceParameters(
                 chainId: account.chain!.id,
               );
-              final getGasPriceReturnType =
-                  await wagmi.Core.getGasPrice(getGasPriceParameters);
+              final getGasPriceReturnType = await wagmi.Core.getGasPrice(
+                WagmiContext.main.config,
+                getGasPriceParameters,
+              );
               setState(() {
                 gasPrice = getGasPriceReturnType;
               });

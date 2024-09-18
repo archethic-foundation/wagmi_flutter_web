@@ -14,6 +14,26 @@ extension type JSWagmiWeb3Modal(JSObject _) implements JSObject {
     JSBoolean walletFeatures,
     JSFunction? transportBuilder,
   );
+  external JSConfig defaultWagmiConfig(
+    JSString projectId,
+    JSArray<JSNumber> chains,
+    JSWagmiWeb3ModalMetadata metadata,
+    JSBoolean email,
+    JSArray<JSString>? socials,
+    JSBoolean showWallets,
+    JSBoolean walletFeatures,
+    JSFunction? transportBuilder,
+  );
+
+  external JSAppKit createWeb3Modal(
+    JSConfig wagmiConfig,
+    JSString projectId,
+    // Optional - defaults to your Cloud configuration
+    JSBoolean? enableAnalytics,
+    // Optional - false as default
+    JSBoolean? enableOnRamp,
+  );
+
   external void open();
   external void close();
 }

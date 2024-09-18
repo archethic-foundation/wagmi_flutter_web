@@ -1,24 +1,15 @@
+import { Config } from "@wagmi/core"
 import { AppKit } from "@web3modal/base"
 import * as Web3modal from '@web3modal/wagmi'
 import { Chain, Client, createClient, EIP1193RequestFn, http, Transport, webSocket } from "viem"
 import { chainsFromIds } from "./chains"
-import { JSWagmiContext } from "./context"
 import { JSHttpTransport, JSTransport, JSTransportBuilder, JSWebsocketTransport } from "./transport"
 
 export class JSWeb3Modal {
-    _modalInstance: AppKit | undefined
-    _modal() {
-        if (this._modalInstance === undefined) {
-            throw new Error('Wagmi not initialized. Call `Web3Modal.init` first.')
-        }
-        return this._modalInstance
-    }
 
-    init(
+    defaultWagmiConfig(
         projectId: string,
         chains: number[],
-        enableAnalytics: boolean,
-        enableOnRamp: boolean,
         metadata: {
             name: string
             description: string
@@ -30,8 +21,8 @@ export class JSWeb3Modal {
         showWallets: boolean,
         walletFeatures: boolean,
         transportBuilder: JSTransportBuilder | undefined
-    ) {
-        JSWagmiContext.instance.config = Web3modal.defaultWagmiConfig({
+    ): Config {
+        return Web3modal.defaultWagmiConfig({
             chains: chainsFromIds(chains),
             projectId: projectId,
             metadata: metadata,
@@ -43,21 +34,20 @@ export class JSWeb3Modal {
             },
             client: !transportBuilder ? undefined : this.#clientBuilder(transportBuilder),
         })
+    }
 
-        this._modalInstance = Web3modal.createWeb3Modal({
-            wagmiConfig: JSWagmiContext.instance.config,
+    createWeb3Modal(
+        wagmiConfig: Config,
+        projectId: string,
+        enableAnalytics?: boolean, // Optional - defaults to your Cloud configuration
+        enableOnRamp?: boolean, // Optional - false as default
+    ): AppKit {
+        return Web3modal.createWeb3Modal({
+            wagmiConfig: wagmiConfig,
             projectId: projectId,
             enableAnalytics: enableAnalytics, // Optional - defaults to your Cloud configuration
             enableOnramp: enableOnRamp, // Optional - false as default
-        })
-    }
-
-    open() {
-        return this._modal().open()
-    }
-
-    close() {
-        return this._modal().close()
+        });
     }
 
     #clientBuilder(transportBuilder: JSTransportBuilder): ((parameters: { chain: Chain; }) => Client<Transport<string, Record<string, any>, EIP1193RequestFn>, Chain>) {

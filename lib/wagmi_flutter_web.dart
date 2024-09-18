@@ -32,6 +32,7 @@ export 'src/actions/watch_contract_event.dart';
 export 'src/actions/write_contract.dart';
 export 'src/models/abi.dart';
 export 'src/models/account.dart';
+export 'src/models/appkit.dart';
 export 'src/models/block_tag.dart';
 export 'src/models/bytes.dart';
 export 'src/models/chain.dart';
@@ -43,6 +44,7 @@ export 'src/models/chain_formatters.dart';
 export 'src/models/chain_native_currency.dart';
 export 'src/models/chain_rpc_urls.dart';
 export 'src/models/chain_serializers.dart';
+export 'src/models/config.dart';
 export 'src/models/connector.dart';
 export 'src/models/fees_values.dart';
 export 'src/models/format_unit.dart';
@@ -66,7 +68,7 @@ Future<void> init() async {
 
   _completeOnReadyEvent(completer);
 
-  await _injectJavascriptModule('assets/main.js');
+  _injectJavascriptModule('assets/main.js');
 
   _isReady = true;
   return completer.future;
@@ -89,7 +91,7 @@ void _completeOnReadyEvent(Completer completer) {
   );
 }
 
-Future<void> _injectJavascriptModule(String assetPath) async {
+void _injectJavascriptModule(String assetPath) {
   final scriptPath = 'assets/packages/wagmi_flutter_web/$assetPath';
 
   final scriptNode = html.ScriptElement()

@@ -28,19 +28,20 @@ import 'package:wagmi_flutter_web/src/actions/write_contract.dart';
 import 'package:wagmi_flutter_web/src/js/wagmi.js.dart';
 import 'package:wagmi_flutter_web/src/models/account.dart';
 import 'package:wagmi_flutter_web/src/models/chain.dart';
+import 'package:wagmi_flutter_web/src/models/config.dart';
 import 'package:wagmi_flutter_web/src/utils/utils_js.dart';
 
 class Core {
-  static Account getAccount() {
-    return window.wagmiCore.getAccount().toDart;
+  static Account getAccount(Config config) {
+    return window.wagmiCore.getAccount(config).toDart;
   }
 
-  static int getChainId() {
-    return window.wagmiCore.getChainId().toDartInt;
+  static int getChainId(Config config) {
+    return window.wagmiCore.getChainId(config).toDartInt;
   }
 
-  static List<Chain> getChains() {
-    final result = window.wagmiCore.getChains();
+  static List<Chain> getChains(Config config) {
+    final result = window.wagmiCore.getChains(config);
 
     return result.toDart
         .map(
@@ -50,10 +51,12 @@ class Core {
   }
 
   static Future<BigInt> getBlockNumber(
+    Config config,
     GetBlockNumberParameters getBlockNumberParameters,
   ) async {
     final result = await window.wagmiCore
         .getBlockNumber(
+          config,
           getBlockNumberParameters.toJS,
         )
         .toDart;
@@ -61,10 +64,12 @@ class Core {
   }
 
   static Future<BigInt> getGasPrice(
+    Config config,
     GetGasPriceParameters getGasPriceParameters,
   ) async {
     final result = await window.wagmiCore
         .getGasPrice(
+          config,
           getGasPriceParameters.toJS,
         )
         .toDart;
@@ -72,10 +77,12 @@ class Core {
   }
 
   static Future<GetBalanceReturnType> getBalance(
+    Config config,
     GetBalanceParameters getBalanceParameters,
   ) async {
     final result = await window.wagmiCore
         .getBalance(
+          config,
           getBalanceParameters.toJS,
         )
         .toDart;
@@ -83,10 +90,12 @@ class Core {
   }
 
   static Future<int> getTransactionCount(
+    Config config,
     GetTransactionCountParameters getTransactionCountParameters,
   ) async {
     final result = await window.wagmiCore
         .getTransactionCount(
+          config,
           getTransactionCountParameters.toJS,
         )
         .toDart;
@@ -94,10 +103,12 @@ class Core {
   }
 
   static Future<GetTokenReturnType> getToken(
+    Config config,
     GetTokenParameters getTokenParameters,
   ) async {
     final result = await window.wagmiCore
         .getToken(
+          config,
           getTokenParameters.toJS,
         )
         .toDart;
@@ -106,10 +117,12 @@ class Core {
   }
 
   static Future<String> signMessage(
+    Config config,
     SignMessageParameters signMessageParameters,
   ) async {
     final result = await window.wagmiCore
         .signMessage(
+          config,
           signMessageParameters.toJS,
         )
         .toDart;
@@ -118,10 +131,12 @@ class Core {
 
   // read contract
   static Future<dynamic> readContract(
+    Config config,
     ReadContractParameters readContractParameters,
   ) async {
     final result = await window.wagmiCore
         .readContract(
+          config,
           readContractParameters.toJS,
         )
         .toDart;
@@ -129,10 +144,12 @@ class Core {
   }
 
   static Future<List<Map<String, dynamic>>> readContracts(
+    Config config,
     ReadContractsParameters readContractsParameters,
   ) async {
     final result = await window.wagmiCore
         .readContracts(
+          config,
           readContractsParameters.toJS,
         )
         .toDart;
@@ -141,10 +158,12 @@ class Core {
 
   // get transaction receipt
   static Future<GetTransactionReceiptReturnType> getTransactionReceipt(
+    Config config,
     GetTransactionReceiptParameters getTransactionReceiptParameters,
   ) async {
     final result = await window.wagmiCore
         .getTransactionReceipt(
+          config,
           getTransactionReceiptParameters.toJS,
         )
         .toDart;
@@ -152,10 +171,12 @@ class Core {
   }
 
   static Future<void Function()> watchChainId(
+    Config config,
     WatchChainIdParameters watchChainIdParameters,
   ) async {
     final result = await window.wagmiCore
         .watchChainId(
+          config,
           watchChainIdParameters.toJS,
         )
         .toDart;
@@ -163,10 +184,12 @@ class Core {
   }
 
   static Future<String> sendTransaction(
+    Config config,
     SendTransactionParameters sendTransactionParameters,
   ) async {
     final result = await window.wagmiCore
         .sendTransaction(
+          config,
           sendTransactionParameters.toJS,
         )
         .toDart;
@@ -174,10 +197,12 @@ class Core {
   }
 
   static Future<String> writeContract(
+    Config config,
     WriteContractParameters writeContractParameters,
   ) async {
     final result = await window.wagmiCore
         .writeContract(
+          config,
           writeContractParameters.toJS,
         )
         .toDart;
@@ -185,10 +210,12 @@ class Core {
   }
 
   static Future<BigInt> estimateGas(
+    Config config,
     EstimateGasParameters estimateGasParameters,
   ) async {
     final result = await window.wagmiCore
         .estimateGas(
+          config,
           estimateGasParameters.toJS,
         )
         .toDart;
@@ -196,10 +223,12 @@ class Core {
   }
 
   static Future<GetTransactionReturnType> getTransaction(
+    Config config,
     GetTransactionParameters getTransactionParameters,
   ) async {
     final result = await window.wagmiCore
         .getTransaction(
+          config,
           getTransactionParameters.toJS,
         )
         .toDart;
@@ -207,10 +236,12 @@ class Core {
   }
 
   static Future<WatchContractEventReturnType> watchContractEvent(
+    Config config,
     WatchContractEventParameters watchContractEventParameters,
   ) async {
     final result = await window.wagmiCore
         .watchContractEvent(
+          config,
           watchContractEventParameters.toJS,
         )
         .toDart;
@@ -218,10 +249,12 @@ class Core {
   }
 
   static Future<BigInt> getTransactionConfirmations(
+    Config config,
     GetTransactionConfirmationsParameters getTransactionConfirmationsParameters,
   ) async {
     final result = await window.wagmiCore
         .getTransactionConfirmations(
+          config,
           getTransactionConfirmationsParameters.toJS,
         )
         .toDart;
@@ -229,10 +262,12 @@ class Core {
   }
 
   static Future<GetBlockReturnType> getBlock(
+    Config config,
     GetBlockParameters getBlockParameters,
   ) async {
     final result = await window.wagmiCore
         .getBlock(
+          config,
           getBlockParameters.toJS,
         )
         .toDart;
@@ -240,10 +275,12 @@ class Core {
   }
 
   static Future<int> getBlockTransactionCount(
+    Config config,
     GetBlockTransactionCountParameters getBlockTransactionCountParameters,
   ) async {
     final result = await window.wagmiCore
         .getBlockTransactionCount(
+          config,
           getBlockTransactionCountParameters.toJS,
         )
         .toDart;
@@ -252,10 +289,12 @@ class Core {
 
   // call function
   static Future<CallReturnType> call(
+    Config config,
     CallParameters callParameters,
   ) async {
     final result = await window.wagmiCore
         .call(
+          config,
           callParameters.toJS,
         )
         .toDart;
@@ -264,10 +303,12 @@ class Core {
 
   // estimate fees per gas
   static Future<EstimateFeesPerGasReturnType> estimateFeesPerGas(
+    Config config,
     EstimateFeesPerGasParameters estimateFeesPerGasParameters,
   ) async {
     final result = await window.wagmiCore
         .estimateFeesPerGas(
+          config,
           estimateFeesPerGasParameters.toJS,
         )
         .toDart;
@@ -276,11 +317,13 @@ class Core {
 
   // estimate max priority fee per gas
   static Future<BigInt> estimateMaxPriorityFeePerGas(
+    Config config,
     EstimateMaxPriorityFeePerGasParameters
         estimateMaxPriorityFeePerGasParameters,
   ) async {
     final result = await window.wagmiCore
         .estimateMaxPriorityFeePerGas(
+          config,
           estimateMaxPriorityFeePerGasParameters.toJS,
         )
         .toDart;
@@ -289,10 +332,12 @@ class Core {
 
   // get byte code
   static Future<String> getBytecode(
+    Config config,
     GetByteCodeParameters getByteCodeParameters,
   ) async {
     final result = await window.wagmiCore
         .getBytecode(
+          config,
           getByteCodeParameters.toJS,
         )
         .toDart;
@@ -301,20 +346,24 @@ class Core {
 
   // disconnect
   static Future<void> disconnect(
+    Config config,
     DisconnectParameters disconnectParameters,
   ) async {
     await window.wagmiCore
         .disconnect(
+          config,
           disconnectParameters.toJS,
         )
         .toDart;
   }
 
   static Future<WaitForTransactionReceiptReturnType> waitForTransactionReceipt(
+    Config config,
     WaitForTransactionReceiptParameters waitForTransactionReceiptParameters,
   ) async {
     final result = await window.wagmiCore
         .waitForTransactionReceipt(
+          config,
           waitForTransactionReceiptParameters.toJS,
         )
         .toDart;
@@ -323,10 +372,12 @@ class Core {
 
   // get fee history
   static Future<GetFeeHistoryReturnType> getFeeHistory(
+    Config config,
     GetFeeHistoryParameters getFeeHistoryParameters,
   ) async {
     final result = await window.wagmiCore
         .getFeeHistory(
+          config,
           getFeeHistoryParameters.toJS,
         )
         .toDart;
