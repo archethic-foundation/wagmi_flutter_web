@@ -20,6 +20,11 @@ import {
     ReadContractParameters,
     ReadContractsParameters,
     SendTransactionParameters,
+    WatchConnectionsParameters,
+    WatchAccountParameters,
+    SwitchChainParameters,
+    SwitchAccountParameters,
+    VerifyMessageParameters,
     SignMessageParameters,
     WaitForTransactionReceiptParameters,
     WatchChainIdParameters,
@@ -53,6 +58,11 @@ import {
     watchChainId,
     watchContractEvent,
     writeContract,
+    watchConnections,
+    switchChain,
+    switchAccount,
+    watchAccount,
+    verifyMessage,
 } from "@wagmi/core";
 import { InvalidAddressError } from "viem";
 import { illegalNullsToUndefined } from "./parameters_utils";
@@ -285,6 +295,43 @@ export class JSWagmiCore {
             params
         )
     )
+
+    watchConnections = this.#guard(
+        'watchConnections',
+        async (config: Config, params: WatchConnectionsParameters) => watchConnections(
+            config,
+            params
+        )
+    )
+    switchChain = this.#guard(
+        'switchChain',
+        async (config: Config, params: SwitchChainParameters) => switchChain(
+            config,
+            params
+        )
+    )
+    switchAccount = this.#guard(
+        'switchAccount',
+        async (config: Config, params: SwitchAccountParameters) => switchAccount(
+            config,
+            params
+        )
+    )
+    watchAccount = this.#guard(
+        'watchAccount',
+        async (config: Config, params: WatchAccountParameters) => watchAccount(
+            config,
+            params
+        )
+    )
+    verifyMessage = this.#guard(
+        'verifyMessage',
+        async (config: Config, params: VerifyMessageParameters) => verifyMessage(
+            config,
+            params
+        )
+    )
+
 
     #guard<ParamsT, ResultT>(actionName: string, action: (config: Config, params: ParamsT) => Promise<ResultT>): (config: Config, params: ParamsT) => Promise<ResultT> {
         return async (config: Config, params: ParamsT) => {

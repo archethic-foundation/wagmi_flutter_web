@@ -35,9 +35,9 @@ class WagmiContext {
       wagmi.Web3Modal.defaultWagmiConfig(
         projectId: _projectId,
         chains: [
-          wagmi.Chain.mainnet.id,
-          wagmi.Chain.sepolia.id,
-          wagmi.Chain.polygonAmoy.id,
+          // wagmi.Chain.mainnet.id,
+          // wagmi.Chain.sepolia.id,
+          // wagmi.Chain.polygonAmoy.id,
           wagmi.Chain.polygon.id,
         ],
         metadata: wagmi.Web3ModalMetadata(
@@ -50,7 +50,7 @@ class WagmiContext {
         email: false, // email
         showWallets: true, // showWallets
         walletFeatures: true, // walletFeatures
-        transportBuilder: (chainId) => wagmi.Transport.websocket(
+        transportBuilder: (chainId) => wagmi.Transport.http(
           url: _transportUrl(chainId),
         ),
       ),
@@ -89,7 +89,7 @@ class WagmiContext {
       return 'wss://polygon-amoy.g.alchemy.com/v2/DynWKvz6PUFaeZNmlxPXNiV1nK4Ac_2D';
     }
     if (chainId == wagmi.Chain.polygon.id) {
-      return 'wss://polygon-mainnet.g.alchemy.com/v2/DynWKvz6PUFaeZNmlxPXNiV1nK4Ac_2D';
+      return 'https://polygon-mainnet.g.alchemy.com/v2/aX3VNdN-hBHFWAs4Gk0EveEEONI7ZEM_';
     }
     if (chainId == wagmi.Chain.bsc.id) {
       return 'wss://bsc-dataseed.bnbchain.org';

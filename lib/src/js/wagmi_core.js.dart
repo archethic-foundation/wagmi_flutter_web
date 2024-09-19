@@ -109,4 +109,31 @@ extension type JSWagmiCore(JSObject _) implements JSObject {
     JSConfig config,
     JSWatchContractEventParameters watchContractEventParameters,
   );
+
+  external JSPromise<JSObject> switchChain(
+    JSConfig config,
+    JSSwitchChainParameters switchChainParameters,
+  );
+  // switch account
+  external JSPromise<JSObject> switchAccount(
+    JSConfig config,
+    JSSwitchAccountParameters switchAccountParameters,
+  );
+  // verify message
+  external JSPromise<JSBoolean> verifyMessage(
+    JSConfig config,
+    JSVerifyMessageParameters verifyMessageParameters,
+  );
+
+  // watch account
+  external JSPromise<JSWatchAccountReturnType> watchAccount(
+    JSConfig config,
+    JSWatchAccountParameters watchChainIdParameters,
+  );
+
+  // watch connections
+  external JSPromise<JSWatchConnectionsReturnType> watchConnections(
+    JSConfig config,
+    JSWatchConnectionsParameters watchConnectionsParameters,
+  );
 }
