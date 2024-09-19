@@ -136,4 +136,20 @@ extension type JSWagmiCore(JSObject _) implements JSObject {
     JSConfig config,
     JSWatchConnectionsParameters watchConnectionsParameters,
   );
+  // getWalletClient
+  external JSPromise<JSGetWalletClientReturnType> getWalletClient(
+    JSConfig config,
+    JSGetWalletClientParameters getWalletClientParameters,
+  );
+
+  // deployContract
+  external JSPromise<JSString> deployContract(
+    JSConfig config,
+    JSDeployContractParameters deployContractParameters,
+  );
+  // watchAsset
+  external JSPromise<JSBoolean> watchAsset(
+    JSConfig config,
+    JSWatchAssetParameters watchAssetParameters,
+  );
 }

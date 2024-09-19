@@ -1,10 +1,12 @@
 import 'dart:js_interop';
 
 import 'package:wagmi_flutter_web/src/actions/call.dart';
+import 'package:wagmi_flutter_web/src/actions/deploy_contract.dart';
 import 'package:wagmi_flutter_web/src/actions/disconnect.dart';
 import 'package:wagmi_flutter_web/src/actions/estimate_fees_per_gas.dart';
 import 'package:wagmi_flutter_web/src/actions/estimate_gas.dart';
 import 'package:wagmi_flutter_web/src/actions/estimate_max_priority_fee_per_gas.dart';
+import 'package:wagmi_flutter_web/src/actions/get_wallet_client.dart';
 import 'package:wagmi_flutter_web/src/actions/get_balance.dart';
 import 'package:wagmi_flutter_web/src/actions/get_block.dart';
 import 'package:wagmi_flutter_web/src/actions/get_block_number.dart';
@@ -21,11 +23,12 @@ import 'package:wagmi_flutter_web/src/actions/read_contract.dart';
 import 'package:wagmi_flutter_web/src/actions/read_contracts.dart';
 import 'package:wagmi_flutter_web/src/actions/send_transaction.dart';
 import 'package:wagmi_flutter_web/src/actions/sign_message.dart';
-import 'package:wagmi_flutter_web/src/actions/wait_for_transaction_receipt.dart';
 import 'package:wagmi_flutter_web/src/actions/switch_account.dart';
 import 'package:wagmi_flutter_web/src/actions/switch_chain.dart';
 import 'package:wagmi_flutter_web/src/actions/verify_message.dart';
+import 'package:wagmi_flutter_web/src/actions/wait_for_transaction_receipt.dart';
 import 'package:wagmi_flutter_web/src/actions/watch_account.dart';
+import 'package:wagmi_flutter_web/src/actions/watch_asset.dart';
 import 'package:wagmi_flutter_web/src/actions/watch_chain_id.dart';
 import 'package:wagmi_flutter_web/src/actions/watch_connections.dart';
 import 'package:wagmi_flutter_web/src/actions/watch_contract_event.dart';
@@ -388,7 +391,9 @@ class Core {
   }
 
   static Future<Map<String, dynamic>> switchChain(
-      Config config, SwitchChainParameters switchChainParameters) async {
+    Config config,
+    SwitchChainParameters switchChainParameters,
+  ) async {
     final result = await window.wagmiCore
         .switchChain(
           config,
@@ -400,7 +405,9 @@ class Core {
 
   // switch account
   static Future<Map<String, dynamic>> switchAccount(
-      Config config, SwitchAccountParameters switchAccountParameters) async {
+    Config config,
+    SwitchAccountParameters switchAccountParameters,
+  ) async {
     final result = await window.wagmiCore
         .switchAccount(
           config,
@@ -412,7 +419,9 @@ class Core {
 
   // verify message
   static Future<bool> verifyMessage(
-      Config config, VerifyMessageParameters verifyMessageParameters) async {
+    Config config,
+    VerifyMessageParameters verifyMessageParameters,
+  ) async {
     final result = await window.wagmiCore
         .verifyMessage(
           config,
@@ -424,7 +433,9 @@ class Core {
 
   // watch account
   static Future<void Function()> watchAccount(
-      Config config, WatchAccountParameters watchAccountParameters) async {
+    Config config,
+    WatchAccountParameters watchAccountParameters,
+  ) async {
     final result = await window.wagmiCore
         .watchAccount(
           config,
@@ -435,12 +446,56 @@ class Core {
   }
 
   // watch connections
-  static Future<void Function()> watchConnections(Config config,
-      WatchConnectionsParameters watchConnectionsParameters) async {
+  static Future<void Function()> watchConnections(
+    Config config,
+    WatchConnectionsParameters watchConnectionsParameters,
+  ) async {
     final result = await window.wagmiCore
         .watchConnections(
           config,
           watchConnectionsParameters.toJS2,
+        )
+        .toDart;
+    return result.toDart;
+  }
+
+  // getWalletClient
+  static Future<GetWalletClientReturnType> getWalletClient(
+    Config config,
+    GetWalletClientParameters getWalletClientParameters,
+  ) async {
+    final result = await window.wagmiCore
+        .getWalletClient(
+          config,
+          getWalletClientParameters.toJS,
+        )
+        .toDart;
+    return result.toDart;
+  }
+
+  //deployContract
+  static Future<String> deployContract(
+    Config config,
+    DeployContractParameters deployContractParameters,
+  ) async {
+    final result = await window.wagmiCore
+        .deployContract(
+          config,
+          deployContractParameters.toJS,
+        )
+        .toDart;
+    return result.toDart;
+  }
+
+  // watchAsset
+  static Future<bool> watchAsset(
+    Config config,
+    WatchAssetParameters watchAssetParameters,
+  ) async {
+    final result = await window.wagmiCore
+        .watchAsset(
+          config,
+          watchAssetParameters.toJS,
         )
         .toDart;
     return result.toDart;

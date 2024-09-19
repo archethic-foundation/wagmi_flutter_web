@@ -17,6 +17,9 @@ import {
     GetTransactionCountParameters,
     GetTransactionParameters,
     GetTransactionReceiptParameters,
+    GetWalletClientParameters,
+    DeployContractParameters,
+    WatchAssetParameters,
     ReadContractParameters,
     ReadContractsParameters,
     SendTransactionParameters,
@@ -63,6 +66,9 @@ import {
     switchAccount,
     watchAccount,
     verifyMessage,
+    getWalletClient,
+    deployContract,
+    watchAsset,
 } from "@wagmi/core";
 import { InvalidAddressError } from "viem";
 import { illegalNullsToUndefined } from "./parameters_utils";
@@ -330,6 +336,33 @@ export class JSWagmiCore {
             config,
             params
         )
+    )
+    getWalletClient = this.#guard(
+        'getWalletClient',
+        async (config: Config, params: GetWalletClientParameters) => {
+            return await getWalletClient(
+                config,
+                params
+            );
+        }
+    )
+    deployContract = this.#guard(
+        'deployContract',
+        async (config: Config, params: DeployContractParameters) => {
+            return await deployContract(
+                config,
+                params
+            );
+        }
+    )
+    watchAsset = this.#guard(
+        'watchAsset',
+        async (config: Config, params: WatchAssetParameters) => {
+            return await watchAsset(
+                config,
+                params
+            );
+        }
     )
 
 
