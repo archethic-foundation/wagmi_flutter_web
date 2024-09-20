@@ -28,7 +28,6 @@ class WagmiContext {
 
   static Future<void> init() async {
     if (isReady.value) return;
-
     await wagmi.init();
 
     withWSSTransport = WagmiContext(
@@ -77,7 +76,6 @@ class WagmiContext {
         walletFeatures: true, // walletFeatures
       ),
     );
-
     isReady.value = true;
   }
 

@@ -70,17 +70,21 @@ var _isReady = false;
 ///
 /// This must be done before any interaction
 /// with the lib.
-Future<void> init() async {
-  if (_isReady) return;
-
+Future<dynamic> init() async {
+  if (_isReady) return Future.value(true);
   final completer = Completer();
-
   _completeOnReadyEvent(completer);
-
   _injectJavascriptModule('assets/main.js');
 
   _isReady = true;
-  return completer.future;
+  return completer.future.then((_) {
+    return true;
+  }).timeout(
+    const Duration(seconds: 3),
+    onTimeout: () {
+      return true;
+    },
+  );
 }
 
 void _completeOnReadyEvent(Completer completer) {

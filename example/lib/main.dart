@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:math';
 
 import 'package:example/actions/add_token.dart';
+import 'package:example/actions/components/SwitchChainDialog.dart';
 import 'package:example/actions/config_switch.dart';
 import 'package:example/actions/gas_price.dart';
 import 'package:example/actions/read_contract.dart';
@@ -122,7 +123,7 @@ class _MyAppState extends State<MyApp> {
               onPressed: () async {
                 // disconnect wallet
                 final getTokenParameters = wagmi.DisconnectParameters(
-                  connector: account?.connector!.id,
+                  connector: account?.connector,
                 );
                 await wagmi.Core.disconnect(
                   WagmiContext.main.config,
@@ -728,7 +729,7 @@ class _MyAppState extends State<MyApp> {
                 final waitForTransactionReceiptParameters =
                     wagmi.WaitForTransactionReceiptParameters(
                   hash:
-                      '0x041f2da24620eeef645e646f07399b3b374b86201931b228578c4632fb41abf4',
+                      '0x041f2da24620eeef645e646f07399b3b374b86201931b228578c4632fb41abf4', // for chain id 80002 only
                 );
                 final result = await wagmi.Core.waitForTransactionReceipt(
                   WagmiContext.main.config,
@@ -765,15 +766,20 @@ class _MyAppState extends State<MyApp> {
             // switch chain
             ElevatedButton(
               onPressed: () async {
-                final switchChainParameters = wagmi.SwitchChainParameters(
-                  connector: account!.connector,
-                  chainId: 137,
-                );
-                final result = await wagmi.Core.switchChain(
+                chains = wagmi.Core.getChains(
                   WagmiContext.main.config,
-                  switchChainParameters,
                 );
-                showSwitchChainDialog(context, result);
+                switchChainDialog(context, chains, (switchChain) async {
+                  final switchChainParameters = wagmi.SwitchChainParameters(
+                    connector: account!.connector,
+                    chainId: switchChain,
+                  );
+                  final result = await wagmi.Core.switchChain(
+                    WagmiContext.main.config,
+                    switchChainParameters,
+                  );
+                  showSwitchChainDialog(context, result);
+                });
               },
               child: const Text('Switch Chain'),
             ),
@@ -841,8 +847,19 @@ class _MyAppState extends State<MyApp> {
               ElevatedButton(
                 onPressed: () async {
                   final watchAccountParameters = wagmi.WatchAccountParameters(
-                    onChange: (account) => setState(() {
-                      debugPrint('account changed : $account');
+                    onChange: (accountInfo) => setState(() {
+                      debugPrint('accountInfo changed : $accountInfo');
+                      if (accountInfo['isConnected'] &&
+                          accountInfo['addresses'].length >= 2) {
+                        // show snackbar
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text(
+                              'Account switched to ${accountInfo['address']}',
+                            ),
+                          ),
+                        );
+                      }
                     }),
                   );
 
@@ -875,16 +892,28 @@ class _MyAppState extends State<MyApp> {
                 onPressed: () async {
                   final watchConnectionsParameters =
                       wagmi.WatchConnectionsParameters(
-                    onChange: (accounts) => setState(() {
-                      if (accounts.isNotEmpty) {
-                        debugPrint(
-                          'accounts111: ${accounts[0].connector.name}',
+                    onChange: (connectionsData) => setState(() {
+                      if (connectionsData.isNotEmpty &&
+                          connectionsData[0].accounts.length == 1 &&
+                          chainId == 0) {
+                        chainId = connectionsData[0].chainId;
+                        // show snackbar
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text(
+                              'Account connected to ${connectionsData[0].accounts[0]}',
+                            ),
+                          ),
                         );
-                        debugPrint(
-                          'accounts222: ${accounts[0].connector.type}',
+                      } else if (connectionsData.isEmpty) {
+                        // show snackbar
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text(
+                              'Account disconnected',
+                            ),
+                          ),
                         );
-                      } else {
-                        debugPrint('empty accounts: $accounts');
                       }
                     }),
                   );
@@ -903,38 +932,38 @@ class _MyAppState extends State<MyApp> {
               height: 7,
             ),
             // getWalletClient
-            ElevatedButton(
-              onPressed: () async {
-                // final getWalletClientParameters =
-                //     wagmi.GetWalletClientParameters(
-                // account: account!.address,
-                // connector: account!.connector,
-                // chainId: account!.chain!.id,
-                // );
-                // final result = await wagmi.Core.getWalletClient(
-                //   WagmiContext.main.config,
-                //   getWalletClientParameters,
-                // );
-              },
-              child: const Text('Get Wallet Client'),
-            ),
+            // ElevatedButton(
+            //   onPressed: () async {
+            // final getWalletClientParameters =
+            //     wagmi.GetWalletClientParameters(
+            // account: account!.address,
+            // connector: account!.connector,
+            // chainId: account!.chain!.id,
+            // );
+            // final result = await wagmi.Core.getWalletClient(
+            //   WagmiContext.main.config,
+            //   getWalletClientParameters,
+            // );
+            //   },
+            //   child: const Text('Get Wallet Client'),
+            // ),
             const SizedBox(
               height: 7,
             ),
             // deployContract
-            ElevatedButton(
-              onPressed: () async {
-                // final deployContractParameters = wagmi.DeployContractParameters(
-                //     abi: bitContractAbi,
-                //     bytecode:
-                //         '608060405234801561001057600080fd5b5060d38061001f6000396000f3fe608060405234801561001057600080fd5b506004361061002b5760003560e01c806360fe47b1146100305780636d4ce63c1461004e575b600080fd5b6100386004803603602081101561004657600080fd5b8101908080359060200190929190505050610065565b005b61004c6100a1565b6040518082815260200191505060405180910390f35b61006e6004803603602081101561006457600080fd5b81019080803590602001909291905050506100b3565b005');
-                // final result = await wagmi.Core.deployContract(
-                //   WagmiContext.main.config,
-                //   deployContractParameters,
-                // );
-              },
-              child: const Text('Deploy Contract'),
-            ),
+            // ElevatedButton(
+            //   onPressed: () async {
+            // final deployContractParameters = wagmi.DeployContractParameters(
+            //     abi: bitContractAbi,
+            //     bytecode:
+            //         '608060405234801561001057600080fd5b5060d38061001f6000396000f3fe608060405234801561001057600080fd5b506004361061002b5760003560e01c806360fe47b1146100305780636d4ce63c1461004e575b600080fd5b6100386004803603602081101561004657600080fd5b8101908080359060200190929190505050610065565b005b61004c6100a1565b6040518082815260200191505060405180910390f35b61006e6004803603602081101561006457600080fd5b81019080803590602001909291905050506100b3565b005');
+            // final result = await wagmi.Core.deployContract(
+            //   WagmiContext.main.config,
+            //   deployContractParameters,
+            // );
+            //   },
+            //   child: const Text('Deploy Contract'),
+            // ),
             const SizedBox(
               height: 7,
             ),
@@ -974,6 +1003,8 @@ class _MyAppState extends State<MyApp> {
   // abi for test3BitApi
   final String test3BitApi =
       '[{"inputs":[{"internalType":"address","name":"recipient","type":"address"},{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"transfer","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"nonpayable","type":"function"}]';
+
+// dialog to switch chain in which all the chains are showing and select chain to switch
 
 // switch account dialog
   void showSwitchAccountDialog(
@@ -1015,7 +1046,7 @@ class _MyAppState extends State<MyApp> {
       context: context,
       builder: (context) {
         return AlertDialog(
-          title: const Text('Switch Chain'),
+          title: const Text('Chain Switched'),
           content: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -1570,6 +1601,32 @@ class _MyAppState extends State<MyApp> {
               child: const Text('Close'),
             ),
           ],
+        );
+      },
+    );
+  }
+
+  void switchChainDialog(
+    BuildContext context,
+    List<wagmi.Chain> getChainsMethodsResponse,
+    Function(int) function,
+  ) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return Dialog(
+          insetPadding: const EdgeInsets.symmetric(horizontal: 10),
+          child: SizedBox(
+            width: 350,
+            child: SwitchChainDialog(
+              chains: getChainsMethodsResponse,
+              currentChain: account!.chain!.id,
+              callback: (value) {
+                Navigator.of(context).pop();
+                return function(value);
+              },
+            ),
+          ),
         );
       },
     );
