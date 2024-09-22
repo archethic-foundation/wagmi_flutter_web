@@ -5,6 +5,7 @@ import 'dart:async';
 import 'dart:html' as html;
 
 export 'src/actions/call.dart';
+export 'src/actions/deploy_contract.dart';
 export 'src/actions/disconnect.dart';
 export 'src/actions/estimate_fees_per_gas.dart';
 export 'src/actions/estimate_gas.dart';
@@ -22,6 +23,7 @@ export 'src/actions/get_transaction.dart';
 export 'src/actions/get_transaction_confirmations.dart';
 export 'src/actions/get_transaction_count.dart';
 export 'src/actions/get_transaction_receipt.dart';
+export 'src/actions/get_wallet_client.dart';
 export 'src/actions/read_contract.dart';
 export 'src/actions/read_contracts.dart';
 export 'src/actions/send_transaction.dart';
@@ -31,6 +33,7 @@ export 'src/actions/switch_chain.dart';
 export 'src/actions/verify_message.dart';
 export 'src/actions/wait_for_transaction_receipt.dart';
 export 'src/actions/watch_account.dart';
+export 'src/actions/watch_asset.dart';
 export 'src/actions/watch_chain_id.dart';
 export 'src/actions/watch_connections.dart';
 export 'src/actions/watch_contract_event.dart';
@@ -38,6 +41,7 @@ export 'src/actions/write_contract.dart';
 export 'src/models/abi.dart';
 export 'src/models/account.dart';
 export 'src/models/appkit.dart';
+export 'src/models/asset.dart';
 export 'src/models/block_tag.dart';
 export 'src/models/bytes.dart';
 export 'src/models/chain.dart';
@@ -66,17 +70,21 @@ var _isReady = false;
 ///
 /// This must be done before any interaction
 /// with the lib.
-Future<void> init() async {
-  if (_isReady) return;
-
+Future<dynamic> init() async {
+  if (_isReady) return Future.value(true);
   final completer = Completer();
-
   _completeOnReadyEvent(completer);
-
   _injectJavascriptModule('assets/main.js');
 
   _isReady = true;
-  return completer.future;
+  return completer.future.then((_) {
+    return true;
+  }).timeout(
+    const Duration(seconds: 3),
+    onTimeout: () {
+      return true;
+    },
+  );
 }
 
 void _completeOnReadyEvent(Completer completer) {
