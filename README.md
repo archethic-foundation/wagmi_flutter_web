@@ -113,7 +113,7 @@ For more details, refer to the [API documentation](https://wagmi.sh/core/api/act
 | `verifyTypedData`              | 🔴               |
 | `waitForTransactionReceipt`    | ✅ Implemented   |
 | `watchAccount`                 | ✅ Implemented   |
-| `watchAsset`                   | 🔴               |
+| `watchAsset`                   | ✅ Implemented   |
 | `watchBlockNumber`             | 🔴               |
 | `watchBlocks`                  | 🔴               |
 | `watchChainId`                 | ✅ Implemented   |
