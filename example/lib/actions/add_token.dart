@@ -39,7 +39,7 @@ class _AddTokenExampleState extends State<AddTokenExample> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const TabHeader(
-              methodName: 'Add Token',
+              methodName: 'watchAsset',
             ),
             Space.large(),
             TextField(
@@ -84,7 +84,7 @@ class _AddTokenExampleState extends State<AddTokenExample> {
                   _operationFailed(e.toString());
                 }
               },
-              child: const Text('Add Token'),
+              child: const Text('Add Token (watchAsset)'),
             ),
           ],
         ),

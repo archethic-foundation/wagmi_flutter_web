@@ -62,7 +62,7 @@ class _MyAppState extends State<MyApp> {
     const Tab(text: 'Read Contracts'),
     const Tab(text: 'Write Contracts'),
     const Tab(text: 'Gas Price'),
-    const Tab(text: 'Add Token'),
+    const Tab(text: 'Watch Asset'),
   ];
 
   @override
