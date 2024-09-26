@@ -1,3 +1,14 @@
+## 0.0.1-dev.8
+* ✨ Add methods :
+  * `getChains`
+  * `disconnect`
+  * `switchAccount`
+  * `switchChain`
+  * `verifyMessage`
+  * `watchAccount`
+  * `watchConnections`
+* Add `configKey` param on every methods
+
 ## 0.0.1-dev.7
 * Remove the assets folder from the `.gitignore` to correctly include it in the package published on pub.dev.
 
