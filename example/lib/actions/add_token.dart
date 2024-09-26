@@ -1,7 +1,6 @@
 import 'package:example/actions/components/snackbar.dart';
 import 'package:example/actions/components/spacer.dart';
 import 'package:example/actions/components/tab_header.dart';
-import 'package:example/context.dart';
 import 'package:flutter/material.dart';
 import 'package:wagmi_flutter_web/wagmi_flutter_web.dart' as wagmi;
 
@@ -69,7 +68,6 @@ class _AddTokenExampleState extends State<AddTokenExample> {
               onPressed: () async {
                 try {
                   await wagmi.Core.watchAsset(
-                    WagmiContext.main.config,
                     wagmi.WatchAssetParameters(
                       type: 'ERC20',
                       options: wagmi.Asset(

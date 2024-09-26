@@ -1,4 +1,3 @@
-import 'package:example/context.dart';
 import 'package:flutter/material.dart';
 import 'package:wagmi_flutter_web/wagmi_flutter_web.dart' as wagmi;
 
@@ -16,12 +15,10 @@ class ConfigSwitchExample extends StatelessWidget {
       children: [
         GetBlockNumberSection(
           title: '[With WSS Transport] Get block number',
-          config: WagmiContext.withWSSTransport.config,
           chainId: chainId,
         ),
         GetBlockNumberSection(
           title: '[Without Transport] Get block number',
-          config: WagmiContext.withoutTransport.config,
           chainId: chainId,
         ),
       ],
@@ -32,13 +29,11 @@ class ConfigSwitchExample extends StatelessWidget {
 class GetBlockNumberSection extends StatefulWidget {
   const GetBlockNumberSection({
     super.key,
-    required this.config,
     required this.title,
     required this.chainId,
   });
 
   final int? chainId;
-  final wagmi.Config config;
   final String title;
   @override
   State<GetBlockNumberSection> createState() => _GetBlockNumberSectionState();
@@ -59,7 +54,6 @@ class _GetBlockNumberSectionState extends State<GetBlockNumberSection> {
               cacheTime: 4000,
             );
             final getBlockNumberReturnType = await wagmi.Core.getBlockNumber(
-              widget.config,
               getBlockNumberParameters,
             );
             setState(() {
