@@ -38,7 +38,7 @@ class Web3Modal {
   // for create createConfig
   static Config createConfig({
     required String projectId,
-    required String key,
+    required String configKey,
     required List<int> chains,
     required Web3ModalMetadata metadata,
     required bool email,
@@ -49,7 +49,7 @@ class Web3Modal {
   }) =>
       window.web3modal.createConfig(
         projectId.toJS,
-        key.toJS,
+        configKey.toJS,
         chains
             .map(
               (e) => e.toJS,

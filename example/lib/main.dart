@@ -95,7 +95,7 @@ class _MyAppState extends State<MyApp> {
         // create config
         wagmi.Web3Modal.createConfig(
           projectId: 'f642e3f39ba3e375f8f714f18354faa4',
-          key: 'withWSSTransport',
+          configKey: 'withWSSTransport',
           chains: [
             // wagmi.Chain.mainnet.id,
             // wagmi.Chain.sepolia.id,
