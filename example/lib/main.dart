@@ -2,12 +2,11 @@ import 'dart:convert';
 import 'dart:math';
 
 import 'package:example/actions/add_token.dart';
-import 'package:example/actions/components/SwitchChainDialog.dart';
+import 'package:example/actions/components/switch_chain_dialog.dart';
 import 'package:example/actions/config_switch.dart';
 import 'package:example/actions/gas_price.dart';
 import 'package:example/actions/read_contract.dart';
 import 'package:example/actions/write_contract.dart';
-import 'package:example/context.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:wagmi_flutter_web/wagmi_flutter_web.dart' as wagmi;
@@ -44,7 +43,7 @@ class _MyAppState extends State<MyApp> {
   String bitTokenAddress =
       '0x2237605711227D0254Ccb33CE70767871Cf1CCc3'; // contract address deployed on polygonAmoy network only
   String hash =
-      '0x28c67e05c4f32710697629c996e33f94f251e733e373f80ea84d432926ca9260';
+      '0xeb7f1e0f0b6bbef92567bc0d3f01b82be818c6c08dd2d1da0613440a80613a74'; // transaction hash for chain id 80002 only
 
   String testTokenA1 = '0x4D8cb4Fa6Df53d47f0B7d76a05d4AC881B2f4101';
   String tempWallet = '0xfAd3b616BCD747A12A7c0a6203E7a481606B12E8';
@@ -69,7 +68,55 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     Future(
       () async {
-        await WagmiContext.init();
+        await wagmi.init();
+
+        wagmi.Web3Modal.init(
+          projectId: 'f642e3f39ba3e375f8f714f18354faa4',
+          chains: [
+            wagmi.Chain.mainnet.id,
+            wagmi.Chain.sepolia.id,
+            wagmi.Chain.polygonAmoy.id,
+            wagmi.Chain.polygon.id,
+          ],
+          enableAnalytics: true,
+          enableOnRamp: true,
+          metadata: wagmi.Web3ModalMetadata(
+            name: 'Web3Modal',
+            description: 'Web3Modal Example',
+            // url must match your domain & subdomain
+            url: 'https://web3modal.com',
+            icons: ['https://avatars.githubusercontent.com/u/37784886'],
+          ),
+          email: false, // email
+          showWallets: true, // showWallets
+          walletFeatures: true, // walletFeatures
+        );
+
+        // create config
+        wagmi.Web3Modal.createConfig(
+          projectId: 'f642e3f39ba3e375f8f714f18354faa4',
+          key: 'withWSSTransport',
+          chains: [
+            // wagmi.Chain.mainnet.id,
+            // wagmi.Chain.sepolia.id,
+            wagmi.Chain.polygonAmoy.id,
+            // wagmi.Chain.polygon.id,
+          ],
+          metadata: wagmi.Web3ModalMetadata(
+            name: 'Web3Modal',
+            description: 'Web3Modal Example',
+            // url must match your domain & subdomain
+            url: 'https://web3modal.com',
+            icons: ['https://avatars.githubusercontent.com/u/37784886'],
+          ),
+          email: false, // email
+          showWallets: true, // showWallets
+          walletFeatures: true, // walletFeatures
+          transportBuilder: (chainId) => const wagmi.Transport.http(
+            url:
+                'https://polygon-amoy.g.alchemy.com/v2/tElwptdnZg_9h0k6rhfPCXowCNxqAl3h',
+          ),
+        );
       },
     );
     super.initState();
@@ -77,31 +124,26 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return ListenableBuilder(
-      listenable: WagmiContext.isReady,
-      builder: (context, child) => !WagmiContext.isReady.value
-          ? const Center(child: CircularProgressIndicator())
-          : DefaultTabController(
-              length: tabs.length,
-              child: Scaffold(
-                appBar: AppBar(
-                  title: const Text('Flutter Web3Modal'),
-                  bottom: TabBar(
-                    tabs: tabs,
-                  ),
-                ),
-                body: TabBarView(
-                  children: [
-                    buildMainTab(),
-                    ConfigSwitchExample(chainId: chainId),
-                    const ReadContractExample(),
-                    const WriteContractExample(),
-                    const GasPriceExample(),
-                    const AddTokenExample(),
-                  ],
-                ),
-              ),
-            ),
+    return DefaultTabController(
+      length: tabs.length,
+      child: Scaffold(
+        appBar: AppBar(
+          title: const Text('Flutter Web3Modal'),
+          bottom: TabBar(
+            tabs: tabs,
+          ),
+        ),
+        body: TabBarView(
+          children: [
+            buildMainTab(),
+            ConfigSwitchExample(chainId: chainId),
+            const ReadContractExample(),
+            const WriteContractExample(),
+            const GasPriceExample(),
+            const AddTokenExample(),
+          ],
+        ),
+      ),
     );
   }
 
@@ -111,9 +153,9 @@ class _MyAppState extends State<MyApp> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            ElevatedButton(
-              onPressed: () => WagmiContext.main.web3modal.open(),
-              child: const Text('Connect Wallet'),
+            const ElevatedButton(
+              onPressed: wagmi.Web3Modal.open,
+              child: Text('Connect Wallet'),
             ),
             const SizedBox(
               height: 10,
@@ -126,7 +168,6 @@ class _MyAppState extends State<MyApp> {
                   connector: account?.connector,
                 );
                 await wagmi.Core.disconnect(
-                  WagmiContext.main.config,
                   getTokenParameters,
                 );
               },
@@ -139,12 +180,8 @@ class _MyAppState extends State<MyApp> {
               onPressed: () {
                 setState(() {
                   signedMessage = null;
-                  account = wagmi.Core.getAccount(
-                    WagmiContext.main.config,
-                  );
-                  chainId = wagmi.Core.getChainId(
-                    WagmiContext.main.config,
-                  );
+                  account = wagmi.Core.getAccount();
+                  chainId = wagmi.Core.getChainId();
                 });
                 showAccountDetails(context, account);
               },
@@ -157,7 +194,6 @@ class _MyAppState extends State<MyApp> {
             Text('account address: ${account?.address ?? 'unknown'}'),
             Text('account status:  ${account?.status ?? 'unknown'}'),
             Text('account chain ID: ${account?.chain?.id ?? 'unknown'}'),
-            Text('Chain ID: $chainId'),
 
             const SizedBox(
               height: 10,
@@ -165,9 +201,7 @@ class _MyAppState extends State<MyApp> {
 
             ElevatedButton(
               onPressed: () {
-                chains = wagmi.Core.getChains(
-                  WagmiContext.main.config,
-                );
+                chains = wagmi.Core.getChains();
 
                 showGetChainsMethodsResponse(context, chains);
               },
@@ -184,7 +218,6 @@ class _MyAppState extends State<MyApp> {
                 );
                 final getBlockNumberReturnType =
                     await wagmi.Core.getBlockNumber(
-                  WagmiContext.main.config,
                   getBlockNumberParameters,
                 );
                 setState(() {
@@ -203,11 +236,11 @@ class _MyAppState extends State<MyApp> {
             ElevatedButton(
               onPressed: () async {
                 final balanceResult = await wagmi.Core.getBalance(
-                  WagmiContext.withWSSTransport.config,
                   wagmi.GetBalanceParameters(
-                    address: account?.address ?? '',
+                    address: account!.address ?? '',
                     blockTag: 'latest',
                   ),
+                  configKey: 'withWSSTransport',
                 );
                 setState(() {
                   balance = balanceResult;
@@ -229,7 +262,6 @@ class _MyAppState extends State<MyApp> {
             ElevatedButton(
               onPressed: () async {
                 final balanceResult = await wagmi.Core.getBalance(
-                  WagmiContext.main.config,
                   wagmi.GetBalanceParameters(
                     address: account?.address ?? '',
                     token: bitTokenAddress,
@@ -260,7 +292,6 @@ class _MyAppState extends State<MyApp> {
                   formatUnits: const wagmi.FormatUnit.wei(),
                 );
                 final getTokenReturnType = await wagmi.Core.getToken(
-                  WagmiContext.main.config,
                   getTokenParameters,
                 );
                 showTokenInfoDialog(context, getTokenReturnType);
@@ -276,7 +307,6 @@ class _MyAppState extends State<MyApp> {
               onPressed: () async {
                 final transactionCountResult =
                     await wagmi.Core.getTransactionCount(
-                  WagmiContext.main.config,
                   wagmi.GetTransactionCountParameters(
                     address: account?.address ?? '',
                     chainId: account!.chain!.id,
@@ -305,7 +335,6 @@ class _MyAppState extends State<MyApp> {
                       wagmi.MessageToSign.stringMessage(message: messageToSign),
                 );
                 final signMessageReturnType = await wagmi.Core.signMessage(
-                  WagmiContext.main.config,
                   signMessageParameters,
                 );
                 setState(() {
@@ -319,19 +348,19 @@ class _MyAppState extends State<MyApp> {
             ),
             ElevatedButton(
               onPressed: () async {
-                final signMessageParameters = wagmi.SignMessageParameters(
-                  account: account!.address!,
-                  message: wagmi.MessageToSign.rawMessage(
-                    message: wagmi.RawMessage.hex(raw: messageToSign),
-                  ),
-                );
-                final signMessageReturnType = await wagmi.Core.signMessage(
-                  WagmiContext.main.config,
-                  signMessageParameters,
-                );
-                setState(() {
-                  signedMessage = signMessageReturnType;
-                });
+                // final signMessageParameters = wagmi.SignMessageParameters(
+                //   account: account!.address!,
+                //   message: wagmi.MessageToSign.rawMessage(
+                //     message: wagmi.RawMessage.hex(raw: messageToSign),
+                //   ),
+                // );
+                // final signMessageReturnType = await wagmi.Core.signMessage(
+                //
+                //   signMessageParameters,
+                // );
+                // setState(() {
+                //   signedMessage = signMessageReturnType;
+                // });
               },
               child: Text('Personal sign (raw: $messageToSign)'),
             ),
@@ -350,7 +379,6 @@ class _MyAppState extends State<MyApp> {
                     wagmi.GetTransactionReceiptParameters(hash: hash);
                 final readContractReturnType =
                     await wagmi.Core.getTransactionReceipt(
-                  WagmiContext.main.config,
                   getTransactionReceiptParameters,
                 );
                 showTransactionReceiptDialog(
@@ -381,7 +409,6 @@ class _MyAppState extends State<MyApp> {
                   ],
                 );
                 final result = await wagmi.Core.readContracts(
-                  WagmiContext.main.config,
                   readContractsParameters,
                 );
                 showMultipleContractMethodsResponse(context, result);
@@ -404,7 +431,6 @@ class _MyAppState extends State<MyApp> {
                   value: BigInt.parse('10000000000000000'),
                 );
                 final result = await wagmi.Core.estimateGas(
-                  WagmiContext.main.config,
                   estimateGasParameters,
                 );
                 setState(() {
@@ -443,7 +469,6 @@ class _MyAppState extends State<MyApp> {
                   );
 
                   final unwatch = await wagmi.Core.watchChainId(
-                    WagmiContext.main.config,
                     watchChainIdParameters,
                   );
                   setState(() {
@@ -475,7 +500,6 @@ class _MyAppState extends State<MyApp> {
                   value: BigInt.parse('10000000000000000'),
                 );
                 final result = await wagmi.Core.sendTransaction(
-                  WagmiContext.main.config,
                   sendTransactionParameters,
                 );
                 setState(() {
@@ -531,7 +555,6 @@ class _MyAppState extends State<MyApp> {
                 );
                 final getTransactionReturnType =
                     await wagmi.Core.getTransaction(
-                  WagmiContext.main.config,
                   getTransactionParameters,
                 );
                 showTransactionDetails(context, getTransactionReturnType);
@@ -550,7 +573,6 @@ class _MyAppState extends State<MyApp> {
                 );
                 final getTransactionConfirmationsReturnType =
                     await wagmi.Core.getTransactionConfirmations(
-                  WagmiContext.main.config,
                   getTransactionConfirmationsParameters,
                 );
                 setState(() {
@@ -576,7 +598,6 @@ class _MyAppState extends State<MyApp> {
                   blockNumber: BigInt.from(11268698),
                 );
                 final getBlockReturnType = await wagmi.Core.getBlock(
-                  WagmiContext.main.config,
                   getBlockParameters,
                 );
                 showBlockDetails(context, getBlockReturnType);
@@ -596,7 +617,6 @@ class _MyAppState extends State<MyApp> {
                 );
                 final getBlockTransactionCountReturnType =
                     await wagmi.Core.getBlockTransactionCount(
-                  WagmiContext.main.config,
                   getBlockTransactionCountParameters,
                 );
                 setState(() {
@@ -638,7 +658,6 @@ class _MyAppState extends State<MyApp> {
                   data: data,
                 );
                 final res = await wagmi.Core.call(
-                  WagmiContext.main.config,
                   callParameters,
                 );
                 // debugPrint('callReturnType: ${res.data}');
@@ -667,7 +686,6 @@ class _MyAppState extends State<MyApp> {
                   chainId: account!.chain!.id,
                 );
                 final result = await wagmi.Core.estimateFeesPerGas(
-                  WagmiContext.main.config,
                   estimateFeesPerGasParameters,
                 );
                 showEstimateFeesPerGasDialog(context, result);
@@ -686,7 +704,6 @@ class _MyAppState extends State<MyApp> {
                   chainId: account!.chain!.id,
                 );
                 final result = await wagmi.Core.estimateMaxPriorityFeePerGas(
-                  WagmiContext.main.config,
                   estimateMaxPriorityFeePerGasParameters,
                 );
                 setState(() {
@@ -714,7 +731,6 @@ class _MyAppState extends State<MyApp> {
                   blockTag: const wagmi.BlockTag.finalized(),
                 );
                 final result = await wagmi.Core.getBytecode(
-                  WagmiContext.main.config,
                   getByteCodeParameters,
                 );
                 showByteCodeDialog(context, result);
@@ -732,7 +748,6 @@ class _MyAppState extends State<MyApp> {
                       '0x041f2da24620eeef645e646f07399b3b374b86201931b228578c4632fb41abf4', // for chain id 80002 only
                 );
                 final result = await wagmi.Core.waitForTransactionReceipt(
-                  WagmiContext.main.config,
                   waitForTransactionReceiptParameters,
                 );
                 showWaitForTransactionReceiptDialog(context, result);
@@ -753,7 +768,6 @@ class _MyAppState extends State<MyApp> {
                   blockTag: const wagmi.BlockTag.latest(),
                 );
                 final result = await wagmi.Core.getFeeHistory(
-                  WagmiContext.main.config,
                   getFeeHistoryParameters,
                 );
                 showGetFeeHistoryDialog(context, result);
@@ -766,16 +780,13 @@ class _MyAppState extends State<MyApp> {
             // switch chain
             ElevatedButton(
               onPressed: () async {
-                chains = wagmi.Core.getChains(
-                  WagmiContext.main.config,
-                );
+                chains = wagmi.Core.getChains();
                 switchChainDialog(context, chains, (switchChain) async {
                   final switchChainParameters = wagmi.SwitchChainParameters(
                     connector: account!.connector,
                     chainId: switchChain,
                   );
                   final result = await wagmi.Core.switchChain(
-                    WagmiContext.main.config,
                     switchChainParameters,
                   );
                   showSwitchChainDialog(context, result);
@@ -793,7 +804,6 @@ class _MyAppState extends State<MyApp> {
                   connector: account!.connector,
                 );
                 final result = await wagmi.Core.switchAccount(
-                  WagmiContext.main.config,
                   switchAccountParameters,
                 );
                 showSwitchAccountDialog(context, result);
@@ -812,7 +822,6 @@ class _MyAppState extends State<MyApp> {
                   address: account!.address!,
                 );
                 final result = await wagmi.Core.verifyMessage(
-                  WagmiContext.main.config,
                   verifyMessageParameters,
                 );
                 setState(() {
@@ -864,7 +873,6 @@ class _MyAppState extends State<MyApp> {
                   );
 
                   final unwatch = await wagmi.Core.watchAccount(
-                    WagmiContext.main.config,
                     watchAccountParameters,
                   );
                   setState(() {
@@ -919,7 +927,6 @@ class _MyAppState extends State<MyApp> {
                   );
 
                   final unwatch = await wagmi.Core.watchConnections(
-                    WagmiContext.main.config,
                     watchConnectionsParameters,
                   );
                   setState(() {
@@ -941,7 +948,7 @@ class _MyAppState extends State<MyApp> {
             // chainId: account!.chain!.id,
             // );
             // final result = await wagmi.Core.getWalletClient(
-            //   WagmiContext.main.config,
+            //
             //   getWalletClientParameters,
             // );
             //   },
@@ -958,7 +965,7 @@ class _MyAppState extends State<MyApp> {
             //     bytecode:
             //         '608060405234801561001057600080fd5b5060d38061001f6000396000f3fe608060405234801561001057600080fd5b506004361061002b5760003560e01c806360fe47b1146100305780636d4ce63c1461004e575b600080fd5b6100386004803603602081101561004657600080fd5b8101908080359060200190929190505050610065565b005b61004c6100a1565b6040518082815260200191505060405180910390f35b61006e6004803603602081101561006457600080fd5b81019080803590602001909291905050506100b3565b005');
             // final result = await wagmi.Core.deployContract(
-            //   WagmiContext.main.config,
+            //
             //   deployContractParameters,
             // );
             //   },
@@ -1623,6 +1630,7 @@ class _MyAppState extends State<MyApp> {
               currentChain: account!.chain!.id,
               callback: (value) {
                 Navigator.of(context).pop();
+                // ignore: void_checks
                 return function(value);
               },
             ),

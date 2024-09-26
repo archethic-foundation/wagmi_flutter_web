@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:wagmi_flutter_web/wagmi_flutter_web.dart' as wagmi;
 
-typedef Callback(dynamic);
+typedef Callback = void Function(dynamic value);
 
 // ignore: must_be_immutable
 class SwitchChainDialog extends StatefulWidget {
-  SwitchChainDialog(
-      {super.key,
-      required this.callback,
-      required this.chains,
-      required this.currentChain});
+  SwitchChainDialog({
+    super.key,
+    required this.callback,
+    required this.chains,
+    required this.currentChain,
+  });
   Callback callback;
   List<wagmi.Chain> chains;
   int currentChain;
@@ -48,12 +49,14 @@ class _SwitchChainDialogState extends State<SwitchChainDialog> {
             ),
             child: Column(
               children: [
-                const Text('Select Chain to Switch',
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                    )),
+                const Text(
+                  'Select Chain to Switch',
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
                 const SizedBox(
                   height: 20,
                 ),
@@ -101,7 +104,7 @@ class _SwitchChainDialogState extends State<SwitchChainDialog> {
                                 fontSize: contentFontSize,
                               ),
                             ),
-                          )
+                          ),
                         ],
                       );
                     },
@@ -128,7 +131,7 @@ class _SwitchChainDialogState extends State<SwitchChainDialog> {
                 ),
               ],
             ),
-          )
+          ),
         ],
       ),
     );

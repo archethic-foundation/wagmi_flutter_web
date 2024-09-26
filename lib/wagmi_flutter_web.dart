@@ -70,21 +70,17 @@ var _isReady = false;
 ///
 /// This must be done before any interaction
 /// with the lib.
-Future<dynamic> init() async {
-  if (_isReady) return Future.value(true);
+Future<void> init() async {
+  if (_isReady) return;
+
   final completer = Completer();
+
   _completeOnReadyEvent(completer);
-  _injectJavascriptModule('assets/main.js');
+
+  await _injectJavascriptModule('assets/main.js');
 
   _isReady = true;
-  return completer.future.then((_) {
-    return true;
-  }).timeout(
-    const Duration(seconds: 3),
-    onTimeout: () {
-      return true;
-    },
-  );
+  return completer.future;
 }
 
 void _completeOnReadyEvent(Completer completer) {
@@ -104,7 +100,7 @@ void _completeOnReadyEvent(Completer completer) {
   );
 }
 
-void _injectJavascriptModule(String assetPath) {
+Future<void> _injectJavascriptModule(String assetPath) async {
   final scriptPath = 'assets/packages/wagmi_flutter_web/$assetPath';
 
   final scriptNode = html.ScriptElement()
