@@ -4,7 +4,6 @@ import 'package:example/actions/components/contract_function_preset.dart';
 import 'package:example/actions/components/snackbar.dart';
 import 'package:example/actions/components/spacer.dart';
 import 'package:example/actions/components/tab_header.dart';
-import 'package:example/context.dart';
 import 'package:flutter/material.dart';
 import 'package:wagmi_flutter_web/wagmi_flutter_web.dart' as wagmi;
 
@@ -181,7 +180,6 @@ class _WriteContractExampleState extends State<WriteContractExample> {
                   final functionName = functionAbi['name'];
                   final args = jsonDecode(argsController.text);
                   final result = await wagmi.Core.writeContract(
-                    WagmiContext.main.config,
                     wagmi.WriteContractParameters.legacy(
                       abi: [functionAbi],
                       address: addressController.text,
@@ -203,14 +201,14 @@ class _WriteContractExampleState extends State<WriteContractExample> {
   }
 
   void _operationFailed(String? message) {
-    print('Write contract failed : $message');
+    debugPrint('Write contract failed : $message');
     context.showFailure(
       'Write contract failed : $message',
     );
   }
 
   void _operationSucceed(String? message) {
-    print('Write contract succeed : $message');
+    debugPrint('Write contract succeed : $message');
     context.showSuccess(
       'Write contract succeed : $message',
     );

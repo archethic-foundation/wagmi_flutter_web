@@ -4,7 +4,6 @@ import 'package:example/actions/components/contract_function_preset.dart';
 import 'package:example/actions/components/snackbar.dart';
 import 'package:example/actions/components/spacer.dart';
 import 'package:example/actions/components/tab_header.dart';
-import 'package:example/context.dart';
 import 'package:flutter/material.dart';
 import 'package:wagmi_flutter_web/wagmi_flutter_web.dart' as wagmi;
 
@@ -168,7 +167,6 @@ class _ReadContractExampleState extends State<ReadContractExample> {
                   final functionName = functionAbi['name'];
                   final args = jsonDecode(argsController.text);
                   final result = await wagmi.Core.readContract(
-                    WagmiContext.main.config,
                     wagmi.ReadContractParameters(
                       abi: [functionAbi],
                       address: addressController.text,
@@ -190,14 +188,14 @@ class _ReadContractExampleState extends State<ReadContractExample> {
   }
 
   void _operationFailed(String? message) {
-    print('Read contract failed : $message');
+    debugPrint('Read contract failed : $message');
     context.showFailure(
       'Read contract failed : $message',
     );
   }
 
   void _operationSucceed(String? message) {
-    print('Read contract succeed : $message');
+    debugPrint('Read contract succeed : $message');
     context.showSuccess(
       'Read contract succeed : $message',
     );

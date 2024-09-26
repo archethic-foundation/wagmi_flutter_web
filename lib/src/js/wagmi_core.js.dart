@@ -2,111 +2,154 @@ part of 'wagmi.js.dart';
 
 @JS()
 extension type JSWagmiCore(JSObject _) implements JSObject {
-  external JSAccount getAccount(JSConfig config);
-  external JSNumber getChainId(JSConfig config);
-  external JSArray<JSObject> getChains(JSConfig config);
+  external JSAccount getAccount();
+  external JSNumber getChainId();
+  external JSArray<JSObject> getChains();
   external JSPromise<JSBigInt> getBlockNumber(
-    JSConfig config,
+    JSString configKey,
     JSGetBlockNumberParameters getBlockNumberParameters,
   );
   external JSPromise<JSNumber> getTransactionCount(
-    JSConfig config,
+    JSString configKey,
     JSGetTransactionCountParameters getTransactionCountParameters,
   );
   external JSPromise<JSGetGasPriceReturnType> getGasPrice(
-    JSConfig config,
+    JSString configKey,
     JSGetGasPriceParameters getGasPriceParameters,
   );
   external JSPromise<JSGetBalanceReturnType> getBalance(
-    JSConfig config,
+    JSString configKey,
     JSGetBalanceParameters getBalanceParameters,
   );
   external JSPromise<JSGetTokenReturnType> getToken(
-    JSConfig config,
+    JSString configKey,
     JSGetTokenParameters getTokenParameters,
   );
   external JSPromise<JSSignMessageReturnType> signMessage(
-    JSConfig config,
+    JSString configKey,
     JSSignMessageParameters signMessageParameters,
   );
   external JSPromise<JSAny> readContract(
-    JSConfig config,
+    JSString configKey,
     JSReadContractParameters readContractParameters,
   );
   external JSPromise<JSArray<JSObject>> readContracts(
-    JSConfig config,
+    JSString configKey,
     JSReadContractsParameters readContractsParameters,
   );
   external JSPromise<JSGetTransactionReceiptReturnType> getTransactionReceipt(
-    JSConfig config,
+    JSString configKey,
     JSGetTransactionReceiptParameters getTransactionReceiptParameters,
   );
   external JSPromise<JSString> writeContract(
-    JSConfig config,
+    JSString configKey,
     JSObject writeContractParameters,
   );
   external JSPromise<JSString> sendTransaction(
-    JSConfig config,
+    JSString configKey,
     JSObject sendTransactionParameters,
   );
   external JSPromise<JSWatchChainIdReturnType> watchChainId(
-    JSConfig config,
+    JSString configKey,
     JSWatchChainIdParameters watchChainIdParameters,
   );
   external JSPromise<JSBigInt> estimateGas(
-    JSConfig config,
+    JSString configKey,
     JSObject estimateGasParameters,
   );
   external JSPromise<JSBigInt> estimateMaxPriorityFeePerGas(
-    JSConfig config,
+    JSString configKey,
     JSEstimateMaxPriorityFeePerGasParameters
         estimateMaxPriorityFeePerGasParameters,
   );
   external JSPromise<JSGetTransactionReturnType> getTransaction(
-    JSConfig config,
+    JSString configKey,
     JSGetTransactionParameters readContractsParameters,
   );
   external JSPromise<JSBigInt> getTransactionConfirmations(
-    JSConfig config,
+    JSString configKey,
     JSGetTransactionConfirmationsParameters readContractsParameters,
   );
   external JSPromise<JSGetBlockReturnType> getBlock(
-    JSConfig config,
+    JSString configKey,
     JSGetBlockParameters getBlockParameters,
   );
   external JSPromise<JSNumber> getBlockTransactionCount(
-    JSConfig config,
+    JSString configKey,
     JSGetBlockTransactionCountParameters getBlockTransactionCountParameters,
   );
   external JSPromise<JSCallReturnType> call(
-    JSConfig config,
+    JSString configKey,
     JSCallParameters callParameters,
   );
   external JSPromise<JSEstimateFeesPerGasReturnType> estimateFeesPerGas(
-    JSConfig config,
+    JSString configKey,
     JSEstimateFeesPerGasParameters estimateFeesPerGasParameters,
   );
   external JSPromise<JSString> getBytecode(
-    JSConfig config,
+    JSString configKey,
     JSGetByteCodeParameters getByteCodeParameters,
   );
   external JSPromise disconnect(
-    JSConfig config,
+    JSString configKey,
     JSDisconnectParameters disconnectParameters,
   );
   // wait for transaction receipt
   external JSPromise<JSWaitForTransactionReceiptReturnType>
       waitForTransactionReceipt(
-    JSConfig config,
+    JSString configKey,
     JSWaitForTransactionReceiptParameters waitForTransactionReceipt,
   );
   // get fee history
   external JSPromise<JSGetFeeHistoryReturnType> getFeeHistory(
-    JSConfig config,
+    JSString configKey,
     JSGetFeeHistoryParameters getFeeHistoryParameters,
   );
   external JSPromise<JSWatchContractEventReturnType> watchContractEvent(
-    JSConfig config,
+    JSString configKey,
     JSWatchContractEventParameters watchContractEventParameters,
+  );
+
+  external JSPromise<JSObject> switchChain(
+    JSString configKey,
+    JSSwitchChainParameters switchChainParameters,
+  );
+  // switch account
+  external JSPromise<JSObject> switchAccount(
+    JSString configKey,
+    JSSwitchAccountParameters switchAccountParameters,
+  );
+  // verify message
+  external JSPromise<JSBoolean> verifyMessage(
+    JSString configKey,
+    JSVerifyMessageParameters verifyMessageParameters,
+  );
+
+  // watch account
+  external JSPromise<JSWatchAccountReturnType> watchAccount(
+    JSString configKey,
+    JSWatchAccountParameters watchChainIdParameters,
+  );
+
+  // watch connections
+  external JSPromise<JSWatchConnectionsReturnType> watchConnections(
+    JSString configKey,
+    JSWatchConnectionsParameters watchConnectionsParameters,
+  );
+  // getWalletClient
+  external JSPromise<JSGetWalletClientReturnType> getWalletClient(
+    JSString configKey,
+    JSGetWalletClientParameters getWalletClientParameters,
+  );
+
+  // deployContract
+  external JSPromise<JSString> deployContract(
+    JSString configKey,
+    JSDeployContractParameters deployContractParameters,
+  );
+  // watchAsset
+  external JSPromise<JSBoolean> watchAsset(
+    JSString configKey,
+    JSWatchAssetParameters watchAssetParameters,
   );
 }

@@ -4,8 +4,41 @@ import 'package:wagmi_flutter_web/src/js/wagmi.js.dart';
 import 'package:wagmi_flutter_web/wagmi_flutter_web.dart';
 
 class Web3Modal {
-  static Config defaultWagmiConfig({
+  static void init({
     required String projectId,
+    required List<int> chains,
+    required bool enableAnalytics,
+    required bool enableOnRamp,
+    required Web3ModalMetadata metadata,
+    required bool email,
+    List<String>? socials,
+    required bool showWallets,
+    required bool walletFeatures,
+    TransportBuilder? transportBuilder,
+  }) {
+    window.web3modal.init(
+      projectId.toJS,
+      chains
+          .map(
+            (e) => e.toJS,
+          )
+          .toList()
+          .toJS,
+      enableAnalytics.toJS,
+      enableOnRamp.toJS,
+      metadata._toJS(),
+      email.toJS,
+      socials.jsify() as JSArray<JSString>?,
+      showWallets.toJS,
+      walletFeatures.toJS,
+      transportBuilder?.toJS,
+    );
+  }
+
+  // for create createConfig
+  static Config createConfig({
+    required String projectId,
+    required String configKey,
     required List<int> chains,
     required Web3ModalMetadata metadata,
     required bool email,
@@ -14,8 +47,9 @@ class Web3Modal {
     required bool walletFeatures,
     TransportBuilder? transportBuilder,
   }) =>
-      window.web3modal.defaultWagmiConfig(
+      window.web3modal.createConfig(
         projectId.toJS,
+        configKey.toJS,
         chains
             .map(
               (e) => e.toJS,
@@ -28,25 +62,6 @@ class Web3Modal {
         showWallets.toJS,
         walletFeatures.toJS,
         transportBuilder?.toJS,
-      );
-
-  /// Initializes a [Web3Modal].
-  ///
-  /// This must be done before any
-  /// interactions with [Web3Modal].
-  ///
-  /// [Web3Modal documentation](https://docs.walletconnect.com/appkit/javascript/core/installation#implementation)
-  static AppKit createWeb3Modal({
-    required Config config,
-    required String projectId,
-    bool? enableAnalytics,
-    bool? enableOnRamp,
-  }) =>
-      window.web3modal.createWeb3Modal(
-        config,
-        projectId.toJS,
-        enableAnalytics?.toJS,
-        enableOnRamp?.toJS,
       );
 
   /// Opens the [Web3Modal]

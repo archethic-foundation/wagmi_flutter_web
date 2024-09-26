@@ -7,11 +7,11 @@ import 'package:decimal/decimal.dart';
 import 'package:wagmi_flutter_web/src/js/wagmi.js.dart';
 
 class UtilsJS {
-  static Object? dartify(JSAny? jsObject) {
+  static Object? dartify(JSAny? jsObject, {bool deep = true}) {
     if (jsObject == null) return null;
     if (jsObject is JSBigInt) return jsObject.toDart;
     if (jsObject is JSArray) return jsObject.toDartDynamicList;
-    if (jsObject is JSObject) return jsObject.toMap;
+    if (jsObject is JSObject) return deep ? jsObject.toMap() : jsObject;
 
     return jsObject.dartify();
   }
@@ -38,6 +38,7 @@ class UtilsJS {
     if (dartObject is Float32List) return dartObject.toJS;
     if (dartObject is Float64List) return dartObject.toJS;
     if (dartObject is List) return dartObject.toJSArray;
+    if (dartObject is Map) return js_util.jsify(dartObject);
     return dartObject.jsify();
   }
 }
@@ -77,7 +78,7 @@ extension JSAnyArrayToList on JSArray {
 }
 
 extension JSObjectToMap on JSObject {
-  Map<String, dynamic> get toMap {
+  Map<String, dynamic> toMap({bool deep = true}) {
     final map = <String, dynamic>{};
 
     // Get the keys of the JSObject
@@ -94,7 +95,7 @@ extension JSObjectToMap on JSObject {
     for (final key in keys) {
       final keyString = key! as String;
       final value = js_util.getProperty(this, keyString);
-      map[keyString] = UtilsJS.dartify(value);
+      map[keyString] = UtilsJS.dartify(value, deep: deep);
     }
     return map;
   }

@@ -66,7 +66,7 @@ For more details, refer to the [API documentation](https://wagmi.sh/core/api/act
 | `call`                         | ✅ Implemented   |
 | `connect`                      | 🔴               |
 | `deployContract`               | 🔴               |
-| `disconnect`                   | 🔴               |
+| `disconnect`                   | ✅ Implemented   |
 | `estimateFeesPerGas`           | ✅ Implemented   |
 | `estimateGas`                  | ✅ Implemented   |
 | `estimateMaxPriorityFeePerGas` | ✅ Implemented   |
@@ -77,7 +77,7 @@ For more details, refer to the [API documentation](https://wagmi.sh/core/api/act
 | `getBlockTransactionCount`     | ✅ Implemented   |
 | `getBytecode`                  | ✅ Implemented   |
 | `getChainId`                   | ✅ Implemented   |
-| `getChains`                    | 🟠 In progress   |
+| `getChains`                    | ✅ Implemented   |
 | `getClient`                    | 🔴               |
 | `getConnections`               | 🔴               |
 | `getConnectorClient`           | 🔴               |
@@ -107,18 +107,18 @@ For more details, refer to the [API documentation](https://wagmi.sh/core/api/act
 | `signMessage`                  | ✅ Implemented   |
 | `signTypedData`                | 🔴               |
 | `simulateContract`             | 🔴               |
-| `switchAccount`                | 🔴               |
-| `switchChain`                  | 🔴               |
-| `verifyMessage`                | 🔴               |
+| `switchAccount`                | ✅ Implemented   |
+| `switchChain`                  | ✅ Implemented   |
+| `verifyMessage`                | ✅ Implemented   |
 | `verifyTypedData`              | 🔴               |
-| `waitForTransactionReceipt`    | 🟠 In progress   |
-| `watchAccount`                 | 🔴               |
-| `watchAsset`                   | 🔴               |
+| `waitForTransactionReceipt`    | ✅ Implemented   |
+| `watchAccount`                 | ✅ Implemented   |
+| `watchAsset`                   | ✅ Implemented   |
 | `watchBlockNumber`             | 🔴               |
 | `watchBlocks`                  | 🔴               |
 | `watchChainId`                 | ✅ Implemented   |
 | `watchClient`                  | 🔴               |
-| `watchConnections`             | 🔴               |
+| `watchConnections`             | ✅ Implemented   |
 | `watchConnectors`              | 🔴               |
 | `watchContractEvent`           | ✅ Implemented   |
 | `watchPendingTransactions`     | 🔴               |
