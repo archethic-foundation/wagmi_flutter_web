@@ -17,7 +17,7 @@ extension type JSWagmiWeb3Modal(JSObject _) implements JSObject {
   // for create createConfig
   external JSConfig createConfig(
     JSString projectId,
-    JSString key,
+    JSString configKey,
     JSArray<JSNumber> chains,
     JSWagmiWeb3ModalMetadata metadata,
     JSBoolean email,

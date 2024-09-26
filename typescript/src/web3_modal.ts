@@ -55,7 +55,7 @@ export class JSWeb3Modal {
     // create a dynamic configuration with given key
     createConfig(
         projectId: string,
-        key: string,
+        configKey: string,
         chains: number[],
         metadata: {
             name: string
@@ -81,7 +81,7 @@ export class JSWeb3Modal {
             },
             client: !transportBuilder ? undefined : this.#clientBuilder(transportBuilder),
         })
-        JSWagmiContext.instance.setConfig(key, config)
+        JSWagmiContext.instance.setConfig(configKey, config)
         return config
     }
 
