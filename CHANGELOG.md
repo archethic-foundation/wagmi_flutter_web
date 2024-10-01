@@ -1,3 +1,6 @@
+## 1.0.0-rc.1
+* Add Error management
+
 ## 0.0.1-dev.8
 * ✨ Add methods :
   * `getChains`
