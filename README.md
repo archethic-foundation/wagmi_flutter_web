@@ -47,6 +47,29 @@ wagmi.Web3Modal.init(
 wagmi.Web3Modal.open();
 ```
 
+### Error management
+
+Errors from wagmi can be handled using the `WagmiError` object. 
+Wagmi provides an error stack through the `cause` property. 
+The `findError` method with the error type allows checking if a specific error is in the error stack.
+
+The different exceptions are available in the `WagmiErrors` enumeration
+
+```dart 
+ try {
+      final transactionHash = await wagmi.Core.writeContract(
+        parameters,
+      );
+    } on wagmi.WagmiError catch (e, stackTrace) {
+      if (e.findError(wagmi.WagmiErrors.UserRejectedRequestError) != null) {
+        throw Exception('userRejected'); 
+      }
+      if (e.findError(wagmi.WagmiErrors.InsufficientFundsError) != null) {
+         throw Exception('insufficientFunds'); 
+      }
+      throw Exception('${e.shortMessage}'); 
+    }
+```
 
 ## Available Actions
 
