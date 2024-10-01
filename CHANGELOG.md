@@ -1,3 +1,6 @@
+## 1.0.0-rc.2
+* Add Collection dependency
+
 ## 1.0.0-rc.1
 * Add Error management
 
