@@ -3,6 +3,7 @@ import 'package:example/actions/components/spacer.dart';
 import 'package:example/actions/components/tab_header.dart';
 import 'package:flutter/material.dart';
 import 'package:wagmi_flutter_web/wagmi_flutter_web.dart' as wagmi;
+import 'package:wagmi_flutter_web/wagmi_flutter_web.dart';
 
 class AddTokenExample extends StatefulWidget {
   const AddTokenExample({super.key});
@@ -78,7 +79,7 @@ class _AddTokenExampleState extends State<AddTokenExample> {
                     ),
                   );
                   _operationSucceed('Token added');
-                } catch (e) {
+                } on WagmiError catch (e) {
                   _operationFailed(e.toString());
                 }
               },

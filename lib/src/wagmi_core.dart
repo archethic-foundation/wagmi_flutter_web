@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:js_interop';
 
 import 'package:wagmi_flutter_web/src/actions/call.dart';
@@ -39,465 +40,517 @@ import 'package:wagmi_flutter_web/src/models/chain.dart';
 import 'package:wagmi_flutter_web/src/utils/utils_js.dart';
 
 class Core {
-  static Account getAccount() {
-    return window.wagmiCore.getAccount().toDart;
-  }
+  static Account getAccount() => _guard(() {
+        return window.wagmiCore.getAccount().toDart;
+      });
 
-  static int getChainId() {
-    return window.wagmiCore.getChainId().toDartInt;
-  }
+  static int getChainId() => _guard(() {
+        return window.wagmiCore.getChainId().toDartInt;
+      });
 
-  static List<Chain> getChains() {
-    final result = window.wagmiCore.getChains();
+  static List<Chain> getChains() => _guard(() {
+        final result = window.wagmiCore.getChains();
 
-    return result.toDart.map((item) {
-      return Chain.fromMap(item.toMap());
-    }).toList();
-  }
+        return result.toDart.map((item) {
+          return Chain.fromMap(item.toMap());
+        }).toList();
+      });
 
   static Future<BigInt> getBlockNumber(
     GetBlockNumberParameters getBlockNumberParameters, {
     String configKey = 'default',
-  }) async {
-    final result = await window.wagmiCore
-        .getBlockNumber(
-          configKey.toJS,
-          getBlockNumberParameters.toJS,
-        )
-        .toDart;
-    return result.toDart;
-  }
+  }) =>
+      _guardFuture(() async {
+        final result = await window.wagmiCore
+            .getBlockNumber(
+              configKey.toJS,
+              getBlockNumberParameters.toJS,
+            )
+            .toDart;
+        return result.toDart;
+      });
 
   static Future<BigInt> getGasPrice(
     GetGasPriceParameters getGasPriceParameters, {
     String configKey = 'default',
-  }) async {
-    final result = await window.wagmiCore
-        .getGasPrice(
-          configKey.toJS,
-          getGasPriceParameters.toJS,
-        )
-        .toDart;
-    return result.toDart;
-  }
+  }) =>
+      _guardFuture(() async {
+        final result = await window.wagmiCore
+            .getGasPrice(
+              configKey.toJS,
+              getGasPriceParameters.toJS,
+            )
+            .toDart;
+        return result.toDart;
+      });
 
   static Future<GetBalanceReturnType> getBalance(
     GetBalanceParameters getBalanceParameters, {
     String configKey = 'default',
-  }) async {
-    final result = await window.wagmiCore
-        .getBalance(
-          configKey.toJS,
-          getBalanceParameters.toJS,
-        )
-        .toDart;
-    return result.toDart;
-  }
+  }) =>
+      _guardFuture(() async {
+        final result = await window.wagmiCore
+            .getBalance(
+              configKey.toJS,
+              getBalanceParameters.toJS,
+            )
+            .toDart;
+        return result.toDart;
+      });
 
   static Future<int> getTransactionCount(
     GetTransactionCountParameters getTransactionCountParameters, {
     String configKey = 'default',
-  }) async {
-    final result = await window.wagmiCore
-        .getTransactionCount(
-          configKey.toJS,
-          getTransactionCountParameters.toJS,
-        )
-        .toDart;
-    return result.toDartInt;
-  }
+  }) =>
+      _guardFuture(() async {
+        final result = await window.wagmiCore
+            .getTransactionCount(
+              configKey.toJS,
+              getTransactionCountParameters.toJS,
+            )
+            .toDart;
+        return result.toDartInt;
+      });
 
   static Future<GetTokenReturnType> getToken(
     GetTokenParameters getTokenParameters, {
     String configKey = 'default',
-  }) async {
-    final result = await window.wagmiCore
-        .getToken(
-          configKey.toJS,
-          getTokenParameters.toJS,
-        )
-        .toDart;
+  }) =>
+      _guardFuture(() async {
+        final result = await window.wagmiCore
+            .getToken(
+              configKey.toJS,
+              getTokenParameters.toJS,
+            )
+            .toDart;
 
-    return result.toDart;
-  }
+        return result.toDart;
+      });
 
   static Future<String> signMessage(
     SignMessageParameters signMessageParameters, {
     String configKey = 'default',
-  }) async {
-    final result = await window.wagmiCore
-        .signMessage(
-          configKey.toJS,
-          signMessageParameters.toJS,
-        )
-        .toDart;
-    return result.toDart;
-  }
+  }) =>
+      _guardFuture(() async {
+        final result = await window.wagmiCore
+            .signMessage(
+              configKey.toJS,
+              signMessageParameters.toJS,
+            )
+            .toDart;
+        return result.toDart;
+      });
 
   // read contract
   static Future<dynamic> readContract(
     ReadContractParameters readContractParameters, {
     String configKey = 'default',
-  }) async {
-    final result = await window.wagmiCore
-        .readContract(
-          configKey.toJS,
-          readContractParameters.toJS,
-        )
-        .toDart;
-    return UtilsJS.dartify(result);
-  }
+  }) =>
+      _guardFuture(() async {
+        final result = await window.wagmiCore
+            .readContract(
+              configKey.toJS,
+              readContractParameters.toJS,
+            )
+            .toDart;
+        return UtilsJS.dartify(result);
+      });
 
   static Future<List<Map<String, dynamic>>> readContracts(
     ReadContractsParameters readContractsParameters, {
     String configKey = 'default',
-  }) async {
-    final result = await window.wagmiCore
-        .readContracts(
-          configKey.toJS,
-          readContractsParameters.toJS,
-        )
-        .toDart;
-    return result.toDartDynamicList.cast<Map<String, dynamic>>();
-  }
+  }) =>
+      _guardFuture(() async {
+        final result = await window.wagmiCore
+            .readContracts(
+              configKey.toJS,
+              readContractsParameters.toJS,
+            )
+            .toDart;
+        return result.toDartDynamicList.cast<Map<String, dynamic>>();
+      });
 
   // get transaction receipt
   static Future<GetTransactionReceiptReturnType> getTransactionReceipt(
     GetTransactionReceiptParameters getTransactionReceiptParameters, {
     String configKey = 'default',
-  }) async {
-    final result = await window.wagmiCore
-        .getTransactionReceipt(
-          configKey.toJS,
-          getTransactionReceiptParameters.toJS,
-        )
-        .toDart;
-    return result.toDart;
-  }
+  }) =>
+      _guardFuture(() async {
+        final result = await window.wagmiCore
+            .getTransactionReceipt(
+              configKey.toJS,
+              getTransactionReceiptParameters.toJS,
+            )
+            .toDart;
+        return result.toDart;
+      });
 
   static Future<void Function()> watchChainId(
     WatchChainIdParameters watchChainIdParameters, {
     String configKey = 'default',
-  }) async {
-    final result = await window.wagmiCore
-        .watchChainId(
-          configKey.toJS,
-          watchChainIdParameters.toJS,
-        )
-        .toDart;
-    return result.toDart;
-  }
+  }) =>
+      _guardFuture(() async {
+        final result = await window.wagmiCore
+            .watchChainId(
+              configKey.toJS,
+              watchChainIdParameters.toJS,
+            )
+            .toDart;
+        return result.toDart;
+      });
 
   static Future<String> sendTransaction(
     SendTransactionParameters sendTransactionParameters, {
     String configKey = 'default',
-  }) async {
-    final result = await window.wagmiCore
-        .sendTransaction(
-          configKey.toJS,
-          sendTransactionParameters.toJS,
-        )
-        .toDart;
-    return result.toDart;
-  }
+  }) =>
+      _guardFuture(() async {
+        final result = await window.wagmiCore
+            .sendTransaction(
+              configKey.toJS,
+              sendTransactionParameters.toJS,
+            )
+            .toDart;
+        return result.toDart;
+      });
 
   static Future<String> writeContract(
     WriteContractParameters writeContractParameters, {
     String configKey = 'default',
-  }) async {
-    final result = await window.wagmiCore
-        .writeContract(
-          configKey.toJS,
-          writeContractParameters.toJS,
-        )
-        .toDart;
-    return result.toDart;
-  }
+  }) =>
+      _guardFuture(() async {
+        final result = await window.wagmiCore
+            .writeContract(
+              configKey.toJS,
+              writeContractParameters.toJS,
+            )
+            .toDart;
+        return result.toDart;
+      });
 
   static Future<BigInt> estimateGas(
     EstimateGasParameters estimateGasParameters, {
     String configKey = 'default',
-  }) async {
-    final result = await window.wagmiCore
-        .estimateGas(
-          configKey.toJS,
-          estimateGasParameters.toJS,
-        )
-        .toDart;
-    return result.toDart;
-  }
+  }) =>
+      _guardFuture(() async {
+        final result = await window.wagmiCore
+            .estimateGas(
+              configKey.toJS,
+              estimateGasParameters.toJS,
+            )
+            .toDart;
+        return result.toDart;
+      });
 
   static Future<GetTransactionReturnType> getTransaction(
     GetTransactionParameters getTransactionParameters, {
     String configKey = 'default',
-  }) async {
-    final result = await window.wagmiCore
-        .getTransaction(
-          configKey.toJS,
-          getTransactionParameters.toJS,
-        )
-        .toDart;
-    return result.toDart;
-  }
+  }) =>
+      _guardFuture(() async {
+        final result = await window.wagmiCore
+            .getTransaction(
+              configKey.toJS,
+              getTransactionParameters.toJS,
+            )
+            .toDart;
+        return result.toDart;
+      });
 
   static Future<WatchContractEventReturnType> watchContractEvent(
     WatchContractEventParameters watchContractEventParameters, {
     String configKey = 'default',
-  }) async {
-    final result = await window.wagmiCore
-        .watchContractEvent(
-          configKey.toJS,
-          watchContractEventParameters.toJS,
-        )
-        .toDart;
-    return result.toDart;
-  }
+  }) =>
+      _guardFuture(() async {
+        final result = await window.wagmiCore
+            .watchContractEvent(
+              configKey.toJS,
+              watchContractEventParameters.toJS,
+            )
+            .toDart;
+        return result.toDart;
+      });
 
   static Future<BigInt> getTransactionConfirmations(
     GetTransactionConfirmationsParameters
         getTransactionConfirmationsParameters, {
     String configKey = 'default',
-  }) async {
-    final result = await window.wagmiCore
-        .getTransactionConfirmations(
-          configKey.toJS,
-          getTransactionConfirmationsParameters.toJS,
-        )
-        .toDart;
-    return result.toDart;
-  }
+  }) =>
+      _guardFuture(() async {
+        final result = await window.wagmiCore
+            .getTransactionConfirmations(
+              configKey.toJS,
+              getTransactionConfirmationsParameters.toJS,
+            )
+            .toDart;
+        return result.toDart;
+      });
 
   static Future<GetBlockReturnType> getBlock(
     GetBlockParameters getBlockParameters, {
     String configKey = 'default',
-  }) async {
-    final result = await window.wagmiCore
-        .getBlock(
-          configKey.toJS,
-          getBlockParameters.toJS,
-        )
-        .toDart;
-    return result.toDart;
-  }
+  }) =>
+      _guardFuture(() async {
+        final result = await window.wagmiCore
+            .getBlock(
+              configKey.toJS,
+              getBlockParameters.toJS,
+            )
+            .toDart;
+        return result.toDart;
+      });
 
   static Future<int> getBlockTransactionCount(
     GetBlockTransactionCountParameters getBlockTransactionCountParameters, {
     String configKey = 'default',
-  }) async {
-    final result = await window.wagmiCore
-        .getBlockTransactionCount(
-          configKey.toJS,
-          getBlockTransactionCountParameters.toJS,
-        )
-        .toDart;
-    return result.toDartInt;
-  }
+  }) =>
+      _guardFuture(() async {
+        final result = await window.wagmiCore
+            .getBlockTransactionCount(
+              configKey.toJS,
+              getBlockTransactionCountParameters.toJS,
+            )
+            .toDart;
+        return result.toDartInt;
+      });
 
   // call function
   static Future<CallReturnType> call(
     CallParameters callParameters, {
     String configKey = 'default',
-  }) async {
-    final result = await window.wagmiCore
-        .call(
-          configKey.toJS,
-          callParameters.toJS,
-        )
-        .toDart;
-    return result.toDart;
-  }
+  }) =>
+      _guardFuture(() async {
+        final result = await window.wagmiCore
+            .call(
+              configKey.toJS,
+              callParameters.toJS,
+            )
+            .toDart;
+        return result.toDart;
+      });
 
   // estimate fees per gas
   static Future<EstimateFeesPerGasReturnType> estimateFeesPerGas(
     EstimateFeesPerGasParameters estimateFeesPerGasParameters, {
     String configKey = 'default',
-  }) async {
-    final result = await window.wagmiCore
-        .estimateFeesPerGas(
-          configKey.toJS,
-          estimateFeesPerGasParameters.toJS,
-        )
-        .toDart;
-    return result.toDart;
-  }
+  }) =>
+      _guardFuture(() async {
+        final result = await window.wagmiCore
+            .estimateFeesPerGas(
+              configKey.toJS,
+              estimateFeesPerGasParameters.toJS,
+            )
+            .toDart;
+        return result.toDart;
+      });
 
   // estimate max priority fee per gas
   static Future<BigInt> estimateMaxPriorityFeePerGas(
     EstimateMaxPriorityFeePerGasParameters
         estimateMaxPriorityFeePerGasParameters, {
     String configKey = 'default',
-  }) async {
-    final result = await window.wagmiCore
-        .estimateMaxPriorityFeePerGas(
-          configKey.toJS,
-          estimateMaxPriorityFeePerGasParameters.toJS,
-        )
-        .toDart;
-    return result.toDart;
-  }
+  }) =>
+      _guardFuture(() async {
+        final result = await window.wagmiCore
+            .estimateMaxPriorityFeePerGas(
+              configKey.toJS,
+              estimateMaxPriorityFeePerGasParameters.toJS,
+            )
+            .toDart;
+        return result.toDart;
+      });
 
   // get byte code
   static Future<String> getBytecode(
     GetByteCodeParameters getByteCodeParameters, {
     String configKey = 'default',
-  }) async {
-    final result = await window.wagmiCore
-        .getBytecode(
-          configKey.toJS,
-          getByteCodeParameters.toJS,
-        )
-        .toDart;
-    return result.toDart;
-  }
+  }) =>
+      _guardFuture(() async {
+        final result = await window.wagmiCore
+            .getBytecode(
+              configKey.toJS,
+              getByteCodeParameters.toJS,
+            )
+            .toDart;
+        return result.toDart;
+      });
 
   // disconnect
   static Future<void> disconnect(
     DisconnectParameters disconnectParameters, {
     String configKey = 'default',
-  }) async {
-    await window.wagmiCore
-        .disconnect(
-          configKey.toJS,
-          disconnectParameters.toJS,
-        )
-        .toDart;
-  }
+  }) =>
+      _guardFuture(() async {
+        await window.wagmiCore
+            .disconnect(
+              configKey.toJS,
+              disconnectParameters.toJS,
+            )
+            .toDart;
+      });
 
   static Future<WaitForTransactionReceiptReturnType> waitForTransactionReceipt(
     WaitForTransactionReceiptParameters waitForTransactionReceiptParameters, {
     String configKey = 'default',
-  }) async {
-    final result = await window.wagmiCore
-        .waitForTransactionReceipt(
-          configKey.toJS,
-          waitForTransactionReceiptParameters.toJS,
-        )
-        .toDart;
-    return result.toDart;
-  }
+  }) =>
+      _guardFuture(() async {
+        final result = await window.wagmiCore
+            .waitForTransactionReceipt(
+              configKey.toJS,
+              waitForTransactionReceiptParameters.toJS,
+            )
+            .toDart;
+        return result.toDart;
+      });
 
   // get fee history
   static Future<GetFeeHistoryReturnType> getFeeHistory(
     GetFeeHistoryParameters getFeeHistoryParameters, {
     String configKey = 'default',
-  }) async {
-    final result = await window.wagmiCore
-        .getFeeHistory(
-          configKey.toJS,
-          getFeeHistoryParameters.toJS,
-        )
-        .toDart;
-    return result.toDart;
-  }
+  }) =>
+      _guardFuture(() async {
+        final result = await window.wagmiCore
+            .getFeeHistory(
+              configKey.toJS,
+              getFeeHistoryParameters.toJS,
+            )
+            .toDart;
+        return result.toDart;
+      });
 
   static Future<Map<String, dynamic>> switchChain(
     SwitchChainParameters switchChainParameters, {
     String configKey = 'default',
-  }) async {
-    final result = await window.wagmiCore
-        .switchChain(
-          configKey.toJS,
-          switchChainParameters.toJS,
-        )
-        .toDart;
-    return result.toMap();
-  }
+  }) =>
+      _guardFuture(() async {
+        final result = await window.wagmiCore
+            .switchChain(
+              configKey.toJS,
+              switchChainParameters.toJS,
+            )
+            .toDart;
+        return result.toMap();
+      });
 
   // switch account
   static Future<Map<String, dynamic>> switchAccount(
     SwitchAccountParameters switchAccountParameters, {
     String configKey = 'default',
-  }) async {
-    final result = await window.wagmiCore
-        .switchAccount(
-          configKey.toJS,
-          switchAccountParameters.toJS,
-        )
-        .toDart;
-    return result.toMap();
-  }
+  }) =>
+      _guardFuture(() async {
+        final result = await window.wagmiCore
+            .switchAccount(
+              configKey.toJS,
+              switchAccountParameters.toJS,
+            )
+            .toDart;
+        return result.toMap();
+      });
 
   // verify message
   static Future<bool> verifyMessage(
     VerifyMessageParameters verifyMessageParameters, {
     String configKey = 'default',
-  }) async {
-    final result = await window.wagmiCore
-        .verifyMessage(
-          configKey.toJS,
-          verifyMessageParameters.toJS,
-        )
-        .toDart;
-    return result.toDart;
-  }
+  }) =>
+      _guardFuture(() async {
+        final result = await window.wagmiCore
+            .verifyMessage(
+              configKey.toJS,
+              verifyMessageParameters.toJS,
+            )
+            .toDart;
+        return result.toDart;
+      });
 
   // watch account
   static Future<void Function()> watchAccount(
     WatchAccountParameters watchAccountParameters, {
     String configKey = 'default',
-  }) async {
-    final result = await window.wagmiCore
-        .watchAccount(
-          configKey.toJS,
-          watchAccountParameters.toJS1,
-        )
-        .toDart;
-    return result.toDart;
-  }
+  }) =>
+      _guardFuture(() async {
+        final result = await window.wagmiCore
+            .watchAccount(
+              configKey.toJS,
+              watchAccountParameters.toJS1,
+            )
+            .toDart;
+        return result.toDart;
+      });
 
   // watch connections
   static Future<void Function()> watchConnections(
     WatchConnectionsParameters watchConnectionsParameters, {
     String configKey = 'default',
-  }) async {
-    final result = await window.wagmiCore
-        .watchConnections(
-          configKey.toJS,
-          watchConnectionsParameters.toJS2,
-        )
-        .toDart;
-    return result.toDart;
-  }
+  }) =>
+      _guardFuture(() async {
+        final result = await window.wagmiCore
+            .watchConnections(
+              configKey.toJS,
+              watchConnectionsParameters.toJS2,
+            )
+            .toDart;
+        return result.toDart;
+      });
 
   // getWalletClient
   static Future<GetWalletClientReturnType> getWalletClient(
     GetWalletClientParameters getWalletClientParameters, {
     String configKey = 'default',
-  }) async {
-    final result = await window.wagmiCore
-        .getWalletClient(
-          configKey.toJS,
-          getWalletClientParameters.toJS,
-        )
-        .toDart;
-    return result.toDart;
-  }
+  }) =>
+      _guardFuture(() async {
+        final result = await window.wagmiCore
+            .getWalletClient(
+              configKey.toJS,
+              getWalletClientParameters.toJS,
+            )
+            .toDart;
+        return result.toDart;
+      });
 
   //deployContract
   static Future<String> deployContract(
     DeployContractParameters deployContractParameters, {
     String configKey = 'default',
-  }) async {
-    final result = await window.wagmiCore
-        .deployContract(
-          configKey.toJS,
-          deployContractParameters.toJS,
-        )
-        .toDart;
-    return result.toDart;
-  }
+  }) =>
+      _guardFuture(() async {
+        final result = await window.wagmiCore
+            .deployContract(
+              configKey.toJS,
+              deployContractParameters.toJS,
+            )
+            .toDart;
+        return result.toDart;
+      });
 
   // watchAsset
   static Future<bool> watchAsset(
     WatchAssetParameters watchAssetParameters, {
     String configKey = 'default',
-  }) async {
-    final result = await window.wagmiCore
-        .watchAsset(
-          configKey.toJS,
-          watchAssetParameters.toJS,
-        )
-        .toDart;
-    return result.toDart;
+  }) =>
+      _guardFuture(() async {
+        final result = await window.wagmiCore
+            .watchAsset(
+              configKey.toJS,
+              watchAssetParameters.toJS,
+            )
+            .toDart;
+        return result.toDart;
+      });
+
+  /// Catches and transforms errors properly
+  static Future<T> _guardFuture<T>(Future<T> Function() action) async {
+    try {
+      return await action();
+    } catch (e) {
+      e as JSError;
+      throw e.toDart;
+    }
+  }
+
+  static T _guard<T>(T Function() action) {
+    try {
+      return action();
+    } catch (e) {
+      e as JSError;
+      throw e.toDart;
+    }
   }
 }
