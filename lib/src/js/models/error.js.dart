@@ -1,10 +1,8 @@
 part of '../wagmi.js.dart';
 
 /// Generic JSError
-extension type JSError._(JSObject _) implements JSObject {}
-
-/// Generic indexed DB/Javascript error.
-extension JSErrorExt on JSError {
+@JS()
+extension type JSError._(JSObject _) implements JSObject {
   /// Get the error message
   external String? get message;
 
@@ -19,7 +17,8 @@ extension JSErrorExt on JSError {
 
   WagmiError get toDart => WagmiError(
         message: message,
-        name: WagmiErrors.values.firstWhere((value) => value.name == name),
+        name:
+            WagmiErrors.values.firstWhereOrNull((value) => value.name == name),
         metaMessages: metaMessages?.toDart
             .map(
               (message) => message.toDart,

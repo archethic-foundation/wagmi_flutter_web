@@ -2,7 +2,7 @@
 
 class WagmiError implements Exception {
   WagmiError({
-    required this.name,
+    this.name,
     this.message,
     this.metaMessages,
     this.shortMessage,
@@ -12,7 +12,7 @@ class WagmiError implements Exception {
     this.details,
   });
 
-  final WagmiErrors name;
+  final WagmiErrors? name;
   final String? message;
   final List<String>? metaMessages;
   final String? shortMessage;
@@ -22,6 +22,15 @@ class WagmiError implements Exception {
 
   /// The raw error object
   final Map<String, dynamic>? details;
+
+  /// Returns the first error or cause matching given type.
+  WagmiError? findError(WagmiErrors errorName) {
+    if (name == errorName) return this;
+
+    if (cause == null) return null;
+
+    return cause!.findError(errorName);
+  }
 
   @override
   String toString() => '$name : ${message ?? shortMessage}';
