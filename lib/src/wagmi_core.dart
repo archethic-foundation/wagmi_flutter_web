@@ -22,6 +22,7 @@ import 'package:wagmi_flutter_web/src/actions/get_transaction_receipt.dart';
 import 'package:wagmi_flutter_web/src/actions/get_wallet_client.dart';
 import 'package:wagmi_flutter_web/src/actions/read_contract.dart';
 import 'package:wagmi_flutter_web/src/actions/read_contracts.dart';
+import 'package:wagmi_flutter_web/src/actions/reconnect.dart';
 import 'package:wagmi_flutter_web/src/actions/send_transaction.dart';
 import 'package:wagmi_flutter_web/src/actions/sign_message.dart';
 import 'package:wagmi_flutter_web/src/actions/switch_account.dart';
@@ -530,6 +531,21 @@ class Core {
             .watchAsset(
               configKey.toJS,
               watchAssetParameters.toJS,
+            )
+            .toDart;
+        return result.toDart;
+      });
+
+  // reconnect
+  static Future<ReconnectReturnType> reconnect(
+    ReconnectParameters reconnectParameters, {
+    String configKey = 'default',
+  }) =>
+      _guardFuture(() async {
+        final result = await window.wagmiCore
+            .reconnect(
+              configKey.toJS,
+              reconnectParameters.toJS,
             )
             .toDart;
         return result.toDart;

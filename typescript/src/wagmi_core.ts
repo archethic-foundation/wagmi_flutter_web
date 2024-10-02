@@ -29,6 +29,7 @@ import {
     WaitForTransactionReceiptParameters,
     WatchAccountParameters,
     WatchAssetParameters,
+    ReconnectParameters,
     WatchChainIdParameters,
     WatchConnectionsParameters,
     WatchContractEventParameters,
@@ -69,6 +70,7 @@ import {
     watchConnections,
     watchContractEvent,
     writeContract,
+    reconnect,
 } from "@wagmi/core";
 import { InvalidAddressError } from "viem";
 import { JSWagmiContext } from "./context";
@@ -333,6 +335,15 @@ export class JSWagmiCore {
     watchAsset = this.#guard(
         async (configKey: string, params: WatchAssetParameters) => {
             return await watchAsset(
+                this.getConfig(configKey),
+                params
+            );
+        }
+    )
+
+    reconnect = this.#guard(
+        async (configKey: string, params: ReconnectParameters) => {
+            return await reconnect(
                 this.getConfig(configKey),
                 params
             );
