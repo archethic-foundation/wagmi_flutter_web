@@ -6,8 +6,10 @@ import 'package:wagmi_flutter_web/src/js/wagmi.js.dart';
 class GetTransactionReceiptParameters {
   GetTransactionReceiptParameters({
     required this.hash,
+    this.chainId,
   });
-  String hash;
+  final String hash;
+  final int? chainId;
 
   JSGetTransactionReceiptParameters get toJS =>
       JSGetTransactionReceiptParameters(
