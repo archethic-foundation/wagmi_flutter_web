@@ -14,7 +14,7 @@ class GetBlockParameters {
   final String? blockHash;
   final BigInt? blockNumber;
   final String? blockTag;
-  final BigInt? chainId;
+  final int? chainId;
   final bool? includeTransactions;
 
   JSGetBlockParameters get toJS => JSGetBlockParameters(

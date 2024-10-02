@@ -20,9 +20,7 @@ mixin _$Connections {
   int get chainId => throw _privateConstructorUsedError;
   Connector get connector => throw _privateConstructorUsedError;
 
-  /// Create a copy of Connections
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   $ConnectionsCopyWith<Connections> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -46,8 +44,6 @@ class _$ConnectionsCopyWithImpl<$Res, $Val extends Connections>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
-  /// Create a copy of Connections
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -91,8 +87,6 @@ class __$$ConnectionsImplCopyWithImpl<$Res>
       _$ConnectionsImpl _value, $Res Function(_$ConnectionsImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of Connections
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -160,9 +154,7 @@ class _$ConnectionsImpl extends _Connections {
   int get hashCode => Object.hash(runtimeType,
       const DeepCollectionEquality().hash(_accounts), chainId, connector);
 
-  /// Create a copy of Connections
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$ConnectionsImplCopyWith<_$ConnectionsImpl> get copyWith =>
@@ -182,11 +174,8 @@ abstract class _Connections extends Connections {
   int get chainId;
   @override
   Connector get connector;
-
-  /// Create a copy of Connections
-  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$ConnectionsImplCopyWith<_$ConnectionsImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

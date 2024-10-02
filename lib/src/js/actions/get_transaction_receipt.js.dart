@@ -6,8 +6,10 @@ extension type JSGetTransactionReceiptParameters._(JSObject _)
     implements JSObject {
   external JSGetTransactionReceiptParameters({
     JSString? hash,
+    JSNumber? chainId,
   });
   external JSString? hash;
+  external JSNumber? chainId;
 }
 
 @JS()

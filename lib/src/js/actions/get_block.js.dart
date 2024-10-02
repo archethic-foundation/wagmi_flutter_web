@@ -7,13 +7,13 @@ extension type JSGetBlockParameters._(JSObject _) implements JSObject {
     JSString? blockHash,
     JSBigInt? blockNumber,
     JSString? blockTag,
-    JSBigInt? chainId,
+    JSNumber? chainId,
     JSBoolean? includeTransactions,
   });
   external JSString? blockHash;
   external JSBigInt? blockNumber;
   external JSString? blockTag;
-  external JSBigInt? chainId;
+  external JSNumber? chainId;
   external JSBoolean? includeTransactions;
 }
 
