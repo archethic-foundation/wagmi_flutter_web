@@ -1,3 +1,6 @@
+## 1.0.0-rc.3
+* 🐛 Fix chainId parameter for getBlock & getTransactionReceipt
+
 ## 1.0.0-rc.2
 * Add Collection dependency
 
