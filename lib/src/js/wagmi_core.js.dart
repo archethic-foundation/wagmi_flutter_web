@@ -152,4 +152,9 @@ extension type JSWagmiCore(JSObject _) implements JSObject {
     JSString configKey,
     JSWatchAssetParameters watchAssetParameters,
   );
+  // reconnect
+  external JSPromise<JSReconnectReturnType> reconnect(
+    JSString configKey,
+    JSReconnectParameters reconnectParameters,
+  );
 }

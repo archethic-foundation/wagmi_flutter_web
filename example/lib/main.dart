@@ -120,6 +120,9 @@ class _MyAppState extends State<MyApp> {
                 'https://polygon-amoy.g.alchemy.com/v2/', //TODO(dev): Add your own API Key to use example
           ),
         );
+        await wagmi.Core.reconnect(
+          wagmi.ReconnectParameters(),
+        ); // whenever the page is refreshed manually, it will reconnect to the wallet
       },
     );
     super.initState();
@@ -167,9 +170,7 @@ class _MyAppState extends State<MyApp> {
             ElevatedButton(
               onPressed: () async {
                 // disconnect wallet
-                final getTokenParameters = wagmi.DisconnectParameters(
-                  connector: account?.connector,
-                );
+                final getTokenParameters = wagmi.DisconnectParameters();
                 await wagmi.Core.disconnect(
                   getTokenParameters,
                 );
@@ -241,7 +242,7 @@ class _MyAppState extends State<MyApp> {
                 final balanceResult = await wagmi.Core.getBalance(
                   wagmi.GetBalanceParameters(
                     address: account!.address ?? '',
-                    blockTag: 'latest',
+                    blockTag: const wagmi.BlockTag.latest(),
                   ),
                   configKey: 'withWSSTransport',
                 );
@@ -313,7 +314,7 @@ class _MyAppState extends State<MyApp> {
                   wagmi.GetTransactionCountParameters(
                     address: account?.address ?? '',
                     chainId: account!.chain!.id,
-                    blockTag: 'latest',
+                    blockTag: const wagmi.BlockTag.latest(),
                   ),
                 );
                 setState(() {

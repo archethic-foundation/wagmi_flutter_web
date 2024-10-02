@@ -1,6 +1,7 @@
 import 'dart:js_interop';
 
 import 'package:wagmi_flutter_web/src/js/wagmi.js.dart';
+import 'package:wagmi_flutter_web/src/models/block_tag.dart';
 
 /// [Documentation API](https://wagmi.sh/core/api/actions/getTransaction)
 class GetTransactionParameters {
@@ -15,7 +16,7 @@ class GetTransactionParameters {
   final String? hash;
   final BigInt? blockHash;
   final BigInt? blockNumber;
-  final String? blockTag;
+  final BlockTag? blockTag;
   final BigInt? chainId;
   final int? index;
 

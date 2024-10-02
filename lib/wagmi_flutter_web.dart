@@ -26,6 +26,7 @@ export 'src/actions/get_transaction_receipt.dart';
 export 'src/actions/get_wallet_client.dart';
 export 'src/actions/read_contract.dart';
 export 'src/actions/read_contracts.dart';
+export 'src/actions/reconnect.dart';
 export 'src/actions/send_transaction.dart';
 export 'src/actions/sign_message.dart';
 export 'src/actions/switch_account.dart';

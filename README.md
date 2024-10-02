@@ -125,7 +125,7 @@ For more details, refer to the [API documentation](https://wagmi.sh/core/api/act
 | `prepareTransactionRequest`    | 🔴               |
 | `readContract`                 | ✅ Implemented   |
 | `readContracts`                | ✅ Implemented 🛠️ |
-| `reconnect`                    | 🔴               |
+| `reconnect`                    | ✅ Implemented   |
 | `sendTransaction`              | ✅ Implemented   |
 | `signMessage`                  | ✅ Implemented   |
 | `signTypedData`                | 🔴               |

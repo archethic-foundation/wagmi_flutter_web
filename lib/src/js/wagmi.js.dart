@@ -15,6 +15,7 @@ part 'actions/estimate_gas.js.dart';
 part 'actions/estimate_max_priority_fee_per_gas.js.dart';
 part 'actions/get_balance.js.dart';
 part 'actions/get_block.js.dart';
+part 'actions/reconnect.js.dart';
 part 'actions/get_block_number.js.dart';
 part 'actions/get_block_transaction_count.js.dart';
 part 'actions/get_byte_code.js.dart';
