@@ -28,6 +28,7 @@ migrate_working_dir/
 **/doc/api/
 .dart_tool/
 build/
+assets
 
 # JS related
 node_modules
