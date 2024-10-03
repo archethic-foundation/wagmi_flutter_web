@@ -1,3 +1,6 @@
+## 1.0.0-rc.4
+* ✨ reconnect method implemented.
+
 ## 1.0.0-rc.3
 * 🐛 Fix chainId parameter for getBlock & getTransactionReceipt
 
