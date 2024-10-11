@@ -128,7 +128,7 @@ extension type JSWagmiCore(JSObject _) implements JSObject {
   // watch account
   external JSPromise<JSWatchAccountReturnType> watchAccount(
     JSString configKey,
-    JSWatchAccountParameters watchChainIdParameters,
+    JSWatchAccountParameters watchAccountParameters,
   );
 
   // watch connections

@@ -1,3 +1,6 @@
+## 1.0.0-rc.5
+* 🐛 Fix watchAccount method
+
 ## 1.0.0-rc.4
 * ✨ reconnect method implemented.
 

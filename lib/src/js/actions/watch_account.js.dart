@@ -5,7 +5,7 @@ part of '../wagmi.js.dart';
 @JS()
 extension type JSWatchAccountParameters._(JSObject _) implements JSObject {
   external JSWatchAccountParameters({
-    JSFunction onChange,
+    required JSFunction onChange,
   });
 
   external JSFunction onChange;
@@ -22,10 +22,12 @@ extension JSWatchAccountReturnTypeConversion on JSWatchAccountReturnType {
 }
 
 extension JSWatchAccountParametersConversion on WatchAccountParameters {
-  // convert dart function to js function
-  JSWatchAccountParameters get toJS1 => JSWatchAccountParameters(
-        onChange: ((JSObject accounts) {
-          onChange(accounts.toMap(deep: false));
+  JSWatchAccountParameters get toJSWatchAccount => JSWatchAccountParameters(
+        onChange: js_util
+            .allowInterop((JSAccount currentAccount, JSAccount prevAccount) {
+          final accountDart = currentAccount.toDart;
+          final prevAccountDart = prevAccount.toDart;
+          onChange(accountDart, prevAccountDart);
         }).toJS,
       );
 }
