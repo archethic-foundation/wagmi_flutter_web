@@ -470,7 +470,7 @@ class Core {
         final result = await window.wagmiCore
             .watchAccount(
               configKey.toJS,
-              watchAccountParameters.toJS1,
+              watchAccountParameters.toJSWatchAccount,
             )
             .toDart;
         return result.toDart;

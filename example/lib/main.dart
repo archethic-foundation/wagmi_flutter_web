@@ -860,15 +860,20 @@ class _MyAppState extends State<MyApp> {
               ElevatedButton(
                 onPressed: () async {
                   final watchAccountParameters = wagmi.WatchAccountParameters(
-                    onChange: (accountInfo) => setState(() {
-                      debugPrint('accountInfo changed : $accountInfo');
-                      if (accountInfo['isConnected'] &&
-                          accountInfo['addresses'].length >= 2) {
+                    onChange: (account, prevAccount) => setState(() {
+                      debugPrint(
+                        'accountInfo new : ${account.address ?? 'unknown'}',
+                      );
+                      debugPrint(
+                        'accountInfo prev : ${prevAccount.address ?? 'unknown'}',
+                      );
+
+                      if (account.isConnected && account.address != null) {
                         // show snackbar
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
                             content: Text(
-                              'Account switched to ${accountInfo['address']}',
+                              'Account switched from ${prevAccount.address} to ${account.address}',
                             ),
                           ),
                         );
