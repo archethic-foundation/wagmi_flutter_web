@@ -28,6 +28,6 @@ extension JSWatchAccountParametersConversion on WatchAccountParameters {
           final accountDart = currentAccount.toDart;
           final prevAccountDart = prevAccount.toDart;
           onChange(accountDart, prevAccountDart);
-        }).toJS,
+        }) as JSFunction,
       );
 }

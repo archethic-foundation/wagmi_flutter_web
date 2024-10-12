@@ -1,3 +1,6 @@
+## 1.0.0-rc.6
+* 🐛 Fix watchAccount method - Fix Attempting to rewrap a JS function error
+
 ## 1.0.0-rc.5
 * 🐛 Fix watchAccount method
 
