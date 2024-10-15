@@ -49,7 +49,7 @@ class _MyAppState extends State<MyApp> {
   String tempWallet = '0xfAd3b616BCD747A12A7c0a6203E7a481606B12E8';
 
   // TODO(dev): Add your own project ID to use example
-  static const _projectId = '<TO UPDATE>';
+  static const _projectId = 'd1a249a3f73bc73891ea505b2a30d5c2';
 
   String txHash = '';
   BigInt blockConfirmationNumber = BigInt.zero,
@@ -93,6 +93,11 @@ class _MyAppState extends State<MyApp> {
           email: false, // email
           showWallets: true, // showWallets
           walletFeatures: true, // walletFeatures
+          // Use https://explorer.walletconnect.com/?type=wallet to find wallet ids
+          includeWalletIds: [
+            'c57ca95b47569778a828d19178114f4db188b89b763c899ba0be274e97267d96', // MetaMask
+            '1ae92b26df02f0abca6304df07debccd18262fdf5fe82daa81593582dac9a369', // Rainbow
+          ],
         );
 
         // create config
@@ -119,6 +124,10 @@ class _MyAppState extends State<MyApp> {
             url:
                 'https://polygon-amoy.g.alchemy.com/v2/', //TODO(dev): Add your own API Key to use example
           ),
+          // Use https://explorer.walletconnect.com/?type=wallet to find wallet ids
+          includeWalletIds: [
+            'c57ca95b47569778a828d19178114f4db188b89b763c899ba0be274e97267d96', // MetaMask
+          ],
         );
         await wagmi.Core.reconnect(
           wagmi.ReconnectParameters(),

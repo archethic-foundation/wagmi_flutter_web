@@ -29,7 +29,11 @@ export class JSWeb3Modal {
         socials: [] | undefined,
         showWallets: boolean,
         walletFeatures: boolean,
-        transportBuilder: JSTransportBuilder | undefined
+        transportBuilder: JSTransportBuilder | undefined,
+        includeWalletIds: string[] | undefined, // Warning the name is not the same with documentation... https://docs.reown.com/appkit/flutter/core/options
+        featuredWalletIds: string[] | undefined,
+        excludeWalletIds: string[] | undefined, // Warning the name is not the same with documentation... https://docs.reown.com/appkit/flutter/core/options
+
     ) {
         JSWagmiContext.instance.config = Web3modal.defaultWagmiConfig({
             chains: chainsFromIds(chains),
@@ -49,6 +53,9 @@ export class JSWeb3Modal {
             projectId: projectId,
             enableAnalytics: enableAnalytics, // Optional - defaults to your Cloud configuration
             enableOnramp: enableOnRamp, // Optional - false as default
+            includeWalletIds: includeWalletIds, // Optional
+            featuredWalletIds: featuredWalletIds, // Optional
+            excludeWalletIds: excludeWalletIds, // Optional
         })
     }
 
@@ -68,6 +75,7 @@ export class JSWeb3Modal {
         showWallets: boolean,
         walletFeatures: boolean,
         transportBuilder: JSTransportBuilder | undefined
+
     ): Config {
         const config = Web3modal.defaultWagmiConfig({
             chains: chainsFromIds(chains),
@@ -80,6 +88,7 @@ export class JSWeb3Modal {
                 walletFeatures: walletFeatures
             },
             client: !transportBuilder ? undefined : this.#clientBuilder(transportBuilder),
+
         })
         JSWagmiContext.instance.setConfig(configKey, config)
         return config

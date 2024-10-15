@@ -15,6 +15,9 @@ class Web3Modal {
     required bool showWallets,
     required bool walletFeatures,
     TransportBuilder? transportBuilder,
+    List<String>? includeWalletIds,
+    List<String>? featuredWalletIds,
+    List<String>? excludeWalletIds,
   }) {
     window.web3modal.init(
       projectId.toJS,
@@ -32,6 +35,9 @@ class Web3Modal {
       showWallets.toJS,
       walletFeatures.toJS,
       transportBuilder?.toJS,
+      includeWalletIds?.jsify() as JSArray<JSString>?,
+      featuredWalletIds?.jsify() as JSArray<JSString>?,
+      excludeWalletIds?.jsify() as JSArray<JSString>?,
     );
   }
 
@@ -46,6 +52,9 @@ class Web3Modal {
     required bool showWallets,
     required bool walletFeatures,
     TransportBuilder? transportBuilder,
+    List<String>? includeWalletIds,
+    List<String>? featuredWalletIds,
+    List<String>? excludeWalletIds,
   }) =>
       window.web3modal.createConfig(
         projectId.toJS,
@@ -62,6 +71,9 @@ class Web3Modal {
         showWallets.toJS,
         walletFeatures.toJS,
         transportBuilder?.toJS,
+        includeWalletIds?.jsify() as JSArray<JSString>?,
+        featuredWalletIds?.jsify() as JSArray<JSString>?,
+        excludeWalletIds?.jsify() as JSArray<JSString>?,
       );
 
   /// Opens the [Web3Modal]

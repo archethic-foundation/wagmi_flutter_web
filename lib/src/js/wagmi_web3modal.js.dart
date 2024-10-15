@@ -13,6 +13,9 @@ extension type JSWagmiWeb3Modal(JSObject _) implements JSObject {
     JSBoolean showWallets,
     JSBoolean walletFeatures,
     JSFunction? transportBuilder,
+    JSArray<JSString>? includedWalletIds,
+    JSArray<JSString>? featuredWalletIds,
+    JSArray<JSString>? excludedWalletIds,
   );
   // for create createConfig
   external JSConfig createConfig(
@@ -25,6 +28,9 @@ extension type JSWagmiWeb3Modal(JSObject _) implements JSObject {
     JSBoolean showWallets,
     JSBoolean walletFeatures,
     JSFunction? transportBuilder,
+    JSArray<JSString>? includedWalletIds,
+    JSArray<JSString>? featuredWalletIds,
+    JSArray<JSString>? excludedWalletIds,
   );
 
   external JSAppKit createWeb3Modal(
