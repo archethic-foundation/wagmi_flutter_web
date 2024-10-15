@@ -1,3 +1,7 @@
+## 1.0.0-rc.7
+* Config - implementation of wallets list choice
+  * Add `includeWalletIds`, `featuredWalletIds`, `excludeWalletIds` properties in `Config` object
+
 ## 1.0.0-rc.6
 * 🐛 Fix watchAccount method - Fix Attempting to rewrap a JS function error
 
