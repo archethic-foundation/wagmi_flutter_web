@@ -7,6 +7,7 @@ import 'package:example/actions/config_switch.dart';
 import 'package:example/actions/gas_price.dart';
 import 'package:example/actions/get_connections.dart';
 import 'package:example/actions/read_contract.dart';
+import 'package:example/actions/switch_account.dart';
 import 'package:example/actions/write_contract.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -67,6 +68,7 @@ class _MyAppState extends State<MyApp> {
     const Tab(text: 'Gas Price'),
     const Tab(text: 'Watch Asset'),
     const Tab(text: 'Connections'),
+    const Tab(text: 'Switch Account'),
   ];
 
   @override
@@ -159,6 +161,7 @@ class _MyAppState extends State<MyApp> {
             const GasPriceExample(),
             const AddTokenExample(),
             const GetConnectionsExample(),
+            const SwitchAccountExample(),
           ],
         ),
       ),
@@ -810,23 +813,7 @@ class _MyAppState extends State<MyApp> {
               child: const Text('Switch Chain'),
             ),
             const SizedBox(
-              height: 7,
-            ),
-            // switch account
-            ElevatedButton(
-              onPressed: () async {
-                final switchAccountParameters = wagmi.SwitchAccountParameters(
-                  connector: account!.connector,
-                );
-                final result = await wagmi.Core.switchAccount(
-                  switchAccountParameters,
-                );
-                showSwitchAccountDialog(context, result);
-              },
-              child: const Text('Switch Account'),
-            ),
-            const SizedBox(
-              height: 7,
+              height: 10,
             ),
             // verify message
             ElevatedButton(
@@ -846,14 +833,14 @@ class _MyAppState extends State<MyApp> {
               child: const Text('Verify Message'),
             ),
             const SizedBox(
-              height: 7,
+              height: 10,
             ),
             if (verifyMsg != null)
               Text('Verify Message: $verifyMsg')
             else
               Container(),
             const SizedBox(
-              height: 7,
+              height: 10,
             ),
 
             // watch account

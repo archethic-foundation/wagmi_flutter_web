@@ -303,10 +303,12 @@ export class JSWagmiCore {
         )
     )
     switchAccount = this.#guard(
-        async (configKey: string, params: SwitchAccountParameters) => switchAccount(
-            this.getConfig(configKey),
-            params
-        )
+        async (configKey: string, params: SwitchAccountParameters) => {
+            return switchAccount(
+                this.getConfig(configKey),
+                params
+            );
+        }
     )
     watchAccount = this.#guard(
         async (configKey: string, params: WatchAccountParameters) => watchAccount(
