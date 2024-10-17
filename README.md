@@ -102,7 +102,7 @@ For more details, refer to the [API documentation](https://wagmi.sh/core/api/act
 | `getChainId`                   | ✅ Implemented   |
 | `getChains`                    | ✅ Implemented   |
 | `getClient`                    | 🔴               |
-| `getConnections`               | 🔴               |
+| `getConnections`               | ✅ Implemented   |
 | `getConnectorClient`           | 🔴               |
 | `getConnectors`                | 🔴               |
 | `getEnsAddress`                | 🔴               |

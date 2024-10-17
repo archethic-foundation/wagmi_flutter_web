@@ -83,9 +83,6 @@ class _$UnitCopyWithImpl<$Res, $Val extends Unit>
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
-
-  /// Create a copy of Unit
-  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -102,9 +99,6 @@ class __$$UnitEtherImplCopyWithImpl<$Res>
   __$$UnitEtherImplCopyWithImpl(
       _$UnitEtherImpl _value, $Res Function(_$UnitEtherImpl) _then)
       : super(_value, _then);
-
-  /// Create a copy of Unit
-  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -220,9 +214,6 @@ class __$$UnitGweiImplCopyWithImpl<$Res>
   __$$UnitGweiImplCopyWithImpl(
       _$UnitGweiImpl _value, $Res Function(_$UnitGweiImpl) _then)
       : super(_value, _then);
-
-  /// Create a copy of Unit
-  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -338,9 +329,6 @@ class __$$UnitWeiImplCopyWithImpl<$Res>
   __$$UnitWeiImplCopyWithImpl(
       _$UnitWeiImpl _value, $Res Function(_$UnitWeiImpl) _then)
       : super(_value, _then);
-
-  /// Create a copy of Unit
-  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -459,8 +447,6 @@ class __$$UnitIdImplCopyWithImpl<$Res>
       _$UnitIdImpl _value, $Res Function(_$UnitIdImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of Unit
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -499,9 +485,7 @@ class _$UnitIdImpl extends _UnitId {
   @override
   int get hashCode => Object.hash(runtimeType, id);
 
-  /// Create a copy of Unit
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$UnitIdImplCopyWith<_$UnitIdImpl> get copyWith =>
@@ -587,10 +571,7 @@ abstract class _UnitId extends Unit {
   const _UnitId._() : super._();
 
   int get id;
-
-  /// Create a copy of Unit
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$UnitIdImplCopyWith<_$UnitIdImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

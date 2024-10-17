@@ -1,13 +1,19 @@
 part of '../wagmi.js.dart';
 
 @JS()
-extension type JSConnections(JSObject _) implements JSObject {
-  external JSArray get accounts;
+extension type JSConnection(JSObject _) implements JSObject {
+  external JSArray<JSString>? get accounts;
   external JSNumber get chainId;
   external JSConnector get connector;
 
-  Connections get toDart => Connections(
-        accounts: accounts.jsify()! as List<String>,
+  Connection get toDart => Connection(
+        accounts: accounts == null
+            ? []
+            : accounts!.toDart
+                .map(
+                  (address) => address.toDart,
+                )
+                .toList(),
         chainId: chainId.toDartInt,
         connector: connector.toDart,
       );

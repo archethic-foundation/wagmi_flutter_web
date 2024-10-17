@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'connections.dart';
+part of 'connection.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -15,39 +15,35 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
-mixin _$Connections {
+mixin _$Connection {
   List<String> get accounts => throw _privateConstructorUsedError;
   int get chainId => throw _privateConstructorUsedError;
   Connector get connector => throw _privateConstructorUsedError;
 
-  /// Create a copy of Connections
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  $ConnectionsCopyWith<Connections> get copyWith =>
+  @JsonKey(ignore: true)
+  $ConnectionCopyWith<Connection> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $ConnectionsCopyWith<$Res> {
-  factory $ConnectionsCopyWith(
-          Connections value, $Res Function(Connections) then) =
-      _$ConnectionsCopyWithImpl<$Res, Connections>;
+abstract class $ConnectionCopyWith<$Res> {
+  factory $ConnectionCopyWith(
+          Connection value, $Res Function(Connection) then) =
+      _$ConnectionCopyWithImpl<$Res, Connection>;
   @useResult
   $Res call({List<String> accounts, int chainId, Connector connector});
 }
 
 /// @nodoc
-class _$ConnectionsCopyWithImpl<$Res, $Val extends Connections>
-    implements $ConnectionsCopyWith<$Res> {
-  _$ConnectionsCopyWithImpl(this._value, this._then);
+class _$ConnectionCopyWithImpl<$Res, $Val extends Connection>
+    implements $ConnectionCopyWith<$Res> {
+  _$ConnectionCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
 
-  /// Create a copy of Connections
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -73,26 +69,24 @@ class _$ConnectionsCopyWithImpl<$Res, $Val extends Connections>
 }
 
 /// @nodoc
-abstract class _$$ConnectionsImplCopyWith<$Res>
-    implements $ConnectionsCopyWith<$Res> {
-  factory _$$ConnectionsImplCopyWith(
-          _$ConnectionsImpl value, $Res Function(_$ConnectionsImpl) then) =
-      __$$ConnectionsImplCopyWithImpl<$Res>;
+abstract class _$$ConnectionImplCopyWith<$Res>
+    implements $ConnectionCopyWith<$Res> {
+  factory _$$ConnectionImplCopyWith(
+          _$ConnectionImpl value, $Res Function(_$ConnectionImpl) then) =
+      __$$ConnectionImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({List<String> accounts, int chainId, Connector connector});
 }
 
 /// @nodoc
-class __$$ConnectionsImplCopyWithImpl<$Res>
-    extends _$ConnectionsCopyWithImpl<$Res, _$ConnectionsImpl>
-    implements _$$ConnectionsImplCopyWith<$Res> {
-  __$$ConnectionsImplCopyWithImpl(
-      _$ConnectionsImpl _value, $Res Function(_$ConnectionsImpl) _then)
+class __$$ConnectionImplCopyWithImpl<$Res>
+    extends _$ConnectionCopyWithImpl<$Res, _$ConnectionImpl>
+    implements _$$ConnectionImplCopyWith<$Res> {
+  __$$ConnectionImplCopyWithImpl(
+      _$ConnectionImpl _value, $Res Function(_$ConnectionImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of Connections
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -100,7 +94,7 @@ class __$$ConnectionsImplCopyWithImpl<$Res>
     Object? chainId = null,
     Object? connector = null,
   }) {
-    return _then(_$ConnectionsImpl(
+    return _then(_$ConnectionImpl(
       accounts: null == accounts
           ? _value._accounts
           : accounts // ignore: cast_nullable_to_non_nullable
@@ -119,8 +113,8 @@ class __$$ConnectionsImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$ConnectionsImpl extends _Connections {
-  const _$ConnectionsImpl(
+class _$ConnectionImpl extends _Connection {
+  const _$ConnectionImpl(
       {required final List<String> accounts,
       required this.chainId,
       required this.connector})
@@ -142,14 +136,14 @@ class _$ConnectionsImpl extends _Connections {
 
   @override
   String toString() {
-    return 'Connections(accounts: $accounts, chainId: $chainId, connector: $connector)';
+    return 'Connection(accounts: $accounts, chainId: $chainId, connector: $connector)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$ConnectionsImpl &&
+            other is _$ConnectionImpl &&
             const DeepCollectionEquality().equals(other._accounts, _accounts) &&
             (identical(other.chainId, chainId) || other.chainId == chainId) &&
             (identical(other.connector, connector) ||
@@ -160,21 +154,19 @@ class _$ConnectionsImpl extends _Connections {
   int get hashCode => Object.hash(runtimeType,
       const DeepCollectionEquality().hash(_accounts), chainId, connector);
 
-  /// Create a copy of Connections
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$ConnectionsImplCopyWith<_$ConnectionsImpl> get copyWith =>
-      __$$ConnectionsImplCopyWithImpl<_$ConnectionsImpl>(this, _$identity);
+  _$$ConnectionImplCopyWith<_$ConnectionImpl> get copyWith =>
+      __$$ConnectionImplCopyWithImpl<_$ConnectionImpl>(this, _$identity);
 }
 
-abstract class _Connections extends Connections {
-  const factory _Connections(
+abstract class _Connection extends Connection {
+  const factory _Connection(
       {required final List<String> accounts,
       required final int chainId,
-      required final Connector connector}) = _$ConnectionsImpl;
-  const _Connections._() : super._();
+      required final Connector connector}) = _$ConnectionImpl;
+  const _Connection._() : super._();
 
   @override
   List<String> get accounts;
@@ -182,11 +174,8 @@ abstract class _Connections extends Connections {
   int get chainId;
   @override
   Connector get connector;
-
-  /// Create a copy of Connections
-  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$ConnectionsImplCopyWith<_$ConnectionsImpl> get copyWith =>
+  @JsonKey(ignore: true)
+  _$$ConnectionImplCopyWith<_$ConnectionImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

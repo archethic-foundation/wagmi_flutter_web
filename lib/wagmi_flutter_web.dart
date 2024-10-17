@@ -55,6 +55,7 @@ export 'src/models/chain_native_currency.dart';
 export 'src/models/chain_rpc_urls.dart';
 export 'src/models/chain_serializers.dart';
 export 'src/models/config.dart';
+export 'src/models/connection.dart';
 export 'src/models/connector.dart';
 export 'src/models/error.dart';
 export 'src/models/fees_values.dart';

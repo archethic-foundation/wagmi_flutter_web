@@ -3,7 +3,6 @@ import 'dart:js_interop';
 import 'dart:js_util' as js_util;
 
 import 'package:collection/collection.dart';
-import 'package:wagmi_flutter_web/src/models/connections.dart';
 import 'package:wagmi_flutter_web/src/models/log.dart';
 import 'package:wagmi_flutter_web/wagmi_flutter_web.dart';
 

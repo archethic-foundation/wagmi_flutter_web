@@ -1,5 +1,5 @@
 import 'package:wagmi_flutter_web/src/js/wagmi.js.dart';
-import 'package:wagmi_flutter_web/src/models/connections.dart';
+import 'package:wagmi_flutter_web/src/models/connection.dart';
 
 /// [Documentation API](https://wagmi.sh/core/api/actions/reconnect)
 class ReconnectParameters {
@@ -16,5 +16,5 @@ class ReconnectReturnType {
   ReconnectReturnType({
     required this.connections,
   });
-  final List<Connections>? connections;
+  final List<Connection>? connections;
 }

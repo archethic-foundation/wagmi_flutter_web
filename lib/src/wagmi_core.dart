@@ -38,6 +38,7 @@ import 'package:wagmi_flutter_web/src/actions/write_contract.dart';
 import 'package:wagmi_flutter_web/src/js/wagmi.js.dart';
 import 'package:wagmi_flutter_web/src/models/account.dart';
 import 'package:wagmi_flutter_web/src/models/chain.dart';
+import 'package:wagmi_flutter_web/src/models/connection.dart';
 import 'package:wagmi_flutter_web/src/utils/utils_js.dart';
 
 class Core {
@@ -47,6 +48,13 @@ class Core {
 
   static int getChainId() => _guard(() {
         return window.wagmiCore.getChainId().toDartInt;
+      });
+
+  static List<Connection> getConnections() => _guard(() {
+        final result = window.wagmiCore.getConnections();
+        return result.toDart
+            .map((jsConnection) => jsConnection.toDart)
+            .toList();
       });
 
   static List<Chain> getChains() => _guard(() {
