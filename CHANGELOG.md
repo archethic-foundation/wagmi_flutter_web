@@ -1,3 +1,7 @@
+## 1.0.0-rc.8
+* Add `getConnections` method
+* Improve `SwitchAccount` example
+
 ## 1.0.0-rc.7
 * Config - implementation of wallets list choice
   * Add `includeWalletIds`, `featuredWalletIds`, `excludeWalletIds` properties in `Config` object
