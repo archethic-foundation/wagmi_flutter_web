@@ -24,8 +24,8 @@ extension type JSReconnectReturnType(JSObject _) implements JSObject {
       sMap['connector'] = (sMap['connector'] as JSObject).toMap(deep: false);
       return sMap;
     }).toList();
-    final connections1 = connectionList.map(Connections.fromJson).toList();
-    return ReconnectReturnType(connections: connections1);
+    final connection1 = connectionList.map(Connection.fromJson).toList();
+    return ReconnectReturnType(connections: connection1);
   }
 }
 @JS()

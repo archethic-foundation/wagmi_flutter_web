@@ -41,6 +41,7 @@ import {
     estimateGas,
     estimateMaxPriorityFeePerGas,
     getAccount,
+    getConnections,
     getBalance,
     getBlock,
     getBlockNumber,
@@ -88,6 +89,9 @@ export class JSWagmiCore {
         return getChains(JSWagmiContext.instance.config);
     }
 
+    getConnections = function () {
+        return getConnections(JSWagmiContext.instance.config);
+    }
 
     getBlockNumber = this.#guard(
         async (configKey: string, params: GetBlockNumberParameters) => getBlockNumber(

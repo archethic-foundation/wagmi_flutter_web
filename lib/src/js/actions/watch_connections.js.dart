@@ -37,8 +37,8 @@ extension JSWatchConnectionsParametersConversion on WatchConnectionsParameters {
             sMap['connector'] = jsObject.toMap(deep: false);
             return sMap;
           }).toList();
-          final connections = connectionList.map(Connections.fromJson).toList();
-          onChange(connections);
+          final connection = connectionList.map(Connection.fromJson).toList();
+          onChange(connection);
         }).toJS,
       );
 }

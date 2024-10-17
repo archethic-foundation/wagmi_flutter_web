@@ -5,6 +5,7 @@ import 'package:example/actions/add_token.dart';
 import 'package:example/actions/components/switch_chain_dialog.dart';
 import 'package:example/actions/config_switch.dart';
 import 'package:example/actions/gas_price.dart';
+import 'package:example/actions/get_connections.dart';
 import 'package:example/actions/read_contract.dart';
 import 'package:example/actions/write_contract.dart';
 import 'package:flutter/material.dart';
@@ -65,6 +66,7 @@ class _MyAppState extends State<MyApp> {
     const Tab(text: 'Write Contracts'),
     const Tab(text: 'Gas Price'),
     const Tab(text: 'Watch Asset'),
+    const Tab(text: 'Connections'),
   ];
 
   @override
@@ -156,6 +158,7 @@ class _MyAppState extends State<MyApp> {
             const WriteContractExample(),
             const GasPriceExample(),
             const AddTokenExample(),
+            const GetConnectionsExample(),
           ],
         ),
       ),
@@ -211,7 +214,6 @@ class _MyAppState extends State<MyApp> {
             const SizedBox(
               height: 10,
             ),
-
             ElevatedButton(
               onPressed: () {
                 chains = wagmi.Core.getChains();

@@ -68,8 +68,6 @@ mixin _$MessageToSign {
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
-
-  /// Serializes this MessageToSign to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
 }
 
@@ -89,9 +87,6 @@ class _$MessageToSignCopyWithImpl<$Res, $Val extends MessageToSign>
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
-
-  /// Create a copy of MessageToSign
-  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -111,8 +106,6 @@ class __$$StringMessageImplCopyWithImpl<$Res>
       _$StringMessageImpl _value, $Res Function(_$StringMessageImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of MessageToSign
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -165,13 +158,11 @@ class _$StringMessageImpl
             (identical(other.message, message) || other.message == message));
   }
 
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(runtimeType, message);
 
-  /// Create a copy of MessageToSign
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$StringMessageImplCopyWith<_$StringMessageImpl> get copyWith =>
@@ -256,10 +247,7 @@ abstract class StringMessage implements MessageToSign {
 
   @override
   String get message;
-
-  /// Create a copy of MessageToSign
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$StringMessageImplCopyWith<_$StringMessageImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -283,8 +271,6 @@ class __$$RawMessageContainerImplCopyWithImpl<$Res>
       $Res Function(_$RawMessageContainerImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of MessageToSign
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -298,8 +284,6 @@ class __$$RawMessageContainerImplCopyWithImpl<$Res>
     ));
   }
 
-  /// Create a copy of MessageToSign
-  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $RawMessageCopyWith<$Res> get message {
@@ -347,13 +331,11 @@ class _$RawMessageContainerImpl
             (identical(other.message, message) || other.message == message));
   }
 
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(runtimeType, message);
 
-  /// Create a copy of MessageToSign
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$RawMessageContainerImplCopyWith<_$RawMessageContainerImpl> get copyWith =>
@@ -439,10 +421,7 @@ abstract class RawMessageContainer implements MessageToSign {
 
   @override
   RawMessage get message;
-
-  /// Create a copy of MessageToSign
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$RawMessageContainerImplCopyWith<_$RawMessageContainerImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -500,8 +479,6 @@ mixin _$RawMessage {
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
-
-  /// Serializes this RawMessage to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
 }
 
@@ -521,9 +498,6 @@ class _$RawMessageCopyWithImpl<$Res, $Val extends RawMessage>
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
-
-  /// Create a copy of RawMessage
-  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -543,8 +517,6 @@ class __$$RawHexImplCopyWithImpl<$Res>
       _$RawHexImpl _value, $Res Function(_$RawHexImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of RawMessage
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -595,13 +567,11 @@ class _$RawHexImpl with DiagnosticableTreeMixin implements RawHex {
             (identical(other.raw, raw) || other.raw == raw));
   }
 
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(runtimeType, raw);
 
-  /// Create a copy of RawMessage
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$RawHexImplCopyWith<_$RawHexImpl> get copyWith =>
@@ -683,10 +653,7 @@ abstract class RawHex implements RawMessage {
   factory RawHex.fromJson(Map<String, dynamic> json) = _$RawHexImpl.fromJson;
 
   String get raw;
-
-  /// Create a copy of RawMessage
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$RawHexImplCopyWith<_$RawHexImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -708,8 +675,6 @@ class __$$RawByteArrayImplCopyWithImpl<$Res>
       _$RawByteArrayImpl _value, $Res Function(_$RawByteArrayImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of RawMessage
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -768,14 +733,12 @@ class _$RawByteArrayImpl with DiagnosticableTreeMixin implements RawByteArray {
                 .equals(other._byteArray, _byteArray));
   }
 
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   int get hashCode =>
       Object.hash(runtimeType, const DeepCollectionEquality().hash(_byteArray));
 
-  /// Create a copy of RawMessage
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$RawByteArrayImplCopyWith<_$RawByteArrayImpl> get copyWith =>
@@ -859,10 +822,7 @@ abstract class RawByteArray implements RawMessage {
       _$RawByteArrayImpl.fromJson;
 
   List<int> get byteArray;
-
-  /// Create a copy of RawMessage
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$RawByteArrayImplCopyWith<_$RawByteArrayImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
