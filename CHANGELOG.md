@@ -1,3 +1,6 @@
+## 1.0.0-rc.9
+* `Web3Modal.open` & `Web3Modal.close` are asynchronous.
+
 ## 1.0.0-rc.8
 * Add `getConnections` method
 * Improve `SwitchAccount` example
