@@ -77,13 +77,13 @@ class Web3Modal {
       );
 
   /// Opens the [Web3Modal]
-  static void open() {
-    window.web3modal.open();
+  static Future<void> open() async {
+    await window.web3modal.open().toDart;
   }
 
   /// Closes the [Web3Modal]
-  static void close() {
-    window.web3modal.close();
+  static Future<void> close() async {
+    await window.web3modal.close().toDart;
   }
 }
 
