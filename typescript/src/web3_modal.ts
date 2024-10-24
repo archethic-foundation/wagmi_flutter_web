@@ -96,12 +96,12 @@ export class JSWeb3Modal {
 
 
 
-    open() {
-        return this._modal().open()
+    async open(): Promise<void> {
+        await this._modal().open()
     }
 
-    close() {
-        return this._modal().close()
+    async close(): Promise<void> {
+        await this._modal().close()
     }
     #clientBuilder(transportBuilder: JSTransportBuilder): ((parameters: { chain: Chain; }) => Client<Transport<string, Record<string, any>, EIP1193RequestFn>, Chain>) {
         return (parameters: { chain: Chain; }) => {

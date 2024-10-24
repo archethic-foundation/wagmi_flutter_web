@@ -42,8 +42,8 @@ extension type JSWagmiWeb3Modal(JSObject _) implements JSObject {
     JSBoolean? enableOnRamp,
   );
 
-  external void open();
-  external void close();
+  external JSPromise<Null> open();
+  external JSPromise<Null> close();
 }
 
 @JS()
