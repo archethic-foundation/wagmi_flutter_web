@@ -97,12 +97,15 @@ export class JSWeb3Modal {
 
 
     async open(): Promise<void> {
+        await this.#waitForFocus()
         await this._modal().open()
     }
 
     async close(): Promise<void> {
+        await this.#waitForFocus()
         await this._modal().close()
     }
+
     #clientBuilder(transportBuilder: JSTransportBuilder): ((parameters: { chain: Chain; }) => Client<Transport<string, Record<string, any>, EIP1193RequestFn>, Chain>) {
         return (parameters: { chain: Chain; }) => {
             const transport = transportBuilder(parameters.chain.id);
@@ -123,4 +126,15 @@ export class JSWeb3Modal {
                 throw new Error(`Unknown Transport type ${typeof jsTransport}`)
         }
     }
+
+    // Fixes https://github.com/archethic-foundation/wagmi_flutter_web/issues/68
+    #waitForFocus = () => {
+        return new Promise<void>((resolve) => {
+            setTimeout(() => {
+                if (document.hasFocus()) {
+                    resolve();
+                }
+            }, 100);
+        });
+    };
 }
