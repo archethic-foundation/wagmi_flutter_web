@@ -1,3 +1,7 @@
+## 1.0.0-rc.10
+* 🐛 Requires document focus to open web3modal. Fixes archethic-foundation/wagmi_flutter_web#68
+* ⬆️ Upgrade all dependencies.
+
 ## 1.0.0-rc.9
 * `Web3Modal.open` & `Web3Modal.close` are asynchronous.
 
