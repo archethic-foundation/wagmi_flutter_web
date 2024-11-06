@@ -22,6 +22,9 @@ dependencies:
   # Defines the annotations used by json_serializable to create code for JSON serialization and deserialization.
   json_annotation: ^4.6.0
 
+  # Logging lib
+  logging: ^1.2.0
+
 dev_dependencies:
   # A build system for Dart code generation and modular compilation.
   build_runner: ^2.4.8

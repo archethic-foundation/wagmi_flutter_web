@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:js_interop';
 
+import 'package:logging/logging.dart';
 import 'package:wagmi_flutter_web/src/actions/call.dart';
 import 'package:wagmi_flutter_web/src/actions/deploy_contract.dart';
 import 'package:wagmi_flutter_web/src/actions/disconnect.dart';
@@ -42,15 +43,24 @@ import 'package:wagmi_flutter_web/src/models/connection.dart';
 import 'package:wagmi_flutter_web/src/utils/utils_js.dart';
 
 class Core {
+  static final _logger = Logger('WagmiFlutterWeb');
+
+  static void _logAction(String action) {
+    _logger.fine(action);
+  }
+
   static Account getAccount() => _guard(() {
+        _logAction('getAccount');
         return window.wagmiCore.getAccount().toDart;
       });
 
   static int getChainId() => _guard(() {
+        _logAction('getChainId');
         return window.wagmiCore.getChainId().toDartInt;
       });
 
   static List<Connection> getConnections() => _guard(() {
+        _logAction('getConnections');
         final result = window.wagmiCore.getConnections();
         return result.toDart
             .map((jsConnection) => jsConnection.toDart)
@@ -58,6 +68,7 @@ class Core {
       });
 
   static List<Chain> getChains() => _guard(() {
+        _logAction('getChains');
         final result = window.wagmiCore.getChains();
 
         return result.toDart.map((item) {
@@ -70,6 +81,7 @@ class Core {
     String configKey = 'default',
   }) =>
       _guardFuture(() async {
+        _logAction('getBlockNumbers');
         final result = await window.wagmiCore
             .getBlockNumber(
               configKey.toJS,
@@ -84,6 +96,7 @@ class Core {
     String configKey = 'default',
   }) =>
       _guardFuture(() async {
+        _logAction('getGasPrice');
         final result = await window.wagmiCore
             .getGasPrice(
               configKey.toJS,
@@ -98,6 +111,7 @@ class Core {
     String configKey = 'default',
   }) =>
       _guardFuture(() async {
+        _logAction('getBalance');
         final result = await window.wagmiCore
             .getBalance(
               configKey.toJS,
@@ -112,6 +126,7 @@ class Core {
     String configKey = 'default',
   }) =>
       _guardFuture(() async {
+        _logAction('getTransactionCount');
         final result = await window.wagmiCore
             .getTransactionCount(
               configKey.toJS,
@@ -126,6 +141,7 @@ class Core {
     String configKey = 'default',
   }) =>
       _guardFuture(() async {
+        _logAction('getToken');
         final result = await window.wagmiCore
             .getToken(
               configKey.toJS,
@@ -141,6 +157,7 @@ class Core {
     String configKey = 'default',
   }) =>
       _guardFuture(() async {
+        _logAction('signMessage');
         final result = await window.wagmiCore
             .signMessage(
               configKey.toJS,
@@ -156,6 +173,7 @@ class Core {
     String configKey = 'default',
   }) =>
       _guardFuture(() async {
+        _logAction('readContract');
         final result = await window.wagmiCore
             .readContract(
               configKey.toJS,
@@ -170,6 +188,7 @@ class Core {
     String configKey = 'default',
   }) =>
       _guardFuture(() async {
+        _logAction('readContracts');
         final result = await window.wagmiCore
             .readContracts(
               configKey.toJS,
@@ -185,6 +204,7 @@ class Core {
     String configKey = 'default',
   }) =>
       _guardFuture(() async {
+        _logAction('getTransactionReceipt');
         final result = await window.wagmiCore
             .getTransactionReceipt(
               configKey.toJS,
@@ -199,6 +219,7 @@ class Core {
     String configKey = 'default',
   }) =>
       _guardFuture(() async {
+        _logAction('watchChainId');
         final result = await window.wagmiCore
             .watchChainId(
               configKey.toJS,
@@ -213,6 +234,7 @@ class Core {
     String configKey = 'default',
   }) =>
       _guardFuture(() async {
+        _logAction('sendTransaction');
         final result = await window.wagmiCore
             .sendTransaction(
               configKey.toJS,
@@ -227,6 +249,7 @@ class Core {
     String configKey = 'default',
   }) =>
       _guardFuture(() async {
+        _logAction('writeContract');
         final result = await window.wagmiCore
             .writeContract(
               configKey.toJS,
@@ -241,6 +264,7 @@ class Core {
     String configKey = 'default',
   }) =>
       _guardFuture(() async {
+        _logAction('estimateGas');
         final result = await window.wagmiCore
             .estimateGas(
               configKey.toJS,
@@ -255,6 +279,7 @@ class Core {
     String configKey = 'default',
   }) =>
       _guardFuture(() async {
+        _logAction('getTransaction');
         final result = await window.wagmiCore
             .getTransaction(
               configKey.toJS,
@@ -269,6 +294,7 @@ class Core {
     String configKey = 'default',
   }) =>
       _guardFuture(() async {
+        _logAction('watchContractEvent');
         final result = await window.wagmiCore
             .watchContractEvent(
               configKey.toJS,
@@ -284,6 +310,9 @@ class Core {
     String configKey = 'default',
   }) =>
       _guardFuture(() async {
+        _logAction(
+          'getTransactionConfirmations',
+        );
         final result = await window.wagmiCore
             .getTransactionConfirmations(
               configKey.toJS,
@@ -298,6 +327,7 @@ class Core {
     String configKey = 'default',
   }) =>
       _guardFuture(() async {
+        _logAction('getBlock');
         final result = await window.wagmiCore
             .getBlock(
               configKey.toJS,
@@ -312,6 +342,9 @@ class Core {
     String configKey = 'default',
   }) =>
       _guardFuture(() async {
+        _logAction(
+          'getBlockTransactionCount',
+        );
         final result = await window.wagmiCore
             .getBlockTransactionCount(
               configKey.toJS,
@@ -327,6 +360,7 @@ class Core {
     String configKey = 'default',
   }) =>
       _guardFuture(() async {
+        _logAction('call');
         final result = await window.wagmiCore
             .call(
               configKey.toJS,
@@ -342,6 +376,7 @@ class Core {
     String configKey = 'default',
   }) =>
       _guardFuture(() async {
+        _logAction('estimateFeesPerGas');
         final result = await window.wagmiCore
             .estimateFeesPerGas(
               configKey.toJS,
@@ -358,6 +393,9 @@ class Core {
     String configKey = 'default',
   }) =>
       _guardFuture(() async {
+        _logAction(
+          'estimateMaxPriorityFeePerGas',
+        );
         final result = await window.wagmiCore
             .estimateMaxPriorityFeePerGas(
               configKey.toJS,
@@ -373,6 +411,7 @@ class Core {
     String configKey = 'default',
   }) =>
       _guardFuture(() async {
+        _logAction('getBytecode');
         final result = await window.wagmiCore
             .getBytecode(
               configKey.toJS,
@@ -388,6 +427,7 @@ class Core {
     String configKey = 'default',
   }) =>
       _guardFuture(() async {
+        _logAction('disconnect');
         await window.wagmiCore
             .disconnect(
               configKey.toJS,
@@ -401,6 +441,9 @@ class Core {
     String configKey = 'default',
   }) =>
       _guardFuture(() async {
+        _logAction(
+          'waitForTransactionReceipt',
+        );
         final result = await window.wagmiCore
             .waitForTransactionReceipt(
               configKey.toJS,
@@ -416,6 +459,7 @@ class Core {
     String configKey = 'default',
   }) =>
       _guardFuture(() async {
+        _logAction('getFeeHistory');
         final result = await window.wagmiCore
             .getFeeHistory(
               configKey.toJS,
@@ -430,6 +474,7 @@ class Core {
     String configKey = 'default',
   }) =>
       _guardFuture(() async {
+        _logAction('switchChain');
         final result = await window.wagmiCore
             .switchChain(
               configKey.toJS,
@@ -445,6 +490,7 @@ class Core {
     String configKey = 'default',
   }) =>
       _guardFuture(() async {
+        _logAction('switchAccount');
         final result = await window.wagmiCore
             .switchAccount(
               configKey.toJS,
@@ -460,6 +506,7 @@ class Core {
     String configKey = 'default',
   }) =>
       _guardFuture(() async {
+        _logAction('verifyMessage');
         final result = await window.wagmiCore
             .verifyMessage(
               configKey.toJS,
@@ -475,6 +522,7 @@ class Core {
     String configKey = 'default',
   }) =>
       _guardFuture(() async {
+        _logAction('watchAccount');
         final result = await window.wagmiCore
             .watchAccount(
               configKey.toJS,
@@ -490,6 +538,7 @@ class Core {
     String configKey = 'default',
   }) =>
       _guardFuture(() async {
+        _logAction('watchConnections');
         final result = await window.wagmiCore
             .watchConnections(
               configKey.toJS,
@@ -505,6 +554,7 @@ class Core {
     String configKey = 'default',
   }) =>
       _guardFuture(() async {
+        _logAction('getWalletClient');
         final result = await window.wagmiCore
             .getWalletClient(
               configKey.toJS,
@@ -520,6 +570,7 @@ class Core {
     String configKey = 'default',
   }) =>
       _guardFuture(() async {
+        _logAction('deployContract');
         final result = await window.wagmiCore
             .deployContract(
               configKey.toJS,
@@ -535,6 +586,7 @@ class Core {
     String configKey = 'default',
   }) =>
       _guardFuture(() async {
+        _logAction('watchAsset');
         final result = await window.wagmiCore
             .watchAsset(
               configKey.toJS,
@@ -550,6 +602,7 @@ class Core {
     String configKey = 'default',
   }) =>
       _guardFuture(() async {
+        _logAction('reconnect');
         final result = await window.wagmiCore
             .reconnect(
               configKey.toJS,
