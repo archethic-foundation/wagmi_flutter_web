@@ -1,3 +1,6 @@
+## 1.0.0-rc.11
+* 🐛 Wait for document focus to perform actions requiring deeplink interaction with EVM wallet.
+
 ## 1.0.0-rc.10
 * 🐛 Requires document focus to open web3modal. Fixes archethic-foundation/wagmi_flutter_web#68
 * ⬆️ Upgrade all dependencies.
