@@ -4,6 +4,7 @@ import * as Web3modal from '@web3modal/wagmi'
 import { Chain, Client, createClient, EIP1193RequestFn, http, Transport, webSocket } from "viem"
 import { chainsFromIds } from "./chains"
 import { JSWagmiContext } from "./context"
+import { waitForFocus } from "./focus"
 import { JSHttpTransport, JSTransport, JSTransportBuilder, JSWebsocketTransport } from "./transport"
 
 export class JSWeb3Modal {
@@ -97,12 +98,12 @@ export class JSWeb3Modal {
 
 
     async open(): Promise<void> {
-        await this.#waitForFocus()
+        await waitForFocus()
         await this._modal().open()
     }
 
     async close(): Promise<void> {
-        await this.#waitForFocus()
+        await waitForFocus()
         await this._modal().close()
     }
 
@@ -127,14 +128,4 @@ export class JSWeb3Modal {
         }
     }
 
-    // Fixes https://github.com/archethic-foundation/wagmi_flutter_web/issues/68
-    #waitForFocus = () => {
-        return new Promise<void>((resolve) => {
-            setTimeout(() => {
-                if (document.hasFocus()) {
-                    resolve();
-                }
-            }, 100);
-        });
-    };
 }
