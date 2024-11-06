@@ -21,6 +21,7 @@ import {
     GetWalletClientParameters,
     ReadContractParameters,
     ReadContractsParameters,
+    ReconnectParameters,
     SendTransactionParameters,
     SignMessageParameters,
     SwitchAccountParameters,
@@ -29,7 +30,6 @@ import {
     WaitForTransactionReceiptParameters,
     WatchAccountParameters,
     WatchAssetParameters,
-    ReconnectParameters,
     WatchChainIdParameters,
     WatchConnectionsParameters,
     WatchContractEventParameters,
@@ -41,7 +41,6 @@ import {
     estimateGas,
     estimateMaxPriorityFeePerGas,
     getAccount,
-    getConnections,
     getBalance,
     getBlock,
     getBlockNumber,
@@ -49,6 +48,7 @@ import {
     getBytecode,
     getChainId,
     getChains,
+    getConnections,
     getFeeHistory,
     getGasPrice,
     getToken,
@@ -59,6 +59,7 @@ import {
     getWalletClient,
     readContract,
     readContracts,
+    reconnect,
     sendTransaction,
     signMessage,
     switchAccount,
@@ -71,10 +72,10 @@ import {
     watchConnections,
     watchContractEvent,
     writeContract,
-    reconnect,
 } from "@wagmi/core";
 import { InvalidAddressError } from "viem";
 import { JSWagmiContext } from "./context";
+import { waitForFocus } from "./focus";
 import { illegalNullsToUndefined } from "./parameters_utils";
 
 export class JSWagmiCore {
@@ -213,10 +214,13 @@ export class JSWagmiCore {
     )
 
     sendTransaction = this.#guard(
-        async (configKey: string, params: SendTransactionParameters) => sendTransaction(
-            this.getConfig(configKey),
-            params
-        )
+        async (configKey: string, params: SendTransactionParameters) => {
+            await waitForFocus()
+            return sendTransaction(
+                this.getConfig(configKey),
+                params
+            );
+        }
     )
 
     watchChainId = this.#guard(
@@ -234,10 +238,13 @@ export class JSWagmiCore {
     )
 
     writeContract = this.#guard(
-        async (configKey: string, params: WriteContractParameters) => writeContract(
-            this.getConfig(configKey),
-            params
-        )
+        async (configKey: string, params: WriteContractParameters) => {
+            await waitForFocus()
+            return writeContract(
+                this.getConfig(configKey),
+                params
+            );
+        }
     )
 
     estimateGas = this.#guard(
@@ -297,10 +304,13 @@ export class JSWagmiCore {
         )
     )
     switchChain = this.#guard(
-        async (configKey: string, params: SwitchChainParameters) => switchChain(
-            this.getConfig(configKey),
-            params
-        )
+        async (configKey: string, params: SwitchChainParameters) => {
+            await waitForFocus()
+            return switchChain(
+                this.getConfig(configKey),
+                params
+            );
+        }
     )
     switchAccount = this.#guard(
         async (configKey: string, params: SwitchAccountParameters) => {
