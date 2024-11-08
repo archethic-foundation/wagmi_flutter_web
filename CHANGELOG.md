@@ -1,3 +1,6 @@
+## 1.0.0-rc.12
+* Migrate to package:web
+
 ## 1.0.0-rc.11
 * 🐛 Wait for document focus to perform actions requiring deeplink interaction with EVM wallet.
 
