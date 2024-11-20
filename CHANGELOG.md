@@ -1,3 +1,6 @@
+## 1.0.0-rc.12
+* ✨ Support https://wagmi.sh/core/api/createConfig#storage
+
 ## 1.0.0-rc.11
 * 🐛 Wait for document focus to perform actions requiring deeplink interaction with EVM wallet.
 
