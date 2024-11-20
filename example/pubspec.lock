@@ -619,7 +619,7 @@ packages:
       path: ".."
       relative: true
     source: path
-    version: "1.0.0-rc.8"
+    version: "1.0.0-rc.12"
   watcher:
     dependency: transitive
     description:
