@@ -24,6 +24,7 @@ import {
     ReconnectParameters,
     SendTransactionParameters,
     SignMessageParameters,
+    Storage,
     SwitchAccountParameters,
     SwitchChainParameters,
     VerifyMessageParameters,
@@ -35,6 +36,7 @@ import {
     WatchContractEventParameters,
     WriteContractParameters,
     call,
+    createStorage,
     deployContract,
     disconnect,
     estimateFeesPerGas,
@@ -57,6 +59,7 @@ import {
     getTransactionCount,
     getTransactionReceipt,
     getWalletClient,
+    noopStorage,
     readContract,
     readContracts,
     reconnect,
@@ -78,7 +81,29 @@ import { JSWagmiContext } from "./context";
 import { waitForFocus } from "./focus";
 import { illegalNullsToUndefined } from "./parameters_utils";
 
+
+export class JSWagmiCoreStorage {
+    constructor(private mCreate: () => Storage | undefined) { }
+
+    public create() { return this.mCreate(); }
+}
+
+
 export class JSWagmiCore {
+    //// Start - Predefined storages
+    // Config's state will not be persisted between sessions.
+    noStorage = new JSWagmiCoreStorage(
+        () => createStorage({
+            storage: noopStorage,
+        })
+    );
+
+    // If available, browser localStorage will be used to persist Config's state.
+    localStorage = new JSWagmiCoreStorage(
+        () => undefined
+    );
+    //// End - Predefined storages
+
     getAccount = function () {
         return getAccount(JSWagmiContext.instance.config);
     }

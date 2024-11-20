@@ -42,6 +42,14 @@ import 'package:wagmi_flutter_web/src/models/chain.dart';
 import 'package:wagmi_flutter_web/src/models/connection.dart';
 import 'package:wagmi_flutter_web/src/utils/utils_js.dart';
 
+enum CoreStorage {
+  /// Config's state will not be persisted between sessions.
+  noStorage,
+
+  /// If available, browser localStorage will be used to persist Config's state.
+  localStorage,
+}
+
 class Core {
   static final _logger = Logger('WagmiFlutterWeb');
 

@@ -7,6 +7,7 @@ class Web3Modal {
   static void init({
     required String projectId,
     required List<int> chains,
+    CoreStorage storage = CoreStorage.localStorage,
     required bool enableAnalytics,
     required bool enableOnRamp,
     required Web3ModalMetadata metadata,
@@ -27,6 +28,7 @@ class Web3Modal {
           )
           .toList()
           .toJS,
+      storage.toJS,
       enableAnalytics.toJS,
       enableOnRamp.toJS,
       metadata._toJS(),
@@ -46,6 +48,7 @@ class Web3Modal {
     required String projectId,
     required String configKey,
     required List<int> chains,
+    CoreStorage storage = CoreStorage.localStorage,
     required Web3ModalMetadata metadata,
     required bool email,
     List<String>? socials,
@@ -65,6 +68,7 @@ class Web3Modal {
             )
             .toList()
             .toJS,
+        storage.toJS,
         metadata._toJS(),
         email.toJS,
         socials.jsify() as JSArray<JSString>?,

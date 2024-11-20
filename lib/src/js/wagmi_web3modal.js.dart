@@ -5,6 +5,7 @@ extension type JSWagmiWeb3Modal(JSObject _) implements JSObject {
   external void init(
     JSString projectId,
     JSArray<JSNumber> chains,
+    JSWagmiCoreStorage storage,
     JSBoolean enableAnalytics,
     JSBoolean enableOnRamp,
     JSWagmiWeb3ModalMetadata metadata,
@@ -22,6 +23,7 @@ extension type JSWagmiWeb3Modal(JSObject _) implements JSObject {
     JSString projectId,
     JSString configKey,
     JSArray<JSNumber> chains,
+    JSWagmiCoreStorage storage,
     JSWagmiWeb3ModalMetadata metadata,
     JSBoolean email,
     JSArray<JSString>? socials,

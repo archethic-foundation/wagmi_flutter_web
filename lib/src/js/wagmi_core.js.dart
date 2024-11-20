@@ -1,7 +1,20 @@
 part of 'wagmi.js.dart';
 
 @JS()
+extension type JSWagmiCoreStorage(JSObject _) implements JSObject {}
+
+extension CoreStorageToJS on CoreStorage {
+  JSWagmiCoreStorage get toJS => switch (this) {
+        CoreStorage.noStorage => window.wagmiCore.noStorage,
+        CoreStorage.localStorage => window.wagmiCore.localStorage,
+      };
+}
+
+@JS()
 extension type JSWagmiCore(JSObject _) implements JSObject {
+  external JSWagmiCoreStorage get noStorage;
+  external JSWagmiCoreStorage get localStorage;
+
   external JSAccount getAccount();
   external JSNumber getChainId();
   external JSArray<JSConnection> getConnections();
