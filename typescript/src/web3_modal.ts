@@ -6,6 +6,8 @@ import { chainsFromIds } from "./chains"
 import { JSWagmiContext } from "./context"
 import { waitForFocus } from "./focus"
 import { JSHttpTransport, JSTransport, JSTransportBuilder, JSWebsocketTransport } from "./transport"
+import { JSWagmiCoreStorage } from "./wagmi_core"
+
 
 export class JSWeb3Modal {
     _modalInstance: AppKit | undefined
@@ -18,6 +20,7 @@ export class JSWeb3Modal {
     init(
         projectId: string,
         chains: number[],
+        storage: JSWagmiCoreStorage,
         enableAnalytics: boolean,
         enableOnRamp: boolean,
         metadata: {
@@ -39,6 +42,7 @@ export class JSWeb3Modal {
         JSWagmiContext.instance.config = Web3modal.defaultWagmiConfig({
             chains: chainsFromIds(chains),
             projectId: projectId,
+            storage: storage.create(),
             metadata: metadata,
             auth: {
                 email: email,
@@ -65,6 +69,7 @@ export class JSWeb3Modal {
         projectId: string,
         configKey: string,
         chains: number[],
+        storage: JSWagmiCoreStorage,
         metadata: {
             name: string
             description: string
@@ -81,6 +86,7 @@ export class JSWeb3Modal {
         const config = Web3modal.defaultWagmiConfig({
             chains: chainsFromIds(chains),
             projectId: projectId,
+            storage: storage.create(),
             metadata: metadata,
             auth: {
                 email: email,
