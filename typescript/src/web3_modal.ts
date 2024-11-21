@@ -105,7 +105,11 @@ export class JSWeb3Modal {
 
     async open(): Promise<void> {
         await waitForFocus()
-        await this._modal().open()
+
+        await setTimeout( // Quickfix for https://github.com/archethic-foundation/wagmi_flutter_web/issues/76
+            async () => await this._modal().open(),
+            300,
+        )
     }
 
     async close(): Promise<void> {
