@@ -1,3 +1,7 @@
+## 1.0.0-rc.13
+* ✨ Add stream to listen web3modal state.
+* 🐛 Fix unexpected modal.open failure (https://github.com/archethic-foundation/wagmi_flutter_web#76)
+
 ## 1.0.0-rc.12
 * ✨ Support https://wagmi.sh/core/api/createConfig#storage
 
