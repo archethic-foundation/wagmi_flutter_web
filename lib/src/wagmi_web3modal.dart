@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:js_interop';
 
 import 'package:wagmi_flutter_web/src/js/wagmi.js.dart';
@@ -89,6 +90,36 @@ class Web3Modal {
   static Future<void> close() async {
     await window.web3modal.close().toDart;
   }
+
+  /// Listens to the [Web3Modal] state.
+  static Stream<Web3ModalState> get state {
+    late StreamController<Web3ModalState> controller;
+    late Function? stopListeningFunction;
+
+    void startListening() {
+      stopListeningFunction = window.web3modal
+          .subscribeState(
+            ((PublicStateControllerState state) {
+              controller.add(state.toDart);
+            }).toJS,
+          )
+          .toDart;
+    }
+
+    void stopListening() {
+      stopListeningFunction?.call();
+      stopListeningFunction = null;
+    }
+
+    controller = StreamController<Web3ModalState>(
+      onListen: startListening,
+      onPause: stopListening,
+      onResume: startListening,
+      onCancel: stopListening,
+    );
+
+    return controller.stream;
+  }
 }
 
 /// [Web3Modal documentation](https://docs.walletconnect.com/appkit/javascript/core/installation#implementation)
@@ -111,4 +142,18 @@ class Web3ModalMetadata {
         url: url.toJS,
         icons: icons.map((icon) => icon.toJS).toList().toJS,
       );
+}
+
+class Web3ModalState {
+  Web3ModalState({
+    required this.loading,
+    required this.open,
+    required this.selectedNetworkId,
+    required this.activeChain,
+  });
+
+  final bool loading;
+  final bool open;
+  final String? selectedNetworkId;
+  final String? activeChain;
 }

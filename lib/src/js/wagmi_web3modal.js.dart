@@ -46,6 +46,25 @@ extension type JSWagmiWeb3Modal(JSObject _) implements JSObject {
 
   external JSPromise<Null> open();
   external JSPromise<Null> close();
+
+  external JSFunction subscribeState(JSFunction callback);
+}
+
+@JS()
+extension type PublicStateControllerState._(JSObject _) implements JSObject {
+  external JSBoolean loading;
+  external JSBoolean open;
+  external JSString? selectedNetworkId;
+  external JSString? activeChain;
+}
+
+extension Web3ModalStateFromJS on PublicStateControllerState {
+  Web3ModalState get toDart => Web3ModalState(
+        loading: loading.toDart,
+        open: open.toDart,
+        selectedNetworkId: selectedNetworkId?.toDart,
+        activeChain: activeChain?.toDart,
+      );
 }
 
 @JS()

@@ -1,5 +1,5 @@
 import { Config } from "@wagmi/core"
-import { AppKit } from "@web3modal/base"
+import { AppKit, PublicStateControllerState } from "@web3modal/base"
 import * as Web3modal from '@web3modal/wagmi'
 import { Chain, Client, createClient, EIP1193RequestFn, http, Transport, webSocket } from "viem"
 import { chainsFromIds } from "./chains"
@@ -115,6 +115,10 @@ export class JSWeb3Modal {
     async close(): Promise<void> {
         await waitForFocus()
         await this._modal().close()
+    }
+
+    subscribeState(callback: (newState: PublicStateControllerState) => void): () => void {
+        return this._modal().subscribeState(callback)
     }
 
     #clientBuilder(transportBuilder: JSTransportBuilder): ((parameters: { chain: Chain; }) => Client<Transport<string, Record<string, any>, EIP1193RequestFn>, Chain>) {
