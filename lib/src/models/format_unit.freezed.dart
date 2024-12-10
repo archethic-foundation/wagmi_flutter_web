@@ -84,9 +84,6 @@ class _$FormatUnitCopyWithImpl<$Res, $Val extends FormatUnit>
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
-
-  /// Create a copy of FormatUnit
-  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -103,9 +100,6 @@ class __$$FormatUnitEtherImplCopyWithImpl<$Res>
   __$$FormatUnitEtherImplCopyWithImpl(
       _$FormatUnitEtherImpl _value, $Res Function(_$FormatUnitEtherImpl) _then)
       : super(_value, _then);
-
-  /// Create a copy of FormatUnit
-  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -221,9 +215,6 @@ class __$$FormatUnitGweiImplCopyWithImpl<$Res>
   __$$FormatUnitGweiImplCopyWithImpl(
       _$FormatUnitGweiImpl _value, $Res Function(_$FormatUnitGweiImpl) _then)
       : super(_value, _then);
-
-  /// Create a copy of FormatUnit
-  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -339,9 +330,6 @@ class __$$FormatUnitWeiImplCopyWithImpl<$Res>
   __$$FormatUnitWeiImplCopyWithImpl(
       _$FormatUnitWeiImpl _value, $Res Function(_$FormatUnitWeiImpl) _then)
       : super(_value, _then);
-
-  /// Create a copy of FormatUnit
-  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -460,8 +448,6 @@ class __$$FormatUnitValueImplCopyWithImpl<$Res>
       _$FormatUnitValueImpl _value, $Res Function(_$FormatUnitValueImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of FormatUnit
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -501,9 +487,7 @@ class _$FormatUnitValueImpl extends _FormatUnitValue {
   @override
   int get hashCode => Object.hash(runtimeType, decimals);
 
-  /// Create a copy of FormatUnit
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$FormatUnitValueImplCopyWith<_$FormatUnitValueImpl> get copyWith =>
@@ -590,10 +574,7 @@ abstract class _FormatUnitValue extends FormatUnit {
   const _FormatUnitValue._() : super._();
 
   int get decimals;
-
-  /// Create a copy of FormatUnit
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$FormatUnitValueImplCopyWith<_$FormatUnitValueImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

@@ -161,9 +161,7 @@ mixin _$EstimateGasParameters {
   }) =>
       throw _privateConstructorUsedError;
 
-  /// Create a copy of EstimateGasParameters
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   $EstimateGasParametersCopyWith<EstimateGasParameters> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -196,8 +194,6 @@ class _$EstimateGasParametersCopyWithImpl<$Res,
   // ignore: unused_field
   final $Res Function($Val) _then;
 
-  /// Create a copy of EstimateGasParameters
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -278,8 +274,6 @@ class __$$EstimateGasParametersLegacyImplCopyWithImpl<$Res>
       $Res Function(_$EstimateGasParametersLegacyImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of EstimateGasParameters
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -413,9 +407,7 @@ class _$EstimateGasParametersLegacyImpl extends EstimateGasParametersLegacy {
       to,
       value);
 
-  /// Create a copy of EstimateGasParameters
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$EstimateGasParametersLegacyImplCopyWith<_$EstimateGasParametersLegacyImpl>
@@ -615,11 +607,8 @@ abstract class EstimateGasParametersLegacy extends EstimateGasParameters {
   String? get to;
   @override
   BigInt? get value;
-
-  /// Create a copy of EstimateGasParameters
-  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$EstimateGasParametersLegacyImplCopyWith<_$EstimateGasParametersLegacyImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
@@ -655,8 +644,6 @@ class __$$EstimateGasParametersEIP1559ImplCopyWithImpl<$Res>
       $Res Function(_$EstimateGasParametersEIP1559Impl) _then)
       : super(_value, _then);
 
-  /// Create a copy of EstimateGasParameters
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -790,9 +777,7 @@ class _$EstimateGasParametersEIP1559Impl extends EstimateGasParametersEIP1559 {
       to,
       value);
 
-  /// Create a copy of EstimateGasParameters
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$EstimateGasParametersEIP1559ImplCopyWith<
@@ -993,11 +978,8 @@ abstract class EstimateGasParametersEIP1559 extends EstimateGasParameters {
   String? get to;
   @override
   BigInt? get value;
-
-  /// Create a copy of EstimateGasParameters
-  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$EstimateGasParametersEIP1559ImplCopyWith<
           _$EstimateGasParametersEIP1559Impl>
       get copyWith => throw _privateConstructorUsedError;
@@ -1034,8 +1016,6 @@ class __$$EstimateGasParametersEIP4844ImplCopyWithImpl<$Res>
       $Res Function(_$EstimateGasParametersEIP4844Impl) _then)
       : super(_value, _then);
 
-  /// Create a copy of EstimateGasParameters
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -1169,9 +1149,7 @@ class _$EstimateGasParametersEIP4844Impl extends EstimateGasParametersEIP4844 {
       to,
       value);
 
-  /// Create a copy of EstimateGasParameters
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$EstimateGasParametersEIP4844ImplCopyWith<
@@ -1372,11 +1350,8 @@ abstract class EstimateGasParametersEIP4844 extends EstimateGasParameters {
   String? get to;
   @override
   BigInt? get value;
-
-  /// Create a copy of EstimateGasParameters
-  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$EstimateGasParametersEIP4844ImplCopyWith<
           _$EstimateGasParametersEIP4844Impl>
       get copyWith => throw _privateConstructorUsedError;

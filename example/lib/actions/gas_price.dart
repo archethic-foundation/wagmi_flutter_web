@@ -35,7 +35,7 @@ class _GasPriceExampleState extends State<GasPriceExample> {
                   // WagmiContext.main.config,
                   );
               if (account.chain == null) {
-                wagmi.Web3Modal.open();
+                await wagmi.Web3Modal.open();
               }
               setState(() {
                 walletConnected = true;

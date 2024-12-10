@@ -56,9 +56,7 @@ mixin _$Transport {
   }) =>
       throw _privateConstructorUsedError;
 
-  /// Create a copy of Transport
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   $TransportCopyWith<Transport> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -81,8 +79,6 @@ class _$TransportCopyWithImpl<$Res, $Val extends Transport>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
-  /// Create a copy of Transport
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -116,8 +112,6 @@ class __$$WebsocketTransportImplCopyWithImpl<$Res>
       $Res Function(_$WebsocketTransportImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of Transport
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -156,9 +150,7 @@ class _$WebsocketTransportImpl extends _WebsocketTransport {
   @override
   int get hashCode => Object.hash(runtimeType, url);
 
-  /// Create a copy of Transport
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$WebsocketTransportImplCopyWith<_$WebsocketTransportImpl> get copyWith =>
@@ -235,11 +227,8 @@ abstract class _WebsocketTransport extends Transport {
 
   @override
   String get url;
-
-  /// Create a copy of Transport
-  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$WebsocketTransportImplCopyWith<_$WebsocketTransportImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -263,8 +252,6 @@ class __$$HttpTransportImplCopyWithImpl<$Res>
       _$HttpTransportImpl _value, $Res Function(_$HttpTransportImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of Transport
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -303,9 +290,7 @@ class _$HttpTransportImpl extends _HttpTransport {
   @override
   int get hashCode => Object.hash(runtimeType, url);
 
-  /// Create a copy of Transport
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$HttpTransportImplCopyWith<_$HttpTransportImpl> get copyWith =>
@@ -381,11 +366,8 @@ abstract class _HttpTransport extends Transport {
 
   @override
   String get url;
-
-  /// Create a copy of Transport
-  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$HttpTransportImplCopyWith<_$HttpTransportImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

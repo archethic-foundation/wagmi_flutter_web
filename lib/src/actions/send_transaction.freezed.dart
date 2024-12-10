@@ -171,9 +171,7 @@ mixin _$SendTransactionParameters {
   }) =>
       throw _privateConstructorUsedError;
 
-  /// Create a copy of SendTransactionParameters
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   $SendTransactionParametersCopyWith<SendTransactionParameters> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -207,8 +205,6 @@ class _$SendTransactionParametersCopyWithImpl<$Res,
   // ignore: unused_field
   final $Res Function($Val) _then;
 
-  /// Create a copy of SendTransactionParameters
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -295,8 +291,6 @@ class __$$SendTransactionParametersLegacyImplCopyWithImpl<$Res>
       $Res Function(_$SendTransactionParametersLegacyImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of SendTransactionParameters
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -441,9 +435,7 @@ class _$SendTransactionParametersLegacyImpl
       value,
       const DeepCollectionEquality().hash(connector));
 
-  /// Create a copy of SendTransactionParameters
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$SendTransactionParametersLegacyImplCopyWith<
@@ -657,11 +649,8 @@ abstract class SendTransactionParametersLegacy
   BigInt? get value;
   @override
   dynamic get connector;
-
-  /// Create a copy of SendTransactionParameters
-  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$SendTransactionParametersLegacyImplCopyWith<
           _$SendTransactionParametersLegacyImpl>
       get copyWith => throw _privateConstructorUsedError;
@@ -699,8 +688,6 @@ class __$$SendTransactionParametersEIP1559ImplCopyWithImpl<$Res>
       $Res Function(_$SendTransactionParametersEIP1559Impl) _then)
       : super(_value, _then);
 
-  /// Create a copy of SendTransactionParameters
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -845,9 +832,7 @@ class _$SendTransactionParametersEIP1559Impl
       value,
       const DeepCollectionEquality().hash(connector));
 
-  /// Create a copy of SendTransactionParameters
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$SendTransactionParametersEIP1559ImplCopyWith<
@@ -1061,11 +1046,8 @@ abstract class SendTransactionParametersEIP1559
   BigInt? get value;
   @override
   dynamic get connector;
-
-  /// Create a copy of SendTransactionParameters
-  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$SendTransactionParametersEIP1559ImplCopyWith<
           _$SendTransactionParametersEIP1559Impl>
       get copyWith => throw _privateConstructorUsedError;
@@ -1103,8 +1085,6 @@ class __$$SendTransactionParametersEIP4844ImplCopyWithImpl<$Res>
       $Res Function(_$SendTransactionParametersEIP4844Impl) _then)
       : super(_value, _then);
 
-  /// Create a copy of SendTransactionParameters
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -1249,9 +1229,7 @@ class _$SendTransactionParametersEIP4844Impl
       value,
       const DeepCollectionEquality().hash(connector));
 
-  /// Create a copy of SendTransactionParameters
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$SendTransactionParametersEIP4844ImplCopyWith<
@@ -1465,11 +1443,8 @@ abstract class SendTransactionParametersEIP4844
   BigInt? get value;
   @override
   dynamic get connector;
-
-  /// Create a copy of SendTransactionParameters
-  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$SendTransactionParametersEIP4844ImplCopyWith<
           _$SendTransactionParametersEIP4844Impl>
       get copyWith => throw _privateConstructorUsedError;

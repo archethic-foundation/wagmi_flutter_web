@@ -1,3 +1,7 @@
+
+## 1.0.0-rc.14
+* Migrate to package:web
+  
 ## 1.0.0-rc.13
 * ✨ Add stream to listen web3modal state.
 * 🐛 Fix unexpected modal.open failure (https://github.com/archethic-foundation/wagmi_flutter_web#76)
