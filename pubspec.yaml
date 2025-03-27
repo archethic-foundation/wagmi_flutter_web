@@ -27,6 +27,9 @@ dependencies:
   # Logging lib
   logging: ^1.2.0
 
+  #
+  web: ^0.5.1
+
 dev_dependencies:
   # A build system for Dart code generation and modular compilation.
   build_runner: ^2.4.8
