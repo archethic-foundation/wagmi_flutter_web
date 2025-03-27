@@ -1,4 +1,7 @@
 
+## 1.0.0-rc.15
+* License MIT
+
 ## 1.0.0-rc.14
 * Migrate to package:web
   

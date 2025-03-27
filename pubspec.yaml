@@ -1,7 +1,7 @@
 name: wagmi_flutter_web
 description: "Wagmi JS SDK wrapper for Dart Web"
 
-version: 1.0.0-rc.14
+version: 1.0.0-rc.15
 
 homepage: https://github.com/archethic-foundation/wagmi_flutter_web
 
