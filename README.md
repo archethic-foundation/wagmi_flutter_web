@@ -2,7 +2,8 @@
 
 We would like to inform you that this project is no longer being maintained.
 
-We sincerely appreciate all the support and interest the community has shown. While the package has been marked as discontinued on pub.dev, we encourage the open source community to fork the repository, continue its development, and publish a new version if desired.
+We sincerely appreciate all the support and interest the community has shown. 
+We encourage the open source community to fork the repository, continue its development, and publish a new version on `pub.dev` if desired.
 
 Thank you for being part of this journey.
 
