@@ -1,11 +1,18 @@
-**Notice: This package is no longer maintained**
+⚠️ **Project No Longer Maintained**
 
-We would like to inform you that this project is no longer being maintained.
+This package is no longer actively maintained.
 
-We sincerely appreciate all the support and interest the community has shown. 
-We encourage the open source community to fork the repository, continue its development, and publish a new version on `pub.dev` if desired.
+We’re incredibly grateful for the support and enthusiasm from the community over time. If you find value in this project, feel free to fork it, build upon it, and even publish a new version on pub.dev if you wish.
 
-Thank you for being part of this journey.
+Thank you for being part of the journey. ❤️
+
+👋 **Looking for an alternative?**
+
+New team is actively maintaining a fork of this package — fully compatible with WASM.
+
+📦 Check it out here: [https://pub.dev/packages/wagmi_web] on pub.dev
+
+🤝 Contributions welcome! Bug fixes, new features, or docs — every PR counts!
 
 # Wagmi SDK wrapper for Flutter Web
 
